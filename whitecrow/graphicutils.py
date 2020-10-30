@@ -23,3 +23,6 @@ def load_images(filename, block_size, key_color):
         images.append(image)
     return images
 
+
+def image_mirror(image, horizontal=True, vertical=False):
+    return pygame.transform.flip(image, horizontal, vertical)

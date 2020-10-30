@@ -2,8 +2,32 @@
     "filename": "whitecrowparrot_sword.png",
     "key_color": [0, 255, 0],
     "block_size": [240, 160],
-    "default_animation": "idle",
-    "animations": {
+    "default_move": "idle",
+    "move_priority": [
+        "idle",
+        "stroke_ready",
+        "low_hit_ready",
+        "high_hit_ready",
+        "jump",
+        "low_hit_shoot",
+        "high_hit_shoot",
+        "crouch_hit_shoot",
+        "stroke_shoot",
+        "high_block",
+        "low_block",
+        "stroke_retrieve",
+        "crouch_hit_retrieve",
+        "high_block_retrieve",
+        "high_hit_retrieve",
+        "low_block_retrieve",
+        "crouch_up",
+        "crouch_down",
+        "step_forward",
+        "back_dash",
+        "step_backward",
+        "return"
+    ],
+    "moves": {
         "idle":
             {
                 "startframe": 0,
@@ -18,6 +42,10 @@
         "crouch_down":
             {
                 "startframe": 1,
+                "conditions":
+                    {
+                        "inputs": ["DOWN"]
+                    },
                 "length": 3,
                 "hold": true,
                 "goeson": "crouch_up",
@@ -34,6 +62,10 @@
                 "startframe": 7,
                 "length": 3,
                 "hold": true,
+                "conditions":
+                    {
+                        "inputs": ["R1"]
+                    },
                 "goeson": "low_hit_shoot",
                 "frames": [
                     {},
@@ -46,6 +78,10 @@
                 "startframe": 10,
                 "length": 10,
                 "hold": false,
+                "conditions":
+                    {
+                        "inputs": ["A"]
+                    },
                 "frames": [
                     {},
                     {},
@@ -153,6 +189,10 @@
                 "startframe": 38,
                 "length": 1,
                 "hold": true,
+                "conditions":
+                    {
+                        "inputs": ["L2"]
+                    },
                 "goeson": "high_block_retrieve",
                 "frames": [
                     {},
@@ -164,6 +204,10 @@
                 "startframe": 40,
                 "length": 2,
                 "hold": true,
+                "conditions":
+                    {
+                        "inputs": ["R2"]
+                    },
                 "goeson": "low_block_retrieve",
                 "frames": [
                     {},
@@ -197,6 +241,10 @@
                 "length": 5,
                 "hold": true,
                 "goeson": "stroke_shoot",
+                "conditions":
+                    {
+                        "inputs": ["L1", "R1"]
+                    },
                 "frames": [
                     {},
                     {
@@ -249,6 +297,12 @@
                 "startframe": 64 ,
                 "length": 3,
                 "hold": true,
+                "loop": true,
+                "conditions":
+                    {
+                        "inputs": ["L1"],
+                        "moves!=": ["crouch_down"]
+                    },
                 "goeson": "high_hit_shoot",
                 "frames": [
                     {},
@@ -282,7 +336,9 @@
                     {},
                     {},
                     {},
-                    {}
+                    {
+                        "duration": 4
+                    }
                 ]
             },
         "step_forward":
@@ -290,6 +346,12 @@
                 "startframe": 75,
                 "length": 4,
                 "hold": false,
+                "loop": true,
+                "conditions":
+                    {
+                        "inputs": ["RIGHT"],
+                        "reverted_inputs": ["LEFT"]
+                    },
                 "post_blockoffset": [2, 0],
                 "frames": [
                     {
@@ -311,6 +373,11 @@
                 "startframe": 80,
                 "length": 8,
                 "hold": true,
+                "conditions":
+                    {
+                        "inputs": ["L1"],
+                        "moves": ["crouch_down"]
+                    },
                 "goeson": "crouch_hit_retrieve",
                 "frames": [
                     {},
@@ -328,6 +395,11 @@
                 "startframe": 90 ,
                 "length": 1,
                 "hold": false,
+                "loop": false,
+                "conditions":
+                    {
+                        "inputs": ["B"]
+                    },
                 "pre_blockoffset": [-12, 0],
                 "frames": [
                     {
@@ -353,6 +425,12 @@
                 "startframe": 100,
                 "length": 4,
                 "hold": false,
+                "loop": true,
+                "conditions":
+                    {
+                        "inputs": ["LEFT"],
+                        "reverted_inputs": ["RIGHT"]
+                    },
                 "pre_blockoffset": [-2, 0],
                 "frames": [
                     {
@@ -371,10 +449,19 @@
             },
         "return":
             {
-                "startframe": 102,
-                "length": 3,
+                "startframe": 104,
+                "length": 5,
                 "hold": false,
+                "post_mirror": true,
+                "post_blockoffset": [-10, 0],
+                "conditions":
+                    {
+                        "inputs": ["RS_LEFT"],
+                        "reverted_inputs": ["RS_RIGHT"]
+                    },
                 "frames": [
+                    {},
+                    {},
                     {},
                     {},
                     {}

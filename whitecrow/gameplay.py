@@ -1,53 +1,3 @@
-# module currently unused
-
-JOYSTICK_DEFAULT_STATES = {
-    "buttons": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0], # A, B, X, Y, L, R, select, start, LSB, RSB
-    "left_stick_axes": [0.0, 0.0],
-    "right_stick_axes": [0.0, 0.0],
-    "trigger_axe": 0.0,
-    "dpad": [0, 0]
-}
-
-
-def build_default_joystick_state():
-    states = {}
-    for key, item in JOYSTICK_DEFAULT_STATES.items():
-        if not isinstance(list, item):
-            states[key] = item
-            continue
-        states[key] = item.copy()
-    return states
-
-
-def get_current_joystick_state(joystick):
-    return {
-    "buttons": [joystick.get_button(i) for i in range(10)],
-    "left_stick_axes": [joystick.get_axis(i) for i in range(2)],
-    "right_stick_axes": [joystick.get_axis(i) for i in range(3, 5)],
-    "trigger_axe": joystick.get_axis(2),
-    "dpad": joystick.get_hat(0)}
-
-
-def get_current_commands(joystick):
-    return {
-        "A": joystick.get_button(0),
-        "B": joystick.get_button(1),
-        "X": joystick.get_button(2),
-        "Y": joystick.get_button(3),
-        "L1": joystick.get_button(3),
-        "L2": joystick.get_axis(2) > .5,
-        "R1": joystick.get_button(4),
-        "L2": joystick.get_axis(2) < -.5,
-        "select": joystick.get_button(5),
-        "start": joystick.get_button(6),
-        "LSB": joystick.get_button(7),
-        "RSB": joystick.get_button(8),
-        "UP": joystick.get_hat(0)[1] == 1 or joystick.get_axis(1) > .5,
-        "DOWN":  joystick.get_hat(0)[1] == -1 or joystick.get_axis(1) < -.5,
-        "LEFT": joystick.get_hat(0)[0] == -1 or joystick.get_axis(0) < -.5,
-        "RIGHT": joystick.get_hat(0)[0] == 1 or joystick.get_axis(0) > .5,
-        "RS_LEFT": joystick.get_axis(4) < -.5,
-        "RS_RIGHT": joystick.get_axis(4) > .5}
 
 
 GAME_DEFAULT_COMMANDS = {
@@ -61,6 +11,8 @@ GAME_DEFAULT_COMMANDS = {
     "R2": False,
     "start": False,
     "select": False,
+    "LSB": False,
+    "RSB": False,
     "UP": False,
     "DOWN": False,
     "LEFT": False,
@@ -68,3 +20,49 @@ GAME_DEFAULT_COMMANDS = {
     "RS_LEFT": False,
     "RS_RIGHT": False,
 }
+
+
+def get_current_commands(joystick):
+    return {
+        "A": joystick.get_button(0) == 1,
+        "B": joystick.get_button(1) == 1,
+        "X": joystick.get_button(2) == 1,
+        "Y": joystick.get_button(3) == 1,
+        "L1": joystick.get_button(4) == 1,
+        "L2": joystick.get_axis(2) > .5,
+        "R1": joystick.get_button(5) == 1,
+        "R2": joystick.get_axis(2) < -.5,
+        "select": joystick.get_button(6) == 1,
+        "start": joystick.get_button(7) == 1,
+        "LSB": joystick.get_button(8) == 1,
+        "RSB": joystick.get_button(9) == 1,
+        "UP": joystick.get_hat(0)[1] == 1 or joystick.get_axis(1) < -.5,
+        "DOWN": joystick.get_hat(0)[1] == -1 or joystick.get_axis(1) > .5,
+        "LEFT": joystick.get_hat(0)[0] == -1 or joystick.get_axis(0) < -.5,
+        "RIGHT": joystick.get_hat(0)[0] == 1 or joystick.get_axis(0) > .5,
+        "RS_LEFT": joystick.get_axis(4) < -.5,
+        "RS_RIGHT": joystick.get_axis(4) > .5}
+
+
+
+class GamepadBuffer():
+    def __init__(self):
+        self.old_states = GAME_DEFAULT_COMMANDS.copy()
+        self.current_states = GAME_DEFAULT_COMMANDS.copy()
+
+    def update(self, joystick):
+        self.old_states = self.current_states
+        self.current_states = get_current_commands(joystick)
+
+    def pressed_delta(self):
+        return [
+            k for k, v in self.current_states.items()
+            if self.old_states[k] is False and v is True]
+
+    def released_delta(self):
+        return [
+            k for k, v in self.current_states.items()
+            if self.old_states[k] is True and v is False]
+
+    def inputs(self):
+        return [k for k, v in self.current_states.items() if v is True]
