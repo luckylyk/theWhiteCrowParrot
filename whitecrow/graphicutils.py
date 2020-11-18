@@ -2,7 +2,7 @@
 import os
 import pygame
 from whitecrow.iterators import itertable
-from whitecrow.options import ANIMATION_FOLDER
+from whitecrow.constants import ANIMATION_FOLDER
 
 
 def load_images(filename, block_size, key_color):

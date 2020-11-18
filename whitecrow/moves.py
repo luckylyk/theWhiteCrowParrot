@@ -1,0 +1,99 @@
+
+from whitecrow.core import EVENTS
+
+
+def filter_moves(datas, input_buffer):
+    moves = []
+    for move in datas["evaluation_order"]:
+        inputs = datas["moves"][move]["inputs"]
+        conditions = (
+            any(i in input_buffer.pressed_delta() for i in inputs) and
+            all(i in input_buffer.inputs() for i in inputs))
+        if conditions:
+            moves.append(move)
+    return moves
+
+
+def filter_unholdable_moves(datas, input_buffer):
+    moves = []
+    for move in datas["evaluation_order"]:
+        if datas["moves"][move]["hold"] is False:
+            continue
+        inputs = datas["moves"][move]["inputs"]
+        if any(i in input_buffer.released_delta() for i in inputs):
+            moves.append(move)
+    return moves
+
+
+def is_move_change_authorized(move, datas, animation):
+    if animation.is_lock():
+        return False
+    move_datas = datas["moves"][move]
+    conditions = move_datas["conditions"]
+    if not conditions:
+        return True
+    return (
+        animation.name in conditions.get("animation_in", []) and
+        animation.name not in conditions.get("animation_not_in", []))
+
+
+class MovementManager():
+    def __init__(self, datas, spritesheet, cordinates):
+        self.cordinates = cordinates
+        self.datas = datas
+        self.animation = None
+        self.spritesheet = spritesheet
+        self.moves_buffer = []
+        self.set_move(datas["default_move"])
+
+    def unhold(self, unholdable):
+        if self.animation.hold is False:
+            return
+        self.animation.hold = self.animation.name not in unholdable
+
+    def propose_moves(self, moves):
+        for move in moves:
+            if is_move_change_authorized(move, self.datas, self.animation):
+                self.set_move(move)
+                return
+            if self.animation.bufferable and move not in self.moves_buffer:
+                self.moves_buffer.insert(0, move)
+
+    def set_move(self, move):
+        self.moves_buffer = []
+        if self.animation is not None:
+            for event, value in self.animation.post_events.items():
+                self.apply_event(event, value)
+        mirror = self.cordinates.mirror
+        self.animation = self.spritesheet.build_animation(move, mirror)
+        for event, value in self.animation.pre_events.items():
+            self.apply_event(event, value)
+
+    def apply_event(self, event, value):
+        if event == EVENTS.BLOCK_OFFSET:
+            mirror = self.cordinates.mirror
+            block_offset = (-value[0], -value[1]) if mirror is True else value
+            self.cordinates.position[0] += block_offset[0]
+            self.cordinates.position[1] += block_offset[1]
+        elif event == EVENTS.FLIP:
+            self.cordinates.mirror = not self.cordinates.mirror
+
+    def set_next_move(self):
+        if self.moves_buffer:
+            self.set_move(self.moves_buffer[0])
+            return
+        move = self.datas["moves"][self.animation.name]["next_move"]
+        self.set_move(move)
+
+    def next(self):
+        anim = self.animation
+        if anim.is_finished() and anim.hold is False:
+            self.set_next_move()
+        if anim.is_finished() and anim.hold is True and anim.repeatable:
+            # this repeat the current animation
+            self.set_move(self.animation.name)
+        self.animation.next()
+
+    @property
+    def current_image(self):
+        return self.animation.current_image

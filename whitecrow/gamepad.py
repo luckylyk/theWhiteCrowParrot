@@ -18,7 +18,7 @@ GAME_DEFAULT_COMMANDS = {
     "LEFT": False,
     "RIGHT": False,
     "RS_LEFT": False,
-    "RS_RIGHT": False,
+    "RS_RIGHT": False
 }
 
 
@@ -44,15 +44,43 @@ def get_current_commands(joystick):
         "RS_RIGHT": joystick.get_axis(4) > .5}
 
 
+def mirror_commands(commands):
+    left = commands["RIGHT"]
+    right = commands["LEFT"]
+    rs_left = commands["RS_RIGHT"]
+    rs_right = commands["RS_LEFT"]
+    commands["RIGHT"] = right
+    commands["LEFT"] = left
+    commands["RS_RIGHT"] = rs_right
+    commands["RS_LEFT"] = rs_left
 
-class GamepadBuffer():
+
+class InputBuffer():
     def __init__(self):
         self.old_states = GAME_DEFAULT_COMMANDS.copy()
         self.current_states = GAME_DEFAULT_COMMANDS.copy()
+        self.buffer_key_pressed = []
 
-    def update(self, joystick):
+    def flush(self):
+        self.buffer_key_pressed = []
+
+    def update(self, joystick, mirror=False):
+        joystick.init()
+        states = get_current_commands(joystick)
+        if mirror is True:
+            mirror_commands(states)
+        if states == self.current_states:
+            return False
         self.old_states = self.current_states
-        self.current_states = get_current_commands(joystick)
+        self.current_states = states
+        self.buffer(joystick)
+        return True
+
+    def buffer(self, joystick):
+        states = get_current_commands(joystick)
+        for k, v in states.items():
+            if v is True and k not in self.buffer_key_pressed:
+                self.buffer_key_pressed.append(k)
 
     def pressed_delta(self):
         return [
@@ -66,3 +94,5 @@ class GamepadBuffer():
 
     def inputs(self):
         return [k for k, v in self.current_states.items() if v is True]
+
+

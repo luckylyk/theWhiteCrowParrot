@@ -3,469 +3,365 @@
     "key_color": [0, 255, 0],
     "block_size": [240, 160],
     "default_move": "idle",
-    "move_priority": [
-        "idle",
+    "evaluation_order": [
         "stroke_ready",
         "low_hit_ready",
         "high_hit_ready",
         "jump",
-        "low_hit_shoot",
-        "high_hit_shoot",
-        "crouch_hit_shoot",
-        "stroke_shoot",
         "high_block",
         "low_block",
-        "stroke_retrieve",
-        "crouch_hit_retrieve",
-        "high_block_retrieve",
-        "high_hit_retrieve",
-        "low_block_retrieve",
-        "crouch_up",
+        "crouch_hit_shoot",
+        "return",
         "crouch_down",
+        "crouch_up",
         "step_forward",
         "back_dash",
         "step_backward",
-        "return"
-    ],
+        "high_block_retrieve",
+        "high_hit_shoot",
+        "low_hit_shoot",
+        "low_block_retrieve",
+        "stroke_shoot",
+        "crouch_hit_retrieve",
+        "high_hit_retrieve",
+        "stroke_retrieve",
+        "idle"],
     "moves": {
         "idle":
             {
-                "startframe": 0,
-                "length": 1,
-                "hold": true,
-                "frames": [
-                    {
-                        "cancellable": true
-                    }
-                ]
+                "start_at_image": 0,
+                "frames_per_image": [1],
+                "release_frame": -1,
+                "next_move": "idle",
+                "next_move_bufferable": false,
+                "hold": false,
+                "repeatable": false,
+                "conditions": {},
+                "inputs": [],
+                "pre_events": {},
+                "post_events": {}
             },
         "crouch_down":
             {
-                "startframe": 1,
-                "conditions":
-                    {
-                        "inputs": ["DOWN"]
-                    },
-                "length": 3,
+                "start_at_image": 1,
+                "frames_per_image": [1, 1, 1, 1, 1, 1],
+                "release_frame": -1,
                 "hold": true,
-                "goeson": "crouch_up",
-                "frames": [
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {}
-            ]},
+                "next_move": "crouch_up",
+                "next_move_bufferable": false,
+                "repeatable": false,
+                "conditions": {
+                    "animation_in": ["idle"]},
+                "inputs": ["DOWN"],
+                "pre_events": {},
+                "post_events": {}
+            },
         "low_hit_ready":
             {
-                "startframe": 7,
-                "length": 3,
+                "start_at_image": 7,
+                "frames_per_image": [1, 1, 1],
+                "release_frame": -1,
                 "hold": true,
-                "conditions":
-                    {
-                        "inputs": ["R1"]
-                    },
-                "goeson": "low_hit_shoot",
-                "frames": [
-                    {},
-                    {},
-                    {}
-                ]
+                "next_move": "low_hit_shoot",
+                "next_move_bufferable": false,
+                "repeatable": false,
+                "conditions": {
+                    "animation_in": ["idle"]},
+                "inputs": ["R1"],
+                "pre_events": {},
+                "post_events": {}
             },
         "jump":
             {
-                "startframe": 10,
-                "length": 10,
+                "start_at_image": 10,
+                "frames_per_image": [1, 1, 3, 4, 2, 1, 1, 1, 1],
+                "release_frame": 10,
                 "hold": false,
-                "conditions":
-                    {
-                        "inputs": ["A"]
-                    },
-                "frames": [
-                    {},
-                    {},
-                    {
-                        "duration": 3
-                    },
-                    {
-                        "duration": 4
-                    },
-                    {
-                        "duration": 2
-                    },
-                    {},
-                    {
-                        "cancellable": true
-                    },
-                    {
-                        "cancellable": true
-                    },
-                    {
-                        "cancellable": true
-                    },
-                    {
-                        "cancellable": true
-                    }
-                ]
+                "next_move": "idle",
+                "next_move_bufferable": false,
+                "repeatable": false,
+                "conditions": {
+                    "animation_in": ["idle"]},
+                "inputs": ["A"],
+                "pre_events": {},
+                "post_events": {}
             },
         "crouch_up":
             {
-                "startframe": 20,
-                "length": 5,
+                "start_at_image": 20,
+                "frames_per_image": [1, 1, 1, 1, 1],
+                "release_frame": 2,
                 "hold": false,
-                "frames": [
-                    {
-                        "cancellable": true
-                    },
-                    {
-                        "cancellable": true
-                    },
-                    {
-                        "cancellable": true
-                    },
-                    {
-                        "cancellable": true
-                    },
-                    {
-                        "cancellable": true
-                    }
-                ]
+                "next_move": "idle",
+                "next_move_bufferable": true,
+                "repeatable": false,
+                "conditions": {
+                    "animation_in": ["crouch_down"]},
+                "inputs": [],
+                "pre_events": {},
+                "post_events": {}
             },
         "high_block_retrieve":
             {
-                "startframe": 25,
-                "length": 3,
+                "start_at_image": 25,
+                "frames_per_image": [1, 1, 1],
+                "release_frame": 0,
                 "hold": false,
-                "frames": [
-                    {
-                        "cancellable": true
-                    },
-                    {
-                        "cancellable": true
-                    },
-                    {
-                        "cancellable": true
-                    }
-                ]
+                "next_move": "idle",
+                "next_move_bufferable": true,
+                "repeatable": false,
+                "conditions": {
+                    "animation_in": ["high_block"]},
+                "inputs": [],
+                "pre_events": {},
+                "post_events": {}
             },
         "high_hit_retrieve":
             {
-                "name": "",
-                "startframe": 28,
-                "length": 1,
+                "start_at_image": 28,
+                "frames_per_image": [1, 1],
+                "release_frame": 0,
                 "hold": false,
-                "frames": [
-                    {
-                        "cancellable": true
-                    },
-                    {
-                        "cancellable": true
-                    }
-                ]
+                "next_move": "idle",
+                "next_move_bufferable": true,
+                "repeatable": false,
+                "conditions": {
+                    "animation_in": ["high_hit_shoot"]},
+                "inputs": [],
+                "pre_events": {},
+                "post_events": {}
             },
         "low_hit_shoot":
             {
-                "startframe": 30,
-                "length": 8,
+                "start_at_image": 30,
                 "hold": false,
-                "frames": [
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {
-                        "cancellable": true
-                    },
-                    {
-                        "cancellable": true
-                    }
-                ]
+                "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1],
+                "release_frame": -1,
+                "next_move": "idle",
+                "next_move_bufferable": false,
+                "repeatable": false,
+                "conditions": {
+                    "animation_in": ["low_hit_ready"]},
+                "inputs": [],
+                "pre_events": {},
+                "post_events": {}
             },
         "high_block":
             {
-                "startframe": 38,
-                "length": 1,
+                "start_at_image": 38,
+                "frames_per_image": [1, 1],
+                "release_frame": -1,
                 "hold": true,
-                "conditions":
-                    {
-                        "inputs": ["L2"]
-                    },
-                "goeson": "high_block_retrieve",
-                "frames": [
-                    {},
-                    {}
-                ]
+                "next_move": "high_block_retrieve",
+                "next_move_bufferable": false,
+                "repeatable": false,
+                "conditions": {
+                    "animation_in": ["idle"]},
+                "inputs": ["R2"],
+                "pre_events": {},
+                "post_events": {}
             },
         "low_block":
             {
-                "startframe": 40,
-                "length": 2,
+                "start_at_image": 40,
+                "frames_per_image": [1, 1, 1, 1],
+                "release_frame": -1,
                 "hold": true,
-                "conditions":
-                    {
-                        "inputs": ["R2"]
-                    },
-                "goeson": "low_block_retrieve",
-                "frames": [
-                    {},
-                    {},
-                    {},
-                    {}
-                ]
+                "next_move": "low_block_retrieve",
+                "next_move_bufferable": false,
+                "repeatable": false,
+                "conditions": {
+                    "animation_in": ["idle"]},
+                "inputs": ["L2"],
+                "pre_events": {},
+                "post_events": {}
             },
         "low_block_retrieve":
             {
-                "startframe": 42,
-                "length": 5,
+                "start_at_image": 44,
+                "frames_per_image": [1, 1, 1, 1, 1],
+                "release_frame": -1,
                 "hold": false,
-                "frames": [
-                    {},
-                    {},
-                    {
-                        "cancellable": true
-                    },
-                    {
-                        "cancellable": true
-                    },
-                    {
-                        "cancellable": true
-                    }
-                ]
+                "next_move": "idle",
+                "next_move_bufferable": true,
+                "repeatable": false,
+                "conditions": {
+                    "animation_in": ["low_block"]},
+                "inputs": [],
+                "pre_events": {},
+                "post_events": {}
             },
         "stroke_ready":
             {
-                "startframe": 50,
-                "length": 5,
+                "start_at_image": 50,
+                "frames_per_image": [1, 2, 2, 3, 5],
+                "release_frame": -1,
                 "hold": true,
-                "goeson": "stroke_shoot",
-                "conditions":
-                    {
-                        "inputs": ["L1", "R1"]
-                    },
-                "frames": [
-                    {},
-                    {
-                        "duration": 2
-                    },
-                    {
-                        "duration": 2
-                    },
-                    {
-                        "duration": 3
-                    },
-                    {
-                        "duration": 5
-                    }
-                ]
+                "next_move": "stroke_shoot",
+                "next_move_bufferable": false,
+                "repeatable": false,
+                "conditions": {
+                    "animation_in": ["idle"]},
+                "inputs": ["L1", "R1"],
+                "pre_events": {},
+                "post_events": {}
             },
         "stroke_shoot":
             {
-                "startframe": 55,
-                "length": 4,
+                "start_at_image": 55,
+                "frames_per_image": [1, 1, 1, 1],
+                "release_frame": -1,
                 "hold": false,
-                "goeson": "stroke_retrieve",
-                "frames": [
-                    {},
-                    {},
-                    {},
-                    {}
-                ]
+                "next_move": "stroke_retrieve",
+                "next_move_bufferable": false,
+                "repeatable": false,
+                "inputs": [],
+                "conditions": {
+                    "animation_in": ["stroke_ready"]},
+                "pre_events": {},
+                "post_events": {}
             },
         "stroke_retrieve":
             {
-                "startframe": 60,
-                "length": 4,
+                "start_at_image": 60,
+                "frames_per_image": [1, 1, 1, 1],
+                "release_frame": 0,
+                "next_move_bufferable": true,
                 "hold": false,
-                "frames": [
-                    {},
-                    {
-                        "cancellable": true
-                    },
-                    {
-                        "cancellable": true
-                    },
-                    {
-                        "cancellable": true
-                    }
-                ]
+                "next_move": "idle",
+                "repeatable": false,
+                "conditions": {
+                    "animation_in": ["stroke_shoot"]},
+                "inputs": [],
+                "pre_events": {},
+                "post_events": {}
             },
         "high_hit_ready":
             {
-                "startframe": 64 ,
-                "length": 3,
+                "start_at_image": 64,
+                "frames_per_image": [1, 1, 1],
+                "release_frame": -1,
                 "hold": true,
-                "loop": true,
-                "conditions":
-                    {
-                        "inputs": ["L1"],
-                        "moves!=": ["crouch_down"]
-                    },
-                "goeson": "high_hit_shoot",
-                "frames": [
-                    {},
-                    {},
-                    {}
-                ]
+                "next_move": "high_hit_shoot",
+                "next_move_bufferable": false,
+                "repeatable": false,
+                "conditions": {
+                    "animation_in": ["idle"],
+                    "animation_not_in": ["crouch_down"]},
+                "inputs": ["L1"],
+                "pre_events": {},
+                "post_events": {}
             },
         "crouch_hit_retrieve":
             {
-                "startframe": 67,
-                "length": 3,
-                "hold": true,
-                "frames": [
-                    {
-                        "cancellable": true},
-                    {
-                        "cancellable": true},
-                    {
-                        "cancellable": true
-                    }
-                ]
+                "start_at_image": 67,
+                "frames_per_image": [1, 1, 1],
+                "release_frame": 0,
+                "hold": false,
+                "next_move": "idle",
+                "next_move_bufferable": true,
+                "repeatable": false,
+                "inputs": [],
+                "conditions": {
+                    "animation_in": ["crouch_hit_shoot"],
+                    "animation_not_in": ["crouch_hit"]},
+                "pre_events": {},
+                "post_events": {}
             },
         "high_hit_shoot":
             {
-                "startframe": 70,
-                "length": 5,
+                "start_at_image": 70,
+                "frames_per_image": [1, 1, 1, 1, 4],
+                "release_frame": -1,
                 "hold": false,
-                "goeson": "high_hit_retrieve",
-                "frames": [
-                    {},
-                    {},
-                    {},
-                    {},
-                    {
-                        "duration": 4
-                    }
-                ]
+                "next_move": "high_hit_retrieve",
+                "next_move_bufferable": false,
+                "repeatable": false,
+                "inputs": [],
+                "conditions": {
+                    "animation_not_in": ["crouch_hit"]},
+                "pre_events": {},
+                "post_events": {}
             },
         "step_forward":
             {
-                "startframe": 75,
-                "length": 4,
-                "hold": false,
-                "loop": true,
-                "conditions":
-                    {
-                        "inputs": ["RIGHT"],
-                        "reverted_inputs": ["LEFT"]
-                    },
-                "post_blockoffset": [2, 0],
-                "frames": [
-                    {
-                        "duration": 2
-                    },
-                    {
-                        "duration": 2
-                    },
-                    {
-                        "duration": 2
-                    },
-                    {
-                        "duration": 4
-                    }
-                ]
-        },
+                "start_at_image": 75,
+                "frames_per_image": [2, 2, 2, 2],
+                "release_frame": -1,
+                "hold": true,
+                "next_move": "idle",
+                "next_move_bufferable": true,
+                "repeatable": true,
+                "inputs": ["RIGHT"],
+                "conditions": {
+                    "animation_in": ["idle"]},
+                "pre_events": {},
+                "post_events": {
+                    "block_offset": [2, 0]}
+            },
         "crouch_hit_shoot":
             {
-                "startframe": 80,
-                "length": 8,
+                "start_at_image": 80,
+                "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1],
+                "release_frame": -1,
                 "hold": true,
-                "conditions":
-                    {
-                        "inputs": ["L1"],
-                        "moves": ["crouch_down"]
-                    },
-                "goeson": "crouch_hit_retrieve",
-                "frames": [
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {},
-                    {}
-                ]
+                "next_move": "crouch_hit_retrieve",
+                "next_move_bufferable": false,
+                "repeatable": true,
+                "inputs": ["L1"],
+                "conditions": {
+                    "animation_in": ["crouch_down"]},
+                "pre_events": {},
+                "post_events": {}
             },
         "back_dash":
             {
-                "startframe": 90 ,
-                "length": 1,
+                "start_at_image": 90,
+                "frames_per_image": [2, 2, 3, 2, 1, 1, 1, 1],
+                "release_frame": 10,
                 "hold": false,
-                "loop": false,
-                "conditions":
-                    {
-                        "inputs": ["B"]
-                    },
-                "pre_blockoffset": [-12, 0],
-                "frames": [
-                    {
-                        "duration": 2
-                    },
-                    {
-                        "duration": 2
-                    },
-                    {
-                        "duration": 3
-                    },
-                    {
-                        "duration": 2
-                    },
-                    {},
-                    {},
-                    {},
-                    {}
-                ]
+                "repeatable": false,
+                "next_move": "idle",
+                "next_move_bufferable": false,
+                "inputs": ["B"],
+                "conditions": {
+                    "animation_in": ["idle"]},
+                "pre_events": {
+                    "block_offset": [-12, 0]},
+                "post_events": {}
             },
         "step_backward":
             {
-                "startframe": 100,
-                "length": 4,
-                "hold": false,
-                "loop": true,
-                "conditions":
-                    {
-                        "inputs": ["LEFT"],
-                        "reverted_inputs": ["RIGHT"]
-                    },
-                "pre_blockoffset": [-2, 0],
-                "frames": [
-                    {
-                        "duration": 2
-                    },
-                    {
-                        "duration": 2
-                    },
-                    {
-                        "duration": 2
-                    },
-                    {
-                        "duration": 4
-                    }
-                ]
+                "start_at_image": 100,
+                "frames_per_image": [2, 2, 2, 2],
+                "release_frame": -1,
+                "hold": true,
+                "repeatable": true,
+                "next_move_bufferable": true,
+                "next_move": "idle",
+                "inputs": ["LEFT"],
+                "conditions": {
+                    "animation_in": ["idle"]},
+                "pre_events": {
+                    "block_offset": [-2, 0]},
+                "post_events": {}
             },
         "return":
             {
-                "startframe": 104,
-                "length": 5,
+                "start_at_image": 104,
+                "frames_per_image": [1, 1, 1, 1, 1],
+                "release_frame": -1,
                 "hold": false,
-                "post_mirror": true,
-                "post_blockoffset": [-10, 0],
-                "conditions":
-                    {
-                        "inputs": ["RS_LEFT"],
-                        "reverted_inputs": ["RS_RIGHT"]
-                    },
-                "frames": [
-                    {},
-                    {},
-                    {},
-                    {},
-                    {}
-                ]
+                "next_move": "idle",
+                "next_move_bufferable": true,
+                "repeatable": true,
+                "inputs": ["RS_LEFT"],
+                "conditions": {
+                    "animation_in": ["idle"]},
+                "pre_events": {},
+                "post_events": {
+                    "flip": true,
+                    "block_offset": [10, 0]}
             }
         }
 }
