@@ -27,3 +27,8 @@ def normalize(value, minimum=0, maximum=1):
     while not minimum <= value <= maximum:
         value += offset if value < minimum else -offset
     return value
+
+
+def linear_ratio(value, minimum=0, maximum=100):
+    assert minimum <= maximum
+    return (1 - ((value - minimum) / (maximum - minimum)))

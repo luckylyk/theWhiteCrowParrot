@@ -7,6 +7,32 @@
         [3001, 0, 4640, 268]],
     "scroll_target": "whitecrow",
     "target_offset": [75, 0],
+    "sounds": [
+        {
+            "type": "ambiance",
+            "file": "ambiances/nature1.ogg",
+            "channel": 5,
+            "listener": "whitecrow",
+            "zone": [-150, -150, 1580, 600],
+            "falloff": 150
+        },
+        {
+            "type": "ambiance",
+            "file": "ambiances/forest1.ogg",
+            "channel": 5,
+            "listener": "whitecrow",
+            "zone": [1430, -150, 4000, 600],
+            "falloff": 150
+        },
+        {
+            "type": "ambiance",
+            "file": "musics/saqueboute.ogg",
+            "channel": 5,
+            "listener": "whitecrow",
+            "zone": null,
+            "falloff": null
+        }
+    ],
     "elements": [
         {
             "type": "layer",

@@ -13,11 +13,11 @@ class Player():
         self.name = name
 
     @staticmethod
-    def from_file(filepath, name, start_position, pixel_offset, mirror=False):
+    def from_file(filename, name, start_position, pixel_offset, mirror=False):
         cordinates = Cordinates(start_position, pixel_offset, mirror)
         input_buffer = InputBuffer()
-        spritesheet = SpriteSheet.from_datafile(filepath)
-        with open(filepath, 'r') as f:
+        spritesheet = SpriteSheet.from_datafile(filename)
+        with open(filename, 'r') as f:
             datas = json.load(f)
         movement_manager = MovementManager(datas, spritesheet, cordinates)
         return Player(name, movement_manager, input_buffer, cordinates)

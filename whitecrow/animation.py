@@ -1,6 +1,6 @@
 
 import json
-from whitecrow.graphicutils import load_images, image_mirror
+from whitecrow.loaders import load_images, image_mirror
 
 
 def build_images_list(datas, images):
@@ -78,8 +78,8 @@ class SpriteSheet():
         self.images_mirror = [image_mirror(img) for img in self.images]
 
     @staticmethod
-    def from_datafile(filepath):
-        with open(filepath) as f:
+    def from_datafile(filename):
+        with open(filename) as f:
             data = json.load(f)
         filename = data["filename"]
         block_size = data["block_size"]

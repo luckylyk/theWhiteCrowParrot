@@ -17,3 +17,7 @@ class ELEMENT_TYPE():
     PLAYER = "player"
     STATIC = "static"
     LAYER = "layer"
+
+
+class SOUND_TYPE():
+    AMBIANCE = "ambiance"

@@ -1,16 +1,17 @@
 import os
 import json
 
-from whitecrow.graphicutils import load_image
+from whitecrow.loaders import load_image
 from whitecrow.euclide import Rect
 from whitecrow.graphicelement import StaticElement
 from whitecrow.camera import Camera, Scrolling
-from whitecrow.core import ELEMENT_TYPE, COLORS
+from whitecrow.core import ELEMENT_TYPE, COLORS, SOUND_TYPE
 from whitecrow.constants import SET_FOLDER, MOVE_FOLDER
 from whitecrow.animation import SpriteSheet
 from whitecrow.cordinates import Cordinates
 from whitecrow.moves import MovementManager
 from whitecrow.player import Player
+from whitecrow.sounds import Ambiance
 
 
 class Scene():
@@ -19,6 +20,7 @@ class Scene():
         self.scrolling = scrolling
         self.layers = []
         self.players = []
+        self.sounds = []
 
     def append(self, layer):
         self.layers.append(layer)
@@ -32,6 +34,8 @@ class Scene():
                 screen.blit(element.image, cam_pos)
                 if isinstance(element, Player):
                     print (element.image, element.name)
+        for sound in self.sounds:
+            sound.update()
 
 
 class Layer():
@@ -50,7 +54,7 @@ def check_first_layer(level_datas):
 
 
 def build_static_element(datas):
-    return StaticElement.from_filepath(
+    return StaticElement.from_filename(
         os.path.join(SET_FOLDER, datas["file"]),
         pixel_position=datas["position"],
         key_color=COLORS.GREEN,
@@ -79,12 +83,21 @@ def build_scrolling(camera, level_datas):
         target_offset=level_datas["target_offset"])
 
 
+def build_ambiance(datas):
+    return Ambiance(
+        filename=datas["file"],
+        zone=datas["zone"],
+        falloff=datas["falloff"],
+        channel=datas["channel"])
+
+
 def build_scene(level_datas, input_buffer):
     camera = Camera()
     scrolling = build_scrolling(camera, level_datas)
     scene = Scene(camera=camera, scrolling=scrolling)
     check_first_layer(level_datas)
     layer = None
+
     for element in level_datas["elements"]:
         if element.get("type") == ELEMENT_TYPE.LAYER:
             layer = Layer(element["name"], element["elevation"], [])
@@ -100,4 +113,10 @@ def build_scene(level_datas, input_buffer):
             scene.players.append(player)
             if player.name == level_datas["scroll_target"]:
                 scrolling.target = player.cordinates
+
+    for sound in level_datas["sounds"]:
+        if sound.get("type") == SOUND_TYPE.AMBIANCE:
+            ambiance = build_ambiance(sound)
+            ambiance.listener = scene.players[0].cordinates
+            scene.sounds.append(ambiance)
     return scene

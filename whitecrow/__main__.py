@@ -20,20 +20,13 @@ screen = pygame.display.set_mode(PREFS["resolution"], pygame.FULLSCREEN)
 pygame.display.set_caption("the White Crow Parrot")
 clock = pygame.time.Clock()
 pygame.joystick.init()
+pygame.mixer.init()
 input_buffer = InputBuffer()
 
 LEVEL_FILE = os.path.join(LEVEL_FOLDER, "level_01.json")
 with open(LEVEL_FILE, 'r') as f:
     level = json.load(f)
 scene = build_scene(level, input_buffer)
-
-pygame.mixer.init()
-SOUND_FILE = os.path.join(SOUNDS_FOLDER, "ambiances", "nature1.ogg")
-music = pygame.mixer.Sound(SOUND_FILE)
-music.play(-1)
-SOUND_FILE = os.path.join(SOUNDS_FOLDER, "musics", "saqueboute.ogg")
-music = pygame.mixer.Sound(SOUND_FILE)
-music.play(-1)
 
 
 i = 0

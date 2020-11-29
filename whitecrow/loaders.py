@@ -2,7 +2,7 @@
 import os
 import pygame
 from whitecrow.iterators import itertable
-from whitecrow.constants import ANIMATION_FOLDER
+from whitecrow.constants import ANIMATION_FOLDER, SOUNDS_FOLDER
 
 
 def load_images(filename, block_size, key_color):
@@ -33,3 +33,8 @@ def load_image(filename, key_color=None):
 
 def image_mirror(image, horizontal=True, vertical=False):
     return pygame.transform.flip(image, horizontal, vertical)
+
+
+def load_sound(filename):
+    filename = os.path.join(SOUNDS_FOLDER, filename)
+    return pygame.mixer.Sound(filename)
