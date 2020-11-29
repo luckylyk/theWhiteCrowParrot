@@ -11,4 +11,3 @@ def frame_data_iterator(frame_data):
         duration = data.get("duration", 1)
         for _ in range(duration):
             yield i
-

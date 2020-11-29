@@ -30,7 +30,9 @@
         "idle":
             {
                 "start_at_image": 0,
+                "center": [70, 160],
                 "frames_per_image": [1],
+                "frames_centers": null,
                 "release_frame": -1,
                 "next_move": "idle",
                 "next_move_bufferable": false,
@@ -44,7 +46,9 @@
         "crouch_down":
             {
                 "start_at_image": 1,
+                "center": [70, 160],
                 "frames_per_image": [1, 1, 1, 1, 1, 1],
+                "frames_centers": null,
                 "release_frame": -1,
                 "hold": true,
                 "next_move": "crouch_up",
@@ -59,7 +63,9 @@
         "low_hit_ready":
             {
                 "start_at_image": 7,
+                "center": [70, 160],
                 "frames_per_image": [1, 1, 1],
+                "frames_centers": null,
                 "release_frame": -1,
                 "hold": true,
                 "next_move": "low_hit_shoot",
@@ -74,7 +80,9 @@
         "jump":
             {
                 "start_at_image": 10,
+                "center": [70, 160],
                 "frames_per_image": [1, 1, 3, 4, 2, 1, 1, 1, 1],
+                "frames_centers": null,
                 "release_frame": 10,
                 "hold": false,
                 "next_move": "idle",
@@ -89,7 +97,9 @@
         "crouch_up":
             {
                 "start_at_image": 20,
+                "center": [70, 160],
                 "frames_per_image": [1, 1, 1, 1, 1],
+                "frames_centers": null,
                 "release_frame": 2,
                 "hold": false,
                 "next_move": "idle",
@@ -104,7 +114,9 @@
         "high_block_retrieve":
             {
                 "start_at_image": 25,
+                "center": [70, 160],
                 "frames_per_image": [1, 1, 1],
+                "frames_centers": null,
                 "release_frame": 0,
                 "hold": false,
                 "next_move": "idle",
@@ -119,7 +131,9 @@
         "high_hit_retrieve":
             {
                 "start_at_image": 28,
+                "center": [70, 160],
                 "frames_per_image": [1, 1],
+                "frames_centers": null,
                 "release_frame": 0,
                 "hold": false,
                 "next_move": "idle",
@@ -134,8 +148,10 @@
         "low_hit_shoot":
             {
                 "start_at_image": 30,
+                "center": [70, 160],
                 "hold": false,
                 "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1],
+                "frames_centers": null,
                 "release_frame": -1,
                 "next_move": "idle",
                 "next_move_bufferable": false,
@@ -149,7 +165,9 @@
         "high_block":
             {
                 "start_at_image": 38,
+                "center": [70, 160],
                 "frames_per_image": [1, 1],
+                "frames_centers": null,
                 "release_frame": -1,
                 "hold": true,
                 "next_move": "high_block_retrieve",
@@ -164,7 +182,9 @@
         "low_block":
             {
                 "start_at_image": 40,
+                "center": [70, 160],
                 "frames_per_image": [1, 1, 1, 1],
+                "frames_centers": null,
                 "release_frame": -1,
                 "hold": true,
                 "next_move": "low_block_retrieve",
@@ -179,7 +199,9 @@
         "low_block_retrieve":
             {
                 "start_at_image": 44,
+                "center": [70, 160],
                 "frames_per_image": [1, 1, 1, 1, 1],
+                "frames_centers": null,
                 "release_frame": -1,
                 "hold": false,
                 "next_move": "idle",
@@ -194,7 +216,9 @@
         "stroke_ready":
             {
                 "start_at_image": 50,
+                "center": [70, 160],
                 "frames_per_image": [1, 2, 2, 3, 5],
+                "frames_centers": null,
                 "release_frame": -1,
                 "hold": true,
                 "next_move": "stroke_shoot",
@@ -209,7 +233,9 @@
         "stroke_shoot":
             {
                 "start_at_image": 55,
+                "center": [70, 160],
                 "frames_per_image": [1, 1, 1, 1],
+                "frames_centers": null,
                 "release_frame": -1,
                 "hold": false,
                 "next_move": "stroke_retrieve",
@@ -224,7 +250,9 @@
         "stroke_retrieve":
             {
                 "start_at_image": 60,
+                "center": [70, 160],
                 "frames_per_image": [1, 1, 1, 1],
+                "frames_centers": null,
                 "release_frame": 0,
                 "next_move_bufferable": true,
                 "hold": false,
@@ -239,7 +267,9 @@
         "high_hit_ready":
             {
                 "start_at_image": 64,
+                "center": [70, 160],
                 "frames_per_image": [1, 1, 1],
+                "frames_centers": null,
                 "release_frame": -1,
                 "hold": true,
                 "next_move": "high_hit_shoot",
@@ -255,7 +285,9 @@
         "crouch_hit_retrieve":
             {
                 "start_at_image": 67,
+                "center": [70, 160],
                 "frames_per_image": [1, 1, 1],
+                "frames_centers": null,
                 "release_frame": 0,
                 "hold": false,
                 "next_move": "idle",
@@ -271,7 +303,9 @@
         "high_hit_shoot":
             {
                 "start_at_image": 70,
+                "center": [70, 160],
                 "frames_per_image": [1, 1, 1, 1, 4],
+                "frames_centers": null,
                 "release_frame": -1,
                 "hold": false,
                 "next_move": "high_hit_retrieve",
@@ -286,7 +320,9 @@
         "step_forward":
             {
                 "start_at_image": 75,
+                "center": [70, 160],
                 "frames_per_image": [2, 2, 2, 2],
+                "frames_centers": [[5, 0], [10, 0], [15, 0], [20, 0]],
                 "release_frame": -1,
                 "hold": true,
                 "next_move": "idle",
@@ -302,12 +338,14 @@
         "crouch_hit_shoot":
             {
                 "start_at_image": 80,
+                "center": [70, 160],
                 "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1],
+                "frames_centers": null,
                 "release_frame": -1,
                 "hold": true,
                 "next_move": "crouch_hit_retrieve",
                 "next_move_bufferable": false,
-                "repeatable": true,
+                "repeatable": false,
                 "inputs": ["L1"],
                 "conditions": {
                     "animation_in": ["crouch_down"]},
@@ -317,7 +355,17 @@
         "back_dash":
             {
                 "start_at_image": 90,
+                "center": [190, 160],
                 "frames_per_image": [2, 2, 3, 2, 1, 1, 1, 1],
+                "frames_centers": [
+                    [-10, 0],
+                    [-30, 0],
+                    [-60, 0],
+                    [-100, 0],
+                    [-110, 0],
+                    [-120, 0],
+                    [-120, 0],
+                    [-120, 0]],
                 "release_frame": 10,
                 "hold": false,
                 "repeatable": false,
@@ -333,7 +381,9 @@
         "step_backward":
             {
                 "start_at_image": 100,
+                "center": [90, 160],
                 "frames_per_image": [2, 2, 2, 2],
+                "frames_centers": [[-5, 0], [-10, 0], [-15, 0], [-20, 0]],
                 "release_frame": -1,
                 "hold": true,
                 "repeatable": true,
@@ -349,7 +399,9 @@
         "return":
             {
                 "start_at_image": 104,
+                "center": [70, 160],
                 "frames_per_image": [1, 1, 1, 1, 1],
+                "frames_centers": null,
                 "release_frame": -1,
                 "hold": false,
                 "next_move": "idle",

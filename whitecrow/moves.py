@@ -1,5 +1,6 @@
 
 from whitecrow.core import EVENTS
+from whitecrow.animation import SpriteSheet
 
 
 def filter_moves(datas, input_buffer):
@@ -73,8 +74,8 @@ class MovementManager():
         if event == EVENTS.BLOCK_OFFSET:
             mirror = self.cordinates.mirror
             block_offset = (-value[0], -value[1]) if mirror is True else value
-            self.cordinates.position[0] += block_offset[0]
-            self.cordinates.position[1] += block_offset[1]
+            self.cordinates.block_position[0] += block_offset[0]
+            self.cordinates.block_position[1] += block_offset[1]
         elif event == EVENTS.FLIP:
             self.cordinates.mirror = not self.cordinates.mirror
 
@@ -93,7 +94,25 @@ class MovementManager():
             # this repeat the current animation
             self.set_move(self.animation.name)
         self.animation.next()
+        self.cordinates.center_offset = map_point(
+            self.animation.center,
+            self.datas["block_size"],
+            self.cordinates.mirror)
 
     @property
-    def current_image(self):
-        return self.animation.current_image
+    def image(self):
+        return self.animation.image
+
+    @property
+    def pixel_position(self):
+        return self.cordinates.pixel_position
+
+    @property
+    def elevation(self):
+        return self.cordinates.elevation
+
+
+def map_point(point, size, mirror):
+    if mirror is False:
+        return point
+    return [size[0] - point[0], point[1]]

@@ -1,26 +1,42 @@
-from whitecrow.core import Signal
+
 import json
 from whitecrow.graphicutils import load_images, image_mirror
 
 
-class Animation():
+def build_images_list(datas, images):
+    return [
+        images[i + datas["start_at_image"]]
+        for i, d in enumerate(datas["frames_per_image"])
+        for _ in range(d)]
 
+
+def build_centers_list(datas):
+    default_center = datas["center"]
+    frame_centers = datas.get("frames_centers")
+    if frame_centers is None:
+        return [
+            default_center for i, d in enumerate(datas["frames_per_image"])
+            for _ in range(d)]
+    centers = []
+    for i, d in enumerate(datas["frames_per_image"]):
+        x = default_center[0] + frame_centers[i][0]
+        y = default_center[1] + frame_centers[i][1]
+        center = [x, y]
+        for _ in range(d):
+            centers.append(center)
+    return centers
+
+
+class Animation():
     def __init__(self, name, images, datas):
         self.name = name
-        self.finished = Signal()
         self.release_frame = datas.get("release_frame", -1)
         self.pre_events = datas["pre_events"]
         self.post_events = datas["post_events"]
         self.bufferable = datas["next_move_bufferable"]
         self.index = -1
-        self.indexes = [
-            [i + datas["start_at_image"]]
-            for i, d in enumerate(datas["frames_per_image"])
-            for _ in range(d)]
-        self.images = [
-            images[i + datas["start_at_image"]]
-            for i, d in enumerate(datas["frames_per_image"])
-            for _ in range(d)]
+        self.centers = build_centers_list(datas)
+        self.images = build_images_list(datas, images)
         self.hold = datas["hold"]
         self.next_move = datas["next_move"]
         self.repeatable = datas["repeatable"]
@@ -39,12 +55,16 @@ class Animation():
     def next(self):
         if self.is_finished() is False:
             self.index += 1
-        elif self.hold is False:
-            self.finished.emit()
-        return self.current_image
+        return self.image
 
     @property
-    def current_image(self):
+    def center(self):
+        if self.index < 0:
+            return None
+        return self.centers[self.index]
+
+    @property
+    def image(self):
         if self.index < 0:
             return None
         return self.images[self.index]

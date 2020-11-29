@@ -24,5 +24,12 @@ def load_images(filename, block_size, key_color):
     return images
 
 
+def load_image(filename, key_color=None):
+    image = pygame.image.load(filename).convert()
+    if key_color is not None:
+        image.set_colorkey(key_color)
+    return image
+
+
 def image_mirror(image, horizontal=True, vertical=False):
     return pygame.transform.flip(image, horizontal, vertical)
