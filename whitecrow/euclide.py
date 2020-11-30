@@ -59,6 +59,10 @@ class Rect():
             self.top + round(self.height / 2))
 
     @property
+    def top_left(self):
+        return self.left, self.top
+
+    @property
     def width(self):
         return self.right - self.left
 

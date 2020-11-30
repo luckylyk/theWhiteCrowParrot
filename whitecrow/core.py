@@ -17,6 +17,7 @@ class ELEMENT_TYPES():
     PLAYER = "player"
     STATIC = "static"
     LAYER = "layer"
+    PARTICLES = "particles_system"
 
 
 class SOUND_TYPES():
@@ -28,3 +29,10 @@ class SOUND_TYPES():
 class LOOP_TYPES():
     CYCLE = "cycle"
     SHUFFLE = "shuffle"
+
+
+class PARTICLE_SHAPE_TYPES():
+    SQUARE = "square"
+    ROUND = "round"
+    IMAGE = "image"
+    ANIMATION = "animation"

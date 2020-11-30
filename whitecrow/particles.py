@@ -4,8 +4,11 @@ import random
 import math
 from functools import partial
 from itertools import cycle
+import pygame
 
 from whitecrow.mathutils import normalize, clamp, difference
+from whitecrow.core import PARTICLE_SHAPE_TYPES
+from whitecrow.prefs import PREFS
 from whitecrow.euclide import (
     Rect, angle_to_vector, vector_to_angle, points_to_vector, limit_angle)
 
@@ -13,7 +16,13 @@ from whitecrow.euclide import (
 DEFAULT_SPOT_OPTIONS = {
     "boundary_behavior": "kill_on_boundary",
     "speed": (1, 5),
-    "frequency": (10, 15),}
+    "frequency": (10, 15)}
+
+
+DEFAULT_DIRECTION_OPTIONS = {
+    "rotation_range": -.25,
+    "speed": 10,
+    "limits": (-math.pi, math.pi)}
 
 
 def spot_out_of_boundary(kill, slow_down, spot, zone):
@@ -39,6 +48,10 @@ def chose_random_position(zone):
     return x, y
 
 
+def build_emitter(zone, spots):
+    return partial(emit_spot_position, zone=zone, spots=spots)
+
+
 def emit_spot_position(field, zone=None, spots=None):
     if zone is not None:
         return chose_random_position(zone)
@@ -53,22 +66,40 @@ def build_spot_options(options):
     return result
 
 
-class Field():
+def build_direction_options(options):
+    result = DEFAULT_DIRECTION_OPTIONS.copy()
+    result.update(options)
+    return result
+
+
+class ParticlesSystem():
     def __init__(
             self,
             zone,
+            name,
+            elevation,
             start_number,
             spot_options=None,
+            direction_options=None,
+            shape_options=None,
             flow=0,
             emitter=None):
 
-        self.zone = zone
+        self.name = name
+        self.elevation = elevation
+        self.zone = Rect(*zone)
         self.flow = cycle(range(flow)) if flow else None
         self.emitter = emitter
         self.spot_options = build_spot_options(spot_options or {})
+        self.direction_options = build_direction_options(direction_options or {})
+        self.shape_options = shape_options
 
         self.spots = []
         self.build_start_states(start_number)
+
+    @property
+    def pixel_position(self):
+        return self.zone.top_left
 
     def build_start_states(self, n):
         for _ in range(n):
@@ -76,10 +107,7 @@ class Field():
 
     def build_spot(self):
         position = self.emitter(self)
-        behavior = DirectionBehavior(
-            range_=-.25,
-            speed=10,
-            limits=(-math.pi, math.pi))
+        behavior = DirectionBehavior(**self.direction_options)
         return Spot(
             position=position,
             direction_behavior=behavior,
@@ -100,10 +128,21 @@ class Field():
         for spot in self.spots:
             spot.next()
 
+    def render(self, screen, position):
+        color = self.shape_options["color"]
+        for spot in self.spots:
+            x = position[0] + spot.pixel_position[0] - self.pixel_position[0]
+            y = position[1] + spot.pixel_position[1] - self.pixel_position[1]
+            size = self.shape_options["size"]
+            if self.shape_options["type"] == PARTICLE_SHAPE_TYPES.SQUARE:
+                pygame.draw.rect(screen, color, [x, y, size, size])
+            elif self.shape_options["type"] == PARTICLE_SHAPE_TYPES.ELLIPSE:
+                pygame.draw.ellipse(color, color, [x, y, size, size])
+
 
 class DirectionBehavior():
-    def __init__(self, range_, speed, limits):
-        self.range = range_
+    def __init__(self, rotation_range, speed, limits):
+        self.range = rotation_range
         self.speed = speed
         self.limits = limits
 
@@ -140,7 +179,7 @@ class Spot():
         self.target = None
         self.direction_behavior = direction_behavior
         self.boundary_behavior = SPOT_BOUNDARY_BEHAVIORS[boundary_behavior]
-        self.speed = random.randrange(*speed)
+        self.speed = random.uniform(*speed)
         frequency = random.randrange(*frequency)
         self.frequency = cycle(range(frequency))
         self.zone = zone
@@ -159,6 +198,10 @@ class Spot():
             return
         self.way = random.choice([True, False])
         self.target = self.direction_behavior.get_target(self.direction)
+
+    @property
+    def pixel_position(self):
+        return round(self.position[0]), round(self.position[1])
 
     def next_direction(self):
         if self.target is None:

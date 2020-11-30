@@ -13,3 +13,6 @@ class StaticElement():
     def from_filename(filename, pixel_position=None, key_color=None, elevation=0):
         image = load_image(filename, key_color)
         return StaticElement(image, pixel_position, elevation)
+
+    def render(self, screen, position):
+        screen.blit(self.image, position)

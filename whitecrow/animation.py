@@ -95,7 +95,7 @@ class SpriteSheet():
         self.images_mirror = [image_mirror(img) for img in self.images]
 
     @staticmethod
-    def from_datafile(filename):
+    def from_filename(filename):
         with open(filename) as f:
             data = json.load(f)
         filename = data["filename"]

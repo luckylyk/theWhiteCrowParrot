@@ -50,7 +50,7 @@
         },
         {
             "type": "sfx_sound",
-            "filename": "effects/whoosh.ogg",
+            "filename": "effects/whoosh.wav",
             "name": "sword_whoosh",
             "trigger": "whoosh_whitecrow",
             "emitter": "whitecrow",
@@ -59,7 +59,7 @@
         },
         {
             "type": "sfx_sound",
-            "filename": "effects/whish.ogg",
+            "filename": "effects/whish.wav",
             "name": "sword_whish",
             "trigger": "whish_whitecrow",
             "emitter": "whitecrow",
@@ -176,10 +176,76 @@
             "elevation": 0
         },
         {
+            "type": "particles_system",
+            "name": "forest_dust",
+            "elevation": 0,
+            "zone": [1580, 30, 2200, 300],
+            "emission_zone": null,
+            "emission_positions": null,
+            "start_number": 150,
+            "flow": 0,
+            "shape_options": {
+                "type": "square",
+                "alpha": [35, 150],
+                "size": 1,
+                "color": [100, 111, 150]},
+            "spot_options": {
+                "boundary_behavior": "bounce_on_boundary",
+                "speed": [0.1, 0.2],
+                "frequency": [25, 40]},
+            "direction_options": {
+                "rotation_range": -1,
+                "speed": 10}
+        },
+        {
             "type": "player",
             "name": "whitecrow",
             "movedatas_file": "whitecrowparrot_sword.json",
             "block_position":[10, 9]
+        },
+        {
+            "type": "particles_system",
+            "name": "forest_dust_2",
+            "elevation": 0,
+            "zone": [1580, 150, 2200, 300],
+            "emission_zone": null,
+            "emission_positions": null,
+            "start_number": 100,
+            "flow": 0,
+            "shape_options": {
+                "type": "square",
+                "alpha": [35, 150],
+                "size": 1,
+                "color": [60, 80, 100]},
+            "spot_options": {
+                "boundary_behavior": "bounce_on_boundary",
+                "speed": [0.05, 0.15],
+                "frequency": [15, 20]},
+            "direction_options": {
+                "rotation_range": -1,
+                "speed": 6}
+        },
+        {
+            "type": "particles_system",
+            "name": "forest_dust_3",
+            "elevation": 0,
+            "zone": [1580, 200, 2200, 300],
+            "emission_zone": null,
+            "emission_positions": null,
+            "start_number": 60,
+            "flow": 0,
+            "shape_options": {
+                "type": "square",
+                "alpha": [35, 150],
+                "size": 1,
+                "color": [60, 30, 60]},
+            "spot_options": {
+                "boundary_behavior": "bounce_on_boundary",
+                "speed": [0.15, 0.25],
+                "frequency": [40, 75]},
+            "direction_options": {
+                "rotation_range": -1,
+                "speed": 12}
         },
         {
             "type": "layer",

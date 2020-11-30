@@ -21,7 +21,7 @@ class Player():
         self.sound_shooter = sound_shooter
 
     @staticmethod
-    def from_file(
+    def from_filename(
             filename,
             name,
             start_position,
@@ -31,7 +31,7 @@ class Player():
 
         cordinates = Cordinates(start_position, pixel_offset, mirror)
         input_buffer = InputBuffer()
-        spritesheet = SpriteSheet.from_datafile(filename)
+        spritesheet = SpriteSheet.from_filename(filename)
         with open(filename, 'r') as f:
             datas = json.load(f)
         movement_manager = MovementManager(datas, spritesheet, cordinates)
@@ -60,9 +60,9 @@ class Player():
         if trigger is not None:
             self.sound_shooter.triggers.append(trigger)
 
-    @property
-    def image(self):
-        return self.movement_manager.image
+
+    def render(self, screen, position):
+        screen.blit(self.movement_manager.image, position)
 
     @property
     def pixel_position(self):

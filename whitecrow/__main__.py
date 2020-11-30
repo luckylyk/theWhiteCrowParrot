@@ -16,7 +16,7 @@ from whitecrow.player import Player
 
 
 done = False
-screen = pygame.display.set_mode(PREFS["resolution"])#, pygame.FULLSCREEN)
+screen = pygame.display.set_mode(PREFS["resolution"], pygame.FULLSCREEN)
 pygame.display.set_caption("the White Crow Parrot")
 clock = pygame.time.Clock()
 pygame.joystick.init()
@@ -44,6 +44,8 @@ while not done:
         for player in scene.players:
             player.update_inputs(joystick)
             player.next()
+        for particles in scene.particles:
+            particles.next()
     scene.scrolling.next()
     scene.render(screen)
     clock.tick(PREFS["fps"] * 2)

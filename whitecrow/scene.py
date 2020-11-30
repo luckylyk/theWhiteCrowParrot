@@ -1,5 +1,6 @@
 import os
 import json
+from functools import partial
 
 from whitecrow.loaders import load_image
 from whitecrow.euclide import Rect
@@ -11,7 +12,10 @@ from whitecrow.animation import SpriteSheet
 from whitecrow.cordinates import Cordinates
 from whitecrow.moves import MovementManager
 from whitecrow.player import Player
-from whitecrow.sounds import Ambiance, SfxSoundCollection, SoundShooter, SfxSound
+from whitecrow.sounds import (
+    Ambiance, SfxSoundCollection, SoundShooter, SfxSound)
+from whitecrow.particles import (
+    ParticlesSystem, Spot, DirectionBehavior, build_emitter)
 
 
 class Scene():
@@ -22,6 +26,7 @@ class Scene():
         self.players = []
         self.sounds = []
         self.sound_shooter = sound_shooter
+        self.particles = []
 
     @property
     def elements(self):
@@ -36,7 +41,7 @@ class Scene():
                 world_pos = element.pixel_position
                 elev = layer.elevation + element.elevation
                 cam_pos = self.camera.relative_pixel_position(world_pos, elev)
-                screen.blit(element.image, cam_pos)
+                element.render(screen, cam_pos)
         for sound in self.sounds:
             sound.update()
         self.sound_shooter.shoot()
@@ -69,7 +74,7 @@ def build_player(datas, grid_pixel_offset, input_buffer, sound_shooter):
     data_path = os.path.join(MOVE_FOLDER, datas.get("movedatas_file"))
     with open(data_path, "r") as f:
         move_datas = json.load(f)
-    spritesheet = SpriteSheet.from_datafile(data_path)
+    spritesheet = SpriteSheet.from_filename(data_path)
     position = datas["block_position"]
     cordinates = Cordinates(position=position, pixel_offset=grid_pixel_offset)
     movementmanager = MovementManager(move_datas, spritesheet, cordinates)
@@ -125,6 +130,21 @@ def find_element(scene, name):
             return element
 
 
+def build_particles_system(datas):
+    zone = Rect(*datas["emission_zone"]) if datas["emission_zone"] else None
+    emitter = build_emitter(zone=zone, spots=datas["emission_positions"])
+    return ParticlesSystem(
+        name=datas["name"],
+        zone=datas["zone"],
+        elevation=datas["elevation"],
+        start_number=datas["start_number"],
+        flow=datas["flow"],
+        spot_options=datas["spot_options"],
+        direction_options=datas["direction_options"],
+        shape_options=datas["shape_options"],
+        emitter=emitter)
+
+
 def build_scene(level_datas, input_buffer):
     check_first_layer(level_datas)
 
@@ -152,6 +172,10 @@ def build_scene(level_datas, input_buffer):
             scene.players.append(player)
             if player.name == level_datas["scroll_target"]:
                 scrolling.target = player.cordinates
+        if element.get("type") == ELEMENT_TYPES.PARTICLES:
+            particles = build_particles_system(element)
+            scene.particles.append(particles)
+            layer.append(particles)
 
     for sound_datas in level_datas["sounds"]:
         if sound_datas.get("type") == SOUND_TYPES.AMBIANCE:
