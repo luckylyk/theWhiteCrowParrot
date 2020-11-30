@@ -100,16 +100,12 @@ class MovementManager():
             self.cordinates.mirror)
 
     @property
+    def trigger(self):
+        return self.animation.trigger
+
+    @property
     def image(self):
         return self.animation.image
-
-    @property
-    def pixel_position(self):
-        return self.cordinates.pixel_position
-
-    @property
-    def elevation(self):
-        return self.cordinates.elevation
 
 
 def map_point(point, size, mirror):

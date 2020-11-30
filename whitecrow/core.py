@@ -13,11 +13,18 @@ class EVENTS():
     BLOCK_OFFSET = "block_offset"
 
 
-class ELEMENT_TYPE():
+class ELEMENT_TYPES():
     PLAYER = "player"
     STATIC = "static"
     LAYER = "layer"
 
 
-class SOUND_TYPE():
+class SOUND_TYPES():
     AMBIANCE = "ambiance"
+    SFX_COLLECTION = "sfx_sound_collection"
+    SFX = "sfx_sound"
+
+
+class LOOP_TYPES():
+    CYCLE = "cycle"
+    SHUFFLE = "shuffle"

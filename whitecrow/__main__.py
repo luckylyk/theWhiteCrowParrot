@@ -16,7 +16,7 @@ from whitecrow.player import Player
 
 
 done = False
-screen = pygame.display.set_mode(PREFS["resolution"], pygame.FULLSCREEN)
+screen = pygame.display.set_mode(PREFS["resolution"])#, pygame.FULLSCREEN)
 pygame.display.set_caption("the White Crow Parrot")
 clock = pygame.time.Clock()
 pygame.joystick.init()

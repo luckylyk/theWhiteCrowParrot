@@ -5,22 +5,27 @@ from whitecrow.loaders import load_image
 from whitecrow.euclide import Rect
 from whitecrow.graphicelement import StaticElement
 from whitecrow.camera import Camera, Scrolling
-from whitecrow.core import ELEMENT_TYPE, COLORS, SOUND_TYPE
+from whitecrow.core import ELEMENT_TYPES, COLORS, SOUND_TYPES
 from whitecrow.constants import SET_FOLDER, MOVE_FOLDER
 from whitecrow.animation import SpriteSheet
 from whitecrow.cordinates import Cordinates
 from whitecrow.moves import MovementManager
 from whitecrow.player import Player
-from whitecrow.sounds import Ambiance
+from whitecrow.sounds import Ambiance, SfxSoundCollection, SoundShooter, SfxSound
 
 
 class Scene():
-    def __init__(self, camera=None, scrolling=None):
+    def __init__(self, camera=None, scrolling=None, sound_shooter=None):
         self.camera = camera
         self.scrolling = scrolling
         self.layers = []
         self.players = []
         self.sounds = []
+        self.sound_shooter = sound_shooter
+
+    @property
+    def elements(self):
+        return [e for l in self.layers for e in l.elements]
 
     def append(self, layer):
         self.layers.append(layer)
@@ -32,10 +37,9 @@ class Scene():
                 elev = layer.elevation + element.elevation
                 cam_pos = self.camera.relative_pixel_position(world_pos, elev)
                 screen.blit(element.image, cam_pos)
-                if isinstance(element, Player):
-                    print (element.image, element.name)
         for sound in self.sounds:
             sound.update()
+        self.sound_shooter.shoot()
 
 
 class Layer():
@@ -49,7 +53,7 @@ class Layer():
 
 
 def check_first_layer(level_datas):
-    if level_datas["elements"][0]["type"] != ELEMENT_TYPE.LAYER:
+    if level_datas["elements"][0]["type"] != ELEMENT_TYPES.LAYER:
         raise ValueError("first scene element must be a Layer")
 
 
@@ -61,7 +65,7 @@ def build_static_element(datas):
         elevation=datas["elevation"])
 
 
-def build_player(datas, grid_pixel_offset, input_buffer):
+def build_player(datas, grid_pixel_offset, input_buffer, sound_shooter):
     data_path = os.path.join(MOVE_FOLDER, datas.get("movedatas_file"))
     with open(data_path, "r") as f:
         move_datas = json.load(f)
@@ -70,7 +74,13 @@ def build_player(datas, grid_pixel_offset, input_buffer):
     cordinates = Cordinates(position=position, pixel_offset=grid_pixel_offset)
     movementmanager = MovementManager(move_datas, spritesheet, cordinates)
     name = datas["name"]
-    return Player(name, movementmanager, input_buffer, cordinates)
+
+    return Player(
+        name,
+        movementmanager,
+        input_buffer,
+        cordinates,
+        sound_shooter)
 
 
 def build_scrolling(camera, level_datas):
@@ -87,36 +97,77 @@ def build_ambiance(datas):
     return Ambiance(
         filename=datas["file"],
         zone=datas["zone"],
+        falloff=datas["falloff"],)
+
+
+def build_sfx_sound(datas):
+    return SfxSound(
+        name=datas["name"],
+        filename=datas["filename"],
+        trigger=datas["trigger"],
         falloff=datas["falloff"],
-        channel=datas["channel"])
+        zone=datas["zone"])
+
+
+def build_sfx_collection(datas):
+    return SfxSoundCollection(
+        name=datas["name"],
+        files=datas["files"],
+        order=datas["order"],
+        trigger=datas["trigger"],
+        falloff=datas["falloff"],
+        zone=datas["zone"])
+
+
+def find_element(scene, name):
+    for element in scene.elements:
+        if element.name == name:
+            return element
 
 
 def build_scene(level_datas, input_buffer):
+    check_first_layer(level_datas)
+
     camera = Camera()
     scrolling = build_scrolling(camera, level_datas)
-    scene = Scene(camera=camera, scrolling=scrolling)
-    check_first_layer(level_datas)
-    layer = None
+    sound_shooter = SoundShooter()
+    scene = Scene(
+        camera=camera,
+        scrolling=scrolling,
+        sound_shooter=sound_shooter)
 
+    layer = None
     for element in level_datas["elements"]:
-        if element.get("type") == ELEMENT_TYPE.LAYER:
+        if element.get("type") == ELEMENT_TYPES.LAYER:
             layer = Layer(element["name"], element["elevation"], [])
             scene.layers.append(layer)
             continue
-        if element.get("type") == ELEMENT_TYPE.STATIC:
+        if element.get("type") == ELEMENT_TYPES.STATIC:
             static = build_static_element(element)
             layer.append(static)
         if element.get("type") == "player":
             offset = level_datas["grid_pixel_offset"]
-            player = build_player(element, offset, input_buffer)
-            layer.append(player.movement_manager)
+            player = build_player(element, offset, input_buffer, sound_shooter)
+            layer.append(player)
             scene.players.append(player)
             if player.name == level_datas["scroll_target"]:
                 scrolling.target = player.cordinates
 
-    for sound in level_datas["sounds"]:
-        if sound.get("type") == SOUND_TYPE.AMBIANCE:
-            ambiance = build_ambiance(sound)
-            ambiance.listener = scene.players[0].cordinates
+    for sound_datas in level_datas["sounds"]:
+        if sound_datas.get("type") == SOUND_TYPES.AMBIANCE:
+            ambiance = build_ambiance(sound_datas)
+            element = find_element(scene, sound_datas["listener"])
+            ambiance.listener = element.cordinates
             scene.sounds.append(ambiance)
+        if sound_datas.get("type") == SOUND_TYPES.SFX_COLLECTION:
+            collection = build_sfx_collection(sound_datas)
+            element = find_element(scene, sound_datas["emitter"])
+            collection.emitter = element.cordinates
+            sound_shooter.sounds.append(collection)
+        if sound_datas.get("type") == SOUND_TYPES.SFX:
+            sound = build_sfx_sound(sound_datas)
+            element = find_element(scene, sound_datas["emitter"])
+            sound.emitter = element.cordinates
+            sound_shooter.sounds.append(sound)
+
     return scene

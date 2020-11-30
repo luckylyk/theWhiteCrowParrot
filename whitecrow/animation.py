@@ -3,6 +3,16 @@ import json
 from whitecrow.loaders import load_images, image_mirror
 
 
+def build_triggers_list(datas):
+    length = len(
+        [None for i, d in enumerate(datas["frames_per_image"])
+        for _ in range(d)])
+    if datas["triggers"] is None:
+        return [None for _ in range(length)]
+    triggers = {t[0]: t[1] for t in datas["triggers"]}
+    return [triggers[i] if i in triggers else None for i in range(length)]
+
+
 def build_images_list(datas, images):
     return [
         images[i + datas["start_at_image"]]
@@ -40,6 +50,7 @@ class Animation():
         self.hold = datas["hold"]
         self.next_move = datas["next_move"]
         self.repeatable = datas["repeatable"]
+        self.triggers = build_triggers_list(datas)
 
     def is_lock(self):
         if self.release_frame == -1:
@@ -62,6 +73,12 @@ class Animation():
         if self.index < 0:
             return None
         return self.centers[self.index]
+
+    @property
+    def trigger(self):
+        if self.index < 0:
+            return None
+        return self.triggers[self.index]
 
     @property
     def image(self):

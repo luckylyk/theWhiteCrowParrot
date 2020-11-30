@@ -11,7 +11,6 @@
         {
             "type": "ambiance",
             "file": "ambiances/nature1.ogg",
-            "channel": 5,
             "listener": "whitecrow",
             "zone": [-150, -150, 1580, 600],
             "falloff": 150
@@ -31,6 +30,41 @@
             "listener": "whitecrow",
             "zone": null,
             "falloff": null
+        },
+        {
+            "type": "sfx_sound_collection",
+            "files": [
+                "effects/grass_step_01.ogg",
+                "effects/grass_step_02.ogg",
+                "effects/grass_step_03.ogg",
+                "effects/grass_step_04.ogg",
+                "effects/grass_step_05.ogg",
+                "effects/grass_step_06.ogg",
+                "effects/grass_step_07.ogg"],
+            "order": "shuffle",
+            "name": "grass_step",
+            "trigger": "step_whitecrow",
+            "emitter": "whitecrow",
+            "zone": [-150, -150, 1580, 600],
+            "falloff": 150
+        },
+        {
+            "type": "sfx_sound",
+            "filename": "effects/whoosh.ogg",
+            "name": "sword_whoosh",
+            "trigger": "whoosh_whitecrow",
+            "emitter": "whitecrow",
+            "zone": [-150, -150, 1580, 600],
+            "falloff": 150
+        },
+        {
+            "type": "sfx_sound",
+            "filename": "effects/whish.ogg",
+            "name": "sword_whish",
+            "trigger": "whish_whitecrow",
+            "emitter": "whitecrow",
+            "zone": [-150, -150, 1580, 600],
+            "falloff": 150
         }
     ],
     "elements": [
