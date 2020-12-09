@@ -33,6 +33,6 @@ class LOOP_TYPES():
 
 class PARTICLE_SHAPE_TYPES():
     SQUARE = "square"
-    ROUND = "round"
+    ELLIPSE = "ellipse"
     IMAGE = "image"
     ANIMATION = "animation"

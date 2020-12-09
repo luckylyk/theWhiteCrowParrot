@@ -12,7 +12,7 @@ import json
 
 SRGB_PROFILE = "sRGB-elle-V2-srgbtrc.icc"
 FOLDER = r"C:\Users\lio\Desktop\walk\test"
-LEVEL_FOLDER = "level_temp"
+LEVEL_FOLDER = "level_01"
 LEVEL_FILE = "level.json"
 DEFAULT_DATA = {
     "type": "static",
@@ -20,6 +20,13 @@ DEFAULT_DATA = {
     "position": None,
     "elevation": 0
 }
+
+def check_name_clash(nodes):
+    names = [n.name() for n in nodes]
+    if len(names) == len(set(names)):
+        return
+    clashes = [name for name in names if names.count(name) > 1]
+    raise ValueError(f"multiple name as the same name: {set(clashes)}")
 
 
 def node_bounds(node, document):
@@ -63,18 +70,21 @@ def node_to_qimage(node, document):
 soft = krita.Krita()
 document = soft.activeDocument()
 nodes = document.activeNode().childNodes()
+check_name_clash(nodes)
 datas = []
 for node in nodes:
+    if not node.visible():
+        continue
     filename = node.name() + '.png'
     path = os.path.join(FOLDER, filename)
     image = node_to_qimage(node, document)
     image.save(path, "PNG")
     data = DEFAULT_DATA.copy()
-    data["file"] = os.path.join(LEVEL_FOLDER, filename)
+    data["file"] = os.path.join(LEVEL_FOLDER, filename).replace("\\", "/")
     data["position"] = node_bounds(node, document)[:2]
     datas.append(data)
 
 
 json_filename = os.path.join(FOLDER, LEVEL_FILE)
 with open(json_filename, "w") as f:
-    json.dump(datas, f , indent=2)
+    json.dump(datas, f , indent=4)

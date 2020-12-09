@@ -2,6 +2,11 @@
 import math
 from whitecrow.mathutils import clamp
 from whitecrow.prefs import PREFS
+from whitecrow.euclide import Rect
+
+
+def get_render_zone():
+    return Rect(0, 0, PREFS["resolution"][0], PREFS["resolution"][1])
 
 
 class Camera():
@@ -23,6 +28,12 @@ class Camera():
         offset_x = math.ceil((pixel_position[0] - self.pixel_position[0]))
         offset_y = math.ceil((pixel_position[1] - self.pixel_position[1]))
         return [offset_x + (offset_x * elevation), offset_y]
+
+    @property
+    def zone(self):
+        return Rect.xywh(
+            self.pixel_position[0], self.pixel_position[1],
+            PREFS["resolution"][0], PREFS["resolution"][1])
 
 
 class Scrolling():

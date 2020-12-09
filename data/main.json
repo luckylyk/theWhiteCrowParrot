@@ -1,0 +1,10 @@
+{
+    "caption": "The White Crow Parrot",
+    "start_scene": "forest",
+    "scenes": [
+        {
+            "name": "forest",
+            "file": "forest_01.json"
+        }
+    ]
+}

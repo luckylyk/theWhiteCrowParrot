@@ -60,7 +60,6 @@ class Player():
         if trigger is not None:
             self.sound_shooter.triggers.append(trigger)
 
-
     def render(self, screen, position):
         screen.blit(self.movement_manager.image, position)
 
@@ -71,3 +70,7 @@ class Player():
     @property
     def elevation(self):
         return self.cordinates.elevation
+
+    @property
+    def size(self):
+        return self.movement_manager.image.get_size()

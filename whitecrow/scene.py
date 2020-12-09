@@ -5,7 +5,7 @@ from functools import partial
 from whitecrow.loaders import load_image
 from whitecrow.euclide import Rect
 from whitecrow.graphicelement import StaticElement
-from whitecrow.camera import Camera, Scrolling
+from whitecrow.camera import Camera, Scrolling, get_render_zone
 from whitecrow.core import ELEMENT_TYPES, COLORS, SOUND_TYPES
 from whitecrow.constants import SET_FOLDER, MOVE_FOLDER
 from whitecrow.animation import SpriteSheet
@@ -27,6 +27,7 @@ class Scene():
         self.sounds = []
         self.sound_shooter = sound_shooter
         self.particles = []
+        self.render_zone = get_render_zone()
 
     @property
     def elements(self):

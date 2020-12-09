@@ -1,0 +1,1 @@
+python D:\Works\Python\GitHub\pygame_game\whitecrow D:\Works\Python\GitHub\pygame_game\data

@@ -101,6 +101,10 @@ class ParticlesSystem():
     def pixel_position(self):
         return self.zone.top_left
 
+    @property
+    def size(self):
+        return self.zone.width, self.zone.height
+
     def build_start_states(self, n):
         for _ in range(n):
             self.spots.append(self.build_spot())

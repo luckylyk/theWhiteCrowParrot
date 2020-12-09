@@ -16,3 +16,19 @@ class StaticElement():
 
     def render(self, screen, position):
         screen.blit(self.image, position)
+
+    @property
+    def size(self):
+        return self.image.get_size()
+
+
+class AnimatedElement():
+    def __init__(self, images, pixel_position, elevation, options):
+        self.images = images
+        self.pixel_position = pixel_position
+        self.elevation = elevation
+        self.options = options
+        self.name = None
+
+    def render(self, screen, position):
+        screen.blit(self.image, position)

@@ -101,7 +101,6 @@ class SoundShooter():
     def shoot(self):
         for trigger in self.triggers:
             for sound in self.sounds:
-                print(trigger, sound.trigger, self.triggers)
                 if sound.trigger != trigger:
                     continue
                 position = sound.emitter.pixel_center
