@@ -3,10 +3,13 @@ from whitecrow.prefs import RULES
 
 class Cordinates():
     def __init__(
-            self, mirror=False, position=None, pixel_offset=None, center=None):
+            self, mirror=False,
+            block_position=None,
+            pixel_offset=None,
+            center=None):
         self.mirror = False
         self.pixel_offset = pixel_offset or [0, 0]
-        self.block_position = position or [0, 0]
+        self.block_position = block_position or [0, 0]
         self.center_offset = center or [0, 0]
         self.elevation = 0
 

@@ -5,6 +5,10 @@
         {
             "name": "forest",
             "file": "forest_01.json"
+        },
+        {
+            "name": "forest2",
+            "file": "forest_01.json"
         }
     ]
 }

@@ -30,11 +30,11 @@ theatre = Theatre(game)
 pygame.display.set_caption(theatre.caption)
 
 joystick = pygame.joystick.Joystick(0)
-joystick.init()
 
 i = 0
 done = False
 while not done:
+    joystick.init()
 
     done = joystick.get_button(7) == 1
     for event in pygame.event.get():
@@ -45,9 +45,8 @@ while not done:
     if i % 2 == 0:
         for player in theatre.scene.players:
             player.update_inputs(joystick)
-            player.next()
-        for particles in theatre.scene.particles:
-            particles.next()
+        for element in theatre.scene.evaluables:
+            element.next()
     theatre.scene.scrolling.next()
     theatre.scene.render(screen)
     clock.tick(PREFS["fps"] * 2)

@@ -1,0 +1,26 @@
+{
+    "filename": "smoke.png",
+    "key_color": [0, 255, 0],
+    "block_size": [829, 127],
+    "default_move": "base",
+    "evaluation_order": ["base"],
+    "moves": {
+        "base":
+            {
+                "start_at_image": 0,
+                "center": [70, 160],
+                "frames_per_image": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20],
+                "triggers": null,
+                "frames_centers": null,
+                "release_frame": -1,
+                "next_move": "base",
+                "next_move_bufferable": false,
+                "hold": false,
+                "repeatable": true,
+                "conditions": {},
+                "inputs": [],
+                "pre_events": {},
+                "post_events": {}
+            }
+    }
+}

@@ -5,10 +5,6 @@ from whitecrow.prefs import PREFS
 from whitecrow.euclide import Rect
 
 
-def get_render_zone():
-    return Rect(0, 0, PREFS["resolution"][0], PREFS["resolution"][1])
-
-
 class Camera():
     def __init__(self, pixel_position=None):
         self.pixel_position = pixel_position or [0, 0]

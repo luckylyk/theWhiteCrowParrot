@@ -3,6 +3,7 @@ from whitecrow.moves import filter_moves, filter_unholdable_moves, MovementManag
 from whitecrow.animation import SpriteSheet
 from whitecrow.cordinates import Cordinates
 from whitecrow.gamepad import InputBuffer
+from whitecrow.pygameutils import render_image
 
 
 class Player():
@@ -61,7 +62,10 @@ class Player():
             self.sound_shooter.triggers.append(trigger)
 
     def render(self, screen, position):
-        screen.blit(self.movement_manager.image, position)
+        render_image(
+            self.movement_manager.image,
+            screen,
+            position)
 
     @property
     def pixel_position(self):

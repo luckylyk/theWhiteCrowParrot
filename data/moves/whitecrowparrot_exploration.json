@@ -1,0 +1,185 @@
+{
+    "filename": "whitecrowparrot_exploration.png",
+    "key_color": [0, 255, 0],
+    "block_size": [240, 160],
+    "default_move": "idle",
+    "evaluation_order": [
+        "walk",
+        "return",
+        "crouched_return",
+        "draw_sword",
+        "crouched_over_walk",
+        "crouch_down",
+        "stand_up",
+        "crouched_over",
+        "idle"],
+    "moves": {
+        "idle":
+            {
+                "start_at_image": 0,
+                "center": [70, 160],
+                "frames_per_image": [1],
+                "triggers": null,
+                "frames_centers": null,
+                "release_frame": -1,
+                "next_move": "idle",
+                "next_move_bufferable": false,
+                "hold": false,
+                "repeatable": false,
+                "conditions": {},
+                "inputs": [],
+                "pre_events": {},
+                "post_events": {}
+            },
+        "walk":
+            {
+                "start_at_image": 2,
+                "center": [70, 160],
+                "frames_per_image": [3, 3, 3, 3, 3, 3, 3, 3],
+                "triggers": [[0, "step_whitecrow"]],
+                "frames_centers": [[10, 0], [20, 0], [30, 0], [40, 0], [50, 0], [60, 0], [70, 0], [80, 0]],
+                "release_frame": -1,
+                "hold": true,
+                "next_move": "idle",
+                "next_move_bufferable": true,
+                "repeatable": true,
+                "inputs": ["RIGHT"],
+                "conditions": {
+                    "animation_in": ["idle"]},
+                "pre_events": {},
+                "post_events": {
+                    "block_offset": [8, 0]}
+            },
+        "return":
+            {
+                "start_at_image": 10,
+                "center": [70, 160],
+                "frames_per_image": [1, 1, 1],
+                "triggers": null,
+                "frames_centers": null,
+                "release_frame": -1,
+                "hold": false,
+                "next_move": "idle",
+                "next_move_bufferable": true,
+                "repeatable": false,
+                "inputs": ["LEFT"],
+                "conditions": {
+                    "animation_in": ["idle"]},
+                "pre_events": {},
+                "post_events": {
+                    "flip": true,
+                    "block_offset": [10, 0]}
+            },
+        "draw_sword":
+            {
+                "start_at_image": 13,
+                "center": [70, 160],
+                "frames_per_image": [1, 1, 1, 1, 1, 1, 2, 3, 5, 2, 1, 2, 2, 1],
+                "triggers": null,
+                "frames_centers": null,
+                "release_frame": -1,
+                "hold": true,
+                "next_move": "idle",
+                "next_move_bufferable": true,
+                "repeatable": true,
+                "inputs": ["Y"],
+                "conditions": {
+                    "animation_in": ["idle"]},
+                "pre_events": {},
+                "post_events": {
+                    "switch_to": "whitecrowparrot_sword.json"}
+                },
+        "crouch_down":
+            {
+                "start_at_image": 28,
+                "center": [70, 160],
+                "frames_per_image": [1, 1, 1, 1, 1, 1],
+                "triggers": null,
+                "frames_centers": null,
+                "release_frame": -1,
+                "hold": false,
+                "next_move": "crouched_over",
+                "next_move_bufferable": true,
+                "repeatable": true,
+                "inputs": ["DOWN"],
+                "conditions": {
+                    "animation_in": ["idle"]},
+                "pre_events": {},
+                "post_events": {}
+            },
+        "crouched_over":
+            {
+                "start_at_image": 33,
+                "center": [70, 160],
+                "frames_per_image": [1],
+                "triggers": null,
+                "frames_centers": null,
+                "release_frame": -1,
+                "next_move": "crouched_over",
+                "next_move_bufferable": false,
+                "hold": false,
+                "repeatable": false,
+                "conditions": {},
+                "inputs": [],
+                "pre_events": {},
+                "post_events": {}
+            },
+        "crouched_over_walk":
+            {
+                "start_at_image": 34,
+                "center": [70, 160],
+                "frames_per_image": [3, 2, 2, 1, 1, 2, 3, 5],
+                "triggers": [[0, "step_whitecrow"]],
+                "frames_centers": [[2, 0], [4, 0], [6, 0], [8, 0], [10, 0], [12, 0], [14, 0], [18, 0]],
+                "release_frame": -1,
+                "hold": true,
+                "next_move": "crouched_over",
+                "next_move_bufferable": true,
+                "repeatable": true,
+                "inputs": ["RIGHT"],
+                "conditions": {
+                    "animation_in": ["crouched_over"]},
+                "pre_events": {},
+                "post_events": {
+                    "block_offset": [2, 0]}
+            },
+        "crouched_return":
+            {
+                "start_at_image": 42,
+                "center": [70, 160],
+                "frames_per_image": [2, 2],
+                "triggers": null,
+                "frames_centers": null,
+                "release_frame": -1,
+                "hold": false,
+                "next_move": "crouched_over",
+                "next_move_bufferable": true,
+                "repeatable": false,
+                "inputs": ["LEFT"],
+                "conditions": {
+                    "animation_in": ["crouched_over"]},
+                "pre_events": {},
+                "post_events": {
+                    "flip": true,
+                    "block_offset": [10, 0]}
+            },
+        "stand_up":
+            {
+                "start_at_image": 44,
+                "center": [70, 160],
+                "frames_per_image": [1, 1 ,1],
+                "triggers": null,
+                "frames_centers": null,
+                "release_frame": -1,
+                "next_move": "idle",
+                "next_move_bufferable": false,
+                "hold": false,
+                "repeatable": false,
+                "conditions": {
+                    "animation_in": ["crouched_over"]},
+                "inputs": ["UP"],
+                "pre_events": {},
+                "post_events": {}
+            }
+    }
+}

@@ -1,6 +1,6 @@
 from itertools import cycle
 
-from whitecrow.loaders import load_sound
+from whitecrow.pygameutils import load_sound
 from whitecrow.euclide import Rect
 from whitecrow.iterators import shuffle
 from whitecrow.core import LOOP_TYPES

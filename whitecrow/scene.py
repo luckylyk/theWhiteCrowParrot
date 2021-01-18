@@ -2,10 +2,10 @@ import os
 import json
 from functools import partial
 
-from whitecrow.loaders import load_image
+from whitecrow.pygameutils import load_image
 from whitecrow.euclide import Rect
-from whitecrow.graphicelement import StaticElement
-from whitecrow.camera import Camera, Scrolling, get_render_zone
+from whitecrow.graphicelement import SetStaticElement, SetAnimatedElement
+from whitecrow.camera import Camera, Scrolling
 from whitecrow.core import ELEMENT_TYPES, COLORS, SOUND_TYPES
 from whitecrow.constants import SET_FOLDER, MOVE_FOLDER
 from whitecrow.animation import SpriteSheet
@@ -26,8 +26,7 @@ class Scene():
         self.players = []
         self.sounds = []
         self.sound_shooter = sound_shooter
-        self.particles = []
-        self.render_zone = get_render_zone()
+        self.evaluables = []
 
     @property
     def elements(self):
@@ -63,11 +62,18 @@ def check_first_layer(level_datas):
         raise ValueError("first scene element must be a Layer")
 
 
-def build_static_element(datas):
-    return StaticElement.from_filename(
+def build_set_static_element(datas):
+    return SetStaticElement.from_filename(
         os.path.join(SET_FOLDER, datas["file"]),
         pixel_position=datas["position"],
         key_color=COLORS.GREEN,
+        elevation=datas["elevation"])
+
+
+def build_set_animated_element(datas):
+    return SetAnimatedElement.from_filename(
+        os.path.join(MOVE_FOLDER, datas["file"]),
+        pixel_position=datas["position"],
         elevation=datas["elevation"])
 
 
@@ -77,7 +83,8 @@ def build_player(datas, grid_pixel_offset, input_buffer, sound_shooter):
         move_datas = json.load(f)
     spritesheet = SpriteSheet.from_filename(data_path)
     position = datas["block_position"]
-    cordinates = Cordinates(position=position, pixel_offset=grid_pixel_offset)
+    cordinates = Cordinates(
+        block_position=position, pixel_offset=grid_pixel_offset)
     movementmanager = MovementManager(move_datas, spritesheet, cordinates)
     name = datas["name"]
 
@@ -163,19 +170,24 @@ def build_scene(level_datas, input_buffer):
             layer = Layer(element["name"], element["elevation"], [])
             scene.layers.append(layer)
             continue
-        if element.get("type") == ELEMENT_TYPES.STATIC:
-            static = build_static_element(element)
+        if element.get("type") == ELEMENT_TYPES.SET_STATIC:
+            static = build_set_static_element(element)
             layer.append(static)
+        if element.get("type") == ELEMENT_TYPES.SET_ANIMATED:
+            animated = build_set_animated_element(element)
+            layer.append(animated)
+            scene.evaluables.append(animated)
         if element.get("type") == "player":
             offset = level_datas["grid_pixel_offset"]
             player = build_player(element, offset, input_buffer, sound_shooter)
             layer.append(player)
             scene.players.append(player)
+            scene.evaluables.append(player)
             if player.name == level_datas["scroll_target"]:
                 scrolling.target = player.cordinates
         if element.get("type") == ELEMENT_TYPES.PARTICLES:
             particles = build_particles_system(element)
-            scene.particles.append(particles)
+            scene.evaluables.append(particles)
             layer.append(particles)
 
     for sound_datas in level_datas["sounds"]:

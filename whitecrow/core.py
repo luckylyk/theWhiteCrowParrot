@@ -11,11 +11,13 @@ class COLORS():
 class EVENTS():
     FLIP = "flip"
     BLOCK_OFFSET = "block_offset"
+    SWITCH_TO = "switch_to"
 
 
 class ELEMENT_TYPES():
     PLAYER = "player"
-    STATIC = "static"
+    SET_STATIC = "set_static"
+    SET_ANIMATED = "set_animated"
     LAYER = "layer"
     PARTICLES = "particles_system"
 

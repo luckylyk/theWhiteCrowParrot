@@ -1,4 +1,8 @@
 
+import json
+import os
+
+from whitecrow.constants import MOVE_FOLDER
 from whitecrow.core import EVENTS
 from whitecrow.animation import SpriteSheet
 
@@ -78,6 +82,11 @@ class MovementManager():
             self.cordinates.block_position[1] += block_offset[1]
         elif event == EVENTS.FLIP:
             self.cordinates.mirror = not self.cordinates.mirror
+        elif event == EVENTS.SWITCH_TO:
+            filename = os.path.join(MOVE_FOLDER, value)
+            self.spritesheet = SpriteSheet.from_filename(filename)
+            with open(filename, 'r') as f:
+                self.datas = json.load(f)
 
     def set_next_move(self):
         if self.moves_buffer:

@@ -82,9 +82,9 @@ def export(filename):
     column_lenght = math.ceil(math.sqrt(frame_count))
     canvas_size = get_canvas_size(frame_count, column_lenght, width, height)
     canvas = QtGui.QImage(canvas_size, QtGui.QImage.Format_ARGB32)
-    canvas.save(filename, "PNG")
     fill_canvas(canvas, images, column_lenght, width, height)
+    canvas.save(filename, "PNG")
     print(get_node_frames_duration(node, range_out=document.animationLength()))
 
 
-export("C:/Users/lio/Desktop/test/smoke.png")
+export(r"D:\Works\code\GitHub\pygame_game\data\animations/whitecrowparrot_exploration.png")

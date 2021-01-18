@@ -38,3 +38,19 @@ def image_mirror(image, horizontal=True, vertical=False):
 def load_sound(filename):
     filename = os.path.join(SOUNDS_FOLDER, filename)
     return pygame.mixer.Sound(filename)
+
+
+def render_image(image, screen, position, alpha=1):
+    if alpha == 1:
+        screen.blit(image, position)
+        return
+    # work around to blit with transparency found on here:
+    # https://nerdparadise.com/programming/pygameblitopacity
+    # thanks dude !
+    x, y = position
+    w, h = image.get_size()
+    temp = pygame.Surface((w, h)).convert()
+    temp.blit(screen, (-x, -y))
+    temp.blit(image, (0, 0))
+    temp.set_alpha(alpha)
+    screen.blit(temp, position)
