@@ -1,1 +1,2 @@
-python D:\Works\code\GitHub\pygame_game\whitecrow D:\Works\code\GitHub\pygame_game\data
+IF NOT DEFINED WHITECROW_ROOT (set WHITECROW_ROOT=D:\Works\code\GitHub)
+python %WHITECROW_ROOT%\pygame_game\whitecrow %WHITECROW_ROOT%\pygame_game\data
