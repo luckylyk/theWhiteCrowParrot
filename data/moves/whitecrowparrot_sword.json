@@ -342,7 +342,7 @@
                 "frames_per_image": [3, 2, 4, 6],
                 "triggers": [[0, "step_whitecrow"]],
                 "frames_centers": [[5, 0], [10, 0], [15, 0], [20, 0]],
-                "release_frame": -1,
+                "release_frame": 1,
                 "hold": true,
                 "next_move": "idle",
                 "next_move_bufferable": true,

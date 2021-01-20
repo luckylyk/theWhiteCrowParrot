@@ -44,7 +44,7 @@ def node_to_qimage(node, width, height):
 
 
 def get_canvas_size(frame_count, column_lenght, frame_width, frame_height):
-    row, column = 0, 0
+    row, column = 1, 0
     for _ in range(frame_count):
         column += 1
         if column >= column_lenght:

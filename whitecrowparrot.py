@@ -1,5 +1,6 @@
-import os
 import sys
+import os
+import subprocess
 
 directory = os.path.dirname(os.path.abspath(__file__))
-os.system(f'{sys.executable} {directory}/whitecrow {directory}/data')
+subprocess.call([sys.executable, f"{directory}/whitecrow", f"{directory}/data"])

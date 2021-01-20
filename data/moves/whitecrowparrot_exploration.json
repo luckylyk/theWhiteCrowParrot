@@ -4,6 +4,10 @@
     "block_size": [240, 160],
     "default_move": "idle",
     "evaluation_order": [
+        "run_start",
+        "run_b",
+        "run_a",
+        "run_off",
         "walk",
         "return",
         "crouched_return",
@@ -180,6 +184,81 @@
                 "inputs": ["UP"],
                 "pre_events": {},
                 "post_events": {}
+            },
+        "run_start":
+            {
+                "start_at_image": 47,
+                "center": [70, 160],
+                "frames_per_image": [1, 1],
+                "triggers": null,
+                "frames_centers": null,
+                "release_frame": -1,
+                "hold": false,
+                "next_move": "run_a",
+                "next_move_bufferable": true,
+                "repeatable": false,
+                "inputs": ["RIGHT", "X"],
+                "conditions": {
+                    "animation_in": ["idle"]},
+                "pre_events": {},
+                "post_events": {}
+            },
+        "run_a":
+            {
+                "start_at_image": 49,
+                "center": [70, 160],
+                "frames_per_image": [2, 2, 2, 2, 2, 2],
+                "triggers": null,
+                "frames_centers": [[0, 0], [20, 0], [40, 0], [60, 0], [80, 0], [100, 0]],
+                "release_frame": 4,
+                "hold": false,
+                "next_move": "run_b",
+                "next_move_bufferable": true,
+                "repeatable": true,
+                "inputs": ["RIGHT", "X"],
+                "conditions": {
+                    "animation_in": ["run_start", "run_b"]},
+                "pre_events": {},
+                "post_events": {
+                    "block_offset": [12, 0]}
+            },
+        "run_b":
+            {
+                "start_at_image": 55,
+                "center": [70, 160],
+                "frames_per_image": [2, 2, 2, 2, 2, 2],
+                "triggers": [[0, "step_whitecrow"]],
+                "frames_centers": [[0, 0], [20, 0], [40, 0], [60, 0], [80, 0], [100, 0]],
+                "release_frame": -1,
+                "hold": false,
+                "next_move": "run_off",
+                "next_move_bufferable": true,
+                "repeatable": true,
+                "inputs": ["RIGHT", "X"],
+                "conditions": {
+                    "animation_in": ["run_a", "run_off"]},
+                "pre_events": {},
+                "post_events": {
+                    "block_offset": [12, 0]}
+            },
+        "run_off":
+            {
+                "start_at_image": 61,
+                "center": [70, 160],
+                "frames_per_image": [1, 1, 1, 1, 1, 1],
+                "triggers": [[0, "step_whitecrow"]],
+                "frames_centers": null,
+                "release_frame": -1,
+                "hold": false,
+                "next_move": "idle",
+                "next_move_bufferable": false,
+                "repeatable": false,
+                "inputs": ["RIGHT", "X"],
+                "conditions": {
+                    "animation_in": ["run_a", "run_b"]},
+                "pre_events": {},
+                "post_events": {
+                    "block_offset": [2, 0]}
             }
     }
 }
