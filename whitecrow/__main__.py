@@ -42,14 +42,13 @@ while not done:
             done = True
 
     screen.fill((100, 195, 255))
-    if i % 2 == 0:
-        for player in theatre.scene.players:
-            player.update_inputs(joystick)
-        for element in theatre.scene.evaluables:
-            element.next()
+    for player in theatre.scene.players:
+        player.update_inputs(joystick)
+    for element in theatre.scene.evaluables:
+        element.next()
     theatre.scene.scrolling.next()
     theatre.scene.render(screen)
-    clock.tick(PREFS["fps"] * 2)
+    clock.tick(PREFS["fps"])
 
     pygame.display.flip()
     i += 1

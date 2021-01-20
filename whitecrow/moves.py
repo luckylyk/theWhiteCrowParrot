@@ -61,7 +61,12 @@ class MovementManager():
             if is_move_change_authorized(move, self.datas, self.animation):
                 self.set_move(move)
                 return
-            if self.animation.bufferable and move not in self.moves_buffer:
+            conditions = (
+                self.animation.bufferable and
+                move not in self.moves_buffer and
+                self.animation.name != move and
+                self.animation.loop_on != move)
+            if conditions:
                 self.moves_buffer.insert(0, move)
 
     def set_move(self, move):
@@ -89,19 +94,27 @@ class MovementManager():
                 self.datas = json.load(f)
 
     def set_next_move(self):
+        next_move = self.datas["moves"][self.animation.name]["next_move"]
         if self.moves_buffer:
-            self.set_move(self.moves_buffer[0])
-            return
-        move = self.datas["moves"][self.animation.name]["next_move"]
-        self.set_move(move)
+            key = "animation_in"
+            for move in self.moves_buffer:
+                moves_filter = self.datas["moves"][move]["conditions"].get(key)
+                conditions = (
+                    moves_filter is not None and
+                    self.animation.name not in moves_filter and
+                    next_move not in moves_filter)
+                if conditions:
+                    continue
+                self.set_move(move)
+                return
+        self.set_move(next_move)
 
     def next(self):
         anim = self.animation
         if anim.is_finished() and anim.hold is False:
             self.set_next_move()
         if anim.is_finished() and anim.hold is True and anim.repeatable:
-            # this repeat the current animation
-            print(self.animation.loop_on)
+            # this repeat the current animation or next animation on the loop
             self.set_move(self.animation.loop_on)
         self.animation.next()
         self.cordinates.center_offset = map_point(
