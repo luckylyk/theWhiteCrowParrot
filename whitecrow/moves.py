@@ -101,7 +101,8 @@ class MovementManager():
             self.set_next_move()
         if anim.is_finished() and anim.hold is True and anim.repeatable:
             # this repeat the current animation
-            self.set_move(self.animation.name)
+            print(self.animation.loop_on)
+            self.set_move(self.animation.loop_on)
         self.animation.next()
         self.cordinates.center_offset = map_point(
             self.animation.center,

@@ -39,7 +39,7 @@
                 "next_move": "idle",
                 "next_move_bufferable": false,
                 "hold": false,
-                "repeatable": false,
+                "loop_on": null,
                 "conditions": {},
                 "inputs": [],
                 "pre_events": {},
@@ -56,7 +56,7 @@
                 "hold": true,
                 "next_move": "crouch_up",
                 "next_move_bufferable": false,
-                "repeatable": false,
+                "loop_on": null,
                 "conditions": {
                     "animation_in": ["idle"]},
                 "inputs": ["DOWN"],
@@ -74,7 +74,7 @@
                 "hold": true,
                 "next_move": "low_hit_shoot",
                 "next_move_bufferable": false,
-                "repeatable": false,
+                "loop_on": null,
                 "conditions": {
                     "animation_in": ["idle"]},
                 "inputs": ["R1"],
@@ -92,7 +92,7 @@
                 "hold": false,
                 "next_move": "idle",
                 "next_move_bufferable": false,
-                "repeatable": false,
+                "loop_on": null,
                 "conditions": {
                     "animation_in": ["idle"]},
                 "inputs": ["A"],
@@ -110,7 +110,7 @@
                 "hold": false,
                 "next_move": "idle",
                 "next_move_bufferable": true,
-                "repeatable": false,
+                "loop_on": null,
                 "conditions": {
                     "animation_in": ["crouch_down"]},
                 "inputs": [],
@@ -128,7 +128,7 @@
                 "hold": false,
                 "next_move": "idle",
                 "next_move_bufferable": true,
-                "repeatable": false,
+                "loop_on": null,
                 "conditions": {
                     "animation_in": ["high_block"]},
                 "inputs": [],
@@ -146,7 +146,7 @@
                 "hold": false,
                 "next_move": "idle",
                 "next_move_bufferable": true,
-                "repeatable": false,
+                "loop_on": null,
                 "conditions": {
                     "animation_in": ["high_hit_shoot"]},
                 "inputs": [],
@@ -164,7 +164,7 @@
                 "release_frame": -1,
                 "next_move": "idle",
                 "next_move_bufferable": false,
-                "repeatable": false,
+                "loop_on": null,
                 "conditions": {
                     "animation_in": ["low_hit_ready"]},
                 "inputs": [],
@@ -182,7 +182,7 @@
                 "hold": true,
                 "next_move": "high_block_retrieve",
                 "next_move_bufferable": false,
-                "repeatable": false,
+                "loop_on": null,
                 "conditions": {
                     "animation_in": ["idle"]},
                 "inputs": ["R2"],
@@ -200,7 +200,7 @@
                 "hold": true,
                 "next_move": "low_block_retrieve",
                 "next_move_bufferable": false,
-                "repeatable": false,
+                "loop_on": null,
                 "conditions": {
                     "animation_in": ["idle"]},
                 "inputs": ["L2"],
@@ -218,7 +218,7 @@
                 "hold": false,
                 "next_move": "idle",
                 "next_move_bufferable": true,
-                "repeatable": false,
+                "loop_on": null,
                 "conditions": {
                     "animation_in": ["low_block"]},
                 "inputs": [],
@@ -236,7 +236,7 @@
                 "hold": true,
                 "next_move": "stroke_shoot",
                 "next_move_bufferable": false,
-                "repeatable": false,
+                "loop_on": null,
                 "conditions": {
                     "animation_in": ["idle"]},
                 "inputs": ["L1", "R1"],
@@ -254,7 +254,7 @@
                 "hold": false,
                 "next_move": "stroke_retrieve",
                 "next_move_bufferable": false,
-                "repeatable": false,
+                "loop_on": null,
                 "inputs": [],
                 "conditions": {
                     "animation_in": ["stroke_ready"]},
@@ -272,7 +272,7 @@
                 "next_move_bufferable": true,
                 "hold": false,
                 "next_move": "idle",
-                "repeatable": false,
+                "loop_on": null,
                 "conditions": {
                     "animation_in": ["stroke_shoot"]},
                 "inputs": [],
@@ -290,7 +290,7 @@
                 "hold": true,
                 "next_move": "high_hit_shoot",
                 "next_move_bufferable": false,
-                "repeatable": false,
+                "loop_on": null,
                 "conditions": {
                     "animation_in": ["idle"],
                     "animation_not_in": ["crouch_down"]},
@@ -309,7 +309,7 @@
                 "hold": false,
                 "next_move": "idle",
                 "next_move_bufferable": true,
-                "repeatable": false,
+                "loop_on": null,
                 "inputs": [],
                 "conditions": {
                     "animation_in": ["crouch_hit_shoot"],
@@ -328,7 +328,7 @@
                 "hold": false,
                 "next_move": "high_hit_retrieve",
                 "next_move_bufferable": false,
-                "repeatable": false,
+                "loop_on": null,
                 "inputs": [],
                 "conditions": {
                     "animation_not_in": ["crouch_hit"]},
@@ -346,7 +346,7 @@
                 "hold": true,
                 "next_move": "idle",
                 "next_move_bufferable": true,
-                "repeatable": true,
+                "loop_on": "step_forward",
                 "inputs": ["RIGHT"],
                 "conditions": {
                     "animation_in": ["idle"]},
@@ -365,7 +365,7 @@
                 "hold": true,
                 "next_move": "crouch_hit_retrieve",
                 "next_move_bufferable": false,
-                "repeatable": false,
+                "loop_on": null,
                 "inputs": ["L1"],
                 "conditions": {
                     "animation_in": ["crouch_down"]},
@@ -389,7 +389,7 @@
                 "triggers": null,
                 "release_frame": 10,
                 "hold": false,
-                "repeatable": false,
+                "loop_on": null,
                 "next_move": "idle",
                 "next_move_bufferable": false,
                 "inputs": ["B"],
@@ -408,7 +408,7 @@
                 "frames_centers": [[-5, 0], [-10, 0], [-15, 0], [-20, 0]],
                 "release_frame": -1,
                 "hold": true,
-                "repeatable": true,
+                "loop_on": "step_backward",
                 "next_move_bufferable": true,
                 "next_move": "idle",
                 "inputs": ["LEFT"],
@@ -429,7 +429,7 @@
                 "hold": false,
                 "next_move": "idle",
                 "next_move_bufferable": true,
-                "repeatable": true,
+                "loop_on": null,
                 "inputs": ["RS_LEFT"],
                 "conditions": {
                     "animation_in": ["idle"]},
@@ -449,7 +449,7 @@
                 "next_move": "idle",
                 "next_move_bufferable": false,
                 "hold": false,
-                "repeatable": false,
+                "loop_on": null,
                 "conditions": {},
                 "inputs": ["Y"],
                 "pre_events": {},

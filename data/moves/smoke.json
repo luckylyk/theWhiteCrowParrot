@@ -16,7 +16,7 @@
                 "next_move": "base",
                 "next_move_bufferable": false,
                 "hold": false,
-                "repeatable": true,
+                "loop_on": "base",
                 "conditions": {},
                 "inputs": [],
                 "pre_events": {},

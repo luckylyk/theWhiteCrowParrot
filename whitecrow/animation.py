@@ -49,7 +49,8 @@ class Animation():
         self.images = build_images_list(datas, images)
         self.hold = datas["hold"]
         self.next_move = datas["next_move"]
-        self.repeatable = datas["repeatable"]
+        self.loop_on = datas["loop_on"]
+        self.repeatable = datas["loop_on"] is not None
         self.triggers = build_triggers_list(datas)
 
     def is_lock(self):
