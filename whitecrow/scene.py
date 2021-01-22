@@ -19,7 +19,8 @@ from whitecrow.particles import (
 
 
 class Scene():
-    def __init__(self, camera=None, scrolling=None, sound_shooter=None):
+    def __init__(self, name, camera=None, scrolling=None, sound_shooter=None):
+        self.name = name
         self.camera = camera
         self.scrolling = scrolling
         self.layers = []
@@ -153,13 +154,14 @@ def build_particles_system(datas):
         emitter=emitter)
 
 
-def build_scene(level_datas, input_buffer):
+def build_scene(name, level_datas, input_buffer):
     check_first_layer(level_datas)
 
     camera = Camera()
     scrolling = build_scrolling(camera, level_datas)
     sound_shooter = SoundShooter()
     scene = Scene(
+        name=name,
         camera=camera,
         scrolling=scrolling,
         sound_shooter=sound_shooter)

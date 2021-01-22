@@ -1,0 +1,146 @@
+{
+    "grid_pixel_offset" :[0, 0],
+    "boundary": [0, 0, 800, 268],
+    "soft_boundaries": [],
+    "scroll_target": "whitecrow",
+    "target_offset": [75, 0],
+    "sounds": [],
+    "elements": [
+        {
+            "type": "layer",
+            "name": "background",
+            "elevation": 0
+        },    {
+            "type": "set_static",
+            "file": "tente/black.png",
+            "position": [
+                0,
+                0
+            ],
+            "elevation": 0
+        },
+        {
+            "type": "set_static",
+            "file": "tente/tente.png",
+            "position": [
+                197,
+                8
+            ],
+            "elevation": 0
+        },
+        {
+            "type": "set_static",
+            "file": "tente/ground.png",
+            "position": [
+                197,
+                220
+            ],
+            "elevation": 0
+        },
+        {
+            "type": "set_static",
+            "file": "tente/tools_rack.png",
+            "position": [
+                315,
+                164
+            ],
+            "elevation": 0
+        },
+        {
+            "type": "set_static",
+            "file": "tente/stake.png",
+            "position": [
+                434,
+                7
+            ],
+            "elevation": 0
+        },
+        {
+            "type": "set_static",
+            "file": "tente/hatch.png",
+            "position": [
+                416,
+                235
+            ],
+            "elevation": 0
+        },
+        {
+            "type": "set_static",
+            "file": "tente/ground_over.png",
+            "position": [
+                344,
+                222
+            ],
+            "elevation": 0
+        },
+        {
+            "type": "set_static",
+            "file": "tente/candlestick_01.png",
+            "position": [
+                411,
+                172
+            ],
+            "elevation": 0
+        },
+        {
+            "type": "player",
+            "name": "whitecrow",
+            "movedatas_file": "whitecrowparrot_exploration.json",
+            "block_position":[16, 8]
+        },
+        {
+            "type": "set_static",
+            "file": "tente/chest.png",
+            "position": [
+                434,
+                193
+            ],
+            "elevation": 0
+        },
+        {
+            "type": "set_static",
+            "file": "tente/fg_tente.png",
+            "position": [
+                197,
+                107
+            ],
+            "elevation": 0
+        },
+        {
+            "type": "set_static",
+            "file": "tente/fg_stake.png",
+            "position": [
+                304,
+                13
+            ],
+            "elevation": 0
+        },
+        {
+            "type": "set_static",
+            "file": "tente/bench.png",
+            "position": [
+                243,
+                231
+            ],
+            "elevation": 0
+        },
+        {
+            "type": "set_static",
+            "file": "tente/candlestick_02.png",
+            "position": [
+                482,
+                189
+            ],
+            "elevation": 0
+        },
+        {
+            "type": "set_static",
+            "file": "tente/candlestick_03.png",
+            "position": [
+                226,
+                190
+            ],
+            "elevation": 0
+        }
+    ]
+}

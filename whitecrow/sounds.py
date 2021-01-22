@@ -5,8 +5,6 @@ from whitecrow.euclide import Rect
 from whitecrow.iterators import shuffle
 from whitecrow.core import LOOP_TYPES
 
-import pygame
-
 
 class Ambiance():
     def __init__(self, filename, falloff, zone=None, listener=None):
@@ -40,6 +38,10 @@ class Ambiance():
         ratio = self.zone.falloff_ratio(position, self.falloff)
         self.sound.set_volume(ratio)
 
+    def __del__(self):
+        print(self, "is deleted")
+        self.stop()
+
 
 class SfxSoundCollection():
     def __init__(
@@ -69,6 +71,10 @@ class SfxSoundCollection():
         sound.set_volume(ratio)
         sound.play()
 
+    def stop(self):
+        for sound in self.sounds:
+            sound.stop()
+
 
 class SfxSound():
     def __init__(
@@ -91,6 +97,9 @@ class SfxSound():
         ratio = self.zone.falloff_ratio(position, self.falloff)
         self.sound.set_volume(ratio)
         self.sound.play()
+
+    def stop(self):
+        self.sound.stop()
 
 
 class SoundShooter():

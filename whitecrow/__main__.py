@@ -31,6 +31,7 @@ pygame.display.set_caption(theatre.caption)
 
 joystick = pygame.joystick.Joystick(0)
 
+changeable = True
 i = 0
 done = False
 while not done:
@@ -46,9 +47,13 @@ while not done:
         player.update_inputs(joystick)
     for element in theatre.scene.evaluables:
         element.next()
-    theatre.scene.scrolling.next()
     theatre.scene.render(screen)
+
+    theatre.scene.scrolling.next()
     clock.tick(PREFS["fps"])
 
+    if "select" in player.input_buffer.pressed_delta() and changeable:
+        changeable = False
+        theatre.next()
     pygame.display.flip()
     i += 1

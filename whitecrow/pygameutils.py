@@ -54,3 +54,11 @@ def render_image(image, screen, position, alpha=1):
     temp.blit(image, (0, 0))
     temp.set_alpha(alpha)
     screen.blit(temp, position)
+
+
+def render_rect(screen, color, x, y, height, width):
+    pygame.draw.rect(screen, color, [x, y, height, width])
+
+
+def render_ellipse(screen, color, x, y, height, width):
+    pygame.draw.ellipse(screen, color, [x, y, height, width])

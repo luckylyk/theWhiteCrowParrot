@@ -49,7 +49,7 @@ class Scrolling():
         self.buffer_x = []
         self.smooth_level = 1
         self.smooth_divisor = 10
-        self.max_speed = 35
+        self.max_speed = 70
         self.current_area = None
 
     def next(self):

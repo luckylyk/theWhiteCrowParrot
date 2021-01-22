@@ -4,11 +4,11 @@ import random
 import math
 from functools import partial
 from itertools import cycle
-import pygame
 
 from whitecrow.mathutils import normalize, clamp, difference
 from whitecrow.core import PARTICLE_SHAPE_TYPES
 from whitecrow.prefs import PREFS
+from whitecrow.pygameutils import render_rect, render_ellipse
 from whitecrow.euclide import (
     Rect, angle_to_vector, vector_to_angle, points_to_vector, limit_angle)
 
@@ -139,9 +139,9 @@ class ParticlesSystem():
             y = position[1] + spot.pixel_position[1] - self.pixel_position[1]
             size = self.shape_options["size"]
             if self.shape_options["type"] == PARTICLE_SHAPE_TYPES.SQUARE:
-                pygame.draw.rect(screen, color, [x, y, size, size])
+                render_rect(screen, color, x, y, size, size)
             elif self.shape_options["type"] == PARTICLE_SHAPE_TYPES.ELLIPSE:
-                pygame.draw.ellipse(color, color, [x, y, size, size])
+                render_ellipse(screen, color, x, y, size, size)
 
 
 class DirectionBehavior():

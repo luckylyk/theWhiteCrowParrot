@@ -15,7 +15,7 @@ FOLDER = r"C:\Users\lio\Desktop\walk\test"
 LEVEL_FOLDER = "level_01"
 LEVEL_FILE = "level.json"
 DEFAULT_DATA = {
-    "type": "static",
+    "type": "set_static",
     "file": None,
     "position": None,
     "elevation": 0

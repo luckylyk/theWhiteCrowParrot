@@ -17,6 +17,7 @@
         "crouch_down",
         "stand_up",
         "crouched_over",
+        "through_door",
         "idle"],
     "moves": {
         "idle":
@@ -40,9 +41,9 @@
             {
                 "start_at_image": 1,
                 "center": [70, 160],
-                "frames_per_image": [3, 3, 3, 3],
+                "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
                 "triggers": [[0, "step_whitecrow"]],
-                "frames_centers": [[0, 0], [10, 0], [20, 0], [30, 0]],
+                "frames_centers": [[0, 0], [3, 0], [5, 0], [7, 0], [10, 0], [13, 0], [15, 0], [17, 0], [20, 0], [23, 0], [25, 0], [27, 0]],
                 "release_frame": -1,
                 "hold": true,
                 "next_move": "idle",
@@ -57,11 +58,11 @@
             },
         "walk_b":
             {
-                "start_at_image": 5,
+                "start_at_image": 13,
                 "center": [70, 160],
-                "frames_per_image": [3, 3, 3, 3],
+                "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
                 "triggers": [[0, "step_whitecrow"]],
-                "frames_centers": [[0, 0], [10, 0], [20, 0], [30, 0]],
+                "frames_centers": [[0, 0], [3, 0], [5, 0], [7, 0], [10, 0], [13, 0], [15, 0], [17, 0], [20, 0], [23, 0], [25, 0], [27, 0]],
                 "release_frame": -1,
                 "hold": true,
                 "next_move": "idle",
@@ -76,7 +77,7 @@
             },
         "return":
             {
-                "start_at_image": 9,
+                "start_at_image": 25,
                 "center": [70, 160],
                 "frames_per_image": [1, 1, 1],
                 "triggers": null,
@@ -96,7 +97,7 @@
             },
         "draw_sword":
             {
-                "start_at_image": 12,
+                "start_at_image": 28,
                 "center": [70, 160],
                 "frames_per_image": [1, 1, 1, 1, 1, 1, 2, 3, 5, 2, 1, 2, 2, 1],
                 "triggers": null,
@@ -115,7 +116,7 @@
                 },
         "crouch_down":
             {
-                "start_at_image": 27,
+                "start_at_image": 42,
                 "center": [70, 160],
                 "frames_per_image": [1, 1, 1, 1, 1, 1],
                 "triggers": null,
@@ -133,7 +134,7 @@
             },
         "crouched_over":
             {
-                "start_at_image": 32,
+                "start_at_image": 47,
                 "center": [70, 160],
                 "frames_per_image": [1],
                 "triggers": null,
@@ -150,7 +151,7 @@
             },
         "crouched_over_walk":
             {
-                "start_at_image": 33,
+                "start_at_image": 49,
                 "center": [70, 160],
                 "frames_per_image": [3, 2, 2, 1, 1, 2, 3, 5],
                 "triggers": [[0, "step_whitecrow"]],
@@ -169,7 +170,7 @@
             },
         "crouched_return":
             {
-                "start_at_image": 41,
+                "start_at_image": 57,
                 "center": [70, 160],
                 "frames_per_image": [2, 2],
                 "triggers": null,
@@ -189,7 +190,7 @@
             },
         "stand_up":
             {
-                "start_at_image": 43,
+                "start_at_image": 59,
                 "center": [70, 160],
                 "frames_per_image": [1, 1 ,1],
                 "triggers": null,
@@ -207,7 +208,7 @@
             },
         "run_start":
             {
-                "start_at_image": 46,
+                "start_at_image": 62,
                 "center": [70, 160],
                 "frames_per_image": [1, 1],
                 "triggers": null,
@@ -225,7 +226,7 @@
             },
         "run_a":
             {
-                "start_at_image": 48,
+                "start_at_image": 64,
                 "center": [70, 160],
                 "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
                 "triggers": null,
@@ -244,7 +245,7 @@
             },
         "run_b":
             {
-                "start_at_image": 60,
+                "start_at_image": 76,
                 "center": [70, 160],
                 "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
                 "triggers": [[0, "step_whitecrow"]],
@@ -263,7 +264,7 @@
             },
         "run_off":
             {
-                "start_at_image": 72,
+                "start_at_image": 88,
                 "center": [70, 160],
                 "frames_per_image": [1, 1, 1, 1, 1, 1],
                 "triggers": [[0, "step_whitecrow"]],
@@ -279,6 +280,24 @@
                 "pre_events": {},
                 "post_events": {
                     "block_offset": [2, 0]}
+            },
+        "through_door":
+            {
+                "start_at_image": 94,
+                "center": [70, 160],
+                "frames_per_image": [2, 2, 1, 2, 2, 10],
+                "triggers": [],
+                "frames_centers": null,
+                "release_frame": -1,
+                "hold": false,
+                "next_move": "idle",
+                "next_move_bufferable": false,
+                "loop_on": null,
+                "inputs": ["UP"],
+                "conditions": {
+                    "animation_in": ["idle"]},
+                "pre_events": {},
+                "post_events": {}
             }
     }
 }

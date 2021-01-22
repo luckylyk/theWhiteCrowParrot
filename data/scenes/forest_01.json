@@ -6,7 +6,7 @@
       [1551, 0, 3000, 268],
       [3001, 0, 4640, 268]],
   "scroll_target": "whitecrow",
-  "target_offset": [75, 0],
+  "target_offset": [200, 0],
   "sounds": [
       {
           "type": "ambiance",
@@ -603,10 +603,19 @@
           "elevation": 0
       },
       {
+          "type": "set_static",
+          "file": "forest_01/arbaletist.png",
+          "position": [
+              1100,
+              100
+          ],
+          "elevation": 0
+      },
+      {
           "type": "player",
           "name": "whitecrow",
           "movedatas_file": "whitecrowparrot_sword.json",
-          "block_position":[4, 9]
+          "block_position":[9, 9]
       },
       {
           "type": "particles_system",
