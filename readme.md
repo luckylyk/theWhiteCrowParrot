@@ -5,7 +5,8 @@ Open Source action adventure point and click game (in developpment for a while)
 ![](https://raw.githubusercontent.com/luckylyk/pygame_game/master/screenshots/capture1.png)
 ![](https://raw.githubusercontent.com/luckylyk/pygame_game/master/screenshots/capture2.png)
 ![](https://raw.githubusercontent.com/luckylyk/pygame_game/master/screenshots/capture3.png)
-###Corax engine
+
+### Corax engine
 The Corax engine is a 2d adventure side scroller video game engine. It work with a strict cordinate system based on a grid. The sprites movements are locked on that grid. All the event systems, hitboxes system and animation data are following that grid. However the grid size can be set by project.
 - Currently built over PyGame2 framework
 - 2d Hand drawed animation oriented
