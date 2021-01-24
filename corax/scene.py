@@ -2,19 +2,19 @@ import os
 import json
 from functools import partial
 
-import whitecrow.context as wctx
-from whitecrow.pygameutils import load_image
-from whitecrow.euclide import Rect
-from whitecrow.graphicelement import SetStaticElement, SetAnimatedElement
-from whitecrow.camera import Camera, Scrolling
-from whitecrow.core import ELEMENT_TYPES, SOUND_TYPES
-from whitecrow.animation import SpriteSheet
-from whitecrow.cordinates import Cordinates
-from whitecrow.moves import MovementManager
-from whitecrow.player import Player
-from whitecrow.sounds import (
+import corax.context as wctx
+from corax.pygameutils import load_image
+from corax.euclide import Rect
+from corax.graphicelement import SetStaticElement, SetAnimatedElement
+from corax.camera import Camera, Scrolling
+from corax.core import ELEMENT_TYPES, SOUND_TYPES
+from corax.animation import SpriteSheet
+from corax.cordinates import Cordinates
+from corax.moves import MovementManager
+from corax.player import Player
+from corax.sounds import (
     Ambiance, SfxSoundCollection, SoundShooter, SfxSound)
-from whitecrow.particles import (
+from corax.particles import (
     ParticlesSystem, Spot, DirectionBehavior, build_emitter)
 
 

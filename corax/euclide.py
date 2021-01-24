@@ -1,5 +1,5 @@
 import math
-from whitecrow.mathutils import normalize, linear_ratio
+from corax.mathutils import normalize, linear_ratio
 
 
 def angle_to_vector(angle):

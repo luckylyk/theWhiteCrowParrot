@@ -1,5 +1,5 @@
 import os
-import whitecrow.context as wctx
+import corax.context as wctx
 
 
 class CrackleScript:
@@ -52,8 +52,6 @@ def remove_commentaries(line):
     elif line.strip(" ").startswith("//"):
         return ""
     return line.split("//")[0]
-
-
 
 
 def extract_script_name(line):

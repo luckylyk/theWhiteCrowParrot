@@ -4,9 +4,9 @@ import os
 sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 import pygame
-from whitecrow.data import get_animation_data
-from whitecrow.iterators import frame_data_iterator
-from whitecrow.animation import AnimationSheet
+from corax.data import get_animation_data
+from corax.iterators import frame_data_iterator
+from corax.animation import AnimationSheet
 
 pygame.init()
 

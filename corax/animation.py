@@ -1,6 +1,6 @@
 
 import json
-from whitecrow.pygameutils import load_images, image_mirror
+from corax.pygameutils import load_images, image_mirror
 
 
 def build_triggers_list(datas):

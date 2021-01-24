@@ -8,8 +8,8 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 if not sys.argv:
     raise ValueError("No game data folder specified as first argument")
 
-import whitecrow.context as wctx
-from whitecrow.theatre import Theatre
+import corax.context as wctx
+from corax.theatre import Theatre
 
 game = wctx.initialize(sys.argv[1])
 
@@ -19,7 +19,7 @@ pygame.mixer.init()
 
 screen = pygame.display.set_mode(
     wctx.RESOLUTION,
-    pygame.SCALED | pygame.FULLSCREEN)
+    pygame.SCALED)
 
 theatre = Theatre(game)
 pygame.display.set_caption(theatre.caption)

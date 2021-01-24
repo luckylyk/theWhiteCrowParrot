@@ -11,13 +11,12 @@ script go_to_tente_with_sword
         player whitecrow: play tidy_up_sword
         run go_to_tente
 
-    //fuck that bitch
+ // commentary test
 
-script go_to_tente_forced //check my dick
+script go_to_tente_forced // commentary test
     scene is forest_01
-    // it's ok
-        // still ok
-// I love you
+ // commentary test
+     // commentary test
     player whitecrow: movesheet is whitecrowparrot_exploration
     player whitecrow: animation is idle
     player whitecrow: hitbox foot in zone tente //try this

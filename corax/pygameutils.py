@@ -1,8 +1,8 @@
 
 import os
 import pygame
-import whitecrow.context as wctx
-from whitecrow.iterators import itertable
+import corax.context as wctx
+from corax.iterators import itertable
 
 
 def load_images(filename, block_size, key_color):

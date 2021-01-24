@@ -1,8 +1,8 @@
 
 import math
-import whitecrow.context as wctx
-from whitecrow.mathutils import clamp
-from whitecrow.euclide import Rect
+import corax.context as wctx
+from corax.mathutils import clamp
+from corax.euclide import Rect
 
 
 class Camera():

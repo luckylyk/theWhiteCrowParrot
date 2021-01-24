@@ -10,13 +10,13 @@ sys.path.append(MAIN_FOLDER)
 sys.path.append(SDK_FOLDER)
 
 # initialize project
-import whitecrow.context as wctx
+import corax.context as wctx
 GAMEDATAS_FOLDER = os.path.join(MAIN_FOLDER, "data")
 GAME_DATAS = wctx.initialize(GAMEDATAS_FOLDER)
 
 from PyQt5 import QtWidgets, QtCore, QtGui
-from whitecrow.core import ELEMENT_TYPES
-from whitecrow.cordinates import Cordinates
+from corax.core import ELEMENT_TYPES
+from corax.cordinates import Cordinates
 
 
 

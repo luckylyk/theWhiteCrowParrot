@@ -1,9 +1,9 @@
 import json
-from whitecrow.moves import filter_moves, filter_unholdable_moves, MovementManager
-from whitecrow.animation import SpriteSheet
-from whitecrow.cordinates import Cordinates
-from whitecrow.gamepad import InputBuffer
-from whitecrow.pygameutils import render_image
+from corax.moves import filter_moves, filter_unholdable_moves, MovementManager
+from corax.animation import SpriteSheet
+from corax.cordinates import Cordinates
+from corax.gamepad import InputBuffer
+from corax.pygameutils import render_image
 
 
 class Player():

@@ -1,10 +1,10 @@
 import json
 
 
-from whitecrow.animation import SpriteSheet
-from whitecrow.cordinates import Cordinates
-from whitecrow.pygameutils import load_image, render_image
-from whitecrow.moves import MovementManager
+from corax.animation import SpriteSheet
+from corax.cordinates import Cordinates
+from corax.pygameutils import load_image, render_image
+from corax.moves import MovementManager
 
 
 class SetStaticElement():

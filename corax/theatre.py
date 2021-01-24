@@ -2,9 +2,9 @@
 import os
 import json
 
-import whitecrow.context as wctx
-from whitecrow.scene import build_scene
-from whitecrow.gamepad import InputBuffer
+import corax.context as wctx
+from corax.scene import build_scene
+from corax.gamepad import InputBuffer
 
 
 def find_scene(datas, name, input_buffer):

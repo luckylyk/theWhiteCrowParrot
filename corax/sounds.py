@@ -1,9 +1,9 @@
 from itertools import cycle
 
-from whitecrow.pygameutils import load_sound
-from whitecrow.euclide import Rect
-from whitecrow.iterators import shuffle
-from whitecrow.core import LOOP_TYPES
+from corax.pygameutils import load_sound
+from corax.euclide import Rect
+from corax.iterators import shuffle
+from corax.core import LOOP_TYPES
 
 
 class Ambiance():

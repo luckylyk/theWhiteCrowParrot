@@ -2,9 +2,9 @@
 import json
 import os
 
-import whitecrow.context as wctx
-from whitecrow.core import EVENTS
-from whitecrow.animation import SpriteSheet
+import corax.context as wctx
+from corax.core import EVENTS
+from corax.animation import SpriteSheet
 
 
 def filter_moves(datas, input_buffer):
