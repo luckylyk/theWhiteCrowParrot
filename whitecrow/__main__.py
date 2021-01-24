@@ -8,23 +8,18 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 if not sys.argv:
     raise ValueError("No game data folder specified as first argument")
 
-from whitecrow import constants
-constants.populate(sys.argv[1])
-
-from whitecrow.prefs import PREFS
-from whitecrow.constants import GAME_FILE
+import whitecrow.context as wctx
 from whitecrow.theatre import Theatre
 
-
-with open(GAME_FILE) as f:
-    game = json.load(f)
-
+game = wctx.initialize(sys.argv[1])
 
 clock = pygame.time.Clock()
 pygame.joystick.init()
 pygame.mixer.init()
 
-screen = pygame.display.set_mode(PREFS["resolution"], pygame.SCALED | pygame.FULLSCREEN)
+screen = pygame.display.set_mode(
+    wctx.RESOLUTION,
+    pygame.SCALED | pygame.FULLSCREEN)
 
 theatre = Theatre(game)
 pygame.display.set_caption(theatre.caption)
@@ -50,7 +45,7 @@ while not done:
     theatre.scene.render(screen)
 
     theatre.scene.scrolling.next()
-    clock.tick(PREFS["fps"])
+    clock.tick(wctx.FPS)
 
     if "select" in player.input_buffer.pressed_delta() and changeable:
         changeable = False

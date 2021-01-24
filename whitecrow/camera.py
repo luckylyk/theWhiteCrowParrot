@@ -1,7 +1,7 @@
 
 import math
+import whitecrow.context as wctx
 from whitecrow.mathutils import clamp
-from whitecrow.prefs import PREFS
 from whitecrow.euclide import Rect
 
 
@@ -12,13 +12,13 @@ class Camera():
     @property
     def pixel_center(self):
         return [
-            self.pixel_position[0] + PREFS["resolution"][0] / 2,
-            self.pixel_position[1] + PREFS["resolution"][1] / 2]
+            self.pixel_position[0] + wctx.RESOLUTION[0] / 2,
+            self.pixel_position[1] + wctx.RESOLUTION[1] / 2]
 
     def set_center(self, pixel_position):
         self.pixel_position = [
-            pixel_position[0] - PREFS["resolution"][0] / 2,
-            pixel_position[1] - PREFS["resolution"][1] / 2]
+            pixel_position[0] - wctx.RESOLUTION[0] / 2,
+            pixel_position[1] - wctx.RESOLUTION[1] / 2]
 
     def relative_pixel_position(self, pixel_position, elevation=0):
         offset_x = math.ceil((pixel_position[0] - self.pixel_position[0]))
@@ -29,7 +29,7 @@ class Camera():
     def zone(self):
         return Rect.xywh(
             self.pixel_position[0], self.pixel_position[1],
-            PREFS["resolution"][0], PREFS["resolution"][1])
+            wctx.RESOLUTION[0], wctx.RESOLUTION[1])
 
 
 class Scrolling():
@@ -63,15 +63,15 @@ class Scrolling():
         tx = self.target.pixel_center[0] + target_offset
 
         # limit the target to the border of the scene defined by hard boundary
-        left = self.hard_boundary.left + (PREFS["resolution"][0] / 2)
-        right = self.hard_boundary.right - (PREFS["resolution"][0] / 2)
+        left = self.hard_boundary.left + (wctx.RESOLUTION[0] / 2)
+        right = self.hard_boundary.right - (wctx.RESOLUTION[0] / 2)
         tx = clamp(tx, left, right)
 
         # limit the target to the current soft boundary if there is
         for area in self.soft_boundaries:
             if area.contains(self.target.pixel_center):
-                aleft = area.left + (PREFS["resolution"][0] / 2)
-                aright = area.right - (PREFS["resolution"][0] / 2)
+                aleft = area.left + (wctx.RESOLUTION[0] / 2)
+                aright = area.right - (wctx.RESOLUTION[0] / 2)
                 tx = clamp(tx, aleft, aright)
                 break
 

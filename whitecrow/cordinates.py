@@ -1,4 +1,5 @@
-from whitecrow.prefs import RULES
+
+import whitecrow.context as wctx
 
 
 class Cordinates():
@@ -15,7 +16,7 @@ class Cordinates():
 
     @property
     def pixel_position(self):
-        block = RULES["block_size"]
+        block = wctx.BLOCK_SIZE
         x = (self.block_position[0] * block) + self.pixel_offset[0]
         y = (self.block_position[1] * block) + self.pixel_offset[1]
         return x, y

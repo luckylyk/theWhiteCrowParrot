@@ -2,7 +2,7 @@
 import json
 import os
 
-from whitecrow.constants import MOVE_FOLDER
+import whitecrow.context as wctx
 from whitecrow.core import EVENTS
 from whitecrow.animation import SpriteSheet
 
@@ -88,7 +88,7 @@ class MovementManager():
         elif event == EVENTS.FLIP:
             self.cordinates.mirror = not self.cordinates.mirror
         elif event == EVENTS.SWITCH_TO:
-            filename = os.path.join(MOVE_FOLDER, value)
+            filename = os.path.join(wctx.MOVE_FOLDER, value)
             self.spritesheet = SpriteSheet.from_filename(filename)
             with open(filename, 'r') as f:
                 self.datas = json.load(f)

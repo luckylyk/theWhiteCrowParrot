@@ -5,9 +5,9 @@ import math
 from functools import partial
 from itertools import cycle
 
+
 from whitecrow.mathutils import normalize, clamp, difference
 from whitecrow.core import PARTICLE_SHAPE_TYPES
-from whitecrow.prefs import PREFS
 from whitecrow.pygameutils import render_rect, render_ellipse
 from whitecrow.euclide import (
     Rect, angle_to_vector, vector_to_angle, points_to_vector, limit_angle)

@@ -1,12 +1,12 @@
 
 import os
 import pygame
+import whitecrow.context as wctx
 from whitecrow.iterators import itertable
-from whitecrow.constants import ANIMATION_FOLDER, SOUNDS_FOLDER
 
 
 def load_images(filename, block_size, key_color):
-    filename = os.path.join(ANIMATION_FOLDER, filename)
+    filename = os.path.join(wctx.ANIMATION_FOLDER, filename)
     sheet = pygame.image.load(filename).convert()
     width, height = block_size
     row = sheet.get_height() / height
@@ -36,7 +36,7 @@ def image_mirror(image, horizontal=True, vertical=False):
 
 
 def load_sound(filename):
-    filename = os.path.join(SOUNDS_FOLDER, filename)
+    filename = os.path.join(wctx.SOUNDS_FOLDER, filename)
     return pygame.mixer.Sound(filename)
 
 

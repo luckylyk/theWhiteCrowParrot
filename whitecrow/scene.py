@@ -2,12 +2,12 @@ import os
 import json
 from functools import partial
 
+import whitecrow.context as wctx
 from whitecrow.pygameutils import load_image
 from whitecrow.euclide import Rect
 from whitecrow.graphicelement import SetStaticElement, SetAnimatedElement
 from whitecrow.camera import Camera, Scrolling
-from whitecrow.core import ELEMENT_TYPES, COLORS, SOUND_TYPES
-from whitecrow.constants import SET_FOLDER, MOVE_FOLDER
+from whitecrow.core import ELEMENT_TYPES, SOUND_TYPES
 from whitecrow.animation import SpriteSheet
 from whitecrow.cordinates import Cordinates
 from whitecrow.moves import MovementManager
@@ -65,21 +65,21 @@ def check_first_layer(level_datas):
 
 def build_set_static_element(datas):
     return SetStaticElement.from_filename(
-        os.path.join(SET_FOLDER, datas["file"]),
+        os.path.join(wctx.SET_FOLDER, datas["file"]),
         pixel_position=datas["position"],
-        key_color=COLORS.GREEN,
+        key_color=wctx.KEY_COLOR,
         elevation=datas["elevation"])
 
 
 def build_set_animated_element(datas):
     return SetAnimatedElement.from_filename(
-        os.path.join(MOVE_FOLDER, datas["file"]),
+        os.path.join(wctx.MOVE_FOLDER, datas["file"]),
         pixel_position=datas["position"],
         elevation=datas["elevation"])
 
 
 def build_player(datas, grid_pixel_offset, input_buffer, sound_shooter):
-    data_path = os.path.join(MOVE_FOLDER, datas.get("movedatas_file"))
+    data_path = os.path.join(wctx.MOVE_FOLDER, datas.get("movedatas_file"))
     with open(data_path, "r") as f:
         move_datas = json.load(f)
     spritesheet = SpriteSheet.from_filename(data_path)

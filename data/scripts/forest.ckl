@@ -1,0 +1,25 @@
+
+
+
+
+script go_to_tente_with_sword
+    key UP is pressed
+    scene is forest_01
+    player whitecrow: movesheet is whitecrowparrot_sword.json
+    player whitecrow: animation is idle
+    player whitecrow: hitbox foot in zone tente
+        player whitecrow: play tidy_up_sword
+        run go_to_tente
+
+    //fuck that bitch
+
+script go_to_tente_forced //check my dick
+    scene is forest_01
+    // it's ok
+        // still ok
+// I love you
+    player whitecrow: movesheet is whitecrowparrot_exploration
+    player whitecrow: animation is idle
+    player whitecrow: hitbox foot in zone tente //try this
+        player whitecrow: reach (52, 35) by (walk, footsie)
+        player whitecrow: play through_door

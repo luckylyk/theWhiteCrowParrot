@@ -2,16 +2,15 @@
 import os
 import json
 
+import whitecrow.context as wctx
 from whitecrow.scene import build_scene
 from whitecrow.gamepad import InputBuffer
-from whitecrow.constants import SCENE_FOLDER
 
 
 def find_scene(datas, name, input_buffer):
-    print("NEW SCENE GENERATED", name)
     for scene in datas["scenes"]:
         if scene["name"] == name:
-            file_ = os.path.join(SCENE_FOLDER, scene["file"])
+            file_ = os.path.join(wctx.SCENE_FOLDER, scene["file"])
             with open(file_, "r") as f:
                 d = json.load(f)
             return build_scene(name, d, input_buffer)
@@ -28,9 +27,15 @@ class Theatre:
         next_true = False
         for scene in self.datas["scenes"]:
             if next_true:
-                self.scene = find_scene(self.datas, scene["name"], self.input_buffer)
+                self.scene = find_scene(
+                    self.datas,
+                    scene["name"],
+                    self.input_buffer)
                 return
             if scene["name"] == self.scene.name:
                 next_true = True
-        self.scene = find_scene(self.datas, self.datas["scenes"][0]["name"], self.input_buffer)
+        self.scene = find_scene(
+            self.datas,
+            self.datas["scenes"][0]["name"],
+            self.input_buffer)
 

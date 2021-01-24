@@ -1,13 +1,5 @@
 
 
-class COLORS():
-    RED = (255, 0, 0)
-    GREEN = (0, 255, 0)
-    BLUE = (0, 0, 255)
-    WHITE = (255, 255, 255)
-    BLACK = (0, 0, 0)
-
-
 class EVENTS():
     FLIP = "flip"
     BLOCK_OFFSET = "block_offset"
@@ -20,7 +12,6 @@ class ELEMENT_TYPES():
     SET_ANIMATED = "set_animated"
     LAYER = "layer"
     PARTICLES = "particles_system"
-
 
 class SOUND_TYPES():
     AMBIANCE = "ambiance"

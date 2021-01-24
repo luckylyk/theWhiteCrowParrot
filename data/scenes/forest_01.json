@@ -1,5 +1,5 @@
 {
-  "grid_pixel_offset" :[0, 10],
+  "grid_pixel_offset" :[0, 0],
   "boundary": [0, 0, 4640, 268],
   "soft_boundaries": [
       [0, 0, 1551, 268],
@@ -615,7 +615,7 @@
           "type": "player",
           "name": "whitecrow",
           "movedatas_file": "whitecrowparrot_sword.json",
-          "block_position":[9, 9]
+          "block_position":[9, 10]
       },
       {
           "type": "particles_system",
