@@ -1,16 +1,15 @@
 # the White Crow Parrot
 ###### author : Lionel Brouyère
 Open Source action adventure point and click game (in developpment for a while)
-
-![](https://raw.githubusercontent.com/luckylyk/pygame_game/master/screenshots/capture1.png)
-![](https://raw.githubusercontent.com/luckylyk/pygame_game/master/screenshots/capture2.png)
-![](https://raw.githubusercontent.com/luckylyk/pygame_game/master/screenshots/capture3.png)
+![](https://i.ibb.co/WBpXBsJ/Capture.png)
+![](https://i.ibb.co/sF8jD6z/Capture2.png)
+![](https://i.ibb.co/fDDpXGj/Capture3.png)
 
 ### Corax engine
 The Corax engine is a 2d adventure side scroller video game engine. It work with a strict cordinate system based on a grid. The sprites movements are locked on that grid. All the event systems, hitboxes system and animation data are following that grid. However the grid size can be set by project.
 - Currently built over PyGame2 framework
 - 2d Hand drawed animation oriented
-- Gameplay strictly locked on a grid, e.i. Prince of Persia
+- Gameplay strictly locked on a grid (e.i. Prince of Persia)
 
 ### Crackle script
 Game story scripting is using the engine langage: crackle.  Very basic langage which allow to script action under multiple condition:
@@ -24,3 +23,6 @@ script go_to_tente_with_sword // script definition
         player whitecrow: play tidy_up_sword // second indent are actions executed
         run go_to_tente // is all conditions are true
 ```
+
+### SDK
+Suite of UI and software scripts usefull to produce game datas
