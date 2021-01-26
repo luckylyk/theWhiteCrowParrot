@@ -8,17 +8,17 @@ sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 if not sys.argv:
     raise ValueError("No game data folder specified as first argument")
 
-import corax.context as wctx
+import corax.context as cctx
 from corax.theatre import Theatre
 
-game = wctx.initialize(sys.argv[1])
+game = cctx.initialize(sys.argv[1])
 
 clock = pygame.time.Clock()
 pygame.joystick.init()
 pygame.mixer.init()
 
 screen = pygame.display.set_mode(
-    wctx.RESOLUTION,
+    cctx.RESOLUTION,
     pygame.SCALED)
 
 theatre = Theatre(game)
@@ -37,7 +37,6 @@ while not done:
         if event.type == pygame.QUIT:
             done = True
 
-    screen.fill((100, 195, 255))
     for player in theatre.scene.players:
         player.update_inputs(joystick)
     for element in theatre.scene.evaluables:
@@ -45,7 +44,7 @@ while not done:
     theatre.scene.render(screen)
 
     theatre.scene.scrolling.next()
-    clock.tick(wctx.FPS)
+    clock.tick(cctx.FPS)
 
     if "select" in player.input_buffer.pressed_delta() and changeable:
         changeable = False

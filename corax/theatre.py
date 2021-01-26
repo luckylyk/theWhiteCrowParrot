@@ -2,7 +2,7 @@
 import os
 import json
 
-import corax.context as wctx
+import corax.context as cctx
 from corax.scene import build_scene
 from corax.gamepad import InputBuffer
 
@@ -10,7 +10,7 @@ from corax.gamepad import InputBuffer
 def find_scene(datas, name, input_buffer):
     for scene in datas["scenes"]:
         if scene["name"] == name:
-            file_ = os.path.join(wctx.SCENE_FOLDER, scene["file"])
+            file_ = os.path.join(cctx.SCENE_FOLDER, scene["file"])
             with open(file_, "r") as f:
                 d = json.load(f)
             return build_scene(name, d, input_buffer)

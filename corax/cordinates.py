@@ -1,5 +1,5 @@
 
-import corax.context as wctx
+import corax.context as cctx
 
 
 class Cordinates():
@@ -16,7 +16,7 @@ class Cordinates():
 
     @property
     def pixel_position(self):
-        block = wctx.BLOCK_SIZE
+        block = cctx.BLOCK_SIZE
         x = (self.block_position[0] * block) + self.pixel_offset[0]
         y = (self.block_position[1] * block) + self.pixel_offset[1]
         return x, y

@@ -1,5 +1,5 @@
 import os
-import corax.context as wctx
+import corax.context as cctx
 
 
 class CrackleScript:
@@ -16,7 +16,7 @@ class CrackleScript:
 def read_crackle_file(filepath):
     scripts = []
     indent_level = 0
-    with open(os.path.join(wctx.SCRIPT_FOLDER, filepath)) as f:
+    with open(os.path.join(cctx.SCRIPT_FOLDER, filepath)) as f:
         script = None
         for i, line in enumerate(f):
             line = remove_commentaries(line)

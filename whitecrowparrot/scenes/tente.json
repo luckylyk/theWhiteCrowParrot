@@ -1,6 +1,7 @@
 {
     "grid_pixel_offset" :[0, 0],
     "boundary": [0, 0, 800, 268],
+    "background_color": [0, 0, 0],
     "soft_boundaries": [],
     "scroll_target": "whitecrow",
     "target_offset": [75, 0],
@@ -86,7 +87,7 @@
             "type": "player",
             "name": "whitecrow",
             "movedatas_file": "whitecrowparrot_exploration.json",
-            "block_position":[16, 8]
+            "block_position":[20, 8]
         },
         {
             "type": "set_static",

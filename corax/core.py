@@ -17,6 +17,7 @@ class SOUND_TYPES():
     AMBIANCE = "ambiance"
     SFX_COLLECTION = "sfx_sound_collection"
     SFX = "sfx_sound"
+    MUSIC = "music"
 
 
 class LOOP_TYPES():

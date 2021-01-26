@@ -2,7 +2,7 @@ import os
 import json
 from functools import partial
 
-import corax.context as wctx
+import corax.context as cctx
 from corax.pygameutils import load_image
 from corax.euclide import Rect
 from corax.graphicelement import SetStaticElement, SetAnimatedElement
@@ -19,9 +19,16 @@ from corax.particles import (
 
 
 class Scene():
-    def __init__(self, name, camera=None, scrolling=None, sound_shooter=None):
+    def __init__(
+            self,
+            name,
+            background_color,
+            camera=None,
+            scrolling=None,
+            sound_shooter=None):
         self.name = name
         self.camera = camera
+        self.background_color = background_color
         self.scrolling = scrolling
         self.layers = []
         self.players = []
@@ -37,6 +44,7 @@ class Scene():
         self.layers.append(layer)
 
     def render(self, screen):
+        screen.fill(self.background_color)
         for layer in sorted(self.layers, key=lambda layer: layer.elevation):
             for element in layer.elements:
                 world_pos = element.pixel_position
@@ -65,21 +73,21 @@ def check_first_layer(level_datas):
 
 def build_set_static_element(datas):
     return SetStaticElement.from_filename(
-        os.path.join(wctx.SET_FOLDER, datas["file"]),
+        os.path.join(cctx.SET_FOLDER, datas["file"]),
         pixel_position=datas["position"],
-        key_color=wctx.KEY_COLOR,
+        key_color=cctx.KEY_COLOR,
         elevation=datas["elevation"])
 
 
 def build_set_animated_element(datas):
     return SetAnimatedElement.from_filename(
-        os.path.join(wctx.MOVE_FOLDER, datas["file"]),
+        os.path.join(cctx.MOVE_FOLDER, datas["file"]),
         pixel_position=datas["position"],
         elevation=datas["elevation"])
 
 
 def build_player(datas, grid_pixel_offset, input_buffer, sound_shooter):
-    data_path = os.path.join(wctx.MOVE_FOLDER, datas.get("movedatas_file"))
+    data_path = os.path.join(cctx.MOVE_FOLDER, datas.get("movedatas_file"))
     with open(data_path, "r") as f:
         move_datas = json.load(f)
     spritesheet = SpriteSheet.from_filename(data_path)
@@ -162,6 +170,7 @@ def build_scene(name, level_datas, input_buffer):
     sound_shooter = SoundShooter()
     scene = Scene(
         name=name,
+        background_color=level_datas["background_color"],
         camera=camera,
         scrolling=scrolling,
         sound_shooter=sound_shooter)
@@ -192,8 +201,9 @@ def build_scene(name, level_datas, input_buffer):
             scene.evaluables.append(particles)
             layer.append(particles)
 
+    ambiances = (SOUND_TYPES.AMBIANCE, SOUND_TYPES.MUSIC)
     for sound_datas in level_datas["sounds"]:
-        if sound_datas.get("type") == SOUND_TYPES.AMBIANCE:
+        if sound_datas.get("type") in ambiances:
             ambiance = build_ambiance(sound_datas)
             element = find_element(scene, sound_datas["listener"])
             ambiance.listener = element.cordinates

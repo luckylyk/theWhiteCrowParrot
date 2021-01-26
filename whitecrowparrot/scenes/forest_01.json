@@ -1,6 +1,7 @@
 {
   "grid_pixel_offset" :[0, 0],
   "boundary": [0, 0, 4640, 268],
+  "background_color": [100, 195, 255],
   "soft_boundaries": [
       [0, 0, 1551, 268],
       [1551, 0, 3000, 268],
@@ -12,7 +13,7 @@
           "type": "ambiance",
           "file": "ambiances/nature1.ogg",
           "listener": "whitecrow",
-          "zone": [-150, -150, 1580, 600],
+          "zone": [-150, -150, 1580, 420],
           "falloff": 150
       },
       {
@@ -20,11 +21,11 @@
           "file": "ambiances/forest1.ogg",
           "channel": 5,
           "listener": "whitecrow",
-          "zone": [1430, -150, 4000, 600],
+          "zone": [1430, -150, 4000, 420],
           "falloff": 150
       },
       {
-          "type": "ambiance",
+          "type": "music",
           "file": "musics/saqueboute.ogg",
           "channel": 5,
           "listener": "whitecrow",
@@ -45,7 +46,7 @@
           "name": "grass_step",
           "trigger": "step_whitecrow",
           "emitter": "whitecrow",
-          "zone": [-150, -150, 1580, 600],
+          "zone": [-150, -150, 1580, 420],
           "falloff": 150
       },
       {
@@ -54,7 +55,7 @@
           "name": "sword_whoosh",
           "trigger": "whoosh_whitecrow",
           "emitter": "whitecrow",
-          "zone": [-150, -150, 1580, 600],
+          "zone": [-150, -150, 1580, 420],
           "falloff": 150
       },
       {
@@ -63,7 +64,7 @@
           "name": "sword_whish",
           "trigger": "whish_whitecrow",
           "emitter": "whitecrow",
-          "zone": [-150, -150, 1580, 600],
+          "zone": [-150, -150, 1580, 420],
           "falloff": 150
       },
       {
@@ -72,7 +73,7 @@
           "name": "swordin",
           "trigger": "swordin_whitecrow",
           "emitter": "whitecrow",
-          "zone": [-150, -150, 1580, 600],
+          "zone": [-150, -150, 1580, 420],
           "falloff": 150
       }
   ],
