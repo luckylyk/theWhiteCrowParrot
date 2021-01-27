@@ -5,7 +5,6 @@ import json
 
 HERE = os.path.dirname(os.path.realpath(__file__))
 MAIN_FOLDER = os.path.join(HERE, "..", "..")
-ICON_FOLDER = os.path.join(HERE, "icons")
 SDK_FOLDER = os.path.join(HERE, "..")
 sys.path.append(MAIN_FOLDER)
 sys.path.append(SDK_FOLDER)
@@ -19,83 +18,20 @@ from PyQt5 import QtWidgets, QtCore, QtGui
 from corax.core import ELEMENT_TYPES, SOUND_TYPES
 from corax.cordinates import Cordinates
 
-
-GRAPHIC_TYPES = ELEMENT_TYPES.SET_ANIMATED, ELEMENT_TYPES.SET_STATIC, ELEMENT_TYPES.PLAYER
-SET_TYPES = ELEMENT_TYPES.SET_ANIMATED, ELEMENT_TYPES.SET_STATIC
-KEY_ORDER = "name", "type", "file", "position"
-icons = {}
-
-
-def get_icon(filename):
-    if icons.get(filename) is None:
-        icons[filename] = QtGui.QIcon(os.path.join(ICON_FOLDER, filename))
-    return icons[filename]
+from scene_editor.tree import create_scene_outliner_tree
+from scene_editor.datas import SET_TYPES, GRAPHIC_TYPES, data_to_plain_text
+from scene_editor.qtutils import get_element_image, ICON_FOLDER
+from scene_editor.geometry import grow_rect, get_element_cordinate
+from scene_editor.paint import (
+    PaintContext, render_background, render_grid, render_sound)
 
 
-def sort_keys(elements):
-    copy = []
-    for key in KEY_ORDER:
-        if key in elements:
-            copy.append(key)
-            elements.remove(key)
-    return copy + sorted(elements)
+class OutlinerView(QtWidgets.QTreeView):
 
-
-def data_to_plain_text(data, indent=0):
-    keys = sort_keys(list(map(str, data.keys())))
-    lines = []
-    for key in keys:
-        value = data[key]
-        if isinstance(value, str):
-            value = f"\"{value}\""
-        if isinstance(value, dict):
-            value = data_to_plain_text(value, indent=indent+2)
-        lines.append(f"    \"{key}\": {value}".replace("'", '"'))
-    spacer = "    " * indent
-    return f"{{\n{spacer}" + f",\n{spacer}".join(lines) + f"\n{spacer}}}"
-
-
-class PaintContext():
-    def __init__(self, scene_datas):
-        self.zoom = 1.5
-        self._extra_zone = 200
-        self.grid_color = "grey"
-        self.grid_alpha = .2
-        self.grid_border_color = "black"
-        self.sound_zone_color = "blue"
-        self.sound_fade_off = "red"
-        self.background_color = "grey"
-        self.level_background_color = scene_datas["background_color"]
-
-    def relatives(self, value):
-        return value * self.zoom
-
-    def offset_rect(self, rect):
-        rect.setLeft(rect.left() + self.extra_zone)
-        rect.setTop(rect.top() + self.extra_zone)
-        rect.setRight(rect.right() + self.extra_zone)
-        rect.setBottom(rect.bottom() + self.extra_zone)
-
-    @property
-    def extra_zone(self):
-        return self._extra_zone * self.zoom
-
-    @extra_zone.setter
-    def extra_zone(self, value):
-        self._extra_zone = value
-
-    def offset(self, x, y):
-        x += self.extra_zone
-        y += self.extra_zone
-        return x, y
-
-    def zoomin(self):
-        self.zoom += self.zoom / 10
-        self.zoom = min(self.zoom, 5)
-
-    def zoomout(self):
-        self.zoom -= self.zoom / 10
-        self.zoom = max(self.zoom, .1)
+    def __init__(self, parent=None):
+        super().__init__(parent=parent)
+        self.setAlternatingRowColors(True)
+        self.setHeaderHidden(True)
 
 
 class OutlinerTreeModel(QtCore.QAbstractItemModel):
@@ -170,69 +106,6 @@ class OutlinerTreeModel(QtCore.QAbstractItemModel):
     #     return success
 
 
-class TreeNode():
-    def __init__(self, name, icon, data=None, parent=None):
-        self.name = name
-        self.icon = icon
-        self._parent = parent
-        self.children = []
-        self.data = data
-        if parent is not None:
-            self._parent.children.append(self)
-
-    def childCount(self):
-        return len(self.children)
-
-    def parent(self):
-        return self._parent
-
-    def child(self, row):
-        return self.children[row]
-
-    def row(self):
-        if self._parent is not None:
-            return self._parent.children.index(self)
-
-
-def create_scene_outliner_tree(scene_datas):
-    root = TreeNode("scene", QtGui.QIcon())
-    sounds = TreeNode("audios", get_icon("sound.png"), parent=root)
-
-    for sound in scene_datas["sounds"]:
-        if sound["type"] == SOUND_TYPES.SFX:
-            icon = get_icon("sound.png")
-        elif sound["type"] in SOUND_TYPES.SFX_COLLECTION:
-            icon = get_icon("sound_collection.png")
-        elif sound["type"] == SOUND_TYPES.MUSIC:
-            icon = get_icon("music.png")
-        else:
-            icon = get_icon("particles.png")
-        name = sound.get("name", "no name")
-        TreeNode(name, icon, data=sound, parent=sounds)
-
-    TreeNode("zones", get_icon("zone.png"), parent=root)
-
-    renderable = TreeNode("renderable", get_icon("renderable.png"), parent=root)
-    layer = None
-    for element in scene_datas["elements"]:
-        name = element.get("name", "no name")
-        if element["type"] == ELEMENT_TYPES.LAYER:
-            layer = TreeNode(name, get_icon("layer.png"), parent=renderable)
-            continue
-        elif element["type"] == ELEMENT_TYPES.PLAYER:
-            icon = get_icon("player.png")
-        elif element["type"] in SET_TYPES:
-            icon = get_icon("set.png")
-        elif element["type"] in ELEMENT_TYPES.PARTICLES:
-            icon = get_icon("particles.png")
-        else:
-            icon = QtGui.QIcon()
-
-        TreeNode(name, icon, data=element, parent=layer)
-
-    return root
-
-
 class SceneWidget(QtWidgets.QWidget):
     def __init__(
             self,
@@ -240,6 +113,7 @@ class SceneWidget(QtWidgets.QWidget):
             block_size=None,
             paintcontext=None,
             parent=None):
+
         super().__init__(parent=parent)
         self.paintcontext = paintcontext or PaintContext(scene_datas)
         self.block_size = block_size
@@ -284,16 +158,6 @@ class SceneWidget(QtWidgets.QWidget):
             render_sound(painter, sound, self.paintcontext)
 
 
-def grow_rect(rect, value):
-    if not rect:
-        return None
-    return QtCore.QRectF(
-        rect.left() - value,
-        rect.top() - value,
-        rect.width() + (value * 2),
-        rect.height() + (value * 2))
-
-
 def build_scene(scene_datas):
     layers = []
     elements = []
@@ -320,49 +184,6 @@ def build_scene(scene_datas):
     return layers, elements
 
 
-def get_element_cordinate(element, grid_offset=None):
-    if element["type"] in SET_TYPES:
-        return Cordinates(
-            mirror=False,
-            block_position=(0, 0),
-            pixel_offset=element["position"])
-    if element["type"] == ELEMENT_TYPES.PLAYER:
-        return Cordinates(
-            mirror=False,
-            block_position=element["block_position"],
-            pixel_offset=grid_offset)
-
-
-def get_element_image(element):
-    format_ = QtGui.QImage.Format_ARGB32_Premultiplied
-    if element["type"] in SET_TYPES:
-        path = os.path.join(cctx.SET_FOLDER, element["file"])
-        image = QtGui.QImage(path)
-        image2 = QtGui.QImage(image.size(), format_)
-        w, h = image.size().width(), image.size().height()
-
-    elif element["type"] == ELEMENT_TYPES.PLAYER:
-        filepath = os.path.join(cctx.MOVE_FOLDER, element["movedatas_file"])
-        with open(filepath, "r") as f:
-            movedatas = json.load(f)
-        img_path = os.path.join(cctx.ANIMATION_FOLDER, movedatas["filename"])
-        w, h = movedatas["block_size"]
-        image = QtGui.QImage(img_path)
-        image2 = QtGui.QImage(QtCore.QSize(w, h), format_)
-    # horrible fucking awfull scandalous ressource killing loop used
-    # because that basic "setAlphaChannel" method isn't available
-    # in PyQt5 ): ): ): ): ): ): ):
-    color = QtGui.QColor(255, 0, 0, 0)
-    mask = image.createMaskFromColor(QtGui.QColor(*cctx.KEY_COLOR).rgb())
-    for i in range(w):
-        for j in range(h):
-            if mask.pixelColor(i, j) == QtGui.QColor(255, 255, 255, 255):
-                image2.setPixelColor(i, j, color)
-                continue
-            image2.setPixelColor(i, j, image.pixelColor(i, j))
-    return image2
-
-
 class GraphicElement():
     def __init__(self, image, cordinates, element_type, name):
         self.image = image
@@ -380,110 +201,47 @@ class GraphicElement():
         painter.drawImage(rect, self.image)
 
 
-def render_background(painter, rect, paintercontext):
-    pen = QtGui.QPen(QtGui.QColor(0, 0, 0, 0))
-    brush = QtGui.QBrush(QtGui.QColor(paintercontext.background_color))
-    painter.setPen(pen)
-    painter.setBrush(brush)
-    painter.drawRect(rect)
-    brush = QtGui.QBrush(QtGui.QColor(*paintercontext.level_background_color))
-    painter.setBrush(brush)
-    painter.drawRect(grow_rect(rect, -paintercontext.extra_zone))
-
-    brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 0))
-    painter.setBrush(brush)
+if __name__ == "__main__":
+    for scene in GAME_DATAS["scenes"]:
+        if scene["name"] == GAME_DATAS["start_scene"]:
+            filename = scene["file"]
+    scene_filepath = os.path.join(cctx.SCENE_FOLDER, filename)
+    with open(scene_filepath, "r") as f:
+        scene_datas = json.load(f)
 
 
-def render_sound(painter, sound, paintcontext=None):
-    if sound["zone"] is None:
-        return
-    rect = QtCore.QRectF()
-    rect.setLeft(paintcontext.relatives(sound["zone"][0]))
-    rect.setTop(paintcontext.relatives(sound["zone"][1]))
-    rect.setRight(paintcontext.relatives(sound["zone"][2]))
-    rect.setBottom(paintcontext.relatives(sound["zone"][3]))
-    paintcontext.offset_rect(rect)
+    app = QtWidgets.QApplication([])
+    # scenewidget = SceneWidget(scene_datas, cctx.BLOCK_SIZE)
+    # window = QtWidgets.QScrollArea()
+    # window.setWidget(scenewidget)
+    # window.show()
 
-    brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 0))
-    pen = QtGui.QPen(QtGui.QColor(paintcontext.sound_zone_color))
-    painter.setPen(pen)
-    painter.setBrush(brush)
-    painter.drawRect(rect)
+    tree = create_scene_outliner_tree(scene_datas)
+    model = OutlinerTreeModel(tree)
+    view = OutlinerView()
+    view.setModel(model)
 
-    falloff = paintcontext.relatives(sound["falloff"])
-    rect = grow_rect(rect, -falloff)
+    print([e.name for e in tree.flat()])
 
-    pen = QtGui.QPen(QtGui.QColor(paintcontext.sound_fade_off))
-    pen.setStyle(QtCore.Qt.DashLine)
-    painter.setPen(pen)
-    painter.setBrush(brush)
+    def print_selection_data(selection, _):
+        indexes = selection.indexes()
+        data = model.getNode(indexes[0]).data
+        if data is not None:
+            print(data_to_plain_text(data))
 
-    painter.drawRect(rect)
-
-    image = QtGui.QImage(os.path.join(ICON_FOLDER, "sound.png"))
-    l = rect.center().x() - (image.size().width() / 2)
-    t = rect.center().y() - (image.size().height() / 2)
-    point = QtCore.QPointF(l, t)
-    painter.drawImage(point, image)
+    selection_model = view.selectionModel()
+    selection_model.selectionChanged.connect(print_selection_data)
 
 
-def render_grid(painter, rect, block_size, offset=None, paintcontext=None):
-    rect = grow_rect(rect, -paintcontext.extra_zone)
-    block_size = paintcontext.relatives(block_size)
-    offset = offset or (0, 0)
-    l = rect.left() + paintcontext.relatives(offset[0])
-    t = rect.top() + paintcontext.relatives(offset[1])
-    r = rect.right()
-    b = rect.bottom()
-    grid_color = QtGui.QColor(paintcontext.grid_color)
-    grid_color.setAlphaF(paintcontext.grid_alpha)
-    pen = QtGui.QPen(grid_color)
-    painter.setPen(pen)
-    x, y = l, t
-    while x < r:
-        painter.drawLine(x, t, x, b)
-        x += block_size
-    while y < b:
-        painter.drawLine(l, y, r, y)
-        y += block_size
+    view.show()
 
 
-    pen = QtGui.QPen(QtGui.QColor(paintcontext.grid_border_color))
-    pen.setWidth(2)
-    painter.setPen(pen)
-    painter.drawRect(rect)
+    stylesheetpath = os.path.join(os.path.dirname(__file__), "..", "flatdark.css")
+    stylesheet = ""
+    with open(stylesheetpath, "r") as f:
+        for line in f:
+            stylesheet += line
 
+    app.setStyleSheet(stylesheet)
 
-for scene in GAME_DATAS["scenes"]:
-    if scene["name"] == GAME_DATAS["start_scene"]:
-        filename = scene["file"]
-scene_filepath = os.path.join(cctx.SCENE_FOLDER, filename)
-with open(scene_filepath, "r") as f:
-    scene_datas = json.load(f)
-
-
-app = QtWidgets.QApplication([])
-# scenewidget = SceneWidget(scene_datas, cctx.BLOCK_SIZE)
-# window = QtWidgets.QScrollArea()
-# window.setWidget(scenewidget)
-# window.show()
-
-tree = create_scene_outliner_tree(scene_datas)
-model = OutlinerTreeModel(tree)
-view = QtWidgets.QTreeView()
-
-view.setModel(model)
-
-def print_selection_data(selection, _):
-    indexes = selection.indexes()
-    data = model.getNode(indexes[0]).data
-    if data is not None:
-        print(data_to_plain_text(data))
-
-selection_model = view.selectionModel()
-selection_model.selectionChanged.connect(print_selection_data)
-
-
-view.show()
-
-app.exec_()
+    app.exec_()
