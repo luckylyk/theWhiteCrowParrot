@@ -6,7 +6,7 @@ from PyQt5 import QtGui, QtCore
 
 from corax.core import SOUND_TYPES, ELEMENT_TYPES
 import corax.context as cctx
-from scene_editor.datas import SET_TYPES, GRAPHIC_TYPES
+from scene_editor.datas import SET_TYPES, GRAPHIC_TYPES, SOUNDS_TYPES
 
 
 HERE = os.path.dirname(os.path.realpath(__file__))
@@ -27,6 +27,7 @@ ICON_MATCH = {
 
 
 icons = {}
+images = {}
 
 
 def get_icon(filename):
@@ -35,7 +36,27 @@ def get_icon(filename):
     return icons[filename]
 
 
-def get_element_image(element):
+def get_image(element):
+    if element is None:
+        return
+    filename = None
+    if element["type"] in SOUNDS_TYPES:
+        filename = os.path.join(ICON_FOLDER, ICON_MATCH[element["type"]])
+        if images.get(filename) is None:
+            images[filename] = QtGui.QImage(filename)
+    else:
+        if element["type"] in SET_TYPES:
+            filename = os.path.join(cctx.SET_FOLDER, element["file"])
+        elif element["type"] == ELEMENT_TYPES.PLAYER:
+            filename = os.path.join(cctx.MOVE_FOLDER, element["movedatas_file"])
+        if filename is None:
+            return
+        if images.get(filename) is None:
+            images[filename] = create_image(element)
+    return images[filename]
+
+
+def create_image(element):
     format_ = QtGui.QImage.Format_ARGB32_Premultiplied
     if element["type"] in SET_TYPES:
         path = os.path.join(cctx.SET_FOLDER, element["file"])

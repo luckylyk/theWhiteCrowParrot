@@ -1,5 +1,6 @@
 {
   "name": "forest_1",
+  "type": "scene",
   "grid_pixel_offset" :[0, 0],
   "boundary": [0, 0, 4640, 268],
   "background_color": [100, 195, 255],

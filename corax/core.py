@@ -13,11 +13,15 @@ class ELEMENT_TYPES():
     LAYER = "layer"
     PARTICLES = "particles_system"
 
+
 class SOUND_TYPES():
     AMBIANCE = "ambiance"
     SFX_COLLECTION = "sfx_sound_collection"
     SFX = "sfx_sound"
     MUSIC = "music"
+
+    def __iter__(self):
+        yield from [self.AMBIANCE, self.SFX_COLLECTION, self.SFX, self.MUSIC]
 
 
 class LOOP_TYPES():

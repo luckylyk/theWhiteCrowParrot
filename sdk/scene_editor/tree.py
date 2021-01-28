@@ -1,5 +1,7 @@
 from scene_editor.datas import extract_scene_properties
-from scene_editor.qtutils import get_icon, ICON_MATCH
+from scene_editor.qtutils import get_icon, ICON_MATCH, get_image
+from scene_editor.paint import get_renderer
+
 from corax.core import ELEMENT_TYPES
 
 
@@ -9,9 +11,24 @@ class CNode():
         self.icon = icon
         self._parent = parent
         self.children = []
-        self.data = data
+        self._data = data
+        self.renderer = get_renderer(data)
         if parent is not None:
             self._parent.children.append(self)
+
+    @property
+    def data(self):
+        return self._data
+
+    @data.setter
+    def data(self, data):
+        self._data = data
+        self.renderer = get_renderer(data)
+
+    @property
+    def type(self):
+        if self.data is not None:
+            return self.data["type"]
 
     @property
     def name(self):
@@ -39,6 +56,11 @@ class CNode():
         for child in self.children:
             childs.extend(child.flat())
         return childs
+
+    def render(self, painter, paintcontext):
+        if self.renderer is None:
+            return
+        self.renderer(painter=painter, paintcontext=paintcontext)
 
 
 def create_scene_outliner_tree(scene_datas):
@@ -68,9 +90,9 @@ def create_scene_outliner_tree(scene_datas):
 
 
 def list_sounds(tree):
-    return tree.children[0].children[0]
+    return tree.children[0].children[0].children
 
 
 def list_layers(tree):
-    return tree.children[0].children[-1]
+    return tree.children[0].children[-1].children
 

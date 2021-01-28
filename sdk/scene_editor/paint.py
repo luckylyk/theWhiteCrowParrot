@@ -1,7 +1,12 @@
 import os
+from functools import partial
+
 from PyQt5 import QtGui, QtCore
-from scene_editor.qtutils import ICON_FOLDER
-from scene_editor.geometry import grow_rect
+from corax.core import ELEMENT_TYPES
+
+from scene_editor.qtutils import ICON_FOLDER, get_image
+from scene_editor.geometry import grow_rect, get_position
+from scene_editor.datas import GRAPHIC_TYPES, SOUNDS_TYPES
 
 
 class PaintContext():
@@ -47,30 +52,61 @@ class PaintContext():
         self.zoom = max(self.zoom, .1)
 
 
+def get_renderer(element):
+    if element is None:
+        return
+    elif element["type"] == "scene":
+        return partial(render_background, scene_datas=element)
+    elif element["type"] in SOUNDS_TYPES:
+        image = get_image(element)
+        return partial(render_sound, sound_datas=element, image=image)
+    elif element["type"] in GRAPHIC_TYPES:
+        image = get_image(element)
+        x, y = get_position(element)
+        return partial(render_image, image=image, x=x, y=y)
 
 
-def render_background(painter, rect, paintercontext):
+def render_background(painter, scene_datas, paintcontext):
+
+    boundary = scene_datas["boundary"]
+    x = paintcontext.relatives(boundary[0])
+    y = paintcontext.relatives(boundary[1])
+    w = paintcontext.relatives(boundary[0] + boundary[2])
+    h = paintcontext.relatives(boundary[1] + boundary[3])
+    rect = QtCore.QRectF(x, y, w, h)
+    paintcontext.offset_rect(rect)
+
     pen = QtGui.QPen(QtGui.QColor(0, 0, 0, 0))
-    brush = QtGui.QBrush(QtGui.QColor(paintercontext.background_color))
+    brush = QtGui.QBrush(QtGui.QColor(paintcontext.background_color))
     painter.setPen(pen)
     painter.setBrush(brush)
-    painter.drawRect(rect)
-    brush = QtGui.QBrush(QtGui.QColor(*paintercontext.level_background_color))
+    painter.drawRect(grow_rect(rect, paintcontext.extra_zone))
+    brush = QtGui.QBrush(QtGui.QColor(*paintcontext.level_background_color))
     painter.setBrush(brush)
-    painter.drawRect(grow_rect(rect, -paintercontext.extra_zone))
+    painter.drawRect(rect)
 
     brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 0))
     painter.setBrush(brush)
 
 
-def render_sound(painter, sound, paintcontext=None):
-    if sound["zone"] is None:
+def render_image(painter, image, x, y, paintcontext):
+    x = paintcontext.relatives(x)
+    y = paintcontext.relatives(y)
+    w = paintcontext.relatives(image.size().width())
+    h = paintcontext.relatives(image.size().height())
+    rect = QtCore.QRectF(x, y, w, h)
+    paintcontext.offset_rect(rect)
+    painter.drawImage(rect, image)
+
+
+def render_sound(painter, sound_datas, image, paintcontext):
+    if sound_datas["zone"] is None:
         return
     rect = QtCore.QRectF()
-    rect.setLeft(paintcontext.relatives(sound["zone"][0]))
-    rect.setTop(paintcontext.relatives(sound["zone"][1]))
-    rect.setRight(paintcontext.relatives(sound["zone"][2]))
-    rect.setBottom(paintcontext.relatives(sound["zone"][3]))
+    rect.setLeft(paintcontext.relatives(sound_datas["zone"][0]))
+    rect.setTop(paintcontext.relatives(sound_datas["zone"][1]))
+    rect.setRight(paintcontext.relatives(sound_datas["zone"][2]))
+    rect.setBottom(paintcontext.relatives(sound_datas["zone"][3]))
     paintcontext.offset_rect(rect)
 
     brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 0))
@@ -79,7 +115,7 @@ def render_sound(painter, sound, paintcontext=None):
     painter.setBrush(brush)
     painter.drawRect(rect)
 
-    falloff = paintcontext.relatives(sound["falloff"])
+    falloff = paintcontext.relatives(sound_datas["falloff"])
     rect = grow_rect(rect, -falloff)
 
     pen = QtGui.QPen(QtGui.QColor(paintcontext.sound_fade_off))
@@ -89,7 +125,6 @@ def render_sound(painter, sound, paintcontext=None):
 
     painter.drawRect(rect)
 
-    image = QtGui.QImage(os.path.join(ICON_FOLDER, "sound.png"))
     l = rect.center().x() - (image.size().width() / 2)
     t = rect.center().y() - (image.size().height() / 2)
     point = QtCore.QPointF(l, t)

@@ -1,10 +1,16 @@
-from corax.core import ELEMENT_TYPES
+from corax.core import ELEMENT_TYPES, SOUND_TYPES
 
 
 KEY_ORDER = "name", "type", "file", "position"
 EXCLUDED_PROPERTIES = "sounds", "areas", "elements"
 GRAPHIC_TYPES = ELEMENT_TYPES.SET_ANIMATED, ELEMENT_TYPES.SET_STATIC, ELEMENT_TYPES.PLAYER
 SET_TYPES = ELEMENT_TYPES.SET_ANIMATED, ELEMENT_TYPES.SET_STATIC
+SOUNDS_TYPES = (
+    SOUND_TYPES.SFX_COLLECTION,
+    SOUND_TYPES.SFX,
+    SOUND_TYPES.MUSIC,
+    SOUND_TYPES.AMBIANCE
+)
 
 
 def extract_scene_properties(scene_datas):

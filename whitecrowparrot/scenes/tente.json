@@ -1,5 +1,7 @@
 {
     "grid_pixel_offset" :[0, 0],
+    "name": "tente",
+    "type": "scene",
     "boundary": [0, 0, 800, 268],
     "background_color": [0, 0, 0],
     "soft_boundaries": [],
