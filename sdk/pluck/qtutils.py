@@ -4,9 +4,9 @@ import json
 
 from PyQt5 import QtGui, QtCore
 
-from corax.core import SOUND_TYPES, ELEMENT_TYPES
+from corax.core import SOUND_TYPES, ELEMENT_TYPES, ZONE_TYPES
 import corax.context as cctx
-from scene_editor.datas import SET_TYPES, GRAPHIC_TYPES, SOUNDS_TYPES
+from pluck.datas import SET_TYPES, GRAPHIC_TYPES, SOUNDS_TYPES, ZONES_TYPES
 
 
 HERE = os.path.dirname(os.path.realpath(__file__))
@@ -18,6 +18,8 @@ ICON_MATCH = {
     SOUND_TYPES.SFX: "sound.png",
     SOUND_TYPES.MUSIC: "music.png",
     SOUND_TYPES.AMBIANCE: "ambiance.png",
+    ZONE_TYPES.NO_GO: "no_go.png",
+    ZONE_TYPES.INTERACTION: "interaction.png",
     ELEMENT_TYPES.LAYER: "layer.png",
     ELEMENT_TYPES.PLAYER: "player.png",
     ELEMENT_TYPES.SET_STATIC: "set.png",
@@ -40,7 +42,7 @@ def get_image(element):
     if element is None:
         return
     filename = None
-    if element["type"] in SOUNDS_TYPES:
+    if element["type"] in SOUNDS_TYPES + ZONES_TYPES:
         filename = os.path.join(ICON_FOLDER, ICON_MATCH[element["type"]])
         if images.get(filename) is None:
             images[filename] = QtGui.QImage(filename)
@@ -53,6 +55,8 @@ def get_image(element):
             return
         if images.get(filename) is None:
             images[filename] = create_image(element)
+    if filename is None:
+        return None
     return images[filename]
 
 

@@ -2,7 +2,7 @@ from PyQt5 import QtCore
 from corax.core import ELEMENT_TYPES
 from corax.cordinates import Cordinates
 import corax.context as cctx
-from scene_editor.datas import SET_TYPES
+from pluck.datas import SET_TYPES
 
 
 def grow_rect(rect, value):
@@ -23,3 +23,9 @@ def get_position(element, grid_offset=None):
         x *= cctx.BLOCK_SIZE
         y *= cctx.BLOCK_SIZE
         return x, y
+
+
+def pixel_position(block_position):
+    x = block_position[0] * cctx.BLOCK_SIZE
+    y = block_position[1] * cctx.BLOCK_SIZE
+    return x, y

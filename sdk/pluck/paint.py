@@ -4,9 +4,9 @@ from functools import partial
 from PyQt5 import QtGui, QtCore
 from corax.core import ELEMENT_TYPES
 
-from scene_editor.qtutils import ICON_FOLDER, get_image
-from scene_editor.geometry import grow_rect, get_position
-from scene_editor.datas import GRAPHIC_TYPES, SOUNDS_TYPES
+from pluck.qtutils import ICON_FOLDER, get_image
+from pluck.geometry import grow_rect, get_position, pixel_position
+from pluck.datas import GRAPHIC_TYPES, SOUNDS_TYPES, ZONES_TYPES
 
 
 class PaintContext():
@@ -19,7 +19,9 @@ class PaintContext():
         self.sound_zone_color = "blue"
         self.sound_fade_off = "red"
         self.background_color = "grey"
-        self.level_background_color = scene_datas["background_color"]
+        self.zone_border_color = "white"
+        self.zone_background_color = "white"
+        self.zone_alpha = 0.2
 
     def relatives(self, value):
         return value * self.zoom
@@ -52,6 +54,31 @@ class PaintContext():
         self.zoom = max(self.zoom, .1)
 
 
+def render_zone(painter, zone_datas, image, paintcontext):
+    x, y = pixel_position(zone_datas["zone"][:2])
+    z, a = pixel_position(zone_datas["zone"][2:])
+    l = paintcontext.relatives(x)
+    t = paintcontext.relatives(y)
+    r = paintcontext.relatives(z)
+    b = paintcontext.relatives(a)
+    rect = QtCore.QRectF(l, t, r-l, b-t)
+    paintcontext.offset_rect(rect)
+
+    pen = QtGui.QPen(QtGui.QColor(paintcontext.zone_border_color))
+    pen.setWidth(3)
+    color = QtGui.QColor(paintcontext.zone_background_color)
+    color.setAlphaF(paintcontext.zone_alpha)
+    brush = QtGui.QBrush(color)
+    painter.setPen(pen)
+    painter.setBrush(brush)
+    painter.drawRect(rect)
+
+    l = rect.center().x() - (image.size().width() / 2)
+    t = rect.center().y() - (image.size().height() / 2)
+    point = QtCore.QPointF(l, t)
+    painter.drawImage(point, image)
+
+
 def get_renderer(element):
     if element is None:
         return
@@ -60,6 +87,9 @@ def get_renderer(element):
     elif element["type"] in SOUNDS_TYPES:
         image = get_image(element)
         return partial(render_sound, sound_datas=element, image=image)
+    elif element["type"] in ZONES_TYPES:
+        image = get_image(element)
+        return partial(render_zone, zone_datas=element, image=image)
     elif element["type"] in GRAPHIC_TYPES:
         image = get_image(element)
         x, y = get_position(element)
@@ -81,7 +111,7 @@ def render_background(painter, scene_datas, paintcontext):
     painter.setPen(pen)
     painter.setBrush(brush)
     painter.drawRect(grow_rect(rect, paintcontext.extra_zone))
-    brush = QtGui.QBrush(QtGui.QColor(*paintcontext.level_background_color))
+    brush = QtGui.QBrush(QtGui.QColor(*scene_datas["background_color"]))
     painter.setBrush(brush)
     painter.drawRect(rect)
 

@@ -1,5 +1,5 @@
 
-
+// this is a test script to describe how i would like to design that language
 
 
 script go_to_tente_with_sword
@@ -13,7 +13,7 @@ script go_to_tente_with_sword
 
  // commentary test
 
-script go_to_tente_forced // commentary test
+script go_to_tente // commentary test
     scene is forest_01
  // commentary test
      // commentary test

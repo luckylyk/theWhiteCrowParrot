@@ -1,7 +1,7 @@
 import os
 
 count = 0
-path = os.path.join(os.path.dirname(__file__), "..", "corax")
+path = os.path.join(os.path.dirname(__file__), "..", "sdk", "scene_editor")
 # path = r"D:\Works\Python\GitHub\ncachefactory\ncachefactory"
 # path = r"D:\Works\Python\GitHub\hotbox_designer\hotbox_designer"
 # path = r"D:\Works\Python\GitHub\hotbox_designer\hotbox_designer\designer"

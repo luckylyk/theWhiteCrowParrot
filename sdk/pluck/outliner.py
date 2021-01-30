@@ -31,13 +31,25 @@ class OutlinerTreeModel(QtCore.QAbstractItemModel):
             return node.name
         if role == QtCore.Qt.DecorationRole:
             return node.icon
+        if role == QtCore.Qt.CheckStateRole:
+            return QtCore.Qt.Checked if node.visible else QtCore.Qt.Unchecked
 
     def headerData(self, section, orientation, role):
         if role == QtCore.Qt.DisplayRole and section == 0:
             return "Scene"
 
     def flags(self, index):
-        return QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable
+        return (
+            QtCore.Qt.ItemIsEnabled | QtCore.Qt.ItemIsSelectable |
+            QtCore.Qt.ItemIsUserCheckable)
+
+    def setData(self, index, value, role):
+        node = self.getNode(index)
+        if role == QtCore.Qt.CheckStateRole:
+            node.visible = bool(value)
+            self.dataChanged.emit(index, index)
+            return True
+        return False
 
     def parent(self, index):
         node = self.getNode(index)

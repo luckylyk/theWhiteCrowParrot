@@ -10,6 +10,21 @@
       [3001, 0, 4640, 268]],
   "scroll_target": "whitecrow",
   "target_offset": [200, 0],
+  "zones": [
+        {
+            "type": "no_go",
+            "name": "left_limit",
+            "affected": ["whitecrow"],
+            "zone": [0, 24, 6, 27]
+        },
+        {
+            "type": "interaction",
+            "name": "go_to_tent",
+            "affected": ["whitecrow"],
+            "scripts": ["go_to_tente_with_sword", "go_to_tente"],
+            "zone": [277, 24, 285, 27]
+        }
+  ],
   "sounds": [
       {
           "type": "ambiance",
@@ -90,6 +105,7 @@
       },
       {
           "type": "set_static",
+          "name": "right_mountain",
           "file": "forest_01/right_mountain.png",
           "position": [
               3737,
@@ -99,18 +115,21 @@
       },
       {
           "type": "set_static",
+          "name": "l_montain",
           "file": "forest_01/l_montain.png",
           "position": [509, 116],
           "elevation": -0.42
       },
       {
           "type": "set_static",
+          "name": "r_montain",
           "file": "forest_01/r_montain.png",
           "position": [935, 101],
           "elevation": -0.4
       },
       {
           "type": "set_static",
+          "name": "mid_r_montain",
           "file": "forest_01/mid_r_montain.png",
           "position": [
               3342,
@@ -120,6 +139,7 @@
       },
       {
           "type": "set_static",
+          "name": "mid_montain",
           "file": "forest_01/mid_montain.png",
           "position": [
               2580,
@@ -129,12 +149,14 @@
       },
       {
           "type": "set_static",
+          "name": "bg_bush",
           "file": "forest_01/bg_bush.png",
           "position": [788, 199],
           "elevation": -0.35
       },
       {
           "type": "set_static",
+          "name": "mid_bg_bush",
           "file": "forest_01/mid_bg_bush.png",
           "position": [
               3391,
@@ -144,6 +166,7 @@
       },
       {
           "type": "set_static",
+          "name": "right_bg_bush",
           "file": "forest_01/right_bg_bush.png",
           "position": [
               3919,
@@ -153,6 +176,7 @@
       },
       {
           "type": "set_static",
+          "name": "mid_bg_trees_group_back",
           "file": "forest_01/mid_bg_trees_group_back.png",
           "position": [
               3043,
@@ -162,6 +186,7 @@
       },
       {
           "type": "set_static",
+          "name": "mid_bg_trees_group_front",
           "file": "forest_01/mid_bg_trees_group_front.png",
           "position": [
               2860,
@@ -171,33 +196,38 @@
       },
       {
           "type": "set_static",
+          "name": "bg_trees",
           "file": "forest_01/bg_trees.png",
           "position": [-150, 43],
           "elevation": -0.3
       },
       {
           "type": "set_static",
+          "name": "grass_01",
           "file": "forest_01/grass_01.png",
           "position": [881, 222],
           "elevation": -0.05
       },
       {
           "type": "set_static",
+          "name": "saul",
           "file": "forest_01/saul.png",
           "position": [1100, 0],
           "elevation": -0.15
       },
       {
           "type": "set_static",
+          "name": "right_grass",
           "file": "forest_01/right_grass.png",
           "position": [
               3986,
               219
           ],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
+          "name": "l_grass",
           "file": "forest_01/l_grass.png",
           "position": [0, 204],
           "elevation": -0.15
@@ -218,19 +248,19 @@
           "type": "set_static",
           "file": "forest_01/ground.png",
           "position": [246, 228],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
           "file": "forest_01/char.png",
           "position": [0, 148],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
           "file": "forest_01/sl_tree.png",
           "position": [0, 0],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
@@ -251,7 +281,7 @@
               4371,
               60
           ],
-          "elevation": 0
+          "elevation": 0.0
       },    {
         "type": "set_static",
         "file": "forest_01/right_bg_tree.png",
@@ -259,7 +289,7 @@
             4239,
             0
         ],
-        "elevation": 0
+        "elevation": 0.0
     },
     {
         "type": "set_static",
@@ -268,7 +298,7 @@
             4302,
             141
         ],
-        "elevation": 0
+        "elevation": 0.0
     },
       {
           "type": "set_static",
@@ -301,13 +331,13 @@
           "type": "set_static",
           "file": "forest_01/fl_tree_02.png",
           "position": [1681, 0],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
           "file": "forest_01/fl_ground.png",
           "position": [1357, 248],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
@@ -397,7 +427,7 @@
               2882,
               212
           ],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
@@ -451,7 +481,7 @@
               2884,
               0
           ],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
@@ -460,7 +490,7 @@
               3226,
               0
           ],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
@@ -469,7 +499,7 @@
               3913,
               0
           ],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
@@ -478,7 +508,7 @@
               3743,
               0
           ],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
@@ -487,7 +517,7 @@
               3585,
               0
           ],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
@@ -496,7 +526,7 @@
               3335,
               203
           ],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
@@ -505,7 +535,7 @@
               3067,
               187
           ],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
@@ -514,7 +544,7 @@
               3665,
               177
           ],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
@@ -523,7 +553,7 @@
               3768,
               0
           ],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
@@ -532,7 +562,7 @@
               3056,
               0
           ],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
@@ -541,7 +571,7 @@
               2957,
               0
           ],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
@@ -550,7 +580,7 @@
               2041,
               0
           ],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
@@ -559,7 +589,7 @@
               2607,
               0
           ],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
@@ -568,7 +598,7 @@
               3156,
               201
           ],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
@@ -577,12 +607,12 @@
               4245,
               0
           ],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "particles_system",
           "name": "forest_dust",
-          "elevation": 0,
+          "elevation": 0.0,
           "zone": [1580, 30, 2200, 300],
           "emission_zone": null,
           "emission_positions": null,
@@ -606,7 +636,7 @@
           "file": "smoke.json",
           "alpha": 0.25,
           "position": [1600, 152],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
@@ -615,7 +645,7 @@
               1100,
               100
           ],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "player",
@@ -626,7 +656,7 @@
       {
           "type": "particles_system",
           "name": "forest_dust_2",
-          "elevation": 0,
+          "elevation": 0.0,
           "zone": [1580, 150, 2200, 300],
           "emission_zone": null,
           "emission_positions": null,
@@ -648,7 +678,7 @@
       {
           "type": "particles_system",
           "name": "forest_dust_3",
-          "elevation": 0,
+          "elevation": 0.0,
           "zone": [1580, 200, 2200, 300],
           "emission_zone": null,
           "emission_positions": null,
@@ -674,12 +704,12 @@
               4602,
               70
           ],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "layer",
           "name": "foreground",
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
@@ -745,13 +775,13 @@
           "type": "set_static",
           "file": "forest_01/fg_small_tree.png",
           "position": [1063, 196],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
           "file": "forest_01/fg_small_grass.png",
           "position": [974, 236],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",
@@ -760,7 +790,7 @@
               3494,
               243
           ],
-          "elevation": 0
+          "elevation": 0.0
       },
       {
           "type": "set_static",

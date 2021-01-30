@@ -6,7 +6,7 @@ HERE = os.path.dirname(__file__)
 sys.path.append(os.path.realpath(os.path.join(HERE, "..")))
 
 import corax.context as cctx
-cctx.initialize(os.path.realpath(os.path.join(HERE, "..", "data")))
+cctx.initialize(os.path.realpath(os.path.join(HERE, "..", "whitecrowparrot")))
 
 from corax.crackle import read_crackle_file
 

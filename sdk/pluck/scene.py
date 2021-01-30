@@ -1,6 +1,6 @@
 from PyQt5 import QtWidgets, QtGui
-from scene_editor.tree import list_sounds, list_layers
-from scene_editor.paint import PaintContext, render_grid
+from pluck.tree import list_sounds, list_layers, list_zones
+from pluck.paint import PaintContext, render_grid
 
 
 class SceneWidget(QtWidgets.QWidget):
@@ -38,9 +38,13 @@ class SceneWidget(QtWidgets.QWidget):
     def paint(self, painter):
         scene_datas = self.tree.children[0].data
         self.tree.children[0].render(painter, self.paintcontext)
-        nodes = [n for l in list_layers(self.tree) for n in l.flat()]
+        nodes = [
+            n for l in list_layers(self.tree)
+            for n in l.flat() if l.has_to_be_rendered]
+
         for node in nodes:
-            node.render(painter, self.paintcontext)
+            if node.visible:
+                node.render(painter, self.paintcontext)
         render_grid(
             painter,
             self.rect(),
@@ -48,4 +52,9 @@ class SceneWidget(QtWidgets.QWidget):
             scene_datas["grid_pixel_offset"],
             self.paintcontext)
         for sound in list_sounds(self.tree):
-            sound.render(painter, self.paintcontext)
+            if sound.has_to_be_rendered:
+                sound.render(painter, self.paintcontext)
+
+        for zone in list_zones(self.tree):
+            if zone.has_to_be_rendered:
+                zone.render(painter, self.paintcontext)

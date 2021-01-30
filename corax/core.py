@@ -20,8 +20,10 @@ class SOUND_TYPES():
     SFX = "sfx_sound"
     MUSIC = "music"
 
-    def __iter__(self):
-        yield from [self.AMBIANCE, self.SFX_COLLECTION, self.SFX, self.MUSIC]
+
+class ZONE_TYPES():
+    NO_GO = "no_go"
+    INTERACTION = "interaction"
 
 
 class LOOP_TYPES():

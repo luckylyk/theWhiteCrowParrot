@@ -1,6 +1,7 @@
-from scene_editor.datas import extract_scene_properties
-from scene_editor.qtutils import get_icon, ICON_MATCH, get_image
-from scene_editor.paint import get_renderer
+from pluck.datas import extract_scene_properties, data_to_plain_text
+from pluck.qtutils import get_icon, ICON_MATCH, get_image
+from pluck.paint import get_renderer
+
 
 from corax.core import ELEMENT_TYPES
 
@@ -13,8 +14,15 @@ class CNode():
         self.children = []
         self._data = data
         self.renderer = get_renderer(data)
+        self.visible = True
         if parent is not None:
             self._parent.children.append(self)
+
+    @property
+    def has_to_be_rendered(self):
+        if self.visible is False:
+            return False
+        return all(p.visible for p in self.parents())
 
     @property
     def data(self):
@@ -29,6 +37,16 @@ class CNode():
     def type(self):
         if self.data is not None:
             return self.data["type"]
+
+    def parents(self):
+        parent = self.parent()
+        if parent is None:
+            return []
+        parents = [self.parent()]
+        while parent.parent() is not None:
+            parent = parent.parent()
+            parents.append(parent)
+        return parents
 
     @property
     def name(self):
@@ -73,7 +91,10 @@ def create_scene_outliner_tree(scene_datas):
         icon = get_icon(ICON_MATCH[sound["type"]])
         CNode(icon=icon, data=sound, parent=sounds)
 
-    CNode(name="zones", icon=get_icon("zone.png"), parent=root)
+    zones = CNode(name="zones", icon=get_icon("zone.png"), parent=root)
+    for zone in scene_datas["zones"]:
+        icon = get_icon(ICON_MATCH[zone["type"]])
+        CNode(icon=icon, data=zone, parent=zones)
 
     icon = get_icon("renderable.png")
     renderable = CNode(icon, name="renderable", parent=root)
@@ -96,3 +117,29 @@ def list_sounds(tree):
 def list_layers(tree):
     return tree.children[0].children[-1].children
 
+
+def list_zones(tree):
+    return tree.children[0].children[1].children
+
+
+def tree_to_plaintext(tree, indent=4):
+    scene_node = tree.children[0]
+    sounds = list_sounds(tree)
+    zones = list_zones(tree)
+    layers = list_layers(tree)
+
+    plaintext = data_to_plain_text(scene_node.data, indent=0)
+    plaintext += '    "sounds: "'
+    for sound in sounds:
+        plaintext += data_to_plain_text(sound.data, indent=1)
+    plaintext += '    "zones: "'
+    for zone in zones:
+        plaintext += data_to_plain_text(zone.data, indent=1)
+    plaintext += '    "elements: "'
+    for layer in layers:
+        plaintext += data_to_plain_text(layer.data, indent=1) + ',\n'
+
+        for graphic in layer.children:
+            plaintext += data_to_plain_text(graphic.data, indent=1) + ',\n'
+    plaintext += "\n}"
+    return plaintext
