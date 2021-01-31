@@ -110,16 +110,20 @@ def create_scene_outliner_tree(scene_datas):
     return invisible_root
 
 
+def get_scene(tree):
+    return tree.children[0]
+
+
 def list_sounds(tree):
-    return tree.children[0].children[0].children
+    return get_scene(tree).children[0].children
 
 
 def list_layers(tree):
-    return tree.children[0].children[-1].children
+    return get_scene(tree).children[-1].children
 
 
 def list_zones(tree):
-    return tree.children[0].children[1].children
+    return get_scene(tree).children[1].children
 
 
 def tree_to_plaintext(tree, indent=4):
@@ -128,18 +132,20 @@ def tree_to_plaintext(tree, indent=4):
     zones = list_zones(tree)
     layers = list_layers(tree)
 
-    plaintext = data_to_plain_text(scene_node.data, indent=0)
-    plaintext += '    "sounds: "'
+    plaintext = data_to_plain_text(scene_node.data, indent=0).rstrip("\n }")
+    plaintext += ',\n    "sounds": [\n        '
     for sound in sounds:
-        plaintext += data_to_plain_text(sound.data, indent=1)
-    plaintext += '    "zones: "'
+        plaintext += data_to_plain_text(sound.data, indent=2) + ",\n        "
+    plaintext = plaintext[:-10]
+    plaintext += '\n    ],\n    "zones": [\n        '
     for zone in zones:
-        plaintext += data_to_plain_text(zone.data, indent=1)
-    plaintext += '    "elements: "'
+        plaintext += data_to_plain_text(zone.data, indent=2) + ",\n        "
+    plaintext = plaintext[:-10]
+    plaintext += '\n    ],\n    "elements": [\n        '
     for layer in layers:
-        plaintext += data_to_plain_text(layer.data, indent=1) + ',\n'
-
+        plaintext += data_to_plain_text(layer.data, indent=2) + ',\n        '
         for graphic in layer.children:
-            plaintext += data_to_plain_text(graphic.data, indent=1) + ',\n'
-    plaintext += "\n}"
+            plaintext += data_to_plain_text(graphic.data, indent=2) + ',\n        '
+    plaintext = plaintext[:-10]
+    plaintext += "\n    ]\n}"
     return plaintext

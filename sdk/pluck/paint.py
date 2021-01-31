@@ -3,6 +3,7 @@ from functools import partial
 
 from PyQt5 import QtGui, QtCore
 from corax.core import ELEMENT_TYPES
+import corax.context as cctx
 
 from pluck.qtutils import ICON_FOLDER, get_image
 from pluck.geometry import grow_rect, get_position, pixel_position
@@ -11,7 +12,7 @@ from pluck.datas import GRAPHIC_TYPES, SOUNDS_TYPES, ZONES_TYPES
 
 class PaintContext():
     def __init__(self, scene_datas):
-        self.zoom = 1.5
+        self.zoom = 0.5
         self._extra_zone = 200
         self.grid_color = "grey"
         self.grid_alpha = .2
@@ -21,6 +22,8 @@ class PaintContext():
         self.background_color = "grey"
         self.zone_border_color = "white"
         self.zone_background_color = "white"
+        self.cursor_background_color = "white"
+        self.cursor_background_alpha = 0.2
         self.zone_alpha = 0.2
 
     def relatives(self, value):
@@ -31,6 +34,17 @@ class PaintContext():
         rect.setTop(rect.top() + self.extra_zone)
         rect.setRight(rect.right() + self.extra_zone)
         rect.setBottom(rect.bottom() + self.extra_zone)
+
+    def block_position(self, x, y):
+        x -= self.extra_zone
+        y -= self.extra_zone
+        x //= (cctx.BLOCK_SIZE * self.zoom)
+        y //= (cctx.BLOCK_SIZE * self.zoom)
+        return x, y
+
+    def zone_contains_block_position(self, zone, x, y):
+        l, t, r, b = map(lambda x: x // cctx.BLOCK_SIZE, zone)
+        return l <= x <= r and t <= y <= b
 
     @property
     def extra_zone(self):
@@ -52,6 +66,23 @@ class PaintContext():
     def zoomout(self):
         self.zoom -= self.zoom / 10
         self.zoom = max(self.zoom, .1)
+
+
+def render_handler(painter, block_in, block_out, paintcontext):
+    x = min([block_in[0], block_out[0]])
+    y = min([block_in[1], block_out[1]])
+    x2 = max([block_in[0], block_out[0]])
+    y2 = max([block_in[1], block_out[1]])
+    size = cctx.BLOCK_SIZE * paintcontext.zoom
+    l, t, r, b = x * size, y * size, x2 * size, y2 * size
+    w, h = r - l + size, b - t + size
+    rect = QtCore.QRect(l, t, w, h)
+    paintcontext.offset_rect(rect)
+    painter.setPen(QtGui.QPen(QtGui.QColor(0, 0, 0, 0)))
+    color = QtGui.QColor(paintcontext.cursor_background_color)
+    color.setAlphaF(paintcontext.cursor_background_alpha)
+    painter.setBrush(QtGui.QBrush(color))
+    painter.drawRect(rect)
 
 
 def render_zone(painter, zone_datas, image, paintcontext):
@@ -77,6 +108,18 @@ def render_zone(painter, zone_datas, image, paintcontext):
     t = rect.center().y() - (image.size().height() / 2)
     point = QtCore.QPointF(l, t)
     painter.drawImage(point, image)
+
+
+def render_cursor(painter, block_position, paintcontext):
+    x, y = block_position
+    size = cctx.BLOCK_SIZE * paintcontext.zoom
+    rect = QtCore.QRect(x * size, y * size, size, size)
+    paintcontext.offset_rect(rect)
+    painter.setPen(QtGui.QPen(QtGui.QColor(0, 0, 0, 0)))
+    color = QtGui.QColor(paintcontext.cursor_background_color)
+    color.setAlphaF(paintcontext.cursor_background_alpha)
+    painter.setBrush(QtGui.QBrush(color))
+    painter.drawRect(rect)
 
 
 def get_renderer(element):

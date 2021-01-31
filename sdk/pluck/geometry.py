@@ -1,6 +1,5 @@
 from PyQt5 import QtCore
 from corax.core import ELEMENT_TYPES
-from corax.cordinates import Cordinates
 import corax.context as cctx
 from pluck.datas import SET_TYPES
 

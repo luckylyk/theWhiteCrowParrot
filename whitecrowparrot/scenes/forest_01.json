@@ -1,868 +1,791 @@
 {
-  "name": "forest_1",
-  "type": "scene",
-  "grid_pixel_offset" :[0, 0],
-  "boundary": [0, 0, 4640, 268],
-  "background_color": [100, 195, 255],
-  "soft_boundaries": [
-      [0, 0, 1551, 268],
-      [1551, 0, 3000, 268],
-      [3001, 0, 4640, 268]],
-  "scroll_target": "whitecrow",
-  "target_offset": [200, 0],
-  "zones": [
+    "name": "forest_01",
+    "type": "scene",
+    "background_color": [100, 195, 255],
+    "boundary": [0, 0, 4640, 268],
+    "grid_pixel_offset": [0, 0],
+    "scroll_target": "whitecrow",
+    "soft_boundaries": [[0, 0, 1551, 268], [1551, 0, 3000, 268], [3001, 0, 4640, 268]],
+    "target_offset": [200, 0],
+    "sounds": [
         {
-            "type": "no_go",
+            "name": "ambiance_nature_outisde",
+            "type": "ambiance",
+            "file": "ambiances/nature1.ogg",
+            "channel": 5,
+            "falloff": 150,
+            "listener": "whitecrow",
+            "zone": [-150, -150, 1580, 420]
+        },
+        {
+            "name": "ambiance_nature_mosquito",
+            "type": "ambiance",
+            "file": "ambiances/forest1.ogg",
+            "channel": 5,
+            "falloff": 150,
+            "listener": "whitecrow",
+            "zone": [1430, -150, 4000, 420]
+        },
+        {
+            "name": "saqueboute",
+            "type": "music",
+            "file": "musics/saqueboute.ogg",
+            "channel": 5,
+            "falloff":  null,
+            "listener": "whitecrow",
+            "zone":  null
+        },
+        {
+            "name": "grass_step",
+            "type": "sfx_sound_collection",
+            "channel": 5,
+            "emitter": "whitecrow",
+            "falloff": 150,
+            "files": ["effects/grass_step_01.ogg", "effects/grass_step_02.ogg", "effects/grass_step_03.ogg", "effects/grass_step_04.ogg", "effects/grass_step_05.ogg", "effects/grass_step_06.ogg", "effects/grass_step_07.ogg"],
+            "order": "shuffle",
+            "trigger": "step_whitecrow",
+            "zone": [-150, -150, 1580, 420]
+        },
+        {
+            "name": "sword_whoosh",
+            "type": "sfx_sound",
+            "channel": 5,
+            "emitter": "whitecrow",
+            "falloff": 150,
+            "filename": "effects/whoosh.wav",
+            "trigger": "whoosh_whitecrow",
+            "zone": [-150, -150, 1580, 420]
+        },
+        {
+            "name": "sword_whish",
+            "type": "sfx_sound",
+            "channel": 5,
+            "emitter": "whitecrow",
+            "falloff": 150,
+            "filename": "effects/whish.wav",
+            "trigger": "whish_whitecrow",
+            "zone": [-150, -150, 1580, 420]
+        },
+        {
+            "name": "swordin",
+            "type": "sfx_sound",
+            "channel": 5,
+            "emitter": "whitecrow",
+            "falloff": 150,
+            "filename": "effects/swordin.ogg",
+            "trigger": "swordin_whitecrow",
+            "zone": [-150, -150, 1580, 420]
+        }
+    ],
+    "zones": [
+        {
             "name": "left_limit",
+            "type": "no_go",
             "affected": ["whitecrow"],
             "zone": [0, 24, 6, 27]
         },
         {
-            "type": "interaction",
             "name": "go_to_tent",
+            "type": "interaction",
             "affected": ["whitecrow"],
             "scripts": ["go_to_tente_with_sword", "go_to_tente"],
             "zone": [277, 24, 285, 27]
+        },
+        {
+            "name": "into_the_cave",
+            "type": "interaction",
+            "affected":  null,
+            "scripts":  null,
+            "zone": [433, 21, 464, 27]
         }
-  ],
-  "sounds": [
-      {
-          "type": "ambiance",
-          "name": "ambiance_nature_outisde",
-          "file": "ambiances/nature1.ogg",
-          "listener": "whitecrow",
-          "zone": [-150, -150, 1580, 420],
-          "falloff": 150
-      },
-      {
-          "type": "ambiance",
-          "name": "ambiance_nature_mosquito",
-          "file": "ambiances/forest1.ogg",
-          "channel": 5,
-          "listener": "whitecrow",
-          "zone": [1430, -150, 4000, 420],
-          "falloff": 150
-      },
-      {
-          "type": "music",
-          "name": "saqueboute",
-          "file": "musics/saqueboute.ogg",
-          "channel": 5,
-          "listener": "whitecrow",
-          "zone": null,
-          "falloff": null
-      },
-      {
-          "type": "sfx_sound_collection",
-          "files": [
-              "effects/grass_step_01.ogg",
-              "effects/grass_step_02.ogg",
-              "effects/grass_step_03.ogg",
-              "effects/grass_step_04.ogg",
-              "effects/grass_step_05.ogg",
-              "effects/grass_step_06.ogg",
-              "effects/grass_step_07.ogg"],
-          "order": "shuffle",
-          "name": "grass_step",
-          "trigger": "step_whitecrow",
-          "emitter": "whitecrow",
-          "zone": [-150, -150, 1580, 420],
-          "falloff": 150
-      },
-      {
-          "type": "sfx_sound",
-          "filename": "effects/whoosh.wav",
-          "name": "sword_whoosh",
-          "trigger": "whoosh_whitecrow",
-          "emitter": "whitecrow",
-          "zone": [-150, -150, 1580, 420],
-          "falloff": 150
-      },
-      {
-          "type": "sfx_sound",
-          "filename": "effects/whish.wav",
-          "name": "sword_whish",
-          "trigger": "whish_whitecrow",
-          "emitter": "whitecrow",
-          "zone": [-150, -150, 1580, 420],
-          "falloff": 150
-      },
-      {
-          "type": "sfx_sound",
-          "filename": "effects/swordin.ogg",
-          "name": "swordin",
-          "trigger": "swordin_whitecrow",
-          "emitter": "whitecrow",
-          "zone": [-150, -150, 1580, 420],
-          "falloff": 150
-      }
-  ],
-  "elements": [
-      {
-          "type": "layer",
-          "name": "background",
-          "elevation": 0
-      },
-      {
-          "type": "set_static",
-          "name": "right_mountain",
-          "file": "forest_01/right_mountain.png",
-          "position": [
-              3737,
-              0
-          ],
-          "elevation": -0.32
-      },
-      {
-          "type": "set_static",
-          "name": "l_montain",
-          "file": "forest_01/l_montain.png",
-          "position": [509, 116],
-          "elevation": -0.42
-      },
-      {
-          "type": "set_static",
-          "name": "r_montain",
-          "file": "forest_01/r_montain.png",
-          "position": [935, 101],
-          "elevation": -0.4
-      },
-      {
-          "type": "set_static",
-          "name": "mid_r_montain",
-          "file": "forest_01/mid_r_montain.png",
-          "position": [
-              3342,
-              96
-          ],
-          "elevation": -0.3
-      },
-      {
-          "type": "set_static",
-          "name": "mid_montain",
-          "file": "forest_01/mid_montain.png",
-          "position": [
-              2580,
-              52
-          ],
-          "elevation": -0.4
-      },
-      {
-          "type": "set_static",
-          "name": "bg_bush",
-          "file": "forest_01/bg_bush.png",
-          "position": [788, 199],
-          "elevation": -0.35
-      },
-      {
-          "type": "set_static",
-          "name": "mid_bg_bush",
-          "file": "forest_01/mid_bg_bush.png",
-          "position": [
-              3391,
-              185
-          ],
-          "elevation": -0.2
-      },
-      {
-          "type": "set_static",
-          "name": "right_bg_bush",
-          "file": "forest_01/right_bg_bush.png",
-          "position": [
-              3919,
-              167
-          ],
-          "elevation": -0.2
-      },
-      {
-          "type": "set_static",
-          "name": "mid_bg_trees_group_back",
-          "file": "forest_01/mid_bg_trees_group_back.png",
-          "position": [
-              3043,
-              0
-          ],
-          "elevation": -0.12
-      },
-      {
-          "type": "set_static",
-          "name": "mid_bg_trees_group_front",
-          "file": "forest_01/mid_bg_trees_group_front.png",
-          "position": [
-              2860,
-              79
-          ],
-          "elevation": -0.08
-      },
-      {
-          "type": "set_static",
-          "name": "bg_trees",
-          "file": "forest_01/bg_trees.png",
-          "position": [-150, 43],
-          "elevation": -0.3
-      },
-      {
-          "type": "set_static",
-          "name": "grass_01",
-          "file": "forest_01/grass_01.png",
-          "position": [881, 222],
-          "elevation": -0.05
-      },
-      {
-          "type": "set_static",
-          "name": "saul",
-          "file": "forest_01/saul.png",
-          "position": [1100, 0],
-          "elevation": -0.15
-      },
-      {
-          "type": "set_static",
-          "name": "right_grass",
-          "file": "forest_01/right_grass.png",
-          "position": [
-              3986,
-              219
-          ],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "name": "l_grass",
-          "file": "forest_01/l_grass.png",
-          "position": [0, 204],
-          "elevation": -0.15
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/middle_tree.png",
-          "position": [420, 0],
-          "elevation": -0.15
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/bush.png",
-          "position": [765, 173],
-          "elevation": -0.1
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/ground.png",
-          "position": [246, 228],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/char.png",
-          "position": [0, 148],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/sl_tree.png",
-          "position": [0, 0],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/right_green_bg_tree.png",
-          "position": [4208, 58],
-          "elevation": -0.06
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/right_yellow_bg_tree.png",
-          "position": [4289, 99],
-          "elevation": -0.06
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/right_red_bg_tree.png",
-          "position": [
-              4371,
-              60
-          ],
-          "elevation": 0.0
-      },    {
-        "type": "set_static",
-        "file": "forest_01/right_bg_tree.png",
-        "position": [
-            4239,
-            0
-        ],
-        "elevation": 0.0
-    },
-    {
-        "type": "set_static",
-        "file": "forest_01/rught_braun_bg_tree.png",
-        "position": [
-            4302,
-            141
-        ],
-        "elevation": 0.0
-    },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_bg_forest.png",
-          "position": [
-              1800,
-              0
-          ],
-          "elevation": -0.15
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/fl_bg.png",
-          "position": [1558, 0],
-          "elevation": -0.12
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/fl_entry_tree.png",
-          "position": [1354, 0],
-          "elevation": -0.03
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/fl_tree_01.png",
-          "position": [1509, 0],
-          "elevation": -0.01
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/fl_tree_02.png",
-          "position": [1681, 0],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/fl_ground.png",
-          "position": [1357, 248],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_r_bg_tree_01.png",
-          "position": [
-              3687,
-              0
-          ],
-          "elevation": -0.03
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_bg_dark_trees.png",
-          "position": [
-              2009,
-              0
-          ],
-          "elevation": -0.05
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_r_bg_tree_02.png",
-          "position": [
-              3855,
-              0
-          ],
-          "elevation": -0.025
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_tree_01.png",
-          "position": [
-              3117,
-              0
-          ],
-          "elevation": -0.04
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_thin_trees_01.png",
-          "position": [
-              3401,
-              97
-          ],
-          "elevation": -0.14
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_thin_trees_02.png",
-          "position": [
-              3411,
-              86
-          ],
-          "elevation": -0.11
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_r_bg_tree_03.png",
-          "position": [
-              3530,
-              134
-          ],
-          "elevation": -0.1
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_r_bg_tree_04.png",
-          "position": [
-              3579,
-              83
-          ],
-          "elevation": -0.1
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_tree_02.png",
-          "position": [
-              3307,
-              0
-          ],
-          "elevation": -0.03
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_grass_01.png",
-          "position": [
-              2882,
-              212
-          ],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_grass_02.png",
-          "position": [
-              3443,
-              228
-          ],
-          "elevation": -0.03
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_tree_03.png",
-          "position": [
-              3142,
-              0
-          ],
-          "elevation": -0.05
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_tree_04.png",
-          "position": [
-              2979,
-              0
-          ],
-          "elevation": -0.04
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_tree_05.png",
-          "position": [
-              3017,
-              0
-          ],
-          "elevation": -0.03
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_tree_06.png",
-          "position": [
-              2585,
-              0
-          ],
-          "elevation": -0.03
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_tree_07.png",
-          "position": [
-              2884,
-              0
-          ],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_tree_08.png",
-          "position": [
-              3226,
-              0
-          ],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_r_tree_01.png",
-          "position": [
-              3913,
-              0
-          ],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_r_tree_02.png",
-          "position": [
-              3743,
-              0
-          ],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_r_tree_04.png",
-          "position": [
-              3585,
-              0
-          ],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_fallen_trunk_01.png",
-          "position": [
-              3335,
-              203
-          ],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_fallen_trunk_02.png",
-          "position": [
-              3067,
-              187
-          ],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_trunks_cut.png",
-          "position": [
-              3665,
-              177
-          ],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_r_tree_05.png",
-          "position": [
-              3768,
-              0
-          ],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_folliage_02.png",
-          "position": [
-              3056,
-              0
-          ],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_folliage_01.png",
-          "position": [
-              2957,
-              0
-          ],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_forest_land.png",
-          "position": [
-              2041,
-              0
-          ],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_tente.png",
-          "position": [
-              2607,
-              0
-          ],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_strain.png",
-          "position": [
-              3156,
-              201
-          ],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/right_cave_entry.png",
-          "position": [
-              4245,
-              0
-          ],
-          "elevation": 0.0
-      },
-      {
-          "type": "particles_system",
-          "name": "forest_dust",
-          "elevation": 0.0,
-          "zone": [1580, 30, 2200, 300],
-          "emission_zone": null,
-          "emission_positions": null,
-          "start_number": 150,
-          "flow": 0,
-          "shape_options": {
-              "type": "square",
-              "alpha": [35, 150],
-              "size": 1,
-              "color": [100, 111, 150]},
-          "spot_options": {
-              "boundary_behavior": "bounce_on_boundary",
-              "speed": [0.1, 0.2],
-              "frequency": [25, 40]},
-          "direction_options": {
-              "rotation_range": -1,
-              "speed": 10}
-      },
-      {
-          "type": "set_animated",
-          "file": "smoke.json",
-          "alpha": 0.25,
-          "position": [1600, 152],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/arbaletist.png",
-          "position": [
-              1100,
-              100
-          ],
-          "elevation": 0.0
-      },
-      {
-          "type": "player",
-          "name": "whitecrow",
-          "movedatas_file": "whitecrowparrot_sword.json",
-          "block_position":[9, 10]
-      },
-      {
-          "type": "particles_system",
-          "name": "forest_dust_2",
-          "elevation": 0.0,
-          "zone": [1580, 150, 2200, 300],
-          "emission_zone": null,
-          "emission_positions": null,
-          "start_number": 100,
-          "flow": 0,
-          "shape_options": {
-              "type": "square",
-              "alpha": [35, 150],
-              "size": 1,
-              "color": [60, 80, 100]},
-          "spot_options": {
-              "boundary_behavior": "bounce_on_boundary",
-              "speed": [0.05, 0.15],
-              "frequency": [15, 20]},
-          "direction_options": {
-              "rotation_range": -1,
-              "speed": 6}
-      },
-      {
-          "type": "particles_system",
-          "name": "forest_dust_3",
-          "elevation": 0.0,
-          "zone": [1580, 200, 2200, 300],
-          "emission_zone": null,
-          "emission_positions": null,
-          "start_number": 60,
-          "flow": 0,
-          "shape_options": {
-              "type": "square",
-              "alpha": [35, 150],
-              "size": 1,
-              "color": [60, 30, 60]},
-          "spot_options": {
-              "boundary_behavior": "bounce_on_boundary",
-              "speed": [0.15, 0.25],
-              "frequency": [40, 75]},
-          "direction_options": {
-              "rotation_range": -1,
-              "speed": 12}
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/right_foreground_cave_entry.png",
-          "position": [
-              4602,
-              70
-          ],
-          "elevation": 0.0
-      },
-      {
-          "type": "layer",
-          "name": "foreground",
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/lf_fg_grass.png",
-          "position": [1604, 237],
-          "elevation": 0.05
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/lf_fg_tree_01.png",
-          "position": [1400, 0],
-          "elevation": 0.1
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/lf_fg_tree_02.png",
-          "position": [1690, 0],
-          "elevation": 0.15
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/fg_grass_01.png",
-          "position": [108, 250],
-          "elevation": 0.05
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/fg_sl_grass_01.png",
-          "position": [0, 156],
-          "elevation": 0.1
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/fg_sl_grass_02.png",
-          "position": [0, 188],
-          "elevation": 0.2
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/fg_grass_02.png",
-          "position": [769, 154],
-          "elevation": 0.23
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/fg_hanging_01.png",
-          "position": [2020, 0],
-          "elevation": 0.1
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/fg_hanging_02.png",
-          "position": [2017, 0],
-          "elevation": 0.13
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/fg_grass_03.png",
-          "position": [1700, 239],
-          "elevation": 0.05
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/fg_small_tree.png",
-          "position": [1063, 196],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/fg_small_grass.png",
-          "position": [974, 236],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_fg_strain.png",
-          "position": [
-              3494,
-              243
-          ],
-          "elevation": 0.0
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_fg_grass.png",
-          "position": [
-              2124,
-              237
-          ],
-          "elevation": 0.03
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_fg_big_strain_01.png",
-          "position": [
-              2211,
-              170
-          ],
-          "elevation": 0.14
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_fg_trunks.png",
-          "position": [
-              3822,
-              0
-          ],
-          "elevation": 0.1
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_fg_big_strain_02.png",
-          "position": [
-              3171,
-              204
-          ],
-          "elevation": 0.2
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_fg_plant_01.png",
-          "position": [
-              3840,
-              190
-          ],
-          "elevation": 0.12
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_fg_plant_02.png",
-          "position": [
-              2850,
-              144
-          ],
-          "elevation": 0.12
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/mid_fg_liana.png",
-          "position": [
-              3860,
-              0
-          ],
-          "elevation": 0.2
-      },
-      {
-          "type": "set_static",
-          "file": "forest_01/right_fg_rock.png",
-          "position": [
-              4085,
-              132
-          ],
-          "elevation": 0.2
-      }
-  ]
+    ],
+    "elements": [
+        {
+            "name": "background",
+            "type": "layer",
+            "elevation": 0.0
+        },
+        {
+            "name": "right_mountain",
+            "type": "set_static",
+            "file": "forest_01/right_mountain.png",
+            "position": [3737, 0],
+            "elevation": -0.32
+        },
+        {
+            "name": "l_montain",
+            "type": "set_static",
+            "file": "forest_01/l_montain.png",
+            "position": [509, 116],
+            "elevation": -0.42
+        },
+        {
+            "name": "r_montain",
+            "type": "set_static",
+            "file": "forest_01/r_montain.png",
+            "position": [935, 101],
+            "elevation": -0.4
+        },
+        {
+            "name": "mid_r_montain",
+            "type": "set_static",
+            "file": "forest_01/mid_r_montain.png",
+            "position": [3342, 96],
+            "elevation": -0.3
+        },
+        {
+            "name": "mid_montain",
+            "type": "set_static",
+            "file": "forest_01/mid_montain.png",
+            "position": [2580, 52],
+            "elevation": -0.4
+        },
+        {
+            "name": "bg_bush",
+            "type": "set_static",
+            "file": "forest_01/bg_bush.png",
+            "position": [788, 199],
+            "elevation": -0.35
+        },
+        {
+            "name": "mid_bg_bush",
+            "type": "set_static",
+            "file": "forest_01/mid_bg_bush.png",
+            "position": [3391, 185],
+            "elevation": -0.2
+        },
+        {
+            "name": "right_bg_bush",
+            "type": "set_static",
+            "file": "forest_01/right_bg_bush.png",
+            "position": [3919, 167],
+            "elevation": -0.2
+        },
+        {
+            "name": "mid_bg_trees_group_back",
+            "type": "set_static",
+            "file": "forest_01/mid_bg_trees_group_back.png",
+            "position": [3043, 0],
+            "elevation": -0.12
+        },
+        {
+            "name": "mid_bg_trees_group_front",
+            "type": "set_static",
+            "file": "forest_01/mid_bg_trees_group_front.png",
+            "position": [2860, 79],
+            "elevation": -0.08
+        },
+        {
+            "name": "bg_trees",
+            "type": "set_static",
+            "file": "forest_01/bg_trees.png",
+            "position": [-150, 43],
+            "elevation": -0.3
+        },
+        {
+            "name": "grass_01",
+            "type": "set_static",
+            "file": "forest_01/grass_01.png",
+            "position": [881, 222],
+            "elevation": -0.05
+        },
+        {
+            "name": "saul",
+            "type": "set_static",
+            "file": "forest_01/saul.png",
+            "position": [1100, 0],
+            "elevation": -0.15
+        },
+        {
+            "name": "right_grass",
+            "type": "set_static",
+            "file": "forest_01/right_grass.png",
+            "position": [3986, 219],
+            "elevation": 0.0
+        },
+        {
+            "name": "l_grass",
+            "type": "set_static",
+            "file": "forest_01/l_grass.png",
+            "position": [0, 204],
+            "elevation": -0.15
+        },
+        {
+            "name": "forest_01/middle_tree",
+            "type": "set_static",
+            "file": "forest_01/middle_tree.png",
+            "position": [420, 0],
+            "elevation": -0.15
+        },
+        {
+            "name": "forest_01/bush",
+            "type": "set_static",
+            "file": "forest_01/bush.png",
+            "position": [765, 173],
+            "elevation": -0.1
+        },
+        {
+            "name": "forest_01/ground",
+            "type": "set_static",
+            "file": "forest_01/ground.png",
+            "position": [246, 228],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/char",
+            "type": "set_static",
+            "file": "forest_01/char.png",
+            "position": [0, 148],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/sl_tree",
+            "type": "set_static",
+            "file": "forest_01/sl_tree.png",
+            "position": [0, 0],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/right_green_bg_tree",
+            "type": "set_static",
+            "file": "forest_01/right_green_bg_tree.png",
+            "position": [4208, 58],
+            "elevation": -0.06
+        },
+        {
+            "name": "forest_01/right_yellow_bg_tree",
+            "type": "set_static",
+            "file": "forest_01/right_yellow_bg_tree.png",
+            "position": [4289, 99],
+            "elevation": -0.06
+        },
+        {
+            "name": "forest_01/right_red_bg_tree",
+            "type": "set_static",
+            "file": "forest_01/right_red_bg_tree.png",
+            "position": [4371, 60],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/right_bg_tree",
+            "type": "set_static",
+            "file": "forest_01/right_bg_tree.png",
+            "position": [4239, 0],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/rught_braun_bg_tree",
+            "type": "set_static",
+            "file": "forest_01/rught_braun_bg_tree.png",
+            "position": [4302, 141],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/mid_bg_forest",
+            "type": "set_static",
+            "file": "forest_01/mid_bg_forest.png",
+            "position": [1800, 0],
+            "elevation": -0.15
+        },
+        {
+            "name": "forest_01/fl_bg",
+            "type": "set_static",
+            "file": "forest_01/fl_bg.png",
+            "position": [1558, 0],
+            "elevation": -0.12
+        },
+        {
+            "name": "forest_01/fl_entry_tree",
+            "type": "set_static",
+            "file": "forest_01/fl_entry_tree.png",
+            "position": [1354, 0],
+            "elevation": -0.03
+        },
+        {
+            "name": "forest_01/fl_tree_01",
+            "type": "set_static",
+            "file": "forest_01/fl_tree_01.png",
+            "position": [1509, 0],
+            "elevation": -0.01
+        },
+        {
+            "name": "forest_01/fl_tree_02",
+            "type": "set_static",
+            "file": "forest_01/fl_tree_02.png",
+            "position": [1681, 0],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/fl_ground",
+            "type": "set_static",
+            "file": "forest_01/fl_ground.png",
+            "position": [1357, 248],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/mid_r_bg_tree_01",
+            "type": "set_static",
+            "file": "forest_01/mid_r_bg_tree_01.png",
+            "position": [3687, 0],
+            "elevation": -0.03
+        },
+        {
+            "name": "forest_01/mid_bg_dark_trees",
+            "type": "set_static",
+            "file": "forest_01/mid_bg_dark_trees.png",
+            "position": [2009, 0],
+            "elevation": -0.05
+        },
+        {
+            "name": "forest_01/mid_r_bg_tree_02",
+            "type": "set_static",
+            "file": "forest_01/mid_r_bg_tree_02.png",
+            "position": [3855, 0],
+            "elevation": -0.025
+        },
+        {
+            "name": "forest_01/mid_tree_01",
+            "type": "set_static",
+            "file": "forest_01/mid_tree_01.png",
+            "position": [3117, 0],
+            "elevation": -0.04
+        },
+        {
+            "name": "forest_01/mid_thin_trees_01",
+            "type": "set_static",
+            "file": "forest_01/mid_thin_trees_01.png",
+            "position": [3401, 97],
+            "elevation": -0.14
+        },
+        {
+            "name": "forest_01/mid_thin_trees_02",
+            "type": "set_static",
+            "file": "forest_01/mid_thin_trees_02.png",
+            "position": [3411, 86],
+            "elevation": -0.11
+        },
+        {
+            "name": "forest_01/mid_r_bg_tree_03",
+            "type": "set_static",
+            "file": "forest_01/mid_r_bg_tree_03.png",
+            "position": [3530, 134],
+            "elevation": -0.1
+        },
+        {
+            "name": "forest_01/mid_r_bg_tree_04",
+            "type": "set_static",
+            "file": "forest_01/mid_r_bg_tree_04.png",
+            "position": [3579, 83],
+            "elevation": -0.1
+        },
+        {
+            "name": "forest_01/mid_tree_02",
+            "type": "set_static",
+            "file": "forest_01/mid_tree_02.png",
+            "position": [3307, 0],
+            "elevation": -0.03
+        },
+        {
+            "name": "forest_01/mid_grass_01",
+            "type": "set_static",
+            "file": "forest_01/mid_grass_01.png",
+            "position": [2882, 212],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/mid_grass_02",
+            "type": "set_static",
+            "file": "forest_01/mid_grass_02.png",
+            "position": [3443, 228],
+            "elevation": -0.03
+        },
+        {
+            "name": "forest_01/mid_tree_03",
+            "type": "set_static",
+            "file": "forest_01/mid_tree_03.png",
+            "position": [3142, 0],
+            "elevation": -0.05
+        },
+        {
+            "name": "forest_01/mid_tree_04",
+            "type": "set_static",
+            "file": "forest_01/mid_tree_04.png",
+            "position": [2979, 0],
+            "elevation": -0.04
+        },
+        {
+            "name": "forest_01/mid_tree_05",
+            "type": "set_static",
+            "file": "forest_01/mid_tree_05.png",
+            "position": [3017, 0],
+            "elevation": -0.03
+        },
+        {
+            "name": "forest_01/mid_tree_06",
+            "type": "set_static",
+            "file": "forest_01/mid_tree_06.png",
+            "position": [2585, 0],
+            "elevation": -0.03
+        },
+        {
+            "name": "forest_01/mid_tree_07",
+            "type": "set_static",
+            "file": "forest_01/mid_tree_07.png",
+            "position": [2884, 0],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/mid_tree_08",
+            "type": "set_static",
+            "file": "forest_01/mid_tree_08.png",
+            "position": [3226, 0],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/mid_r_tree_01",
+            "type": "set_static",
+            "file": "forest_01/mid_r_tree_01.png",
+            "position": [3913, 0],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/mid_r_tree_02",
+            "type": "set_static",
+            "file": "forest_01/mid_r_tree_02.png",
+            "position": [3743, 0],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/mid_r_tree_04",
+            "type": "set_static",
+            "file": "forest_01/mid_r_tree_04.png",
+            "position": [3585, 0],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/mid_fallen_trunk_01",
+            "type": "set_static",
+            "file": "forest_01/mid_fallen_trunk_01.png",
+            "position": [3335, 203],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/mid_fallen_trunk_02",
+            "type": "set_static",
+            "file": "forest_01/mid_fallen_trunk_02.png",
+            "position": [3067, 187],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/mid_trunks_cut",
+            "type": "set_static",
+            "file": "forest_01/mid_trunks_cut.png",
+            "position": [3665, 177],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/mid_r_tree_05",
+            "type": "set_static",
+            "file": "forest_01/mid_r_tree_05.png",
+            "position": [3768, 0],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/mid_folliage_02",
+            "type": "set_static",
+            "file": "forest_01/mid_folliage_02.png",
+            "position": [3056, 0],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/mid_folliage_01",
+            "type": "set_static",
+            "file": "forest_01/mid_folliage_01.png",
+            "position": [2957, 0],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/mid_forest_land",
+            "type": "set_static",
+            "file": "forest_01/mid_forest_land.png",
+            "position": [2041, 0],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/mid_tente",
+            "type": "set_static",
+            "file": "forest_01/mid_tente.png",
+            "position": [2607, 0],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/mid_strain",
+            "type": "set_static",
+            "file": "forest_01/mid_strain.png",
+            "position": [3156, 201],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/right_cave_entry",
+            "type": "set_static",
+            "file": "forest_01/right_cave_entry.png",
+            "position": [4245, 0],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_dust",
+            "type": "particles_system",
+            "direction_options": {
+                    "rotation_range": -1,
+                    "speed": 10
+                },
+            "elevation": 0.0,
+            "emission_positions":  null,
+            "emission_zone":  null,
+            "flow": 0,
+            "shape_options": {
+                    "type": "square",
+                    "alpha": [35, 150],
+                    "color": [100, 111, 150],
+                    "size": 1
+                },
+            "spot_options": {
+                    "boundary_behavior": "bounce_on_boundary",
+                    "frequency": [25, 40],
+                    "speed": [0.1, 0.2]
+                },
+            "start_number": 150,
+            "zone": [1580, 30, 2200, 300]
+        },
+        {
+            "name": "smoke",
+            "type": "set_animated",
+            "file": "smoke.json",
+            "position": [1600, 152],
+            "alpha": 0.25,
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/arbaletist",
+            "type": "set_static",
+            "file": "forest_01/arbaletist.png",
+            "position": [1100, 100],
+            "elevation": 0.0
+        },
+        {
+            "name": "whitecrow",
+            "type": "player",
+            "block_position": [9, 10],
+            "movedatas_file": "whitecrowparrot_sword.json"
+        },
+        {
+            "name": "forest_dust_2",
+            "type": "particles_system",
+            "direction_options": {
+                    "rotation_range": -1,
+                    "speed": 6
+                },
+            "elevation": 0.0,
+            "emission_positions":  null,
+            "emission_zone":  null,
+            "flow": 0,
+            "shape_options": {
+                    "type": "square",
+                    "alpha": [35, 150],
+                    "color": [60, 80, 100],
+                    "size": 1
+                },
+            "spot_options": {
+                    "boundary_behavior": "bounce_on_boundary",
+                    "frequency": [15, 20],
+                    "speed": [0.05, 0.15]
+                },
+            "start_number": 100,
+            "zone": [1580, 150, 2200, 300]
+        },
+        {
+            "name": "forest_dust_3",
+            "type": "particles_system",
+            "direction_options": {
+                    "rotation_range": -1,
+                    "speed": 12
+                },
+            "elevation": 0.0,
+            "emission_positions":  null,
+            "emission_zone":  null,
+            "flow": 0,
+            "shape_options": {
+                    "type": "square",
+                    "alpha": [35, 150],
+                    "color": [60, 30, 60],
+                    "size": 1
+                },
+            "spot_options": {
+                    "boundary_behavior": "bounce_on_boundary",
+                    "frequency": [40, 75],
+                    "speed": [0.15, 0.25]
+                },
+            "start_number": 60,
+            "zone": [1580, 200, 2200, 300]
+        },
+        {
+            "name": "forest_01/right_foreground_cave_entry",
+            "type": "set_static",
+            "file": "forest_01/right_foreground_cave_entry.png",
+            "position": [4602, 70],
+            "elevation": 0.0
+        },
+        {
+            "name": "foreground",
+            "type": "layer",
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/lf_fg_grass",
+            "type": "set_static",
+            "file": "forest_01/lf_fg_grass.png",
+            "position": [1604, 237],
+            "elevation": 0.05
+        },
+        {
+            "name": "forest_01/lf_fg_tree_01",
+            "type": "set_static",
+            "file": "forest_01/lf_fg_tree_01.png",
+            "position": [1400, 0],
+            "elevation": 0.1
+        },
+        {
+            "name": "forest_01/lf_fg_tree_02",
+            "type": "set_static",
+            "file": "forest_01/lf_fg_tree_02.png",
+            "position": [1690, 0],
+            "elevation": 0.15
+        },
+        {
+            "name": "forest_01/fg_grass_01",
+            "type": "set_static",
+            "file": "forest_01/fg_grass_01.png",
+            "position": [108, 250],
+            "elevation": 0.05
+        },
+        {
+            "name": "forest_01/fg_sl_grass_01",
+            "type": "set_static",
+            "file": "forest_01/fg_sl_grass_01.png",
+            "position": [0, 156],
+            "elevation": 0.1
+        },
+        {
+            "name": "forest_01/fg_sl_grass_02",
+            "type": "set_static",
+            "file": "forest_01/fg_sl_grass_02.png",
+            "position": [0, 188],
+            "elevation": 0.2
+        },
+        {
+            "name": "forest_01/fg_grass_02",
+            "type": "set_static",
+            "file": "forest_01/fg_grass_02.png",
+            "position": [769, 154],
+            "elevation": 0.23
+        },
+        {
+            "name": "forest_01/fg_hanging_01",
+            "type": "set_static",
+            "file": "forest_01/fg_hanging_01.png",
+            "position": [2020, 0],
+            "elevation": 0.1
+        },
+        {
+            "name": "forest_01/fg_hanging_02",
+            "type": "set_static",
+            "file": "forest_01/fg_hanging_02.png",
+            "position": [2017, 0],
+            "elevation": 0.13
+        },
+        {
+            "name": "forest_01/fg_grass_03",
+            "type": "set_static",
+            "file": "forest_01/fg_grass_03.png",
+            "position": [1700, 239],
+            "elevation": 0.05
+        },
+        {
+            "name": "forest_01/fg_small_tree",
+            "type": "set_static",
+            "file": "forest_01/fg_small_tree.png",
+            "position": [1063, 196],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/fg_small_grass",
+            "type": "set_static",
+            "file": "forest_01/fg_small_grass.png",
+            "position": [974, 236],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/mid_fg_strain",
+            "type": "set_static",
+            "file": "forest_01/mid_fg_strain.png",
+            "position": [3494, 243],
+            "elevation": 0.0
+        },
+        {
+            "name": "forest_01/mid_fg_grass",
+            "type": "set_static",
+            "file": "forest_01/mid_fg_grass.png",
+            "position": [2124, 237],
+            "elevation": 0.03
+        },
+        {
+            "name": "forest_01/mid_fg_big_strain_01",
+            "type": "set_static",
+            "file": "forest_01/mid_fg_big_strain_01.png",
+            "position": [2211, 170],
+            "elevation": 0.14
+        },
+        {
+            "name": "forest_01/mid_fg_trunks",
+            "type": "set_static",
+            "file": "forest_01/mid_fg_trunks.png",
+            "position": [3822, 0],
+            "elevation": 0.1
+        },
+        {
+            "name": "forest_01/mid_fg_big_strain_02",
+            "type": "set_static",
+            "file": "forest_01/mid_fg_big_strain_02.png",
+            "position": [3171, 204],
+            "elevation": 0.2
+        },
+        {
+            "name": "forest_01/mid_fg_plant_01",
+            "type": "set_static",
+            "file": "forest_01/mid_fg_plant_01.png",
+            "position": [3840, 190],
+            "elevation": 0.12
+        },
+        {
+            "name": "forest_01/mid_fg_plant_02",
+            "type": "set_static",
+            "file": "forest_01/mid_fg_plant_02.png",
+            "position": [2850, 144],
+            "elevation": 0.12
+        },
+        {
+            "name": "forest_01/mid_fg_liana",
+            "type": "set_static",
+            "file": "forest_01/mid_fg_liana.png",
+            "position": [3860, 0],
+            "elevation": 0.2
+        },
+        {
+            "name": "forest_01/right_fg_rock",
+            "type": "set_static",
+            "file": "forest_01/right_fg_rock.png",
+            "position": [4085, 132],
+            "elevation": 0.2
+        }
+    ]
 }

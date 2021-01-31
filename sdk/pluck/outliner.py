@@ -15,6 +15,11 @@ class OutlinerTreeModel(QtCore.QAbstractItemModel):
         super(OutlinerTreeModel, self).__init__(parent)
         self._root = root
 
+    def set_tree(self, tree):
+        self.layoutAboutToBeChanged.emit()
+        self._root = tree
+        self.layoutChanged.emit()
+
     def rowCount(self, parent):
         if not parent.isValid():
             return self._root.childCount()

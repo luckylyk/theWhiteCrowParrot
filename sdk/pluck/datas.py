@@ -128,6 +128,14 @@ DATA_TEMPLATES = {
 }
 
 
+def tree_sanity_check(tree):
+    nodes = tree.flat()
+    for node in nodes:
+        if node.data is None:
+            continue
+        data_sanity_check(node.data)
+
+
 def data_sanity_check(data):
     if not isinstance(data, dict):
         raise ValueError("data as to be a dict")

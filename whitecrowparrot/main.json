@@ -1,6 +1,6 @@
 {
     "caption": "The White Crow Parrot",
-    "start_scene": "forest",
+    "start_scene": "tente",
     "preferences": {
         "resolution": [800, 268],
         "fps": 30,
