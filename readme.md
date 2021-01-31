@@ -28,3 +28,7 @@ script go_to_tente_with_sword // script definition
 Suite of tools to edit the game datas
 - kritas_script: some helpers to export animation and set from krita
 - Pluck: UI to edit the game datas such as levels, scripts and sprites frames datas
+
+
+### Scripts
+This is a temporary folder where some scripts to fix data and help development are store. Actually this is a trash bin just kept for history.
