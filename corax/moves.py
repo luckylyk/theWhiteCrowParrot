@@ -48,50 +48,38 @@ def is_move_change_authorized(move, datas, animation):
 def is_move_cross_zone(
         datas, move, block_position, flip, zones, image_size):
     move_datas = datas["moves"][move]
-    moves = []
     block_positions = []
     while True:
         pre_offset = move_datas["pre_events"].get(EVENTS.BLOCK_OFFSET)
         post_offset = move_datas["post_events"].get(EVENTS.BLOCK_OFFSET)
-        has_flip_event = move_datas["post_events"].get(EVENTS.FLIP)
-        has_flip_event = has_flip_event or move_datas["pre_events"].get(EVENTS.FLIP)
-        if (not pre_offset and not post_offset) or has_flip_event:
+        flip_event = move_datas["post_events"].get(EVENTS.FLIP)
+        flip_event = flip_event or move_datas["pre_events"].get(EVENTS.FLIP)
+        if (not pre_offset and not post_offset) or flip_event:
             # We assume if the first move contains a FLIP event, it will not
             # move in space (even if an offset to compensate the flip is set).
-            # By the way, a case where this need to evaluate could happend in the
-            # futur but this is a tricky case. The that will not be implemented
-            # as far as it is not necessary.
+            # By the way, a case where this need to evaluate could happend in
+            # the futur but this is a tricky case. The that will not be
+            # implemented as far as it is not necessary.
             break
-        moves.append(move)
         centers = build_centers_list(move_datas, image_size, flip)
-        predicted = predict_block_positions(
+        block_positions.extend(predict_block_positions(
             centers=centers,
             image_size=image_size,
             block_position=block_position,
             flip=flip,
             pre_offset=pre_offset,
-            post_offset=post_offset)
-        block_positions.extend(predicted)
+            post_offset=post_offset))
 
         if pre_offset:
             pre_offset = flip_position(pre_offset) if flip else pre_offset
             block_position = sum_num_arrays(block_position, pre_offset)
         if post_offset:
-            # print("POST OFFSET", post_offset, block_position,  sum_num_arrays(block_position,flip_position(post_offset) if flip else post_offset))
             post_offset = flip_position(post_offset) if flip else post_offset
             block_position = sum_num_arrays(block_position, post_offset)
-        move = move_datas["next_move"]
-        move_datas = datas["moves"][move]
 
-    for zone in zones:
-        for pos in block_positions:
-            if zone.contains(pos):
-                # msg = "refused: {}".format(moves)
-                # logging.debug((msg, zone.zone, block_positions))
-                return True
+        move_datas = datas["moves"][move_datas["next_move"]]
 
-    # logging.debug(("accepted: {}".format(moves), block_positions))
-    return False
+    return any(z.contains(pos) for z in zones for pos in block_positions)
 
 
 def predict_block_positions(
@@ -173,16 +161,14 @@ class MovementManager():
         if self.animation is not None:
             for event, value in self.animation.post_events.items():
                 self.apply_event(event, value)
-                if cctx.DEBUG:
-                    msg = f"EVENT: {self.animation.name}, {event}, {value}"
-                    logging.debug(msg)
+                msg = f"EVENT: {self.animation.name}, {event}, {value}"
+                logging.debug(msg)
         flip = self.cordinates.flip
         self.animation = self.spritesheet.build_animation(move, flip)
         for event, value in self.animation.pre_events.items():
             self.apply_event(event, value)
-            if cctx.DEBUG:
-                msg = f"EVENT: {self.animation.name}, {event}, {value}"
-                logging.debug(msg)
+            msg = f"EVENT: {self.animation.name}, {event}, {value}"
+            logging.debug(msg)
 
     def apply_event(self, event, value):
         if event == EVENTS.BLOCK_OFFSET:
@@ -203,6 +189,7 @@ class MovementManager():
         if not self.moves_buffer:
             self.set_move(next_move)
             return
+
         key = "animation_in"
         for move in self.moves_buffer:
             moves_filter = self.datas["moves"][move]["conditions"].get(key)
