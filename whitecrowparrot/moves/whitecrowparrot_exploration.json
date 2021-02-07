@@ -1,7 +1,7 @@
 {
     "filename": "whitecrowparrot_exploration.png",
     "key_color": [0, 255, 0],
-    "block_size": [240, 160],
+    "image_size": [240, 160],
     "default_move": "idle",
     "evaluation_order": [
         "run_start",
@@ -23,7 +23,7 @@
         "idle":
             {
                 "start_at_image": 0,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1],
                 "triggers": null,
                 "frames_centers": null,
@@ -40,10 +40,10 @@
         "walk_a":
             {
                 "start_at_image": 1,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
                 "triggers": [[0, "step_whitecrow"]],
-                "frames_centers": [[0, 0], [3, 0], [5, 0], [7, 0], [10, 0], [13, 0], [15, 0], [17, 0], [20, 0], [23, 0], [25, 0], [27, 0]],
+                "frames_centers": [[0, 0], [3, 0], [7, 0], [10, 0], [13, 0], [17, 0], [21, 0], [24, 0], [27, 0], [31, 0], [34, 0], [37, 0]],
                 "release_frame": -1,
                 "hold": true,
                 "next_move": "idle",
@@ -59,10 +59,10 @@
         "walk_b":
             {
                 "start_at_image": 13,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
                 "triggers": [[0, "step_whitecrow"]],
-                "frames_centers": [[0, 0], [3, 0], [5, 0], [7, 0], [10, 0], [13, 0], [15, 0], [17, 0], [20, 0], [23, 0], [25, 0], [27, 0]],
+                "frames_centers": [[0, 0], [3, 0], [7, 0], [10, 0], [13, 0], [17, 0], [21, 0], [24, 0], [27, 0], [31, 0], [34, 0], [37, 0]],
                 "release_frame": -1,
                 "hold": true,
                 "next_move": "idle",
@@ -78,7 +78,7 @@
         "return":
             {
                 "start_at_image": 25,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1, 1],
                 "triggers": null,
                 "frames_centers": null,
@@ -98,7 +98,7 @@
         "draw_sword":
             {
                 "start_at_image": 28,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1, 1, 1, 1, 1, 2, 3, 5, 2, 1, 2, 2, 1],
                 "triggers": null,
                 "frames_centers": null,
@@ -117,7 +117,7 @@
         "crouch_down":
             {
                 "start_at_image": 42,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1, 1, 1, 1, 1],
                 "triggers": null,
                 "frames_centers": null,
@@ -135,7 +135,7 @@
         "crouched_over":
             {
                 "start_at_image": 47,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1],
                 "triggers": null,
                 "frames_centers": null,
@@ -152,7 +152,7 @@
         "crouched_over_walk":
             {
                 "start_at_image": 49,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [3, 2, 2, 1, 1, 2, 3, 5],
                 "triggers": [[0, "step_whitecrow"]],
                 "frames_centers": [[2, 0], [4, 0], [6, 0], [8, 0], [10, 0], [12, 0], [14, 0], [18, 0]],
@@ -171,7 +171,7 @@
         "crouched_return":
             {
                 "start_at_image": 57,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [2, 2],
                 "triggers": null,
                 "frames_centers": null,
@@ -191,7 +191,7 @@
         "stand_up":
             {
                 "start_at_image": 59,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1 ,1],
                 "triggers": null,
                 "frames_centers": null,
@@ -209,7 +209,7 @@
         "run_start":
             {
                 "start_at_image": 62,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1],
                 "triggers": null,
                 "frames_centers": null,
@@ -227,10 +227,10 @@
         "run_a":
             {
                 "start_at_image": 64,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
                 "triggers": null,
-                "frames_centers": [[0, 0], [10, 0], [20, 0], [30, 0], [40, 0], [50, 0], [60, 0], [70, 0], [80, 0], [90, 0], [100, 0], [110, 0]],
+                "frames_centers": [[10, 0], [20, 0], [30, 0], [40, 0], [50, 0], [60, 0], [70, 0], [80, 0], [90, 0], [100, 0], [110, 0], [120, 0]],
                 "release_frame": -1,
                 "hold": true,
                 "next_move": "run_off",
@@ -238,7 +238,7 @@
                 "loop_on": "run_b",
                 "inputs": ["RIGHT", "X"],
                 "conditions": {
-                    "animation_in": ["idle", "walk"]},
+                    "animation_in": ["idle", "walk_a", "walk_b"]},
                 "pre_events": {},
                 "post_events": {
                     "block_offset": [12, 0]}
@@ -246,10 +246,10 @@
         "run_b":
             {
                 "start_at_image": 76,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
                 "triggers": [[0, "step_whitecrow"]],
-                "frames_centers": [[0, 0], [10, 0], [20, 0], [30, 0], [40, 0], [50, 0], [60, 0], [70, 0], [80, 0], [90, 0], [100, 0], [110, 0]],
+                "frames_centers": [[10, 0], [20, 0], [30, 0], [40, 0], [50, 0], [60, 0], [70, 0], [80, 0], [90, 0], [100, 0], [110, 0], [120, 0]],
                 "release_frame": -1,
                 "hold": true,
                 "next_move": "run_off",
@@ -265,10 +265,10 @@
         "run_off":
             {
                 "start_at_image": 88,
-                "center": [70, 160],
-                "frames_per_image": [1, 1, 1, 1, 1, 1],
+                "center": [70, 155],
+                "frames_per_image": [2,3, 2, 1, 1, 1],
                 "triggers": [[0, "step_whitecrow"]],
-                "frames_centers": null,
+                "frames_centers": [[0, 0], [7, 0], [12, 0], [16, 0], [18, 0], [19, 0], [19, 0], [20, 0], [20, 0]],
                 "release_frame": -1,
                 "hold": false,
                 "next_move": "idle",
@@ -284,7 +284,7 @@
         "through_door":
             {
                 "start_at_image": 94,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [2, 2, 1, 2, 2, 10],
                 "triggers": [],
                 "frames_centers": null,

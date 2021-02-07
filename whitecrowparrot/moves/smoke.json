@@ -1,7 +1,7 @@
 {
     "filename": "smoke.png",
     "key_color": [0, 255, 0],
-    "block_size": [829, 127],
+    "image_size": [829, 127],
     "default_move": "base",
     "evaluation_order": ["base"],
     "moves": {

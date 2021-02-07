@@ -1,3 +1,8 @@
+"""
+This is an base module providing math function related to geometry and
+trigonometry and shape collisions.
+"""
+
 import math
 from corax.mathutils import normalize, linear_ratio
 
@@ -23,6 +28,22 @@ def vector_to_angle(vector):
 
 
 def get_rect_falloff_ratio(left, top, right, bottom, position, falloff):
+    """
+     _______________________________
+    |                               |
+    |    _______________________    |<--- rect as (left, top, right, bottom)
+    |   |                       |   |
+    |   |                       |<--|-----falloff limit
+    |   |_______________________|   |
+    |                               |
+    |_______________________________|
+
+    This function compute the value of a position in a rectangle.
+    Inside the falloff limit, it return 1 (the max position)
+    Outside the rect it returns 0.
+    In between, it compute the ratio between each. That's mainly used to drive
+    the sound volume comparing the listener to the emission zone.
+    """
     ratio_x = None
     ratio_y = None
 

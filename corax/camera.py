@@ -6,6 +6,14 @@ from corax.euclide import Rect
 
 
 class Camera():
+    """
+    This class represent the scene camera. It define framing rendered. The
+    offset necessary for the renders are evaluated from this class. Each
+    renderable object has to request camera his position on screen through the
+    method Camera.relative_pixel_position(pixel_position, deph).
+    Note that the pixel_position given correspond to the top left position, not
+    the center. The center can be set through the set_center method.
+    """
     def __init__(self, pixel_position=None):
         self.pixel_position = pixel_position or [0, 0]
 
@@ -20,10 +28,10 @@ class Camera():
             pixel_position[0] - cctx.RESOLUTION[0] / 2,
             pixel_position[1] - cctx.RESOLUTION[1] / 2]
 
-    def relative_pixel_position(self, pixel_position, elevation=0):
+    def relative_pixel_position(self, pixel_position, deph=0):
         offset_x = math.ceil((pixel_position[0] - self.pixel_position[0]))
         offset_y = math.ceil((pixel_position[1] - self.pixel_position[1]))
-        return [offset_x + (offset_x * elevation), offset_y]
+        return [offset_x + (offset_x * deph), offset_y]
 
     @property
     def zone(self):
@@ -33,6 +41,11 @@ class Camera():
 
 
 class Scrolling():
+    """
+    This object is the algorithm who move constrain the camera to a target and
+    evaluate his position into the world space. The scrolling has to update the
+    camera position at each frames though the Scrolling.next() method.
+    """
     def __init__(
             self,
             camera,
@@ -47,6 +60,7 @@ class Scrolling():
         self.soft_boundaries = soft_boundaries or []
         self.target_offset = target_offset or [0, 0]
         self.buffer_x = []
+        # those magic numbers have to be moved onto the game datas
         self.smooth_level = 1
         self.smooth_divisor = 10
         self.max_speed = 70
@@ -57,7 +71,7 @@ class Scrolling():
             return
 
         target_offset = self.target_offset[0]
-        if self.target.mirror is True:
+        if self.target.flip is True:
             target_offset = -target_offset
         # define the target X that the scrolling will aim based
         tx = self.target.pixel_center[0] + target_offset

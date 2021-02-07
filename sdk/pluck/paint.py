@@ -2,12 +2,11 @@ import os
 from functools import partial
 
 from PyQt5 import QtGui, QtCore
-from corax.core import ELEMENT_TYPES
 import corax.context as cctx
 
 from pluck.qtutils import ICON_FOLDER, get_image
 from pluck.geometry import grow_rect, get_position, pixel_position
-from pluck.datas import GRAPHIC_TYPES, SOUNDS_TYPES, ZONES_TYPES
+from pluck.datas import GRAPHIC_TYPES, SOUND_TYPES, ZONE_TYPES
 
 
 class PaintContext():
@@ -23,6 +22,7 @@ class PaintContext():
         self.zone_border_color = "white"
         self.zone_background_color = "white"
         self.cursor_background_color = "white"
+        self.cursor_text_color = "white"
         self.cursor_background_alpha = 0.2
         self.zone_alpha = 0.2
 
@@ -121,16 +121,30 @@ def render_cursor(painter, block_position, paintcontext):
     painter.setBrush(QtGui.QBrush(color))
     painter.drawRect(rect)
 
+    color = QtGui.QColor(paintcontext.cursor_text_color)
+    painter.setPen(QtGui.QPen(color))
+    painter.setBrush(QtGui.QBrush(color))
+    option = QtGui.QTextOption()
+    flags = QtCore.Qt.AlignTop | QtCore.Qt.AlignLeft
+    option.setAlignment(flags)
+    font = QtGui.QFont()
+    font.setBold(True)
+    font.setPixelSize(15)
+    painter.setFont(font)
+    text = f"({int(x)}, {int(y)})"
+    x, y = rect.right(), rect.bottom()
+    painter.drawText(QtCore.QRectF(x + 10, y + 10, 200, 200), flags, text)
+
 
 def get_renderer(element):
     if element is None:
         return
     elif element["type"] == "scene":
         return partial(render_background, scene_datas=element)
-    elif element["type"] in SOUNDS_TYPES:
+    elif element["type"] in SOUND_TYPES:
         image = get_image(element)
         return partial(render_sound, sound_datas=element, image=image)
-    elif element["type"] in ZONES_TYPES:
+    elif element["type"] in ZONE_TYPES:
         image = get_image(element)
         return partial(render_zone, zone_datas=element, image=image)
     elif element["type"] in GRAPHIC_TYPES:

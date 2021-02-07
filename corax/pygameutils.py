@@ -1,14 +1,22 @@
 
+"""
+This module is the bridge to PyGame. It is supposed to be one the rare import
+of it. It wrap the pygame functions to make them as much generic as possible
+to make a futur engine change easy. It's mainly helper to get and load pygame
+object from files.
+"""
+
+
 import os
 import pygame
 import corax.context as cctx
 from corax.iterators import itertable
 
 
-def load_images(filename, block_size, key_color):
+def load_images(filename, image_size, key_color):
     filename = os.path.join(cctx.ANIMATION_FOLDER, filename)
     sheet = pygame.image.load(filename).convert()
-    width, height = block_size
+    width, height = image_size
     row = sheet.get_height() / height
     col = sheet.get_width() / width
     if row != int(row) or col != int(col):
@@ -40,8 +48,8 @@ def load_sound(filename):
     return pygame.mixer.Sound(filename)
 
 
-def render_image(image, screen, position, alpha=1):
-    if alpha == 1:
+def render_image(image, screen, position, alpha=255):
+    if alpha == 255:
         screen.blit(image, position)
         return
     # work around to blit with transparency found on here:
@@ -56,9 +64,19 @@ def render_image(image, screen, position, alpha=1):
     screen.blit(temp, position)
 
 
-def render_rect(screen, color, x, y, height, width):
-    pygame.draw.rect(screen, color, [x, y, height, width])
+def render_rect(screen, color, x, y, width, height , alpha=255):
+    temp = pygame.Surface((width, height)).convert()
+    pygame.draw.rect(temp, color, [0, 0, width, height])
+    temp.set_alpha(alpha)
+    screen.blit(temp, (x, y))
 
 
 def render_ellipse(screen, color, x, y, height, width):
     pygame.draw.ellipse(screen, color, [x, y, height, width])
+
+
+def render_text(screen, color, x, y, text):
+    FONT = pygame.font.SysFont('Consolas', 15)
+
+    textsurface = FONT.render(text, False, color)
+    screen.blit(textsurface,(x, y))

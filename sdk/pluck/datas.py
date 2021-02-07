@@ -1,18 +1,17 @@
 import json
-from corax.core import ELEMENT_TYPES, SOUND_TYPES, ZONE_TYPES
+from corax.core import NODE_TYPES
 
 
 KEY_ORDER = "name", "type", "file", "position"
 EXCLUDED_PROPERTIES = "sounds", "areas", "elements", "zones"
-GRAPHIC_TYPES = ELEMENT_TYPES.SET_ANIMATED, ELEMENT_TYPES.SET_STATIC, ELEMENT_TYPES.PLAYER
-SET_TYPES = ELEMENT_TYPES.SET_ANIMATED, ELEMENT_TYPES.SET_STATIC
-ZONES_TYPES = ZONE_TYPES.NO_GO, ZONE_TYPES.INTERACTION
-
-SOUNDS_TYPES = (
-    SOUND_TYPES.SFX_COLLECTION,
-    SOUND_TYPES.SFX,
-    SOUND_TYPES.MUSIC,
-    SOUND_TYPES.AMBIANCE)
+GRAPHIC_TYPES = NODE_TYPES.SET_ANIMATED, NODE_TYPES.SET_STATIC, NODE_TYPES.PLAYER
+SET_TYPES = NODE_TYPES.SET_ANIMATED, NODE_TYPES.SET_STATIC
+ZONE_TYPES = NODE_TYPES.NO_GO, NODE_TYPES.INTERACTION
+SOUND_TYPES = (
+    NODE_TYPES.SFX_COLLECTION,
+    NODE_TYPES.SFX,
+    NODE_TYPES.MUSIC,
+    NODE_TYPES.AMBIANCE)
 
 DATA_TEMPLATES = {
     "scene": {
@@ -28,13 +27,13 @@ DATA_TEMPLATES = {
     "no_go": {
         "type": str,
         "name": str,
-        "affected": {str},
+        "affect": {str},
         "zone": (int, int, int, int),
     },
     "interaction": {
         "type": str,
         "name": str,
-        "affected": {str},
+        "affect": {str},
         "scripts": {str},
         "zone": (int, int, int, int),
     },
@@ -80,14 +79,14 @@ DATA_TEMPLATES = {
     "layer": {
         "name": str,
         "type": str,
-        "elevation": float
+        "deph": float
     },
     "set_static":{
         "name": str,
         "type": str,
         "file": str,
         "position": (int, int),
-        "elevation": float,
+        "deph": float,
     },
     "set_animated": {
         "name": str,
@@ -95,7 +94,7 @@ DATA_TEMPLATES = {
         "file": str,
         "position": (int, int),
         "alpha": float,
-        "elevation": float
+        "deph": float
     },
     "player": {
         "name": str,
@@ -105,11 +104,12 @@ DATA_TEMPLATES = {
     },
     "particles_system": {
         "name": str,
+        "alpha": int,
         "type": str,
         "direction_options": {
             "rotation_range": int,
             "speed": int},
-        "elevation": float,
+        "deph": float,
         "emission_positions": None,
         "emission_zone": None,
         "flow": int,

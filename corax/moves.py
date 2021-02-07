@@ -1,10 +1,13 @@
 
 import json
+import logging
 import os
 
 import corax.context as cctx
 from corax.core import EVENTS
-from corax.animation import SpriteSheet
+from corax.animation import SpriteSheet, build_centers_list
+from corax.cordinates import to_block_position, to_pixel_position, map_pixel_position, flip_position
+from corax.mathutils import sum_num_arrays
 
 
 def filter_moves(datas, input_buffer):
@@ -42,11 +45,91 @@ def is_move_change_authorized(move, datas, animation):
         animation.name not in conditions.get("animation_not_in", []))
 
 
+def is_move_cross_zone(
+        datas, move, block_position, flip, zones, image_size):
+    move_datas = datas["moves"][move]
+    moves = []
+    block_positions = []
+    while True:
+        pre_offset = move_datas["pre_events"].get(EVENTS.BLOCK_OFFSET)
+        post_offset = move_datas["post_events"].get(EVENTS.BLOCK_OFFSET)
+        has_flip_event = move_datas["post_events"].get(EVENTS.FLIP)
+        has_flip_event = has_flip_event or move_datas["pre_events"].get(EVENTS.FLIP)
+        if (not pre_offset and not post_offset) or has_flip_event:
+            # We assume if the first move contains a FLIP event, it will not
+            # move in space (even if an offset to compensate the flip is set).
+            # By the way, a case where this need to evaluate could happend in the
+            # futur but this is a tricky case. The that will not be implemented
+            # as far as it is not necessary.
+            break
+        moves.append(move)
+        centers = build_centers_list(move_datas, image_size, flip)
+        predicted = predict_block_positions(
+            centers=centers,
+            image_size=image_size,
+            block_position=block_position,
+            flip=flip,
+            pre_offset=pre_offset,
+            post_offset=post_offset)
+        block_positions.extend(predicted)
+
+        if pre_offset:
+            pre_offset = flip_position(pre_offset) if flip else pre_offset
+            block_position = sum_num_arrays(block_position, pre_offset)
+        if post_offset:
+            # print("POST OFFSET", post_offset, block_position,  sum_num_arrays(block_position,flip_position(post_offset) if flip else post_offset))
+            post_offset = flip_position(post_offset) if flip else post_offset
+            block_position = sum_num_arrays(block_position, post_offset)
+        move = move_datas["next_move"]
+        move_datas = datas["moves"][move]
+
+    for zone in zones:
+        for pos in block_positions:
+            if zone.contains(pos):
+                # msg = "refused: {}".format(moves)
+                # logging.debug((msg, zone.zone, block_positions))
+                return True
+
+    # logging.debug(("accepted: {}".format(moves), block_positions))
+    return False
+
+
+def predict_block_positions(
+        centers,
+        image_size,
+        block_position,
+        flip,
+        pre_offset=None,
+        post_offset=None):
+
+    if pre_offset:
+        pre_offset = flip_position(pre_offset) if flip else pre_offset
+        block_position = sum_num_arrays(pre_offset, block_position)
+
+    block_positions = []
+    pixel_position = to_pixel_position(block_position)
+
+    for center in centers or []:
+        center = sum_num_arrays(center, pixel_position)
+        if center == pixel_position:
+            continue
+        block_positions.append(to_block_position(center))
+
+    if post_offset is not None:
+        pixel_offset = to_pixel_position(post_offset)
+        pixel_offset = flip_position(pixel_offset) if flip else pixel_offset
+        center = sum_num_arrays(pixel_offset, centers[0], pixel_position)
+        block_position = to_block_position(center)
+        block_positions.append(block_position)
+    return block_positions
+
+
 class MovementManager():
     def __init__(self, datas, spritesheet, cordinates):
         self.cordinates = cordinates
         self.datas = datas
         self.animation = None
+        self.zones = []
         self.spritesheet = spritesheet
         self.moves_buffer = []
         self.set_move(datas["default_move"])
@@ -58,7 +141,8 @@ class MovementManager():
 
     def propose_moves(self, moves):
         for move in moves:
-            if is_move_change_authorized(move, self.datas, self.animation):
+            valid = is_move_change_authorized(move, self.datas, self.animation)
+            if self.is_offset_allowed(move) and valid:
                 self.set_move(move)
                 return
             conditions = (
@@ -69,24 +153,45 @@ class MovementManager():
             if conditions:
                 self.moves_buffer.insert(0, move)
 
+    def is_offset_allowed(self, move):
+        block_position = self.cordinates.block_position
+        block_offset = self.animation.post_events.get(EVENTS.BLOCK_OFFSET)
+        if block_offset:
+            if self.cordinates.flip:
+                block_offset = -block_offset[0], block_offset[1]
+            block_position = sum_num_arrays(block_position, block_offset)
+        return not is_move_cross_zone(
+            move=move,
+            image_size=self.datas["image_size"],
+            block_position=block_position,
+            flip=self.cordinates.flip,
+            datas=self.datas,
+            zones=self.zones)
+
     def set_move(self, move):
         self.moves_buffer = []
         if self.animation is not None:
             for event, value in self.animation.post_events.items():
                 self.apply_event(event, value)
-        mirror = self.cordinates.mirror
-        self.animation = self.spritesheet.build_animation(move, mirror)
+                if cctx.DEBUG:
+                    msg = f"EVENT: {self.animation.name}, {event}, {value}"
+                    logging.debug(msg)
+        flip = self.cordinates.flip
+        self.animation = self.spritesheet.build_animation(move, flip)
         for event, value in self.animation.pre_events.items():
             self.apply_event(event, value)
+            if cctx.DEBUG:
+                msg = f"EVENT: {self.animation.name}, {event}, {value}"
+                logging.debug(msg)
 
     def apply_event(self, event, value):
         if event == EVENTS.BLOCK_OFFSET:
-            mirror = self.cordinates.mirror
-            block_offset = (-value[0], -value[1]) if mirror is True else value
+            flip = self.cordinates.flip
+            block_offset = flip_position(value) if flip else value
             self.cordinates.block_position[0] += block_offset[0]
             self.cordinates.block_position[1] += block_offset[1]
         elif event == EVENTS.FLIP:
-            self.cordinates.mirror = not self.cordinates.mirror
+            self.cordinates.flip = not self.cordinates.flip
         elif event == EVENTS.SWITCH_TO:
             filename = os.path.join(cctx.MOVE_FOLDER, value)
             self.spritesheet = SpriteSheet.from_filename(filename)
@@ -95,18 +200,20 @@ class MovementManager():
 
     def set_next_move(self):
         next_move = self.datas["moves"][self.animation.name]["next_move"]
-        if self.moves_buffer:
-            key = "animation_in"
-            for move in self.moves_buffer:
-                moves_filter = self.datas["moves"][move]["conditions"].get(key)
-                conditions = (
-                    moves_filter is not None and
-                    self.animation.name not in moves_filter and
-                    next_move not in moves_filter)
-                if conditions:
-                    continue
-                self.set_move(move)
-                return
+        if not self.moves_buffer:
+            self.set_move(next_move)
+            return
+        key = "animation_in"
+        for move in self.moves_buffer:
+            moves_filter = self.datas["moves"][move]["conditions"].get(key)
+            conditions = (
+                moves_filter is not None and
+                self.animation.name not in moves_filter and
+                next_move not in moves_filter)
+            if conditions or not self.is_offset_allowed(move):
+                continue
+            self.set_move(move)
+            return
         self.set_move(next_move)
 
     def next(self):
@@ -115,12 +222,12 @@ class MovementManager():
             self.set_next_move()
         if anim.is_finished() and anim.hold is True and anim.repeatable:
             # this repeat the current animation or next animation on the loop
-            self.set_move(self.animation.loop_on)
+            if self.is_offset_allowed(self.animation.loop_on):
+                self.set_move(self.animation.loop_on)
+            else:
+                self.animation.hold = False
         self.animation.next()
-        self.cordinates.center_offset = map_point(
-            self.animation.center,
-            self.datas["block_size"],
-            self.cordinates.mirror)
+        self.cordinates.center_offset = self.animation.center
 
     @property
     def trigger(self):
@@ -130,8 +237,3 @@ class MovementManager():
     def image(self):
         return self.animation.image
 
-
-def map_point(point, size, mirror):
-    if mirror is False:
-        return point
-    return [size[0] - point[0], point[1]]

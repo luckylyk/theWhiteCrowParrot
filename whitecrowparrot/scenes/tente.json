@@ -8,89 +8,90 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
+
     ],
     "zones": [
         {
-            "name": "unnamed",
+            "name": "left_limit",
             "type": "no_go",
-            "affected": null,
-            "zone": [10, 5, 23, 28]
+            "affect": "whitecrow",
+            "zone": [0, 0, 18, 28]
         },
         {
-            "name": "unnamed",
+            "name": "right_limit",
+            "type": "no_go",
+            "affect": "whitecrow",
+            "zone": [50, 0, 80, 27]
+        },
+        {
+            "name": "move_the_chest",
             "type": "interaction",
-            "scripts":null,
-            "affected": null,
+            "affect": "whitecrow",
+            "scripts":  null,
             "zone": [43, 20, 50, 26]
-        },
-        {
-            "name": "unnamed",
-            "type": "no_go",
-            "affected": null,
-            "zone": [50, 16, 65, 27]
         }
     ],
     "elements": [
         {
             "name": "background",
             "type": "layer",
-            "elevation": 0.0
+            "deph": 0.0
         },
         {
             "name": "tente/black",
             "type": "set_static",
             "file": "tente/black.png",
             "position": [0, 0],
-            "elevation": 0.0
+            "deph": 0.0
         },
         {
             "name": "tente/tente",
             "type": "set_static",
             "file": "tente/tente.png",
             "position": [197, 8],
-            "elevation": 0.0
+            "deph": 0.0
         },
         {
             "name": "tente/ground",
             "type": "set_static",
             "file": "tente/ground.png",
             "position": [197, 220],
-            "elevation": 0.0
+            "deph": 0.0
         },
         {
             "name": "tente/tools_rack",
             "type": "set_static",
             "file": "tente/tools_rack.png",
             "position": [315, 164],
-            "elevation": 0.0
+            "deph": 0.0
         },
         {
             "name": "tente/stake",
             "type": "set_static",
             "file": "tente/stake.png",
             "position": [434, 7],
-            "elevation": 0.0
+            "deph": 0.0
         },
         {
             "name": "tente/hatch",
             "type": "set_static",
             "file": "tente/hatch.png",
             "position": [416, 235],
-            "elevation": 0.0
+            "deph": 0.0
         },
         {
             "name": "tente/ground_over",
             "type": "set_static",
             "file": "tente/ground_over.png",
             "position": [344, 222],
-            "elevation": 0.0
+            "deph": 0.0
         },
         {
             "name": "tente/candlestick_01",
             "type": "set_static",
             "file": "tente/candlestick_01.png",
             "position": [411, 172],
-            "elevation": 0.0
+            "deph": 0.0
         },
         {
             "name": "whitecrow",
@@ -99,46 +100,51 @@
             "movedatas_file": "whitecrowparrot_exploration.json"
         },
         {
+            "name": "foreground",
+            "type": "layer",
+            "deph": 0.0
+        },
+        {
             "name": "tente/chest",
             "type": "set_static",
             "file": "tente/chest.png",
             "position": [434, 193],
-            "elevation": 0.0
+            "deph": 0.0
         },
         {
             "name": "tente/fg_tente",
             "type": "set_static",
             "file": "tente/fg_tente.png",
             "position": [197, 107],
-            "elevation": 0.0
+            "deph": 0.0
         },
         {
             "name": "tente/fg_stake",
             "type": "set_static",
             "file": "tente/fg_stake.png",
             "position": [304, 13],
-            "elevation": 0.0
+            "deph": 0.0
         },
         {
             "name": "tente/bench",
             "type": "set_static",
             "file": "tente/bench.png",
             "position": [243, 231],
-            "elevation": 0.0
+            "deph": 0.0
         },
         {
             "name": "tente/candlestick_02",
             "type": "set_static",
             "file": "tente/candlestick_02.png",
             "position": [482, 189],
-            "elevation": 0.0
+            "deph": 0.0
         },
         {
             "name": "tente/candlestick_03",
             "type": "set_static",
             "file": "tente/candlestick_03.png",
             "position": [226, 190],
-            "elevation": 0.0
+            "deph": 0.0
         }
     ]
 }

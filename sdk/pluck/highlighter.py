@@ -145,25 +145,25 @@ script go_to_tente_forced //check my dick
     "type": "set_static",
     "file": "forest_01/fg_grass_02.png",
     "position": [769, 154],
-    "elevation": 0.23
+    "deph": 0.23
 }
 {
     "type": "set_static",
     "file": "forest_01/l_montain.png",
     "position": [509, 116],
-    "elevation": -0.42
+    "deph": -0.42
 }
 {
     "type": "set_static",
     "file": "forest_01/mid_bg_bush.png",
     "position": [3391, 185],
-    "elevation": -0.2
+    "deph": -0.2
 }
 {
     "type": "set_static",
     "file": "forest_01/grass_01.png",
     "position": [881, 222],
-    "elevation": -0.05
+    "deph": -0.05
 }
 """)
 

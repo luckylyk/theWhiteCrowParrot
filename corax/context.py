@@ -2,6 +2,8 @@ import os
 import json
 
 ROOT = None
+DEBUG = False
+MUTE = False
 DATA_FOLDER = None
 ANIMATION_FOLDER = None
 SET_FOLDER = None
@@ -16,12 +18,22 @@ BLOCK_SIZE = None
 KEY_COLOR = None
 
 
-def initialize(root):
+def initialize(args):
+    """
+    This function initialize the engine. This function MUST be called when the
+    engine is imported. Nothing works if it is not initialised in a game
+    context.
+    :args must receive the applications attribute
+        args[1] = root of the game file structure.
+        --debug, --mute are arguments valids.
+    """
     global ROOT, DATA_FOLDER, ANIMATION_FOLDER, SET_FOLDER, MOVE_FOLDER, \
     SCRIPT_FOLDER, SCENE_FOLDER, SOUNDS_FOLDER, GAME_FILE, RESOLUTION, FPS, \
-    BLOCK_SIZE, KEY_COLOR
+    BLOCK_SIZE, KEY_COLOR, DEBUG, MUTE
 
-    ROOT = root
+    ROOT = args[1]
+    DEBUG = "--debug" in args or "-d" in args
+    MUTE = "--mute" in args or "-m" in args
     ANIMATION_FOLDER = os.path.realpath(os.path.join(ROOT, "animations"))
     SET_FOLDER = os.path.realpath(os.path.join(ROOT, "sets"))
     MOVE_FOLDER = os.path.realpath(os.path.join(ROOT, "moves"))

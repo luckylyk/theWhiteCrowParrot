@@ -1,5 +1,5 @@
 from PyQt5 import QtCore
-from corax.core import ELEMENT_TYPES
+from corax.core import NODE_TYPES
 import corax.context as cctx
 from pluck.datas import SET_TYPES
 
@@ -17,7 +17,7 @@ def grow_rect(rect, value):
 def get_position(element, grid_offset=None):
     if element["type"] in SET_TYPES:
         return element["position"]
-    if element["type"] == ELEMENT_TYPES.PLAYER:
+    if element["type"] == NODE_TYPES.PLAYER:
         x, y = element["block_position"]
         x *= cctx.BLOCK_SIZE
         y *= cctx.BLOCK_SIZE

@@ -1,4 +1,6 @@
-
+"""
+This is a very basic particule system engine
+"""
 
 import random
 import math
@@ -7,7 +9,7 @@ from itertools import cycle
 
 
 from corax.mathutils import normalize, clamp, difference
-from corax.core import PARTICLE_SHAPE_TYPES
+from corax.core import SHAPE_TYPES
 from corax.pygameutils import render_rect, render_ellipse
 from corax.euclide import (
     Rect, angle_to_vector, vector_to_angle, points_to_vector, limit_angle)
@@ -77,19 +79,24 @@ class ParticlesSystem():
             self,
             zone,
             name,
-            elevation,
+            deph,
             start_number,
+            alpha=255,
             spot_options=None,
             direction_options=None,
             shape_options=None,
             flow=0,
             emitter=None):
 
+        #to delete
+        self.kept_position = None
+
         self.name = name
-        self.elevation = elevation
+        self.deph = deph
         self.zone = Rect(*zone)
         self.flow = cycle(range(flow)) if flow else None
         self.emitter = emitter
+        self.alpha = alpha
         self.spot_options = build_spot_options(spot_options or {})
         self.direction_options = build_direction_options(direction_options or {})
         self.shape_options = shape_options
@@ -132,15 +139,20 @@ class ParticlesSystem():
         for spot in self.spots:
             spot.next()
 
-    def render(self, screen, position):
+    def render(self, screen, deph, camera):
+        deph = deph + self.deph
+        position = camera.relative_pixel_position(self.pixel_position, deph)
+        if position != self.kept_position:
+            self.kept_position = position
         color = self.shape_options["color"]
         for spot in self.spots:
             x = position[0] + spot.pixel_position[0] - self.pixel_position[0]
             y = position[1] + spot.pixel_position[1] - self.pixel_position[1]
+
             size = self.shape_options["size"]
-            if self.shape_options["type"] == PARTICLE_SHAPE_TYPES.SQUARE:
-                render_rect(screen, color, x, y, size, size)
-            elif self.shape_options["type"] == PARTICLE_SHAPE_TYPES.ELLIPSE:
+            if self.shape_options["type"] == SHAPE_TYPES.SQUARE:
+                render_rect(screen, color, x, y, size, size, alpha=self.alpha)
+            elif self.shape_options["type"] == SHAPE_TYPES.ELLIPSE:
                 render_ellipse(screen, color, x, y, size, size)
 
 

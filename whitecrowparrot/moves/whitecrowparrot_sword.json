@@ -1,7 +1,7 @@
 {
     "filename": "whitecrowparrot_sword.png",
     "key_color": [0, 255, 0],
-    "block_size": [240, 160],
+    "image_size": [240, 160],
     "default_move": "idle",
     "evaluation_order": [
         "stroke_ready",
@@ -31,7 +31,7 @@
         "idle":
             {
                 "start_at_image": 0,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1],
                 "triggers": null,
                 "frames_centers": null,
@@ -48,7 +48,7 @@
         "crouch_down":
             {
                 "start_at_image": 1,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1, 1, 1, 1, 1],
                 "triggers": null,
                 "frames_centers": null,
@@ -66,7 +66,7 @@
         "low_hit_ready":
             {
                 "start_at_image": 7,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1, 1],
                 "triggers": null,
                 "frames_centers": null,
@@ -84,8 +84,8 @@
         "jump":
             {
                 "start_at_image": 10,
-                "center": [70, 160],
-                "frames_per_image": [1, 1, 3, 4, 2, 1, 1, 1, 1],
+                "center": [70, 155],
+                "frames_per_image": [1, 1, 2, 3, 4, 3, 2, 1, 1],
                 "triggers": null,
                 "frames_centers": null,
                 "release_frame": 10,
@@ -102,7 +102,7 @@
         "crouch_up":
             {
                 "start_at_image": 20,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1, 1, 1, 1],
                 "triggers": null,
                 "frames_centers": null,
@@ -120,7 +120,7 @@
         "high_block_retrieve":
             {
                 "start_at_image": 25,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1, 1],
                 "triggers": null,
                 "frames_centers": null,
@@ -138,7 +138,7 @@
         "high_hit_retrieve":
             {
                 "start_at_image": 28,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1],
                 "triggers": null,
                 "frames_centers": null,
@@ -156,7 +156,7 @@
         "low_hit_shoot":
             {
                 "start_at_image": 30,
-                "center": [70, 160],
+                "center": [70, 155],
                 "hold": false,
                 "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1],
                 "triggers": null,
@@ -174,7 +174,7 @@
         "high_block":
             {
                 "start_at_image": 38,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1],
                 "triggers": [[0, "whish_whitecrow"]],
                 "frames_centers": null,
@@ -192,7 +192,7 @@
         "low_block":
             {
                 "start_at_image": 40,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1, 1, 1],
                 "triggers": [[0, "whish_whitecrow"]],
                 "frames_centers": null,
@@ -210,7 +210,7 @@
         "low_block_retrieve":
             {
                 "start_at_image": 44,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1, 1, 1, 1],
                 "triggers": null,
                 "frames_centers": null,
@@ -228,7 +228,7 @@
         "stroke_ready":
             {
                 "start_at_image": 50,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 2, 2, 3, 5],
                 "triggers": null,
                 "frames_centers": null,
@@ -246,7 +246,7 @@
         "stroke_shoot":
             {
                 "start_at_image": 55,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1, 1, 1],
                 "triggers": null,
                 "frames_centers": null,
@@ -264,7 +264,7 @@
         "stroke_retrieve":
             {
                 "start_at_image": 60,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1, 1, 1],
                 "triggers": null,
                 "frames_centers": null,
@@ -282,7 +282,7 @@
         "high_hit_ready":
             {
                 "start_at_image": 64,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1, 1],
                 "triggers": [[0, "whish_whitecrow"]],
                 "frames_centers": null,
@@ -301,7 +301,7 @@
         "crouch_hit_retrieve":
             {
                 "start_at_image": 67,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1, 1],
                 "triggers": null,
                 "frames_centers": null,
@@ -320,7 +320,7 @@
         "high_hit_shoot":
             {
                 "start_at_image": 70,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1, 1, 1, 4],
                 "triggers": [[0, "whoosh_whitecrow"]],
                 "frames_centers": null,
@@ -338,7 +338,7 @@
         "step_forward":
             {
                 "start_at_image": 75,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [3, 2, 4, 6],
                 "triggers": [[0, "step_whitecrow"]],
                 "frames_centers": [[5, 0], [10, 0], [15, 0], [20, 0]],
@@ -357,7 +357,7 @@
         "crouch_hit_shoot":
             {
                 "start_at_image": 80,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1],
                 "triggers": null,
                 "frames_centers": null,
@@ -375,7 +375,7 @@
         "back_dash":
             {
                 "start_at_image": 90,
-                "center": [190, 160],
+                "center": [190, 155],
                 "frames_per_image": [2, 2, 3, 2, 1, 1, 1, 1],
                 "frames_centers": [
                     [-10, 0],
@@ -402,7 +402,7 @@
         "step_backward":
             {
                 "start_at_image": 100,
-                "center": [90, 160],
+                "center": [90, 155],
                 "frames_per_image": [2, 2, 5, 5],
                 "triggers": null,
                 "frames_centers": [[-5, 0], [-10, 0], [-15, 0], [-20, 0]],
@@ -421,7 +421,7 @@
         "return":
             {
                 "start_at_image": 104,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1, 1, 1, 1],
                 "triggers": null,
                 "frames_centers": null,
@@ -441,7 +441,7 @@
         "tidy_up_sword":
             {
                 "start_at_image": 110,
-                "center": [70, 160],
+                "center": [70, 155],
                 "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 3, 1, 5, 2, 2, 2, 0],
                 "triggers": [[0, "whish_whitecrow"],[5, "whoosh_whitecrow"], [20, "swordin_whitecrow"]],
                 "frames_centers": null,

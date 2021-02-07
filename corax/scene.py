@@ -7,11 +7,12 @@ from corax.pygameutils import load_image
 from corax.euclide import Rect
 from corax.graphicelement import SetStaticElement, SetAnimatedElement
 from corax.camera import Camera, Scrolling
-from corax.core import ELEMENT_TYPES, SOUND_TYPES
+from corax.core import NODE_TYPES
 from corax.animation import SpriteSheet
 from corax.cordinates import Cordinates
 from corax.moves import MovementManager
 from corax.player import Player
+from corax.zone import NoGo
 from corax.sounds import (
     Ambiance, SfxSoundCollection, SoundShooter, SfxSound)
 from corax.particles import (
@@ -35,6 +36,7 @@ class Scene():
         self.sounds = []
         self.sound_shooter = sound_shooter
         self.evaluables = []
+        self.zones = []
 
     @property
     def elements(self):
@@ -45,29 +47,28 @@ class Scene():
 
     def render(self, screen):
         screen.fill(self.background_color)
-        for layer in sorted(self.layers, key=lambda layer: layer.elevation):
+        for layer in sorted(self.layers, key=lambda layer: layer.deph):
             for element in layer.elements:
-                world_pos = element.pixel_position
-                elev = layer.elevation + element.elevation
-                cam_pos = self.camera.relative_pixel_position(world_pos, elev)
-                element.render(screen, cam_pos)
+                element.render(screen, layer.deph, self.camera)
         for sound in self.sounds:
             sound.update()
+        for zone in self.zones:
+            zone.render(screen, self.camera)
         self.sound_shooter.shoot()
 
 
 class Layer():
-    def __init__(self, name, elevation, elements):
+    def __init__(self, name, deph, elements):
         self.elements = elements
         self.name = name
-        self.elevation = elevation
+        self.deph = deph
 
     def append(self, element):
         self.elements.append(element)
 
 
 def check_first_layer(level_datas):
-    if level_datas["elements"][0]["type"] != ELEMENT_TYPES.LAYER:
+    if level_datas["elements"][0]["type"] != NODE_TYPES.LAYER:
         raise ValueError("first scene element must be a Layer")
 
 
@@ -76,14 +77,14 @@ def build_set_static_element(datas):
         os.path.join(cctx.SET_FOLDER, datas["file"]),
         pixel_position=datas["position"],
         key_color=cctx.KEY_COLOR,
-        elevation=datas["elevation"])
+        deph=datas["deph"])
 
 
 def build_set_animated_element(datas):
     return SetAnimatedElement.from_filename(
         os.path.join(cctx.MOVE_FOLDER, datas["file"]),
         pixel_position=datas["position"],
-        elevation=datas["elevation"])
+        deph=datas["deph"])
 
 
 def build_player(datas, grid_pixel_offset, input_buffer, sound_shooter):
@@ -153,7 +154,8 @@ def build_particles_system(datas):
     return ParticlesSystem(
         name=datas["name"],
         zone=datas["zone"],
-        elevation=datas["elevation"],
+        alpha=datas["alpha"],
+        deph=datas["deph"],
         start_number=datas["start_number"],
         flow=datas["flow"],
         spot_options=datas["spot_options"],
@@ -164,7 +166,6 @@ def build_particles_system(datas):
 
 def build_scene(name, level_datas, input_buffer):
     check_first_layer(level_datas)
-
     camera = Camera()
     scrolling = build_scrolling(camera, level_datas)
     sound_shooter = SoundShooter()
@@ -175,45 +176,53 @@ def build_scene(name, level_datas, input_buffer):
         scrolling=scrolling,
         sound_shooter=sound_shooter)
 
+    for zone_datas in level_datas["zones"]:
+        if zone_datas.get("type") == NODE_TYPES.NO_GO:
+            zone = NoGo(zone_datas)
+            scene.zones.append(zone)
+
     layer = None
     for element in level_datas["elements"]:
-        if element.get("type") == ELEMENT_TYPES.LAYER:
-            layer = Layer(element["name"], element["elevation"], [])
+        if element.get("type") == NODE_TYPES.LAYER:
+            layer = Layer(element["name"], element["deph"], [])
             scene.layers.append(layer)
             continue
-        if element.get("type") == ELEMENT_TYPES.SET_STATIC:
+        if element.get("type") == NODE_TYPES.SET_STATIC:
             static = build_set_static_element(element)
             layer.append(static)
-        if element.get("type") == ELEMENT_TYPES.SET_ANIMATED:
+        if element.get("type") == NODE_TYPES.SET_ANIMATED:
             animated = build_set_animated_element(element)
             layer.append(animated)
             scene.evaluables.append(animated)
         if element.get("type") == "player":
             offset = level_datas["grid_pixel_offset"]
             player = build_player(element, offset, input_buffer, sound_shooter)
+            for zone in scene.zones:
+                if player.name in zone.affect:
+                    player.add_zone(zone)
             layer.append(player)
             scene.players.append(player)
             scene.evaluables.append(player)
             if player.name == level_datas["scroll_target"]:
                 scrolling.target = player.cordinates
-        if element.get("type") == ELEMENT_TYPES.PARTICLES:
+        if element.get("type") == NODE_TYPES.PARTICLES:
             particles = build_particles_system(element)
             scene.evaluables.append(particles)
             layer.append(particles)
 
-    ambiances = (SOUND_TYPES.AMBIANCE, SOUND_TYPES.MUSIC)
+    ambiances = (NODE_TYPES.AMBIANCE, NODE_TYPES.MUSIC)
     for sound_datas in level_datas["sounds"]:
         if sound_datas.get("type") in ambiances:
             ambiance = build_ambiance(sound_datas)
             element = find_element(scene, sound_datas["listener"])
             ambiance.listener = element.cordinates
             scene.sounds.append(ambiance)
-        if sound_datas.get("type") == SOUND_TYPES.SFX_COLLECTION:
+        if sound_datas.get("type") == NODE_TYPES.SFX_COLLECTION:
             collection = build_sfx_collection(sound_datas)
             element = find_element(scene, sound_datas["emitter"])
             collection.emitter = element.cordinates
             sound_shooter.sounds.append(collection)
-        if sound_datas.get("type") == SOUND_TYPES.SFX:
+        if sound_datas.get("type") == NODE_TYPES.SFX:
             sound = build_sfx_sound(sound_datas)
             element = find_element(scene, sound_datas["emitter"])
             sound.emitter = element.cordinates

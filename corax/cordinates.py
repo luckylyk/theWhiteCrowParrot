@@ -1,18 +1,28 @@
 
+"""
+Module to give some tool to handle and convert 2d cordinates datas
+"""
+
+
+import math
 import corax.context as cctx
 
 
 class Cordinates():
+    """
+    This object represent the coordinate system used for each localised element
+    in the scene.
+    """
     def __init__(
-            self, mirror=False,
+            self, flip=False,
             block_position=None,
             pixel_offset=None,
             center=None):
-        self.mirror = False
+        self.flip = False
         self.pixel_offset = pixel_offset or [0, 0]
         self.block_position = block_position or [0, 0]
         self.center_offset = center or [0, 0]
-        self.elevation = 0
+        self.deph = 0
 
     @property
     def pixel_position(self):
@@ -27,3 +37,28 @@ class Cordinates():
         x = pixel_position[0] + self.center_offset[0]
         y = pixel_position[1] + self.center_offset[1]
         return [x, y]
+
+
+def to_block_position(pixel_position):
+    x = pixel_position[0] // cctx.BLOCK_SIZE
+    y = pixel_position[1] // cctx.BLOCK_SIZE
+    return x, y
+
+
+def to_pixel_position(block_position):
+    x = block_position[0] * cctx.BLOCK_SIZE
+    y = block_position[1] * cctx.BLOCK_SIZE
+    return x, y
+
+
+def flip_position(position):
+    return -position[0], position[1]
+
+
+def map_pixel_position(pixel_position, size=None, flip=False):
+    """
+    Map a pixel_position to a image if the cordinates are horizontally fliped
+    """
+    if flip is False:
+        return pixel_position
+    return [size[0] - pixel_position[0], pixel_position[1]]

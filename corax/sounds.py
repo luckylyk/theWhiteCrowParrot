@@ -1,5 +1,6 @@
 from itertools import cycle
 
+import corax.context as cctx
 from corax.pygameutils import load_sound
 from corax.euclide import Rect
 from corax.iterators import shuffle
@@ -15,6 +16,8 @@ class Ambiance():
         self.is_playing = False
 
     def play(self):
+        if cctx.MUTE:
+            return
         self.sound.play(-1)
         self.is_playing = True
 
@@ -37,10 +40,6 @@ class Ambiance():
             return
         ratio = self.zone.falloff_ratio(position, self.falloff)
         self.sound.set_volume(ratio)
-
-    def __del__(self):
-        print(self, "is deleted")
-        self.stop()
 
 
 class SfxSoundCollection():
@@ -65,6 +64,8 @@ class SfxSoundCollection():
             self.iterator = cycle(self.sounds)
 
     def play(self):
+        if cctx.MUTE:
+            return
         position = self.emitter.pixel_center
         ratio = self.zone.falloff_ratio(position, self.falloff)
         sound = next(self.iterator)
@@ -93,6 +94,8 @@ class SfxSound():
         self.trigger = trigger
 
     def play(self):
+        if cctx.MUTE:
+            return
         position = self.emitter.pixel_center
         ratio = self.zone.falloff_ratio(position, self.falloff)
         self.sound.set_volume(ratio)

@@ -1,3 +1,10 @@
+"""
+This module contains all function used to read crackle script files.
+The cackle language is the language read by the corax engine to drive scripted
+event and story script.
+"""
+
+
 import os
 import corax.context as cctx
 
@@ -13,7 +20,10 @@ class CrackleScript:
         return f"script {self.name}\n" + "\n".join(lines)
 
 
-def read_crackle_file(filepath):
+def parse_crackle_file(filepath):
+    """
+    Parse a crackle file and convert it to CrackleScript object
+    """
     scripts = []
     indent_level = 0
     with open(os.path.join(cctx.SCRIPT_FOLDER, filepath)) as f:

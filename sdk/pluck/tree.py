@@ -2,8 +2,7 @@ from pluck.datas import extract_scene_properties, data_to_plain_text
 from pluck.qtutils import get_icon, ICON_MATCH, get_image
 from pluck.paint import get_renderer
 
-
-from corax.core import ELEMENT_TYPES
+from corax.core import NODE_TYPES
 
 
 class CNode():
@@ -102,7 +101,7 @@ def create_scene_outliner_tree(scene_datas):
     layer = None
     for element in scene_datas["elements"]:
         icon = get_icon(ICON_MATCH[element["type"]])
-        if element["type"] == ELEMENT_TYPES.LAYER:
+        if element["type"] == NODE_TYPES.LAYER:
             layer = CNode(icon, data=element, parent=renderable)
             continue
         CNode(icon, data=element, parent=layer)
@@ -134,13 +133,15 @@ def tree_to_plaintext(tree, indent=4):
 
     plaintext = data_to_plain_text(scene_node.data, indent=0).rstrip("\n }")
     plaintext += ',\n    "sounds": [\n        '
-    for sound in sounds:
-        plaintext += data_to_plain_text(sound.data, indent=2) + ",\n        "
-    plaintext = plaintext[:-10]
+    if sounds:
+        for sound in sounds:
+            plaintext += data_to_plain_text(sound.data, indent=2) + ",\n        "
+        plaintext = plaintext[:-10]
     plaintext += '\n    ],\n    "zones": [\n        '
-    for zone in zones:
-        plaintext += data_to_plain_text(zone.data, indent=2) + ",\n        "
-    plaintext = plaintext[:-10]
+    if zones:
+        for zone in zones:
+            plaintext += data_to_plain_text(zone.data, indent=2) + ",\n        "
+        plaintext = plaintext[:-10]
     plaintext += '\n    ],\n    "elements": [\n        '
     for layer in layers:
         plaintext += data_to_plain_text(layer.data, indent=2) + ',\n        '

@@ -21,5 +21,5 @@ for line in a.split("\n"):
 {{
     "file": "/level_01/{name}.png",
     "position": [{x}, {y}],
-    "elevation": 0
+    "deph": 0
 }},""")

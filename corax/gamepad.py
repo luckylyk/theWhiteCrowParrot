@@ -64,10 +64,10 @@ class InputBuffer():
     def flush(self):
         self.buffer_key_pressed = []
 
-    def update(self, joystick, mirror=False):
+    def update(self, joystick, flip=False):
         joystick.init()
         states = get_current_commands(joystick)
-        if mirror is True:
+        if flip is True:
             mirror_commands(states)
         if states == self.current_states:
             return False

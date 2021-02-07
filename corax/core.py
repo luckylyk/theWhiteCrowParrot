@@ -1,3 +1,6 @@
+"""
+This modules contains all constants used in the game file datas
+"""
 
 
 class EVENTS():
@@ -6,33 +9,30 @@ class EVENTS():
     SWITCH_TO = "switch_to"
 
 
-class ELEMENT_TYPES():
-    PLAYER = "player"
-    SET_STATIC = "set_static"
-    SET_ANIMATED = "set_animated"
-    LAYER = "layer"
-    PARTICLES = "particles_system"
-
-
-class SOUND_TYPES():
-    AMBIANCE = "ambiance"
-    SFX_COLLECTION = "sfx_sound_collection"
-    SFX = "sfx_sound"
-    MUSIC = "music"
-
-
-class ZONE_TYPES():
-    NO_GO = "no_go"
-    INTERACTION = "interaction"
-
-
 class LOOP_TYPES():
     CYCLE = "cycle"
     SHUFFLE = "shuffle"
 
 
-class PARTICLE_SHAPE_TYPES():
+class SHAPE_TYPES():
     SQUARE = "square"
     ELLIPSE = "ellipse"
     IMAGE = "image"
     ANIMATION = "animation"
+
+
+class NODE_TYPES():
+    # graphics elements
+    PLAYER = "player"
+    SET_STATIC = "set_static"
+    SET_ANIMATED = "set_animated"
+    LAYER = "layer"
+    PARTICLES = "particles_system"
+    # sounds
+    AMBIANCE = "ambiance"
+    SFX_COLLECTION = "sfx_sound_collection"
+    SFX = "sfx_sound"
+    MUSIC = "music"
+    # zones
+    NO_GO = "no_go"
+    INTERACTION = "interaction"

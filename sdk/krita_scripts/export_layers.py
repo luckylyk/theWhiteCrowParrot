@@ -18,7 +18,7 @@ DEFAULT_DATA = {
     "type": "set_static",
     "file": None,
     "position": None,
-    "elevation": 0
+    "deph": 0
 }
 
 def check_name_clash(nodes):
