@@ -293,7 +293,7 @@
                 "next_move": "idle",
                 "next_move_bufferable": false,
                 "loop_on": null,
-                "inputs": ["UP"],
+                "inputs": [],
                 "conditions": {
                     "animation_in": ["idle"]},
                 "pre_events": {},

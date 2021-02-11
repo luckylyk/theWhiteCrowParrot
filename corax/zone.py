@@ -5,17 +5,21 @@ Thats mainly data stuctures.
 
 
 import corax.context as cctx
-from corax.cordinates import to_pixel_position
-from pygameutils import render_rect
+from corax.cordinates import to_pixel_position, to_block_position
+from corax.pygameutils import render_rect
 
 
-class NoGo():
+class Zone():
     """
     The NoGo object is a corax node of the "zone" categorie. It is cordinates
     where the "affected" character are not allowed to go.
     """
     def __init__(self, datas):
         self.datas = datas
+
+    @property
+    def script_names(self):
+        return self.datas.get("scripts", []) or []
 
     @property
     def name(self):
@@ -53,8 +57,13 @@ class NoGo():
     def height(self):
         return self.b - self.t
 
-    def contains(self, block_position):
-        x, y = block_position
+    def contains(self, block_position=None, pixel_position=None):
+        if block_position:
+            x, y = block_position
+        elif pixel_position:
+            x, y = to_block_position(pixel_position)
+        else:
+            raise ValueError("Zone need at least a position to compare")
         return self.l <= x <= self.r and self.t <= y <= self.b
 
     @property
@@ -68,3 +77,6 @@ class NoGo():
         x, y = camera.relative_pixel_position(world_pos)
         w, h = to_pixel_position([self.width, self.height])
         render_rect(screen, (255, 255, 255), x, y, w, h, alpha=25)
+
+    def __repr__(self):
+        return f"Zone: {self.name}: {self.l}, {self.r}, {self.t}, {self.b}"

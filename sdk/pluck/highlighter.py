@@ -1,5 +1,7 @@
 from PyQt5 import QtGui, QtCore, QtWidgets
 
+ACTION_KEYWORDS = ["run", "play", "set", "reach", "move"]
+
 
 RULES = {
     'crackle':
@@ -11,19 +13,19 @@ RULES = {
                 'italic': False
             },
             {
-                'exp': r'\b' + r'\b|\b'.join(["is", "in", "by"]) + r'\b',
+                'exp': r'\b' + r'\b|\b'.join(["always", "is", "in", "cross", "has", "by"]) + r'\b',
                 'color': '#88CCFF',
                 'bold': True,
                 'italic': False
             },
             {
-                'exp': r'\b' + r'\b|\b'.join(["run", "play", "pressed", "set", "reach"]) + r'\b',
+                'exp': r'\b' + r'\b|\b'.join(ACTION_KEYWORDS) + r'\b',
                 'color': '#FFDD55',
                 'bold': True,
                 'italic': False
             },
             {
-                'exp': r'\b' + r'\b|\b'.join(["scene", "animation", "hitbox", "key", "player", "zone", "movesheet"]) + r'\b',
+                'exp': r'\b' + r'\b|\b'.join(["theatre", "scene", "gamepad", "name", "pressed", "animation", "hitbox", "key", "player", "zone", "movesheet"]) + r'\b',
                 'color': '#88FFCC',
                 'bold': True,
                 'italic': False
@@ -116,59 +118,42 @@ if __name__ == "__main__":
     app = QtWidgets.QApplication([])
     plaintext_editor = QtWidgets.QPlainTextEdit()
 
-    test = (
-"""
+    test = """
+// this is a test script to describe how i would like to design that language
+
+
 script go_to_tente_with_sword
-    key UP is pressed
-    scene is forest_01
-    player whitecrow: movesheet is whitecrowparrot_sword.json
-    player whitecrow: animation is idle
-    player whitecrow: hitbox foot in zone tente
-        player whitecrow: play animation tidy_up_sword
+    gamepad.keys.pressed has UP
+    theatre.scene.name is forest
+    player.whitecrow.movesheet is whitecrowparrot_sword.json
+    player.whitecrow.animation is idle
+ //   player.whitecrow.hitbox.foot cross zone.tente
+        player.whitecrow play tidy_up_sword
         run go_to_tente
 
-    //fuck that bitch
+ // commentary test
 
-script go_to_tente_forced //check my dick
-    scene is forest_01
-    // it's ok
-        // still ok
-// I love you
-    player whitecrow: movesheet is whitecrowparrot_exploration
-    player whitecrow: animation is idle
-    player whitecrow: hitbox foot in zone tente //try this
-        player whitecrow: reach (52, 35) by (walk, footsie)
-        player whitecrow: play through_door
-"""
-
-"""test = {
-    "type": "set_static",
-    "file": "forest_01/fg_grass_02.png",
-    "position": [769, 154],
-    "deph": 0.23
-}
-{
-    "type": "set_static",
-    "file": "forest_01/l_montain.png",
-    "position": [509, 116],
-    "deph": -0.42
-}
-{
-    "type": "set_static",
-    "file": "forest_01/mid_bg_bush.png",
-    "position": [3391, 185],
-    "deph": -0.2
-}
-{
-    "type": "set_static",
-    "file": "forest_01/grass_01.png",
-    "position": [881, 222],
-    "deph": -0.05
-}
-""")
+script go_to_tente // commentary test
+    gamepad.keys.pressed has UP
+    theatre.scene.name is forest
+    player.whitecrow.movesheet is whitecrowparrot_exploration.json
+    player.whitecrow.animation is idle
+ // commentary test
+     // commentary test
+ //   player.whitecrow.hitbox.foot in zone.tente //try this
+//      player.whitecrow reach (52, 35) by (walk, footsie)
+        player.whitecrow play through_door
+        theatre.scene set tente
+        player.whitecrow play walk_a
+        player.whitecrow play walk_b
+        player.whitecrow play idle
 
 
-    h = CoraxHighlighter(RULES["json"], document=plaintext_editor.document())
+script go_to_forest // commentary test
+    true
+        theatre.scene set forest"""
+
+    h = CoraxHighlighter(RULES["crackle"], document=plaintext_editor.document())
     qfont = QtGui.QFont("Consolas")
     qfont.setPixelSize(15)
     plaintext_editor.setFont(qfont)
@@ -176,7 +161,7 @@ script go_to_tente_forced //check my dick
     plaintext_editor.show()
     plaintext_editor.setWordWrapMode(QtGui.QTextOption.NoWrap)
     import os
-    stylesheetpath = os.path.join(os.path.dirname(__file__), "flatdark.css")
+    stylesheetpath = os.path.join(os.path.dirname(__file__), "css/flatdark.css")
     stylesheet = ""
     with open(stylesheetpath, "r") as f:
         for line in f:

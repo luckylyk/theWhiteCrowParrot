@@ -117,7 +117,7 @@ class MovementManager():
         self.cordinates = cordinates
         self.datas = datas
         self.animation = None
-        self.zones = []
+        self.no_go_zones = []
         self.spritesheet = spritesheet
         self.moves_buffer = []
         self.set_move(datas["default_move"])
@@ -145,8 +145,8 @@ class MovementManager():
         block_position = self.cordinates.block_position
         block_offset = self.animation.post_events.get(EVENTS.BLOCK_OFFSET)
         if block_offset:
-            if self.cordinates.flip:
-                block_offset = -block_offset[0], block_offset[1]
+            fp = self.cordinates.flip
+            block_offset = flip_position(block_offset) if fp else block_offset
             block_position = sum_num_arrays(block_position, block_offset)
         return not is_move_cross_zone(
             move=move,
@@ -154,7 +154,7 @@ class MovementManager():
             block_position=block_position,
             flip=self.cordinates.flip,
             datas=self.datas,
-            zones=self.zones)
+            zones=self.no_go_zones)
 
     def set_move(self, move):
         self.moves_buffer = []
@@ -180,7 +180,7 @@ class MovementManager():
             self.cordinates.flip = not self.cordinates.flip
         elif event == EVENTS.SWITCH_TO:
             filename = os.path.join(cctx.MOVE_FOLDER, value)
-            self.spritesheet = SpriteSheet.from_filename(filename)
+            self.spritesheet = SpriteSheet.from_filename(value, filename)
             with open(filename, 'r') as f:
                 self.datas = json.load(f)
 
@@ -214,7 +214,7 @@ class MovementManager():
             else:
                 self.animation.hold = False
         self.animation.next()
-        self.cordinates.center_offset = self.animation.center
+        self.cordinates.center_offset = self.animation.pixel_center
 
     @property
     def trigger(self):

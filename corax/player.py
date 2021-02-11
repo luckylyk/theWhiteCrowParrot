@@ -24,6 +24,7 @@ class Player():
         self.input_buffer = input_buffer
         self.cordinates = cordinates
         self.sound_shooter = sound_shooter
+        self.zones = []
 
     @staticmethod
     def from_filename(
@@ -49,7 +50,9 @@ class Player():
 
     def add_zone(self, zone):
         if zone.type == NODE_TYPES.NO_GO:
-            self.movement_manager.zones.append(zone)
+            self.movement_manager.no_go_zones.append(zone)
+            return
+        self.zones.append(zone)
 
     def update_inputs(self, joystick):
         flip = self.cordinates.flip
@@ -77,7 +80,7 @@ class Player():
             return
         # Render a spot following the player animation center in debug mode
         size = self.movement_manager.datas["image_size"]
-        center = self.movement_manager.animation.center
+        center = self.movement_manager.animation.pixel_center
         position = sum_num_arrays(center, self.pixel_position)
         x, y = camera.relative_pixel_position(position, deph)
         render_rect(screen, (255, 255, 0), x-1, y-1, 2, 2, 255)
@@ -86,16 +89,29 @@ class Player():
         x, y = camera.relative_pixel_position(position, deph)
         size = cctx.BLOCK_SIZE
         render_rect(screen, (150, 150, 255), x, y, size, size, 50)
-        bcenter = to_block_position(self.movement_manager.animation.center)
+        pcenter = self.movement_manager.animation.pixel_center
+        bcenter = to_block_position(pcenter)
         bcenter = sum_num_arrays(self.cordinates.block_position, bcenter)
+        wpcenter = sum_num_arrays(self.cordinates.pixel_position, pcenter)
         text = f"{self.name}"
         render_text(screen, (155, 255, 0), 0, 0, text)
         text = f"    (position: {self.cordinates.block_position})"
         render_text(screen, (155, 255, 0), 0, 15, text)
-        text = f"    (center pixel position: {self.movement_manager.animation.center})"
+        text = f"    (center pixel position: {self.movement_manager.animation.pixel_center})"
         render_text(screen, (155, 255, 0), 0, 30, text)
         text = f"    (center block position: {bcenter}"
         render_text(screen, (155, 255, 0), 0, 45, text)
+        text = f"    (global pixel center: {wpcenter}"
+        render_text(screen, (155, 255, 0), 0, 60, text)
+
+    @property
+    def pixel_center(self):
+        return sum_num_arrays(
+            self.animation.pixel_center, self.cordinates.pixel_position)
+
+    @property
+    def animation(self):
+        return self.movement_manager.animation
 
     @property
     def pixel_position(self):

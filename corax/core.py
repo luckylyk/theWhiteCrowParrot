@@ -2,6 +2,11 @@
 This modules contains all constants used in the game file datas
 """
 
+class RUN_MODE():
+    SCRIPT = "script"
+    NORMAL = "normal"
+    PAUSE = "pause"
+
 
 class EVENTS():
     FLIP = "flip"

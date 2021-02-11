@@ -27,16 +27,15 @@ if "--help" in sys.argv or "-h" in sys.argv:
     print(__doc__)
     exit()
 
+if "--debug" in sys.argv or "-d" in sys.argv:
+    logging.getLogger().setLevel(logging.DEBUG)
+
+
 import pygame
 import corax.context as cctx
 from corax.theatre import Theatre
 
-game = cctx.initialize(sys.argv)
-
-if cctx.DEBUG:
-    logging.getLogger().setLevel(logging.DEBUG)
-
-
+game_datas = cctx.initialize(sys.argv)
 clock = pygame.time.Clock()
 pygame.joystick.init()
 pygame.mixer.init()
@@ -48,31 +47,18 @@ if "--fullscreen" in sys.argv or "-f" in sys.argv:
 
 screen = pygame.display.set_mode(cctx.RESOLUTION, screen_mode_flags)
 
-theatre = Theatre(game)
+theatre = Theatre(game_datas)
 pygame.display.set_caption(theatre.caption)
-
 joystick = pygame.joystick.Joystick(0)
 
-changeable = True
 done = False
+
 
 while not done:
     joystick.init()
 
     done = joystick.get_button(7) == 1
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            done = True
-    for player in theatre.scene.players:
-        player.update_inputs(joystick)
-    for element in theatre.scene.evaluables:
-        element.next()
-    theatre.scene.render(screen)
-
-    theatre.scene.scrolling.next()
+    pygame.event.get()
+    theatre.evaluate(joystick, screen)
     clock.tick(cctx.FPS)
-
-    if "select" in player.input_buffer.pressed_delta() and changeable:
-        changeable = False
-        theatre.next()
     pygame.display.flip()

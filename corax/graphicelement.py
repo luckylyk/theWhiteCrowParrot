@@ -38,7 +38,7 @@ class SetAnimatedElement():
 
     @staticmethod
     def from_filename(filename, pixel_position, deph):
-        spritesheet = SpriteSheet.from_filename(filename)
+        spritesheet = SpriteSheet.from_filename(None, filename)
         with open(filename, 'r') as f:
             datas = json.load(f)
         cordinates = Cordinates(pixel_offset=pixel_position)

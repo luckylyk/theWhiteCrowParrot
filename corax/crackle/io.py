@@ -7,48 +7,48 @@ event and story script.
 
 import os
 import corax.context as cctx
+from corax.crackle.script import CrackleScript
 
 
-class CrackleScript:
-    def __init__(self, name):
-        self.name = name
-        self.conditions = []
-        self.actions = []
-
-    def __str__(self):
-        lines = self.conditions + self.actions
-        return f"script {self.name}\n" + "\n".join(lines)
+def load_scripts():
+    scripts = []
+    for filename in os.listdir(cctx.SCRIPT_FOLDER):
+        filepath = os.path.join(cctx.SCRIPT_FOLDER, filename)
+        namespace = ".".join(filename.split(".")[:-1])
+        scripts.extend(parse_crackle_file(filepath, namespace))
+    return scripts
 
 
-def parse_crackle_file(filepath):
+def parse_crackle_file(filepath, namespace):
     """
     Parse a crackle file and convert it to CrackleScript object
     """
     scripts = []
     indent_level = 0
-    with open(os.path.join(cctx.SCRIPT_FOLDER, filepath)) as f:
+    with open(filepath) as f:
         script = None
         for i, line in enumerate(f):
             line = remove_commentaries(line)
             line = line.rstrip(" \n")
-            if line.strip(" ") == '':
+            if line.strip(" ") == "":
                 pass
             elif line.startswith("script"):
                 if script is not None:
                     scripts.append(script)
-                script = CrackleScript(extract_script_name(line))
+                name = f"{namespace}.{extract_script_name(line)}"
+                script = CrackleScript(name)
                 indent_level = 1
             elif script is None:
                 msg = "file must start by a script definition"
                 raise SyntaxError(f"line {i} > invalid stucture > {msg}")
             elif line.startswith("        "):
-                script.actions.append(line)
+                script.actions.append(line.strip(" "))
                 indent_level = 2
             elif line.startswith("    "):
                 if indent_level == 2:
                     msg = "conditions must be set before actions"
                     raise SyntaxError(f"line {i} > invalid indent > {msg}")
-                script.conditions.append(line)
+                script.conditions.append(line.strip(" "))
             else:
                 msg = "unrecongnized indent"
                 raise SyntaxError(f"line {i} > unknown > {msg}")

@@ -13,9 +13,10 @@
     "zones": [
         {
             "name": "left_limit",
-            "type": "no_go",
+            "type": "interaction",
             "affect": "whitecrow",
-            "zone": [0, 0, 18, 28]
+            "scripts": ["forest.go_to_forest"],
+            "zone": [0, 0, 22, 27]
         },
         {
             "name": "right_limit",
@@ -96,7 +97,7 @@
         {
             "name": "whitecrow",
             "type": "player",
-            "block_position": [20, 8],
+            "block_position": [12, 8],
             "movedatas_file": "whitecrowparrot_exploration.json"
         },
         {
@@ -144,6 +145,13 @@
             "type": "set_static",
             "file": "tente/candlestick_03.png",
             "position": [226, 190],
+            "deph": 0.0
+        },
+        {
+            "name": "tente/black_mask",
+            "type": "set_static",
+            "file": "tente/black_mask.png",
+            "position": [0, 0],
             "deph": 0.0
         }
     ]

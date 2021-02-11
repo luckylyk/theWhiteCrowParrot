@@ -88,13 +88,13 @@
             "name": "go_to_tent",
             "type": "interaction",
             "affect": ["whitecrow"],
-            "scripts": ["go_to_tente_with_sword", "go_to_tente"],
+            "scripts": ["forest.go_to_tente_with_sword", "forest.go_to_tente"],
             "zone": [277, 24, 285, 27]
         },
         {
             "name": "into_the_cave",
             "type": "no_go",
-            "affect": "whitecrow",
+            "affect": ["whitecrow"],
             "zone": [433, 21, 464, 27]
         }
     ],
@@ -575,8 +575,8 @@
         {
             "name": "whitecrow",
             "type": "player",
-            "block_position": [9, 10],
-            "movedatas_file": "whitecrowparrot_sword.json"
+            "block_position": [7, 10],
+            "movedatas_file": "whitecrowparrot_exploration.json"
         },
         {
             "name": "forest_dust_2",

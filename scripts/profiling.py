@@ -1,16 +1,23 @@
+
 import os
 
 count = 0
-path = os.path.join(os.path.dirname(__file__), "..", "corax")
-# path = r"D:\Works\Python\GitHub\ncachefactory\ncachefactory"
+paths = []
+paths.append(os.path.join(os.path.dirname(__file__), "..", "corax"))
+paths.append(os.path.join(os.path.dirname(__file__), "..", "sdk", "pluck"))
+paths.append(os.path.join(os.path.dirname(__file__), "..", "sdk", "krita_scripts"))
+paths.append(os.path.join(os.path.dirname(__file__), "..", "corax", "crackle"))
+# paths.append(r"D:\Works\code\GitHub\pixtracy\pixtracy")
+# paths = r"D:\Works\Python\GitHub\ncachefactory\ncachefactory"
 # path = r"D:\Works\Python\GitHub\hotbox_designer\hotbox_designer"
 # path = r"D:\Works\Python\GitHub\hotbox_designer\hotbox_designer\designer"
 # path = r"D:\Works\Python\GitHub\pixtracy\pixtracy"
 
-for fname in os.listdir(path):
-    if not fname.endswith(".py"):
+filepaths = [os.path.join(p, f) for p in paths for f in os.listdir(p)]
+for filepath in filepaths:
+    if not filepath.endswith(".py"):
         continue
-    with open(os.path.join(path, fname), 'r') as f:
+    with open(filepath, 'r') as f:
         for _ in f:
             count += 1
 print("Total number of lines is:", count)

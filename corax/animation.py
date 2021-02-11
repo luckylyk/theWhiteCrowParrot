@@ -71,6 +71,10 @@ class Animation():
         self.repeatable = datas["loop_on"] is not None
         self.triggers = build_triggers_list(datas)
 
+    @property
+    def length(self):
+        return len(self.images)
+
     def is_lock(self):
         if self.release_frame == -1:
             return not self.is_finished()
@@ -88,7 +92,7 @@ class Animation():
         return self.image
 
     @property
-    def center(self):
+    def pixel_center(self):
         if self.index < 0:
             return None
         return self.centers[self.index]
@@ -111,21 +115,22 @@ class SpriteSheet():
     This class represent a collection of animations. That very simple manager
     is able to create an animation on demand from his collections of image.
     """
-    def __init__(self, datas, images):
+    def __init__(self, name, datas, images):
+        self.name = name
         self.datas = datas
         self.moves_datas = datas["moves"]
         self.images = images
         self.images_mirror = [image_mirror(img) for img in self.images]
 
     @staticmethod
-    def from_filename(filename):
+    def from_filename(name, filename):
         with open(filename) as f:
             datas = json.load(f)
         filename = datas["filename"]
         image_size = datas["image_size"]
         key_color = datas["key_color"]
         images = load_images(filename, image_size, key_color)
-        return SpriteSheet(datas, images)
+        return SpriteSheet(name, datas, images)
 
     def build_animation(self, move, flip):
         images = self.images_mirror if flip else self.images

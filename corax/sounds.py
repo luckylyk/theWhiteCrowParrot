@@ -25,6 +25,9 @@ class Ambiance():
         self.sound.stop()
         self.is_playing = False
 
+    def __del__(self):
+        self.stop()
+
     def update(self):
         if self.zone is None:
             if self.is_playing is False:
@@ -76,6 +79,9 @@ class SfxSoundCollection():
         for sound in self.sounds:
             sound.stop()
 
+    def __del__(self):
+        self.stop()
+
 
 class SfxSound():
     def __init__(
@@ -103,6 +109,9 @@ class SfxSound():
 
     def stop(self):
         self.sound.stop()
+
+    def __del__(self):
+        self.stop()
 
 
 class SoundShooter():
