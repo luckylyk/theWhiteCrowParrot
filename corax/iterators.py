@@ -2,6 +2,18 @@
 import random
 
 
+def iter_on_jobs(jobs):
+    """
+    This iterator recieve a list of functions. All the functions must return
+    int representing the number of iteration it needs to be done.
+    """
+    for job in jobs:
+        frame_count = job()
+        while frame_count > 0:
+            yield
+            frame_count -= 1
+
+
 def itertable(a, b):
     for i in range(a):
         for j in range(b):

@@ -11,6 +11,10 @@ from corax.crackle.script import CrackleScript
 
 
 def load_scripts():
+    """
+    Load all scripts located in the folder <root>/scripts
+    It parse the crackle files and build CrackleScript objects from.
+    """
     scripts = []
     for filename in os.listdir(cctx.SCRIPT_FOLDER):
         filepath = os.path.join(cctx.SCRIPT_FOLDER, filename)
@@ -71,3 +75,6 @@ def extract_script_name(line):
             "script definition must be 'script name'\n"
             "space are not allowed in script name")
     return elements[-1]
+
+
+

@@ -7,10 +7,14 @@ from corax.core import RUN_MODE
 from corax.scene import build_scene
 from corax.gamepad import InputBuffer
 from corax.crackle.io import load_scripts
-from corax.crackle.job import iter_on_jobs
+from corax.iterators import iter_on_jobs
 
 
 def find_scene(datas, name, input_buffer):
+    """
+    This function find the given scene name in the datas and build a Scene
+    object.
+    """
     for scene in datas["scenes"]:
         if scene["name"] == name:
             file_ = os.path.join(cctx.SCENE_FOLDER, scene["file"])
@@ -20,6 +24,10 @@ def find_scene(datas, name, input_buffer):
 
 
 class Theatre:
+    """ This is the main game class controller. It manage the run mode: normal,
+    pause or script. It manage the scene transitions, the script
+    execution and the global variable (not implemented yet).
+    """
     def __init__(self, datas):
         self.input_buffer = InputBuffer()
         self.datas = datas
@@ -35,6 +43,12 @@ class Theatre:
         self.script_iterator = None
 
     def set_scene(self, scene_name):
+        # Currently, the engine rebuild each scene from scratch each it is set.
+        # This is not a really efficient way but it spare high memory usage.
+        # It makes a small freeze between every cut. To avoid that, i should
+        # writte a streaming system which pre-load neightgour scene in a
+        # parrallel thread and keep it memory as long as the game is suceptible
+        # to request it. Let's see if it is possible !
         self.scene = find_scene(self.datas, scene_name, self.input_buffer)
         if self.scene is None:
             raise KeyError(f"{scene_name} scene does'nt exists in the game")

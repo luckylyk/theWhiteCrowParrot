@@ -1,9 +1,19 @@
+"""
+This module convert an action line to an interpretable job for the Theatre
+evalutation. Basically, a job is a function which return the number of frames
+it take to be done. Some job returns 0 (eg: variable set, scene changed) but
+for instance if a job play an animations, it has to return the animation
+length. This duration is needed to inform the theatre that the RUN_MODE can be
+set back to RUN_MODE.NORMAL. As long as a job is running, the RUN_MODE is set
+to RUN_MODE.SCRIPT which block the gameplay evaluation.
+"""
+
 from functools import partial
 from corax.scene import find_player
-from corax.crackle.parser import object_attribute, string_to_int_list, object_type, object_name
+from corax.crackle.parser import (
+    object_attribute, string_to_int_list, object_type, object_name)
 from corax.crackle.action import (
     has_subject, filter_action, split_with_subject, extract_reach_arguments)
-
 
 
 def create_job(line, theatre):
@@ -41,14 +51,6 @@ def create_job_with_subject(subject, function, arguments, theatre):
             return partial(job_reach, theatre, subject_name, pos, animations)
 
 
-def iter_on_jobs(jobs):
-    for job in jobs:
-        frame_count = job()
-        while frame_count > 0:
-            yield
-            frame_count -= 1
-
-
 def job_set_scene(theatre, scene_name):
     theatre.set_scene(scene_name)
     return 0
@@ -77,5 +79,5 @@ def job_move_camera(theatre, pixel_position):
 
 
 def job_reach(theatre, player_name, block_position, animations):
-    pass
+    pass #TODO
 

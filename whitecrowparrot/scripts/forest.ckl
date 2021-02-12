@@ -24,6 +24,7 @@ script go_to_tente // commentary test
 //      player.whitecrow reach (52, 35) by (walk, footsie)
         player.whitecrow play through_door
         theatre.scene set tente
+        player.whitecrow play walk_b
         player.whitecrow play walk_a
         player.whitecrow play walk_b
         player.whitecrow play idle
