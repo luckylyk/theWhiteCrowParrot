@@ -221,7 +221,7 @@ class SceneWidget(QtWidgets.QWidget):
         mesagebox = QtWidgets.QMessageBox(
             QtWidgets.QMessageBox.NoIcon,
             "Zone selected:",
-            ZONE_TEMPLATE.format(list(map(int, [x, y, x2 + 1, y2 + 1]))),
+            ZONE_TEMPLATE.format([int(n) for n in [x, y, x2 + 1, y2 + 1]]),
             QtWidgets.QMessageBox.Ok)
         mesagebox.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
         mesagebox.exec_()

@@ -13,10 +13,10 @@ import corax.context as cctx
 from corax.iterators import itertable
 
 
-def load_images(filename, image_size, key_color):
+def load_images(filename, frame_size, key_color):
     filename = os.path.join(cctx.ANIMATION_FOLDER, filename)
     sheet = pygame.image.load(filename).convert()
-    width, height = image_size
+    width, height = frame_size
     row = sheet.get_height() / height
     col = sheet.get_width() / width
     if row != int(row) or col != int(col):

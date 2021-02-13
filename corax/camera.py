@@ -44,7 +44,7 @@ class Scrolling():
     """
     This object is the algorithm who move constrain the camera to a target and
     evaluate his position into the world space. The scrolling has to update the
-    camera position at each frames though the Scrolling.next() method.
+    camera position at each frames though the Scrolling.evaluate() method.
     """
     def __init__(
             self,
@@ -66,7 +66,7 @@ class Scrolling():
         self.max_speed = 70
         self.current_area = None
 
-    def next(self):
+    def evaluate(self):
         if self.target is None:
             return
 

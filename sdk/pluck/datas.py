@@ -206,7 +206,7 @@ def sort_keys(elements):
 
 
 def data_to_plain_text(data, indent=0):
-    keys = sort_keys(list(map(str, data.keys())))
+    keys = sort_keys([str(key) for key in data.keys()])
     lines = []
     for key in keys:
         value = data[key]

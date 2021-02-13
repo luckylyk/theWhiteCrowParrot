@@ -2,7 +2,7 @@ import json
 
 import corax.context as cctx
 from corax.core import NODE_TYPES
-from corax.moves import filter_moves, filter_unholdable_moves, MovementManager
+from corax.moves import filter_moves_by_inputs, filter_unholdable_moves, MovementManager
 from corax.animation import SpriteSheet
 from corax.cordinates import Cordinates, map_pixel_position, to_block_position, to_pixel_position
 from corax.gamepad import InputBuffer
@@ -37,7 +37,7 @@ class Player():
 
         cordinates = Cordinates(start_position, pixel_offset, flip)
         input_buffer = InputBuffer()
-        spritesheet = SpriteSheet.from_filename(filename)
+        spritesheet = SpriteSheet.from_filename(name, filename)
         with open(filename, 'r') as f:
             datas = json.load(f)
         movement_manager = MovementManager(datas, spritesheet, cordinates)
@@ -61,13 +61,13 @@ class Player():
         if keystate_changed is False:
             return
 
-        moves = filter_moves(datas, self.input_buffer)
+        moves = filter_moves_by_inputs(datas, self.input_buffer)
         unholdable = filter_unholdable_moves(datas, self.input_buffer)
         self.movement_manager.unhold(unholdable)
         self.movement_manager.propose_moves(moves)
 
-    def next(self):
-        self.movement_manager.next()
+    def evaluate(self):
+        self.movement_manager.evaluate()
         trigger = self.movement_manager.trigger
         if trigger is not None:
             self.sound_shooter.triggers.append(trigger)
@@ -78,8 +78,10 @@ class Player():
         render_image(self.movement_manager.image, screen, position)
         if not cctx.DEBUG:
             return
+        # This code should not polluate the main process and should be set
+        # somewhere else, have to think about how to manage those cases.
         # Render a spot following the player animation center in debug mode
-        size = self.movement_manager.datas["image_size"]
+        size = self.movement_manager.datas["frame_size"]
         center = self.movement_manager.animation.pixel_center
         position = sum_num_arrays(center, self.pixel_position)
         x, y = camera.relative_pixel_position(position, deph)

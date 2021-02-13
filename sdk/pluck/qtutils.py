@@ -73,7 +73,7 @@ def create_image(element):
         with open(filepath, "r") as f:
             movedatas = json.load(f)
         img_path = os.path.join(cctx.ANIMATION_FOLDER, movedatas["filename"])
-        w, h = movedatas["image_size"]
+        w, h = movedatas["frame_size"]
         image = QtGui.QImage(img_path)
         image2 = QtGui.QImage(QtCore.QSize(w, h), format_)
     # horrible fucking awfull scandalous ressource killing loop used

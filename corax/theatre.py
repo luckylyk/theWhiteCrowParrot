@@ -24,9 +24,47 @@ def find_scene(datas, name, input_buffer):
 
 
 class Theatre:
-    """ This is the main game class controller. It manage the run mode: normal,
+    """
+    This is the main game class controller. It manage the run mode: normal,
     pause or script. It manage the scene transitions, the script
     execution and the global variable (not implemented yet).
+    Simplyfied map off the Corax engine workflow.
+
+                       ------------> Theatre
+                     /                 |
+                    |                  v
+                InputBuffer            |
+                 /        ________ RUN_MODES______
+                /        /      ____/  |          \
+               /        v      /       v           \
+              /      NORMAL   |   RUN_MODE.SCRIPT   |
+             /         ^ \    ^                     v
+            /          |  v   |                 RUN_MODE.MENU
+           /           |   \   \
+          /          Scene  \   \
+         /            /|\    CrackleScript -----<--------\
+        |            / | \____________________            \
+        |       ____/  \                      \            \
+        |      |        \---- scene_2---       |            \
+        |   scene_1           ^  ^       \   scene_3         \
+        |                ____/   |        \                   \
+        |               /       Zone       v                   \
+        |             Layers        \       \                   \
+        |            /  |   \        \        SoundShooter       \
+        \          /    |  Particles  |           |               |
+         \---> Player   |             |           v               |
+               /        v             |        Ambiance           |
+              | SetAnimatedElement    |     Sfx, SfxCollection    |
+              ^  SetStaticElement     /\                          /
+              |                      /  \________________________/
+               \                    /
+            MovementManager ---<---/
+                   |       \
+                   v        \
+              Spritesheet    ^
+                    \        |
+                     v       |
+                    Animations
     """
     def __init__(self, datas):
         self.input_buffer = InputBuffer()
@@ -80,17 +118,17 @@ class Theatre:
             self.evaluate_normal_mode(joystick, screen)
             return
         for element in self.scene.evaluables:
-            element.next()
+            element.evaluate()
         self.scene.render(screen)
-        self.scene.scrolling.next()
+        self.scene.scrolling.evaluate()
 
     def evaluate_normal_mode(self, joystick, screen):
         for player in self.scene.players:
             player.update_inputs(joystick)
         for element in self.scene.evaluables:
-            element.next()
+            element.evaluate()
         self.scene.render(screen)
-        self.scene.scrolling.next()
+        self.scene.scrolling.evaluate()
 
         for zone, script_names in self.script_names_by_zone.items():
             if not script_names:

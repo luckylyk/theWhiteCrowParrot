@@ -86,7 +86,7 @@ class Animation():
     def is_playing(self):
         return not self.is_finished() and self.index >= 0
 
-    def next(self):
+    def evaluate(self):
         if self.is_finished() is False:
             self.index += 1
         return self.image
@@ -127,15 +127,15 @@ class SpriteSheet():
         with open(filename) as f:
             datas = json.load(f)
         filename = datas["filename"]
-        image_size = datas["image_size"]
+        frame_size = datas["frame_size"]
         key_color = datas["key_color"]
-        images = load_images(filename, image_size, key_color)
+        images = load_images(filename, frame_size, key_color)
         return SpriteSheet(name, datas, images)
 
     def build_animation(self, move, flip):
         images = self.images_mirror if flip else self.images
         datas = self.datas["moves"][move]
-        size = self.datas["image_size"]
+        size = self.datas["frame_size"]
         return Animation(move, images, datas, size, flip)
 
 

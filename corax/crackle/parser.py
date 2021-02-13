@@ -21,4 +21,4 @@ def object_attribute(obj):
 
 
 def string_to_int_list(string):
-    return list(map(int, string.strip("()").split(",")))
+    return [int(n) for n in string.strip("()").split(",")]

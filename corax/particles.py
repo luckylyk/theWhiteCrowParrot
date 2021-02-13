@@ -130,14 +130,14 @@ class ParticlesSystem():
         for spot in to_delete:
             self.spots.remove(spot)
 
-    def next(self):
+    def evaluate(self):
         if self.flow is not None:
             flow = next(self.flow)
             if flow == 0:
                 self.spots.append(self.build_spot())
         self.clear_dead_spots()
         for spot in self.spots:
-            spot.next()
+            spot.evaluate()
 
     def render(self, screen, deph, camera):
         deph = deph + self.deph
@@ -231,7 +231,7 @@ class Spot():
             self.way,
             self.zone.contains(self.position))
 
-    def next(self):
+    def evaluate(self):
         index = next(self.frequency)
         if index == 0:
             self.next_direction_target()

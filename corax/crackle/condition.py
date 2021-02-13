@@ -31,17 +31,13 @@ def get_gamepad_value_collector(subject, theatre):
     if object_name(subject) == "keys":
         attribute = object_attribute(subject)
         if attribute == "pressed":
-            return lambda: theatre.input_buffer.pressed_delta()
+            return theatre.input_buffer.pressed_delta
         elif attribute == "released":
-            return lambda: theatre.input_buffer.released_delta()
+            return theatre.input_buffer.released_delta
         elif attribute == "inputs":
-            return lambda: theatre.input_buffer.inputs()
+            return theatre.input_buffer.inputs
         else:
             raise NameError("Unkown gamepad attribute: " + attribute)
-
-
-def create_value_collector(value):
-    return lambda: value
 
 
 def create_player_subject_collector(subject, theatre):
@@ -61,7 +57,7 @@ def create_condition_checker(line, theatre):
         return lambda: True
     subject, comparator, value = split_condition(line)
     subject_collector = create_subject_value_collector(subject, theatre)
-    value_collector = create_value_collector(value)
+    value_collector = lambda: value
     return partial(check_condition, subject_collector, comparator, value_collector)
 
 

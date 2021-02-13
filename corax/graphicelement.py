@@ -49,8 +49,8 @@ class SetAnimatedElement():
     def pixel_position(self):
         return self.cordinates.pixel_position
 
-    def next(self):
-        self.movement_manager.next()
+    def evaluate(self):
+        self.movement_manager.evaluate()
 
     def render(self, screen, deph, camera):
         deph = deph + self.deph

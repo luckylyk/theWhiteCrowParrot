@@ -82,7 +82,7 @@
             "name": "left_limit",
             "type": "no_go",
             "affect": ["whitecrow"],
-            "zone": [0, 24, 6, 27]
+            "zone": [0, 24, 8, 27]
         },
         {
             "name": "go_to_tent",

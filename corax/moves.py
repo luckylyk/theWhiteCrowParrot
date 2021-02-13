@@ -10,7 +10,11 @@ from corax.cordinates import to_block_position, to_pixel_position, map_pixel_pos
 from corax.mathutils import sum_num_arrays
 
 
-def filter_moves(datas, input_buffer):
+def filter_moves_by_inputs(datas, input_buffer):
+    """
+    Filter existing moves in spritesheet datas comparing the inputs they
+    requires to the given input buffer statues.
+    """
     moves = []
     for move in datas["evaluation_order"]:
         inputs = datas["moves"][move]["inputs"]
@@ -23,6 +27,11 @@ def filter_moves(datas, input_buffer):
 
 
 def filter_unholdable_moves(datas, input_buffer):
+    """
+    Filter existing moves in spritesheet datas comparing the inputs they and
+    holdable and check if the input required to unhold them fit with the input
+    buffer status.
+    """
     moves = []
     for move in datas["evaluation_order"]:
         if datas["moves"][move]["hold"] is False:
@@ -33,9 +42,10 @@ def filter_unholdable_moves(datas, input_buffer):
     return moves
 
 
-def is_move_change_authorized(move, datas, animation):
-    if animation.is_lock():
-        return False
+def is_sequence_valid(move, datas, animation):
+    """
+    Check if the move given is authorized look the move conditions.
+    """
     move_datas = datas["moves"][move]
     conditions = move_datas["conditions"]
     if not conditions:
@@ -47,6 +57,11 @@ def is_move_change_authorized(move, datas, animation):
 
 def is_move_cross_zone(
         datas, move, block_position, flip, zones, image_size):
+    """
+    Check if the block positions centers are passing across a zone give.
+    Its also checking the next animations if the given one is in the middle of
+    a sequence.
+    """
     move_datas = datas["moves"][move]
     block_positions = []
     while True:
@@ -113,6 +128,40 @@ def predict_block_positions(
 
 
 class MovementManager():
+    """
+    The movement manager (this name sucks, I have to find a better one) is an
+    object with manage the animations sequences and how they chains. It verify
+    what are the next animation possible using the conditions filters,
+    the movement predictions (to manage the environment boundaries),
+    check the gamepad input, animation states (on hold, repeatable,
+    cancelable, etc ...).
+    The datas comes from the JSON set in the <root>/moves folder. It is
+    the most convoluted data struct currently in the corax engine. They are
+    represented as dictionnary:
+    {
+        "filename": str,
+        "key_color": [int, int, int],
+        "frame_size": [int, int],
+        "default_move": str,
+        "evaluation_order": [str, ...]
+        "moves": {
+            "walk_a": {},
+            "walk_b": {},
+            "return": {},
+            "idle": {},
+            ...
+        }
+    }
+    - filename: the spriteshit filename/path, relative to <root>/animation
+    - key_color: the transparency color as 8b rgb()
+    - frame_size: size of an unique frame (different than the PNG filesize).
+    - default_move: name of the move set by default.
+    - evaluation_order: list which must contains all the name of the moves
+    availables. This order is use to indicate the priority if two animation are
+    valide.
+    - moves: move datas by move name. For more details on frame datas
+    dictionnary structure see the class corax.animation.Animation.
+    """
     def __init__(self, datas, spritesheet, cordinates):
         self.cordinates = cordinates
         self.datas = datas
@@ -128,9 +177,22 @@ class MovementManager():
         self.animation.hold = self.animation.name not in unholdable
 
     def propose_moves(self, moves):
+        """
+        Method to softly change animation. This method is the one used
+        externally to propose an animation. If the animation isn't locked and
+        the sequence is valid, it will start directly the animation. If it
+        is a valid sequence but the animation is currently locked but
+        bufferable, the move change request will be stored in the move buffer
+        to be automatically runned when the current anime is finished.
+        Note that the buffer is parsed when the current animation is ended, not
+        when it is unlocked.
+        """
         for move in moves:
-            valid = is_move_change_authorized(move, self.datas, self.animation)
-            if self.is_offset_allowed(move) and valid:
+            conditions = (
+                not self.animation.is_lock() and
+                is_sequence_valid(move, self.datas, self.animation) and
+                self.is_offset_allowed(move))
+            if conditions:
                 self.set_move(move)
                 return
             conditions = (
@@ -142,6 +204,10 @@ class MovementManager():
                 self.moves_buffer.insert(0, move)
 
     def is_offset_allowed(self, move):
+        """
+        Check is the proposed animation or the sequence will cross a zone given
+        in his internal attribute: self.zones
+        """
         block_position = self.cordinates.block_position
         block_offset = self.animation.post_events.get(EVENTS.BLOCK_OFFSET)
         if block_offset:
@@ -150,13 +216,18 @@ class MovementManager():
             block_position = sum_num_arrays(block_position, block_offset)
         return not is_move_cross_zone(
             move=move,
-            image_size=self.datas["image_size"],
+            image_size=self.datas["frame_size"],
             block_position=block_position,
             flip=self.cordinates.flip,
             datas=self.datas,
             zones=self.no_go_zones)
 
     def set_move(self, move):
+        """
+        Set a move and apply the animation pre and post event. This method is
+        brute force, no check are done then, the providen move have to be
+        validated before.
+        """
         self.moves_buffer = []
         if self.animation is not None:
             for event, value in self.animation.post_events.items():
@@ -185,6 +256,11 @@ class MovementManager():
                 self.datas = json.load(f)
 
     def set_next_move(self):
+        """
+        This method is triggered when the current animation is done. This
+        algorithme is looking in the buffer to find a valid sequence. If
+        nothing is found, it does set the default animation next move.
+        """
         next_move = self.datas["moves"][self.animation.name]["next_move"]
         if not self.moves_buffer:
             self.set_move(next_move)
@@ -203,7 +279,7 @@ class MovementManager():
             return
         self.set_move(next_move)
 
-    def next(self):
+    def evaluate(self):
         anim = self.animation
         if anim.is_finished() and anim.hold is False:
             self.set_next_move()
@@ -213,7 +289,7 @@ class MovementManager():
                 self.set_move(self.animation.loop_on)
             else:
                 self.animation.hold = False
-        self.animation.next()
+        self.animation.evaluate()
         self.cordinates.center_offset = self.animation.pixel_center
 
     @property

@@ -71,8 +71,6 @@ interactions.
 
   -- sets --
 Contains all the static graphics images as PNG.
-Note that the key color (transparent) is archly hardcoded and cannot be changed.
-It is pure 8bit green : rgb(0, 255, 0)
 
   -- sounds --
 All game sounds, it support OGG and WAV.

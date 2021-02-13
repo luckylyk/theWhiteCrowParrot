@@ -43,7 +43,7 @@ class PaintContext():
         return x, y
 
     def zone_contains_block_position(self, zone, x, y):
-        l, t, r, b = map(lambda x: x // cctx.BLOCK_SIZE, zone)
+        l, t, r, b = [n // cctx.BLOCK_SIZE for n in zone]
         return l <= x <= r and t <= y <= b
 
     @property
