@@ -64,7 +64,7 @@ triggers, move cordinates, frame datas, etc. Those files are JSON.
   -- scenes --
 Contains all the level data files as json.
 
-scripts:
+  -- scripts --
 This folder contains all the crackle scripts. Crackle script is the Corax
 scripting langage used to script the story, the event and the game
 interactions.
