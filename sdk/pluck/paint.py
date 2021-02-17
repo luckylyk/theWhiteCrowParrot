@@ -11,7 +11,7 @@ from pluck.datas import GRAPHIC_TYPES, SOUND_TYPES, ZONE_TYPES
 
 class PaintContext():
     def __init__(self, scene_datas):
-        self.zoom = 0.5
+        self.zoom = 1
         self._extra_zone = 200
         self.grid_color = "grey"
         self.grid_alpha = .2

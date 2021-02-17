@@ -87,4 +87,4 @@ def export(filename):
     print(get_node_frames_duration(node, range_out=document.animationLength()))
 
 
-export(r"D:\Works\code\GitHub\pygame_game\game\animations/whitecrowparrot_exploration.png")
+export(r"D:\Works\code\GitHub\pygame_game\whitecrowparrot\animations/whitecrowparrot_exploration.png")

@@ -5,14 +5,17 @@
     "default_move": "idle",
     "evaluation_order": [
         "run_start",
+        "footsie2",
         "run_b",
         "run_a",
         "run_off",
+        "walk_off",
         "walk_a",
         "walk_b",
         "return",
         "crouched_return",
         "draw_sword",
+        "footsie",
         "crouched_over_walk",
         "crouch_down",
         "stand_up",
@@ -46,12 +49,12 @@
                 "frames_centers": [[0, 0], [3, 0], [7, 0], [10, 0], [13, 0], [17, 0], [21, 0], [24, 0], [27, 0], [31, 0], [34, 0], [37, 0]],
                 "release_frame": -1,
                 "hold": true,
-                "next_move": "idle",
+                "next_move": "walk_off",
                 "next_move_bufferable": true,
                 "loop_on": "walk_b",
                 "inputs": ["RIGHT"],
                 "conditions": {
-                    "animation_in": ["idle"]},
+                    "animation_in": ["idle", "walk_off"]},
                 "pre_events": {},
                 "post_events": {
                     "block_offset": [4, 0]}
@@ -89,7 +92,7 @@
                 "loop_on": null,
                 "inputs": ["LEFT"],
                 "conditions": {
-                    "animation_in": ["idle"]},
+                    "animation_in": ["idle", "walk_off"]},
                 "pre_events": {},
                 "post_events": {
                     "flip": true,
@@ -238,7 +241,7 @@
                 "loop_on": "run_b",
                 "inputs": ["RIGHT", "X"],
                 "conditions": {
-                    "animation_in": ["idle", "walk_a", "walk_b"]},
+                    "animation_in": ["idle", "walk_a", "walk_b", "walk_off"]},
                 "pre_events": {},
                 "post_events": {
                     "block_offset": [12, 0]}
@@ -295,7 +298,63 @@
                 "loop_on": null,
                 "inputs": [],
                 "conditions": {
+                    "animation_in": ["idle", "walk_off"]},
+                "pre_events": {},
+                "post_events": {}
+            },
+            "footsie":
+                {
+                    "start_at_image": 100,
+                    "center": [70, 155],
+                    "frames_per_image": [1, 1, 1, 2, 3, 2, 1, 1, 1],
+                    "triggers": [],
+                    "frames_centers": [[2, 0], [4, 0], [6, 0], [8, 0], [10, 0], [12, 0], [14, 0], [16, 0], [18, 0]],
+                    "release_frame": -1,
+                    "hold": false,
+                    "next_move": "idle",
+                    "next_move_bufferable": true,
+                    "loop_on": null,
+                    "inputs": ["RIGHT"],
+                    "conditions": {
+                        "animation_in": ["idle"]},
+                    "pre_events": {},
+                    "post_events": {
+                        "block_offset": [2, 0]}
+                },
+        "footsie2":
+            {
+                "start_at_image": 100,
+                "center": [70, 155],
+                "frames_per_image": [1, 1, 1, 2, 3, 2, 1, 1, 1],
+                "triggers": [],
+                "frames_centers": [[2, 0], [4, 0], [6, 0], [8, 0], [10, 0], [12, 0], [14, 0], [16, 0], [18, 0]],
+                "release_frame": -1,
+                "hold": false,
+                "next_move": "idle",
+                "next_move_bufferable": true,
+                "loop_on": null,
+                "inputs": ["RIGHT", "L2"],
+                "conditions": {
                     "animation_in": ["idle"]},
+                "pre_events": {},
+                "post_events": {
+                    "block_offset": [2, 0]}
+            },
+        "walk_off":
+            {
+                "start_at_image": 109,
+                "center": [70, 155],
+                "frames_per_image": [2, 2, 2, 2],
+                "triggers": [],
+                "frames_centers": null,
+                "release_frame": 0,
+                "hold": false,
+                "next_move": "idle",
+                "next_move_bufferable": false,
+                "loop_on": null,
+                "inputs": [],
+                "conditions": {
+                    "animation_in": ["walk_a"]},
                 "pre_events": {},
                 "post_events": {}
             }

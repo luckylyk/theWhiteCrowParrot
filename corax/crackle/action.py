@@ -2,7 +2,7 @@
 from corax.crackle.parser import string_to_int_list
 
 
-ACTION_KEYWORDS = ["run", "play", "set", "reach", "move"]
+ACTION_KEYWORDS = ["run", "play", "set", "reach", "move", "force"]
 
 
 def has_subject(line):

@@ -6,7 +6,7 @@ import os
 import corax.context as cctx
 from corax.core import EVENTS
 from corax.animation import SpriteSheet, build_centers_list
-from corax.cordinates import to_block_position, to_pixel_position, map_pixel_position, flip_position
+from corax.coordinates import to_block_position, to_pixel_position, map_pixel_position, flip_position
 from corax.mathutils import sum_num_arrays
 
 
@@ -162,8 +162,8 @@ class MovementManager():
     - moves: move datas by move name. For more details on frame datas
     dictionnary structure see the class corax.animation.Animation.
     """
-    def __init__(self, datas, spritesheet, cordinates):
-        self.cordinates = cordinates
+    def __init__(self, datas, spritesheet, coordinates):
+        self.coordinates = coordinates
         self.datas = datas
         self.animation = None
         self.no_go_zones = []
@@ -208,17 +208,17 @@ class MovementManager():
         Check is the proposed animation or the sequence will cross a zone given
         in his internal attribute: self.zones
         """
-        block_position = self.cordinates.block_position
+        block_position = self.coordinates.block_position
         block_offset = self.animation.post_events.get(EVENTS.BLOCK_OFFSET)
         if block_offset:
-            fp = self.cordinates.flip
+            fp = self.coordinates.flip
             block_offset = flip_position(block_offset) if fp else block_offset
             block_position = sum_num_arrays(block_position, block_offset)
         return not is_move_cross_zone(
             move=move,
             image_size=self.datas["frame_size"],
             block_position=block_position,
-            flip=self.cordinates.flip,
+            flip=self.coordinates.flip,
             datas=self.datas,
             zones=self.no_go_zones)
 
@@ -234,7 +234,7 @@ class MovementManager():
                 self.apply_event(event, value)
                 msg = f"EVENT: {self.animation.name}, {event}, {value}"
                 logging.debug(msg)
-        flip = self.cordinates.flip
+        flip = self.coordinates.flip
         self.animation = self.spritesheet.build_animation(move, flip)
         for event, value in self.animation.pre_events.items():
             self.apply_event(event, value)
@@ -243,12 +243,12 @@ class MovementManager():
 
     def apply_event(self, event, value):
         if event == EVENTS.BLOCK_OFFSET:
-            flip = self.cordinates.flip
+            flip = self.coordinates.flip
             block_offset = flip_position(value) if flip else value
-            self.cordinates.block_position[0] += block_offset[0]
-            self.cordinates.block_position[1] += block_offset[1]
+            self.coordinates.block_position[0] += block_offset[0]
+            self.coordinates.block_position[1] += block_offset[1]
         elif event == EVENTS.FLIP:
-            self.cordinates.flip = not self.cordinates.flip
+            self.coordinates.flip = not self.coordinates.flip
         elif event == EVENTS.SWITCH_TO:
             filename = os.path.join(cctx.MOVE_FOLDER, value)
             self.spritesheet = SpriteSheet.from_filename(value, filename)
@@ -290,7 +290,7 @@ class MovementManager():
             else:
                 self.animation.hold = False
         self.animation.evaluate()
-        self.cordinates.center_offset = self.animation.pixel_center
+        self.coordinates.center_offset = self.animation.pixel_center
 
     @property
     def trigger(self):

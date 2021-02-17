@@ -4,7 +4,7 @@ import corax.context as cctx
 from corax.core import NODE_TYPES
 from corax.moves import filter_moves_by_inputs, filter_unholdable_moves, MovementManager
 from corax.animation import SpriteSheet
-from corax.cordinates import Cordinates, map_pixel_position, to_block_position, to_pixel_position
+from corax.coordinates import Coordinate, map_pixel_position, to_block_position, to_pixel_position
 from corax.gamepad import InputBuffer
 from corax.pygameutils import render_image, render_rect, render_text
 from corax.mathutils import sum_num_arrays
@@ -16,13 +16,13 @@ class Player():
             name,
             movement_manager,
             input_buffer,
-            cordinates,
+            coordinates,
             sound_shooter=None):
 
         self.name = name
         self.movement_manager = movement_manager
         self.input_buffer = input_buffer
-        self.cordinates = cordinates
+        self.coordinates = coordinates
         self.sound_shooter = sound_shooter
         self.zones = []
 
@@ -35,17 +35,17 @@ class Player():
             flip=False,
             sound_shooter=None):
 
-        cordinates = Cordinates(start_position, pixel_offset, flip)
+        coordinates = Coordinate(start_position, pixel_offset, flip)
         input_buffer = InputBuffer()
         spritesheet = SpriteSheet.from_filename(name, filename)
         with open(filename, 'r') as f:
             datas = json.load(f)
-        movement_manager = MovementManager(datas, spritesheet, cordinates)
+        movement_manager = MovementManager(datas, spritesheet, coordinates)
         return Player(
             name,
             movement_manager,
             input_buffer,
-            cordinates,
+            coordinates,
             sound_shooter)
 
     def add_zone(self, zone):
@@ -55,7 +55,7 @@ class Player():
         self.zones.append(zone)
 
     def update_inputs(self, joystick):
-        flip = self.cordinates.flip
+        flip = self.coordinates.flip
         datas = self.movement_manager.datas
         keystate_changed = self.input_buffer.update(joystick, flip)
         if keystate_changed is False:
@@ -93,11 +93,11 @@ class Player():
         render_rect(screen, (150, 150, 255), x, y, size, size, 50)
         pcenter = self.movement_manager.animation.pixel_center
         bcenter = to_block_position(pcenter)
-        bcenter = sum_num_arrays(self.cordinates.block_position, bcenter)
-        wpcenter = sum_num_arrays(self.cordinates.pixel_position, pcenter)
+        bcenter = sum_num_arrays(self.coordinates.block_position, bcenter)
+        wpcenter = sum_num_arrays(self.coordinates.pixel_position, pcenter)
         text = f"{self.name}"
         render_text(screen, (155, 255, 0), 0, 0, text)
-        text = f"    (position: {self.cordinates.block_position})"
+        text = f"    (position: {self.coordinates.block_position})"
         render_text(screen, (155, 255, 0), 0, 15, text)
         text = f"    (center pixel position: {self.movement_manager.animation.pixel_center})"
         render_text(screen, (155, 255, 0), 0, 30, text)
@@ -109,7 +109,7 @@ class Player():
     @property
     def pixel_center(self):
         return sum_num_arrays(
-            self.animation.pixel_center, self.cordinates.pixel_position)
+            self.animation.pixel_center, self.coordinates.pixel_position)
 
     @property
     def animation(self):
@@ -117,11 +117,11 @@ class Player():
 
     @property
     def pixel_position(self):
-        return self.cordinates.pixel_position
+        return self.coordinates.pixel_position
 
     @property
     def deph(self):
-        return self.cordinates.deph
+        return self.coordinates.deph
 
     @property
     def size(self):

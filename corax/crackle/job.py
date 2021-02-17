@@ -20,7 +20,9 @@ def create_job(line, theatre):
     if not has_subject(line):
         function = filter_action(line)
         if function == "run":
-            return partial(theatre.run, line.split(" ")[-1])
+            return partial(job_run_script, theatre, line.split(" ")[-1])
+        elif function == "force":
+            return partial(job_force_script, theatre, line.split(" ")[-1])
     subject, function, arguments = split_with_subject(line)
     return create_job_with_subject(subject, function, arguments, theatre)
 
@@ -51,6 +53,19 @@ def create_job_with_subject(subject, function, arguments, theatre):
             return partial(job_reach, theatre, subject_name, pos, animations)
 
 
+def job_force_script(theatre, script_name):
+    script = [
+        script for script in theatre.scripts
+        if script.name == script_name][0]
+    theatre.run_script(script)
+    return 50
+
+
+def job_run_script(theatre, script_name):
+    #todo
+    return 0
+
+
 def job_set_scene(theatre, scene_name):
     theatre.set_scene(scene_name)
     return 0
@@ -69,7 +84,7 @@ def job_play_animation(theatre, player_name, animation_name):
 
 def job_move_player(theatre, player_name, block_position):
     player = find_player(theatre.scene, player_name)
-    player.cordinates.block_position = block_position
+    player.coordinates.block_position = block_position
     return 0
 
 

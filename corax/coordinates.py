@@ -1,6 +1,6 @@
 
 """
-Module to give some tool to handle and convert 2d cordinates datas
+Module to give some tool to handle and convert 2d coordinates datas
 """
 
 
@@ -8,7 +8,7 @@ import math
 import corax.context as cctx
 
 
-class Cordinates():
+class Coordinate():
     """
     This object represent the coordinate system used for each localised element
     in the scene.
@@ -57,7 +57,7 @@ def flip_position(position):
 
 def map_pixel_position(pixel_position, size=None, flip=False):
     """
-    Map a pixel_position to a image if the cordinates are horizontally fliped
+    Map a pixel_position to a image if the coordinates are horizontally fliped
     """
     if flip is False:
         return pixel_position

@@ -9,7 +9,7 @@ from corax.graphicelement import SetStaticElement, SetAnimatedElement
 from corax.camera import Camera, Scrolling
 from corax.core import NODE_TYPES
 from corax.animation import SpriteSheet
-from corax.cordinates import Cordinates
+from corax.coordinates import Coordinate
 from corax.moves import MovementManager
 from corax.player import Player
 from corax.zone import Zone
@@ -94,15 +94,15 @@ def build_player(datas, grid_pixel_offset, input_buffer, sound_shooter):
         move_datas = json.load(f)
     spritesheet = SpriteSheet.from_filename(filename, data_path)
     position = datas["block_position"]
-    cordinates = Cordinates(
+    coordinates = Coordinate(
         block_position=position, pixel_offset=grid_pixel_offset)
-    movementmanager = MovementManager(move_datas, spritesheet, cordinates)
+    movementmanager = MovementManager(move_datas, spritesheet, coordinates)
     name = datas["name"]
     return Player(
         name,
         movementmanager,
         input_buffer,
-        cordinates,
+        coordinates,
         sound_shooter)
 
 
@@ -210,7 +210,7 @@ def build_scene(name, level_datas, input_buffer):
             scene.players.append(player)
             scene.evaluables.append(player)
             if player.name == level_datas["scroll_target"]:
-                scrolling.target = player.cordinates
+                scrolling.target = player.coordinates
         elif element.get("type") == NODE_TYPES.PARTICLES:
             particles = build_particles_system(element)
             scene.evaluables.append(particles)
@@ -221,17 +221,17 @@ def build_scene(name, level_datas, input_buffer):
         if sound_datas.get("type") in ambiances:
             ambiance = build_ambiance(sound_datas)
             element = find_element(scene, sound_datas["listener"])
-            ambiance.listener = element.cordinates
+            ambiance.listener = element.coordinates
             scene.sounds.append(ambiance)
         elif sound_datas.get("type") == NODE_TYPES.SFX_COLLECTION:
             collection = build_sfx_collection(sound_datas)
             element = find_element(scene, sound_datas["emitter"])
-            collection.emitter = element.cordinates
+            collection.emitter = element.coordinates
             sound_shooter.sounds.append(collection)
         elif sound_datas.get("type") == NODE_TYPES.SFX:
             sound = build_sfx_sound(sound_datas)
             element = find_element(scene, sound_datas["emitter"])
-            sound.emitter = element.cordinates
+            sound.emitter = element.coordinates
             sound_shooter.sounds.append(sound)
 
     return scene

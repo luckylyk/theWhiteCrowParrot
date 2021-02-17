@@ -9,7 +9,7 @@ script go_to_tente_with_sword
     player.whitecrow.animation is idle
  //   player.whitecrow.hitbox.foot cross zone.tente
         player.whitecrow play tidy_up_sword
-        run go_to_tente
+        force forest.go_to_tente
 
  // commentary test
 
@@ -24,9 +24,10 @@ script go_to_tente // commentary test
 //      player.whitecrow reach (52, 35) by (walk, footsie)
         player.whitecrow play through_door
         theatre.scene set tente
-        player.whitecrow play walk_b
         player.whitecrow play walk_a
         player.whitecrow play walk_b
+        player.whitecrow play walk_a
+        player.whitecrow play walk_off
         player.whitecrow play idle
 
 

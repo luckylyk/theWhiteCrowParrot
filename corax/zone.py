@@ -5,13 +5,13 @@ Thats mainly data stuctures.
 
 
 import corax.context as cctx
-from corax.cordinates import to_pixel_position, to_block_position
+from corax.coordinates import to_pixel_position, to_block_position
 from corax.pygameutils import render_rect
 
 
 class Zone():
     """
-    The NoGo object is a corax node of the "zone" categorie. It is cordinates
+    The NoGo object is a corax node of the "zone" categorie. It is coordinates
     where the "affected" character are not allowed to go.
     """
     def __init__(self, datas):

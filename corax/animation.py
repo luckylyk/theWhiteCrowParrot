@@ -8,7 +8,7 @@ all frame informations necessary to create an animation object.
 import json
 from corax.pygameutils import load_images, image_mirror
 from corax.mathutils import sum_num_arrays
-from corax.cordinates import map_pixel_position
+from corax.coordinates import map_pixel_position
 
 
 class Animation():
@@ -78,7 +78,8 @@ class Animation():
     def is_lock(self):
         if self.release_frame == -1:
             return not self.is_finished()
-        return self.index >= self.release_frame
+        print("request", self.index, self.release_frame)
+        return self.index < self.release_frame
 
     def is_finished(self):
         return self.index + 1 == len(self.images)
