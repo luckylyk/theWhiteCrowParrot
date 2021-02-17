@@ -7,9 +7,9 @@ Open Source action adventure point and click game (in developpment for a while)
 
 ### Corax engine
 The Corax engine is a 2d adventure side scroller video game engine. It work with a strict cordinate system based on a grid. The sprites movements are locked on that grid. All the event systems, hitboxes system and animation data are following that grid. However the grid size can be set by project.
-- Currently built over PyGame2 framework
-- 2d Hand drawed animation oriented
-- Gameplay strictly locked on a grid (e.i. Prince of Persia)
+- Currently built around PyGame2 framework
+- 2d Hand drawn animations gameplay
+- Gameplay strictly locked on a grid (eg Prince of Persia)
 
 ### Crackle script
 Game story scripting is using the engine langage: crackle.  Very basic langage which allow to script action under multiple condition:
@@ -31,4 +31,4 @@ Suite of tools to edit the game datas
 
 
 ### Scripts
-This is a temporary folder where some scripts to fix data and help development are store. Actually this is a trash bin just kept for history.
+This is a temporary folder where some scripts to fix data and help development are store. Actually this is litterally a trash bin folder. Just kept for history.
