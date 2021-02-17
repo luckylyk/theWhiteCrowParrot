@@ -1,5 +1,5 @@
 """
-This modules contains all constants used in the game file datas
+This modules contains all constants used in the game file data
 """
 
 class RUN_MODE():

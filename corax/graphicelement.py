@@ -40,9 +40,9 @@ class SetAnimatedElement():
     def from_filename(filename, pixel_position, deph):
         spritesheet = SpriteSheet.from_filename(None, filename)
         with open(filename, 'r') as f:
-            datas = json.load(f)
+            data = json.load(f)
         coordinates = Coordinate(pixel_offset=pixel_position)
-        movement_manager = MovementManager(datas, spritesheet, coordinates)
+        movement_manager = MovementManager(data, spritesheet, coordinates)
         return SetAnimatedElement(movement_manager, coordinates, deph)
 
     @property

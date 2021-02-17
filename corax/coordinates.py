@@ -1,6 +1,6 @@
 
 """
-Module to give some tool to handle and convert 2d coordinates datas
+Module to give some tool to handle and convert 2d coordinates data
 """
 
 

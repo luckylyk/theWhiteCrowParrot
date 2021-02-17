@@ -10,14 +10,14 @@ from corax.coordinates import to_block_position, to_pixel_position, map_pixel_po
 from corax.mathutils import sum_num_arrays
 
 
-def filter_moves_by_inputs(datas, input_buffer):
+def filter_moves_by_inputs(data, input_buffer):
     """
-    Filter existing moves in spritesheet datas comparing the inputs they
+    Filter existing moves in spritesheet data comparing the inputs they
     requires to the given input buffer statues.
     """
     moves = []
-    for move in datas["evaluation_order"]:
-        inputs = datas["moves"][move]["inputs"]
+    for move in data["evaluation_order"]:
+        inputs = data["moves"][move]["inputs"]
         conditions = (
             any(i in input_buffer.pressed_delta() for i in inputs) and
             all(i in input_buffer.inputs() for i in inputs))
@@ -26,27 +26,27 @@ def filter_moves_by_inputs(datas, input_buffer):
     return moves
 
 
-def filter_unholdable_moves(datas, input_buffer):
+def filter_unholdable_moves(data, input_buffer):
     """
-    Filter existing moves in spritesheet datas comparing the inputs they and
+    Filter existing moves in spritesheet data comparing the inputs they and
     holdable and check if the input required to unhold them fit with the input
     buffer status.
     """
     moves = []
-    for move in datas["evaluation_order"]:
-        if datas["moves"][move]["hold"] is False:
+    for move in data["evaluation_order"]:
+        if data["moves"][move]["hold"] is False:
             continue
-        inputs = datas["moves"][move]["inputs"]
+        inputs = data["moves"][move]["inputs"]
         if any(i in input_buffer.released_delta() for i in inputs):
             moves.append(move)
     return moves
 
 
-def is_sequence_valid(move, datas, animation):
+def is_sequence_valid(move, data, animation):
     """
     Check if the move given is authorized look the move conditions.
     """
-    move_datas = datas["moves"][move]
+    move_datas = data["moves"][move]
     conditions = move_datas["conditions"]
     if not conditions:
         return True
@@ -56,13 +56,13 @@ def is_sequence_valid(move, datas, animation):
 
 
 def is_move_cross_zone(
-        datas, move, block_position, flip, zones, image_size):
+        data, move, block_position, flip, zones, image_size):
     """
     Check if the block positions centers are passing across a zone give.
     Its also checking the next animations if the given one is in the middle of
     a sequence.
     """
-    move_datas = datas["moves"][move]
+    move_datas = data["moves"][move]
     block_positions = []
     while True:
         pre_offset = move_datas["pre_events"].get(EVENTS.BLOCK_OFFSET)
@@ -92,7 +92,7 @@ def is_move_cross_zone(
             post_offset = flip_position(post_offset) if flip else post_offset
             block_position = sum_num_arrays(block_position, post_offset)
 
-        move_datas = datas["moves"][move_datas["next_move"]]
+        move_datas = data["moves"][move_datas["next_move"]]
 
     return any(z.contains(pos) for z in zones for pos in block_positions)
 
@@ -135,7 +135,7 @@ class MovementManager():
     the movement predictions (to manage the environment boundaries),
     check the gamepad input, animation states (on hold, repeatable,
     cancelable, etc ...).
-    The datas comes from the JSON set in the <root>/moves folder. It is
+    The data comes from the JSON set in the <root>/moves folder. It is
     the most convoluted data struct currently in the corax engine. They are
     represented as dictionnary:
     {
@@ -159,17 +159,17 @@ class MovementManager():
     - evaluation_order: list which must contains all the name of the moves
     availables. This order is use to indicate the priority if two animation are
     valide.
-    - moves: move datas by move name. For more details on frame datas
+    - moves: move data by move name. For more details on frame data
     dictionnary structure see the class corax.animation.Animation.
     """
-    def __init__(self, datas, spritesheet, coordinates):
+    def __init__(self, data, spritesheet, coordinates):
         self.coordinates = coordinates
-        self.datas = datas
+        self.data = data
         self.animation = None
         self.no_go_zones = []
         self.spritesheet = spritesheet
         self.moves_buffer = []
-        self.set_move(datas["default_move"])
+        self.set_move(data["default_move"])
 
     def unhold(self, unholdable):
         if self.animation.hold is False:
@@ -190,7 +190,7 @@ class MovementManager():
         for move in moves:
             conditions = (
                 not self.animation.is_lock() and
-                is_sequence_valid(move, self.datas, self.animation) and
+                is_sequence_valid(move, self.data, self.animation) and
                 self.is_offset_allowed(move))
             if conditions:
                 self.set_move(move)
@@ -216,10 +216,10 @@ class MovementManager():
             block_position = sum_num_arrays(block_position, block_offset)
         return not is_move_cross_zone(
             move=move,
-            image_size=self.datas["frame_size"],
+            image_size=self.data["frame_size"],
             block_position=block_position,
             flip=self.coordinates.flip,
-            datas=self.datas,
+            data=self.data,
             zones=self.no_go_zones)
 
     def set_move(self, move):
@@ -253,7 +253,7 @@ class MovementManager():
             filename = os.path.join(cctx.MOVE_FOLDER, value)
             self.spritesheet = SpriteSheet.from_filename(value, filename)
             with open(filename, 'r') as f:
-                self.datas = json.load(f)
+                self.data = json.load(f)
 
     def set_next_move(self):
         """
@@ -261,14 +261,14 @@ class MovementManager():
         algorithme is looking in the buffer to find a valid sequence. If
         nothing is found, it does set the default animation next move.
         """
-        next_move = self.datas["moves"][self.animation.name]["next_move"]
+        next_move = self.data["moves"][self.animation.name]["next_move"]
         if not self.moves_buffer:
             self.set_move(next_move)
             return
 
         key = "animation_in"
         for move in self.moves_buffer:
-            moves_filter = self.datas["moves"][move]["conditions"].get(key)
+            moves_filter = self.data["moves"][move]["conditions"].get(key)
             conditions = (
                 moves_filter is not None and
                 self.animation.name not in moves_filter and

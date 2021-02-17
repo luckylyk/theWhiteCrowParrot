@@ -60,7 +60,7 @@ class Scrolling():
         self.soft_boundaries = soft_boundaries or []
         self.target_offset = target_offset or [0, 0]
         self.buffer_x = []
-        # those magic numbers have to be moved onto the game datas
+        # those magic numbers have to be moved onto the game data
         self.smooth_level = 1
         self.smooth_divisor = 10
         self.max_speed = 70

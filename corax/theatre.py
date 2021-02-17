@@ -10,12 +10,12 @@ from corax.crackle.io import load_scripts
 from corax.iterators import iter_on_jobs
 
 
-def find_scene(datas, name, input_buffer):
+def find_scene(data, name, input_buffer):
     """
-    This function find the given scene name in the datas and build a Scene
+    This function find the given scene name in the data and build a Scene
     object.
     """
-    for scene in datas["scenes"]:
+    for scene in data["scenes"]:
         if scene["name"] == name:
             file_ = os.path.join(cctx.SCENE_FOLDER, scene["file"])
             with open(file_, "r") as f:
@@ -66,17 +66,17 @@ class Theatre:
                      v       |
                     Animations
     """
-    def __init__(self, datas):
+    def __init__(self, data):
         self.input_buffer = InputBuffer()
-        self.datas = datas
-        self.caption = datas["caption"]
+        self.data = data
+        self.caption = data["caption"]
         self.scene = None
         self.scripts = load_scripts()
         self.script_names_by_zone = {}
         self.current_scripts = []
         for script in self.scripts:
             script.theatre = self
-        self.set_scene(datas["start_scene"])
+        self.set_scene(data["start_scene"])
         self.run_mode = RUN_MODE.NORMAL
         self.script_iterator = None
 
@@ -87,7 +87,7 @@ class Theatre:
         # writte a streaming system which pre-load neightgour scene in a
         # parrallel thread and keep it memory as long as the game is suceptible
         # to request it. Let's see if it is possible !
-        self.scene = find_scene(self.datas, scene_name, self.input_buffer)
+        self.scene = find_scene(self.data, scene_name, self.input_buffer)
         if self.scene is None:
             raise KeyError(f"{scene_name} scene does'nt exists in the game")
         self.current_scripts = []

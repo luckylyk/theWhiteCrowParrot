@@ -39,8 +39,8 @@ class Player():
         input_buffer = InputBuffer()
         spritesheet = SpriteSheet.from_filename(name, filename)
         with open(filename, 'r') as f:
-            datas = json.load(f)
-        movement_manager = MovementManager(datas, spritesheet, coordinates)
+            data = json.load(f)
+        movement_manager = MovementManager(data, spritesheet, coordinates)
         return Player(
             name,
             movement_manager,
@@ -56,13 +56,13 @@ class Player():
 
     def update_inputs(self, joystick):
         flip = self.coordinates.flip
-        datas = self.movement_manager.datas
+        data = self.movement_manager.data
         keystate_changed = self.input_buffer.update(joystick, flip)
         if keystate_changed is False:
             return
 
-        moves = filter_moves_by_inputs(datas, self.input_buffer)
-        unholdable = filter_unholdable_moves(datas, self.input_buffer)
+        moves = filter_moves_by_inputs(data, self.input_buffer)
+        unholdable = filter_unholdable_moves(data, self.input_buffer)
         self.movement_manager.unhold(unholdable)
         self.movement_manager.propose_moves(moves)
 
@@ -81,7 +81,7 @@ class Player():
         # This code should not polluate the main process and should be set
         # somewhere else, have to think about how to manage those cases.
         # Render a spot following the player animation center in debug mode
-        size = self.movement_manager.datas["frame_size"]
+        size = self.movement_manager.data["frame_size"]
         center = self.movement_manager.animation.pixel_center
         position = sum_num_arrays(center, self.pixel_position)
         x, y = camera.relative_pixel_position(position, deph)

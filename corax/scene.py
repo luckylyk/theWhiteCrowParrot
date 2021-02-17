@@ -72,32 +72,32 @@ def check_first_layer(level_datas):
         raise ValueError("first scene element must be a Layer")
 
 
-def build_set_static_element(datas):
+def build_set_static_element(data):
     return SetStaticElement.from_filename(
-        os.path.join(cctx.SET_FOLDER, datas["file"]),
-        pixel_position=datas["position"],
+        os.path.join(cctx.SET_FOLDER, data["file"]),
+        pixel_position=data["position"],
         key_color=cctx.KEY_COLOR,
-        deph=datas["deph"])
+        deph=data["deph"])
 
 
-def build_set_animated_element(datas):
+def build_set_animated_element(data):
     return SetAnimatedElement.from_filename(
-        os.path.join(cctx.MOVE_FOLDER, datas["file"]),
-        pixel_position=datas["position"],
-        deph=datas["deph"])
+        os.path.join(cctx.MOVE_FOLDER, data["file"]),
+        pixel_position=data["position"],
+        deph=data["deph"])
 
 
-def build_player(datas, grid_pixel_offset, input_buffer, sound_shooter):
-    filename = datas.get("movedatas_file")
+def build_player(data, grid_pixel_offset, input_buffer, sound_shooter):
+    filename = data.get("movedatas_file")
     data_path = os.path.join(cctx.MOVE_FOLDER, filename)
     with open(data_path, "r") as f:
         move_datas = json.load(f)
     spritesheet = SpriteSheet.from_filename(filename, data_path)
-    position = datas["block_position"]
+    position = data["block_position"]
     coordinates = Coordinate(
         block_position=position, pixel_offset=grid_pixel_offset)
     movementmanager = MovementManager(move_datas, spritesheet, coordinates)
-    name = datas["name"]
+    name = data["name"]
     return Player(
         name,
         movementmanager,
@@ -116,30 +116,30 @@ def build_scrolling(camera, level_datas):
         target_offset=level_datas["target_offset"])
 
 
-def build_ambiance(datas):
+def build_ambiance(data):
     return Ambiance(
-        filename=datas["file"],
-        zone=datas["zone"],
-        falloff=datas["falloff"],)
+        filename=data["file"],
+        zone=data["zone"],
+        falloff=data["falloff"],)
 
 
-def build_sfx_sound(datas):
+def build_sfx_sound(data):
     return SfxSound(
-        name=datas["name"],
-        filename=datas["filename"],
-        trigger=datas["trigger"],
-        falloff=datas["falloff"],
-        zone=datas["zone"])
+        name=data["name"],
+        filename=data["filename"],
+        trigger=data["trigger"],
+        falloff=data["falloff"],
+        zone=data["zone"])
 
 
-def build_sfx_collection(datas):
+def build_sfx_collection(data):
     return SfxSoundCollection(
-        name=datas["name"],
-        files=datas["files"],
-        order=datas["order"],
-        trigger=datas["trigger"],
-        falloff=datas["falloff"],
-        zone=datas["zone"])
+        name=data["name"],
+        files=data["files"],
+        order=data["order"],
+        trigger=data["trigger"],
+        falloff=data["falloff"],
+        zone=data["zone"])
 
 
 def find_element(scene, name):
@@ -154,19 +154,19 @@ def find_player(scene, name):
             return player
 
 
-def build_particles_system(datas):
-    zone = Rect(*datas["emission_zone"]) if datas["emission_zone"] else None
-    emitter = build_emitter(zone=zone, spots=datas["emission_positions"])
+def build_particles_system(data):
+    zone = Rect(*data["emission_zone"]) if data["emission_zone"] else None
+    emitter = build_emitter(zone=zone, spots=data["emission_positions"])
     return ParticlesSystem(
-        name=datas["name"],
-        zone=datas["zone"],
-        alpha=datas["alpha"],
-        deph=datas["deph"],
-        start_number=datas["start_number"],
-        flow=datas["flow"],
-        spot_options=datas["spot_options"],
-        direction_options=datas["direction_options"],
-        shape_options=datas["shape_options"],
+        name=data["name"],
+        zone=data["zone"],
+        alpha=data["alpha"],
+        deph=data["deph"],
+        start_number=data["start_number"],
+        flow=data["flow"],
+        spot_options=data["spot_options"],
+        direction_options=data["direction_options"],
+        shape_options=data["shape_options"],
         emitter=emitter)
 
 

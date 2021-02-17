@@ -14,40 +14,40 @@ class Zone():
     The NoGo object is a corax node of the "zone" categorie. It is coordinates
     where the "affected" character are not allowed to go.
     """
-    def __init__(self, datas):
-        self.datas = datas
+    def __init__(self, data):
+        self.data = data
 
     @property
     def script_names(self):
-        return self.datas.get("scripts", []) or []
+        return self.data.get("scripts", []) or []
 
     @property
     def name(self):
-        return self.datas["name"]
+        return self.data["name"]
 
     @property
     def type(self):
-        return self.datas["type"]
+        return self.data["type"]
 
     @property
     def zone(self):
-        return self.datas["zone"]
+        return self.data["zone"]
 
     @property
     def l(self):
-        return self.datas["zone"][0]
+        return self.data["zone"][0]
 
     @property
     def t(self):
-        return self.datas["zone"][1]
+        return self.data["zone"][1]
 
     @property
     def r(self):
-        return self.datas["zone"][2]
+        return self.data["zone"][2]
 
     @property
     def b(self):
-        return self.datas["zone"][3]
+        return self.data["zone"][3]
 
     @property
     def width(self):
@@ -68,7 +68,7 @@ class Zone():
 
     @property
     def affect(self):
-        return self.datas["affect"] or []
+        return self.data["affect"] or []
 
     def render(self, screen, camera):
         if cctx.DEBUG is False:

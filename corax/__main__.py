@@ -58,8 +58,8 @@ defined for each sprite sheet but it is constant for the all sprite sheet.
 The engine will automatically split animation using the frame data assigned.
 
   -- moves --
-Contains the spritesheet datas which is basically: inputs management, event
-triggers, move coordinates, frame datas, etc. Those files are JSON.
+Contains the spritesheet data which is basically: inputs management, event
+triggers, move coordinates, frame data, etc. Those files are JSON.
 
   -- scenes --
 Contains all the level data files as json.
