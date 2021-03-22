@@ -1,0 +1,57 @@
+{
+        "default_move": "invisible",
+        "evaluation_order": ["invisible", "empty_it", "is_empty"],
+        "filename": "chest_props.png",
+        "frame_size": [177, 173],
+        "key_color": [0, 255, 0],
+        "moves": {
+                "empty_it": {
+                        "center": [0, 0],
+                        "conditions": {},
+                        "frames_centers":  null,
+                        "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+                        "hold":  true,
+                        "inputs": [],
+                        "loop_on": "is_empty",
+                        "next_move": "is_empty",
+                        "next_move_bufferable":  false,
+                        "post_events": {},
+                        "pre_events": {},
+                        "release_frame": -1,
+                        "start_at_image": 1,
+                        "triggers":  null
+                    },
+                "invisible": {
+                        "center": [0, 0],
+                        "conditions": {},
+                        "frames_centers":  null,
+                        "frames_per_image": [1],
+                        "hold":  false,
+                        "inputs": [],
+                        "loop_on": "invisible",
+                        "next_move": "invisible",
+                        "next_move_bufferable":  false,
+                        "post_events": {},
+                        "pre_events": {},
+                        "release_frame": -1,
+                        "start_at_image": 0,
+                        "triggers":  null
+                    },
+                "is_empty": {
+                        "center": [0, 0],
+                        "conditions": {},
+                        "frames_centers":  null,
+                        "frames_per_image": [1],
+                        "hold":  false,
+                        "inputs": [],
+                        "loop_on":  null,
+                        "next_move": "is_empty",
+                        "next_move_bufferable":  false,
+                        "post_events": {},
+                        "pre_events": {},
+                        "release_frame": -1,
+                        "start_at_image": 29,
+                        "triggers":  null
+                    }
+            }
+    }

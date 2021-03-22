@@ -13,7 +13,47 @@ SOUND_TYPES = (
     NODE_TYPES.MUSIC,
     NODE_TYPES.AMBIANCE)
 
+DEFAULT_MOVE = {
+    "start_at_image": 0,
+    "center": [0, 0],
+    "frames_per_image": [1],
+    "triggers": None,
+    "frames_centers": None,
+    "release_frame": -1,
+    "next_move": "idle",
+    "next_move_bufferable": False,
+    "hold": False,
+    "loop_on": "idle",
+    "conditions": {},
+    "inputs": [],
+    "pre_events": {},
+    "post_events": {}}
+
 DATA_TEMPLATES = {
+    "spritesheet": {
+        "filename": str,
+        "key_color": (int, int, int),
+        "frame_size": (int, int),
+        "default_move": str,
+        "evaluation_order": {str},
+        "moves": None
+    },
+    "move": {
+        "start_at_image": int,
+        "center": (int, int),
+        "frames_per_image": {int},
+        "triggers": {(int, str)},
+        "frames_centers": {(int, int)},
+        "release_frame": int,
+        "next_move": str,
+        "next_move_bufferable": bool,
+        "hold": bool,
+        "loop_on": str,
+        "conditions": None,
+        "inputs": {str},
+        "pre_events": None,
+        "post_events": None,
+    },
     "scene": {
         "name": str,
         "type": str,
@@ -136,23 +176,21 @@ def tree_sanity_check(tree):
         data_sanity_check(node.data)
 
 
-def data_sanity_check(data):
-    if not isinstance(data, dict):
-        raise ValueError("data as to be a dict")
-    type_ = data.get("type")
-    if type_ not in DATA_TEMPLATES:
-        raise ValueError(f"{type_} is not a valid node type")
-    template = DATA_TEMPLATES[data.get("type")]
+def data_sanity_check(data, type_=None):
+    assert isinstance(data, dict), "data as to be a dict"
+    type_ = type_ or data.get("type")
+    assert type_ in DATA_TEMPLATES, f"{type_} is not a valid node type"
+    template = DATA_TEMPLATES[type_]
     for key in template.keys():
-        if key not in data.keys():
-            raise KeyError(f"Missing parameter: {key}")
+        assert key in data.keys(), f"Missing parameter: {key}"
     for key in data.keys():
-        if key not in template.keys():
-            raise KeyError(f"Invalid parameter: {key}")
+        assert key in template.keys(), f"Invalid parameter: {key}"
     for key, value in data.items():
         if value is None:
             continue
         type_required = template[key]
+        if type_required is None:
+            continue
         test_type_required(key, value, type_required)
 
 
@@ -160,19 +198,13 @@ def test_type_required(key, value, type_required):
     conditions = (
         type_required in [int, float, str, None] and
         not isinstance(value, type_required))
+    assert not conditions, f"'{key}' must be a {str(type_required)} value, but is {type(key)}"
 
-    if conditions:
-        raise TypeError(f"'{key}' must be a {str(type_required)} value")
-
-    elif isinstance(type_required, (list, tuple)):
-        if len(value) != len(type_required):
-            msg = f"'{key}' types must match {type_required}"
-            raise TypeError(msg)
+    if isinstance(type_required, (list, tuple)):
+        assert len(value) == len(type_required), f"'{key}' types must match {type_required}"
         try:
             for v, t in zip(value, type_required):
-                if not isinstance(v, t):
-                    msg = f"'{value}' types must match {type_required}"
-                    raise TypeError(msg)
+                assert isinstance(v, t), f"'{value}' types must match {type_required}, but get {type(v)}"
         except:
             msg = f"'{value}' types must match {type_required}"
             raise TypeError(msg)
@@ -218,6 +250,8 @@ def data_to_plain_text(data, indent=0):
             value = " true"
         elif value is False:
             value = " false"
+        elif value == {}:
+            value = "{}"
         elif isinstance(value, dict):
             value = data_to_plain_text(value, indent=indent+2)
         lines.append(f"    \"{key}\": {value}".replace("'", '"'))

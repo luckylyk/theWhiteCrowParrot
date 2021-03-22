@@ -29,21 +29,22 @@ class SetStaticElement():
 
 
 class SetAnimatedElement():
-    def __init__(self, movement_manager, coordinates, deph, alpha=25):
-        self.name = None
+    def __init__(self, name, movement_manager, coordinates, deph, alpha=255):
+        self.name = name
         self.movement_manager = movement_manager
         self.coordinates = coordinates
         self.deph = deph
         self.alpha = alpha
 
     @staticmethod
-    def from_filename(filename, pixel_position, deph):
+    def from_filename(name, filename, pixel_position, deph, alpha):
         spritesheet = SpriteSheet.from_filename(None, filename)
         with open(filename, 'r') as f:
             data = json.load(f)
         coordinates = Coordinate(pixel_offset=pixel_position)
         movement_manager = MovementManager(data, spritesheet, coordinates)
-        return SetAnimatedElement(movement_manager, coordinates, deph)
+        return SetAnimatedElement(
+            name, movement_manager, coordinates, deph, alpha)
 
     @property
     def pixel_position(self):

@@ -1,0 +1,25 @@
+{
+    "name": "crackle",
+    "displayName": "Crackle Script",
+    "description": "Crackle highliting for Corax Engine scripting language",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.53.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "crackle",
+            "aliases": ["Crackle", "crackle"],
+            "extensions": [".ckl",".crackle"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "crackle",
+            "scopeName": "source.mysample",
+            "path": "./syntaxes/corax_syntax.json"
+        }]
+    }
+}

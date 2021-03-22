@@ -112,6 +112,15 @@ class CoraxHighlighter(QtGui.QSyntaxHighlighter):
                 index = expression.indexIn(text, index + length)
 
 
+def get_plaint_text_editor(rule="crackle"):
+    plaintext_editor = QtWidgets.QPlainTextEdit()
+    highlighter = CoraxHighlighter(RULES[rule], document=plaintext_editor.document())
+    qfont = QtGui.QFont("Consolas")
+    qfont.setPixelSize(15)
+    plaintext_editor.setFont(qfont)
+    plaintext_editor.setWordWrapMode(QtGui.QTextOption.NoWrap)
+    return plaintext_editor, highlighter
+
 
 if __name__ == "__main__":
 

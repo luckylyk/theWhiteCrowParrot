@@ -250,8 +250,11 @@ class MovementManager():
         elif event == EVENTS.FLIP:
             self.coordinates.flip = not self.coordinates.flip
         elif event == EVENTS.SWITCH_TO:
-            filename = os.path.join(cctx.MOVE_FOLDER, value)
-            self.spritesheet = SpriteSheet.from_filename(value, filename)
+            self.set_spritesheet(value)
+
+    def set_spritesheet(self, name):
+            filename = os.path.join(cctx.MOVE_FOLDER, name)
+            self.spritesheet = SpriteSheet.from_filename(name, filename)
             with open(filename, 'r') as f:
                 self.data = json.load(f)
 

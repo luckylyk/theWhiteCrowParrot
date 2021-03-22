@@ -78,7 +78,6 @@ class Animation():
     def is_lock(self):
         if self.release_frame == -1:
             return not self.is_finished()
-        print("request", self.index, self.release_frame)
         return self.index < self.release_frame
 
     def is_finished(self):

@@ -1,0 +1,216 @@
+{
+    "default_move": "idle",
+    "evaluation_order": ["idle", "get_ready", "is_ready", "give_up", "try_to_push", "try_to_open", "open_succes", "empty_it", "close", "push_succes", "push_and_die", "dead"],
+    "filename": "whitecrowparrot_chest.png",
+    "frame_size": [240, 160],
+    "key_color": [0, 255, 0],
+    "moves": {
+            "close": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [2, 2, 2, 2, 2, 2, 6, 2, 2, 8, 2],
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on": "idle",
+                    "next_move": "idle",
+                    "next_move_bufferable":  false,
+                    "post_events": {
+                            "switch_to": "whitecrowparrot_exploration.json"
+                        },
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 72,
+                    "triggers":  null
+                },
+            "dead": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [1],
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on": null,
+                    "next_move": "dead",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 176,
+                    "triggers":  null
+                },
+            "empty_it": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 2, 2, 4, 2, 2, 2, 2, 2, 2, 4, 2],
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on": "idle",
+                    "next_move": "idle",
+                    "next_move_bufferable":  false,
+                    "post_events": {
+                            "switch_to": "whitecrowparrot_exploration.json"
+                        },
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 182,
+                    "triggers":  null
+                },
+            "get_ready": {
+                    "center": [70, 155],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [2, 2, 2, 2, 2, 4, 6, 4, 2, 2, 2, 2, 2, 2],
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "is_ready",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 1,
+                    "triggers":  null
+                },
+            "give_up": {
+                    "center": [70, 155],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "idle",
+                    "next_move_bufferable":  false,
+                    "post_events": {
+                            "switch_to": "whitecrowparrot_exploration.json"
+                        },
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 15,
+                    "triggers":  null
+                },
+            "idle": {
+                    "center": [70, 155],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [1],
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "idle",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 0,
+                    "triggers":  null
+                },
+            "is_ready": {
+                    "center": [70, 155],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [1],
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "is_ready",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 14,
+                    "triggers":  null
+                },
+            "open_succes": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on": "idle",
+                    "next_move": "idle",
+                    "next_move_bufferable":  false,
+                    "post_events": {
+                            "switch_to": "whitecrowparrot_exploration.json"
+                        },
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 56,
+                    "triggers":  null
+                },
+            "push_and_die": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "dead",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 146,
+                    "triggers":  null
+                },
+            "push_succes": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, 2, 8, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2],
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on": "idle",
+                    "next_move": "idle",
+                    "next_move_bufferable":  false,
+                    "post_events": {
+                            "block_offset": [2, 0],
+                            "switch_to": "whitecrowparrot_exploration.json"
+                        },
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 121,
+                    "triggers":  null
+                },
+            "try_to_open": {
+                    "center": [70, 155],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [2, 2, 2, 2, 2, 5, 2, 2, 2, 4, 4, 4, 6, 6, 4, 4, 2, 4, 4, 2, 2, 2, 2, 2, 2],
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "idle",
+                    "next_move_bufferable":  false,
+                    "post_events": {
+                            "switch_to": "whitecrowparrot_exploration.json"
+                        },
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 29,
+                    "triggers":  null
+                },
+            "try_to_push": {
+                    "center": [70, 155],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 8, 2, 8, 2, 2, 2, 2, 2, 2],
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "idle",
+                    "next_move_bufferable":  false,
+                    "post_events": {
+                            "switch_to": "whitecrowparrot_exploration.json"
+                        },
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 84,
+                    "triggers":  null
+                }
+        }
+}

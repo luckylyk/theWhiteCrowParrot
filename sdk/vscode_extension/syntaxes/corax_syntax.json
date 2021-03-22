@@ -1,0 +1,157 @@
+
+
+
+{
+  "fileTypes": [
+    "mysample"
+  ],
+  "name": "mysample",
+  "patterns": [
+    {
+      "include": "#main"
+    }
+  ],
+  "scopeName": "source.mysample",
+  "uuid": "",
+  "repository": {
+    "main": {
+      "patterns": [
+        {
+          "begin": "(?<=script ).*$",
+          "beginCaptures": {
+            "1": {
+              "name": "storage.type.function.python"
+            }
+          },
+          "contentName": "comment.mysample",
+          "end": "$",
+          "endCaptures": {
+            "1": {
+              "name": "storage.type.function.python"
+            }
+          }
+        },
+        {
+          "match": "(\\brun\\b|\\bplay\\b|\\bset\\b|\\breach\\b|\\bmove\\b|\\bforce\\b)",
+          "name": "entity.name.function.mysample"
+        },
+        {
+          "match": "(\\bis\\b|\\bin\\b|\\bcross\\b|\\bhas\\b|\\bby\\b)",
+          "name": "keyword.mysample"
+        },
+        {
+          "match": "(\\bscript\\b|\\balways\\b|\\bonce\\b|\\bnolock\\b|\\bfreeze\\b|\\wait\\b)",
+          "name": "support.type.mysample"
+        },
+        {
+          "match": "(\\btrue\\b|\\bfalse\\b)",
+          "name": "constant.language.mysample"
+        },
+        {
+          "match": "(\\btheatre\\b|\\bscene\\b|\\bprops\\b|\\bglobals\\b|\\bgamepad\\b|\\bname\\b|\\bpressed\\b|\\banimation\\b|\\bhitbox\\b|\\bkey\\b|\\bkeys\\b|\\bplayer\\b|\\bzone\\b|\\bmovesheet\\b)",
+          "name": "variable.legacy.builtin.mysample"
+        },
+        {
+          "include": "#numeric"
+        },
+        {
+          "begin": "(\\{)",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.mysample"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#main__1"
+            }
+          ],
+          "end": "(\\})",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.mysample"
+            }
+          }
+        },
+        {
+          "match": "(;)",
+          "name": "punctuation.mysample"
+        },
+        {
+          "begin": "(\\()",
+          "beginCaptures": {
+            "1": {
+              "name": "punctuation.mysample"
+            }
+          },
+          "patterns": [
+            {
+              "include": "#main__2"
+            }
+          ],
+          "end": "(\\))",
+          "endCaptures": {
+            "1": {
+              "name": "punctuation.mysample"
+            }
+          }
+        },
+        {
+          "include": "#multi_line_comment"
+        },
+        {
+          "match": "(//.*)",
+          "name": "comment.mysample"
+        }
+      ]
+    },
+    "main__1": {
+      "patterns": [
+        {
+          "include": "#main"
+        }
+      ]
+    },
+    "main__2": {
+      "patterns": [
+        {
+          "include": "#numeric"
+        },
+        {
+          "match": "(,)",
+          "name": "punctuation.mysample"
+        }
+      ]
+    },
+    "multi_line_comment": {
+      "patterns": [
+        {
+          "begin": "(/\\*)",
+          "beginCaptures": {
+            "1": {
+              "name": "comment.mysample"
+            }
+          },
+          "contentName": "comment.mysample",
+          "end": "(\\*/)",
+          "endCaptures": {
+            "1": {
+              "name": "comment.mysample"
+            }
+          }
+        }
+      ]
+    },
+    "multi_line_comment__1": {
+      "patterns": []
+    },
+    "numeric": {
+      "patterns": [
+        {
+          "match": "(\\b\\d+)",
+          "name": "constant.numeric.mysample"
+        }
+      ]
+    }
+  }
+}

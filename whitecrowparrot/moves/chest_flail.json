@@ -1,0 +1,57 @@
+{
+        "default_move": "idle",
+        "evaluation_order": ["idle", "fall", "fallen"],
+        "filename": "chest_flail.png",
+        "frame_size": [75, 145],
+        "key_color": [0, 255, 0],
+        "moves": {
+                "fall": {
+                        "center": [0, 0],
+                        "conditions": {},
+                        "frames_centers":  null,
+                        "frames_per_image": [4, 4, 4, 6, 6, 4, 2, 2, 2, 2, 2, 2, 2, 2],
+                        "hold":  true,
+                        "inputs": [],
+                        "loop_on":  null,
+                        "next_move": "fallen",
+                        "next_move_bufferable":  false,
+                        "post_events": {},
+                        "pre_events": {},
+                        "release_frame": -1,
+                        "start_at_image": 0,
+                        "triggers":  null
+                    },
+                "fallen": {
+                        "center": [0, 0],
+                        "conditions": {},
+                        "frames_centers":  null,
+                        "frames_per_image": [1],
+                        "hold":  false,
+                        "inputs": [],
+                        "loop_on":  null,
+                        "next_move": "fallen",
+                        "next_move_bufferable":  false,
+                        "post_events": {},
+                        "pre_events": {},
+                        "release_frame": -1,
+                        "start_at_image": 13,
+                        "triggers":  null
+                    },
+                "idle": {
+                        "center": [0, 0],
+                        "conditions": {},
+                        "frames_centers":  null,
+                        "frames_per_image": [1],
+                        "hold":  false,
+                        "inputs": [],
+                        "loop_on": "idle",
+                        "next_move": "idle",
+                        "next_move_bufferable":  false,
+                        "post_events": {},
+                        "pre_events": {},
+                        "release_frame": -1,
+                        "start_at_image": 0,
+                        "triggers":  null
+                    }
+            }
+    }

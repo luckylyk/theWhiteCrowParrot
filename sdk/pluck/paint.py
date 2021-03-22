@@ -22,12 +22,20 @@ class PaintContext():
         self.zone_border_color = "white"
         self.zone_background_color = "white"
         self.cursor_background_color = "white"
+        self.frame_number_color = "red"
         self.cursor_text_color = "white"
         self.cursor_background_alpha = 0.2
         self.zone_alpha = 0.2
 
     def relatives(self, value):
         return value * self.zoom
+
+    def relatives_rect(self, rect):
+        return QtCore.QRectF(
+            rect.left() * self.zoom,
+            rect.top() * self.zoom,
+            rect.width() * self.zoom,
+            rect.height() * self.zoom)
 
     def offset_rect(self, rect):
         rect.setLeft(rect.left() + self.extra_zone)
@@ -140,7 +148,10 @@ def get_renderer(element):
     if element is None:
         return
     elif element["type"] == "scene":
-        return partial(render_background, scene_datas=element)
+        return partial(
+            render_background,
+            rect=element["boundary"],
+            color=element["background_color"])
     elif element["type"] in SOUND_TYPES:
         image = get_image(element)
         return partial(render_sound, sound_datas=element, image=image)
@@ -153,13 +164,11 @@ def get_renderer(element):
         return partial(render_image, image=image, x=x, y=y)
 
 
-def render_background(painter, scene_datas, paintcontext):
-
-    boundary = scene_datas["boundary"]
-    x = paintcontext.relatives(boundary[0])
-    y = paintcontext.relatives(boundary[1])
-    w = paintcontext.relatives(boundary[0] + boundary[2])
-    h = paintcontext.relatives(boundary[1] + boundary[3])
+def render_background(painter, rect, color, paintcontext):
+    x = paintcontext.relatives(rect[0])
+    y = paintcontext.relatives(rect[1])
+    w = paintcontext.relatives(rect[0] + rect[2])
+    h = paintcontext.relatives(rect[1] + rect[3])
     rect = QtCore.QRectF(x, y, w, h)
     paintcontext.offset_rect(rect)
 
@@ -168,7 +177,7 @@ def render_background(painter, scene_datas, paintcontext):
     painter.setPen(pen)
     painter.setBrush(brush)
     painter.drawRect(grow_rect(rect, paintcontext.extra_zone))
-    brush = QtGui.QBrush(QtGui.QColor(*scene_datas["background_color"]))
+    brush = QtGui.QBrush(QtGui.QColor(*color))
     painter.setBrush(brush)
     painter.drawRect(rect)
 

@@ -1,0 +1,73 @@
+{
+    "default_move": "locked",
+    "evaluation_order": ["locked", "up_down", "explode", "exploded"],
+    "filename": "chest_locker.png",
+    "frame_size": [42, 60],
+    "key_color": [0, 255, 0],
+    "moves": {
+            "explode": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2],
+                    "hold":  true,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "exploded",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 5,
+                    "triggers":  null
+                },
+            "exploded": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [1],
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on": "exploded",
+                    "next_move": "exploded",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 16,
+                    "triggers":  null
+                },
+            "locked": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [1],
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on": "locked",
+                    "next_move": "locked",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 0,
+                    "triggers":  null
+                },
+            "up_down": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [10, 26],
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "locked",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 2,
+                    "triggers":  null
+                }
+        }
+}

@@ -6,6 +6,7 @@ from PyQt5 import QtGui, QtCore
 
 from corax.core import NODE_TYPES
 import corax.context as cctx
+from corax.iterators import itertable
 from pluck.datas import SET_TYPES, GRAPHIC_TYPES, SOUND_TYPES, ZONE_TYPES
 
 
@@ -88,3 +89,28 @@ def create_image(element):
                 continue
             image2.setPixelColor(i, j, image.pixelColor(i, j))
     return image2
+
+
+def spritesheet_to_images(filename, frame_size):
+    filename = os.path.join(cctx.ANIMATION_FOLDER, filename)
+    sheet = QtGui.QImage(filename)
+    width, height = frame_size
+    row = sheet.height() / height
+    col = sheet.width() / width
+    images = []
+    for j, i in itertable(int(row), int(col)):
+        x, y = i * width, j * height
+        image = sheet.copy(x, y, width, height)
+        images.append(image)
+    return images
+
+
+def sub_rects(rect, size):
+    width, height = size
+    row = rect.height() / height
+    col = rect.width() / width
+    rects = []
+    for j, i in itertable(int(row), int(col)):
+        x, y = i * width, j * height
+        rects.append(QtCore.QRectF(x, y, width, height))
+    return rects

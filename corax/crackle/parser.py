@@ -1,3 +1,4 @@
+BOOL_AS_STRING = ['false', 'true']
 
 
 def object_type(obj):
@@ -22,3 +23,9 @@ def object_attribute(obj):
 
 def string_to_int_list(string):
     return [int(n) for n in string.strip("()").split(",")]
+
+
+def string_to_bool(string):
+    return string == "true"
+
+

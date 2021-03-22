@@ -1,0 +1,17 @@
+globals = done
+
+implement 'nolock' crackle keyword = done
+implement 'wait' function keyword = done
+implement 'props' finding = done
+implement boolean = done
+implement 'freeze' function = todo
+nested script = to fix / redesign
+implement 'once' condition = will do later
+
+escalade player to theatre system = todo
+escalade sound shooter to theatre system = todo
+keep scene statuses when changing scene = todoZ
+
+implement hitboxes system = todo
+implement hitboxes collision = todo
+hitboxes fancy edit in pluck = todo

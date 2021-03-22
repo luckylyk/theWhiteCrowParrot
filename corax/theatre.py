@@ -1,6 +1,7 @@
 
 import os
 import json
+import logging
 
 import corax.context as cctx
 from corax.core import RUN_MODE
@@ -70,10 +71,12 @@ class Theatre:
         self.input_buffer = InputBuffer()
         self.data = data
         self.caption = data["caption"]
+        self.globals = data["globals"]
         self.scene = None
         self.scripts = load_scripts()
         self.script_names_by_zone = {}
         self.current_scripts = []
+        self.freeze = 0
         for script in self.scripts:
             script.theatre = self
         self.set_scene(data["start_scene"])
@@ -103,6 +106,9 @@ class Theatre:
                 self.current_scripts.append(script)
 
     def evaluate(self, joystick, screen):
+        if self.freeze > 0:
+            self.freeze -= 1
+            return
         if self.run_mode == RUN_MODE.NORMAL:
             self.evaluate_normal_mode(joystick, screen)
         elif self.run_mode == RUN_MODE.SCRIPT:
@@ -142,9 +148,11 @@ class Theatre:
                 for script_name in script_names:
                     for script in self.current_scripts:
                         if script.name == script_name and script.check():
+                            logging.debug(f"SCRIPT: running {script_name}")
                             self.run_script(script)
                             break
 
     def run_script(self, script):
         self.script_iterator = iter_on_jobs(script.jobs())
         self.run_mode = RUN_MODE.SCRIPT
+

@@ -1,6 +1,12 @@
 {
     "caption": "The White Crow Parrot",
-    "start_scene": "tente",
+    "start_scene": "forest",
+    "globals": {
+        "chest_moved": false,
+        "chest_open": false,
+        "chest_locked": true,
+        "chest_empty": false
+    },
     "preferences": {
         "resolution": [800, 268],
         "fps": 30,
@@ -17,3 +23,5 @@
         }
     ]
 }
+
+

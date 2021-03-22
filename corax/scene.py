@@ -33,6 +33,7 @@ class Scene():
         self.scrolling = scrolling
         self.layers = []
         self.players = []
+        self.animated_sets = []
         self.sounds = []
         self.sound_shooter = sound_shooter
         self.evaluables = []
@@ -82,9 +83,11 @@ def build_set_static_element(data):
 
 def build_set_animated_element(data):
     return SetAnimatedElement.from_filename(
+        data["name"],
         os.path.join(cctx.MOVE_FOLDER, data["file"]),
         pixel_position=data["position"],
-        deph=data["deph"])
+        deph=data["deph"],
+        alpha=data["alpha"])
 
 
 def build_player(data, grid_pixel_offset, input_buffer, sound_shooter):
@@ -148,6 +151,12 @@ def find_element(scene, name):
             return element
 
 
+def find_animated_set(scene, name):
+    for element in scene.animated_sets:
+        if element.name == name:
+            return element
+
+
 def find_player(scene, name):
     for player in scene.players:
         if player.name == name:
@@ -200,6 +209,7 @@ def build_scene(name, level_datas, input_buffer):
             animated = build_set_animated_element(element)
             layer.append(animated)
             scene.evaluables.append(animated)
+            scene.animated_sets.append(animated)
         elif element.get("type") == "player":
             offset = level_datas["grid_pixel_offset"]
             player = build_player(element, offset, input_buffer, sound_shooter)

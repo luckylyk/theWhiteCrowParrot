@@ -16,20 +16,42 @@
             "type": "interaction",
             "affect": "whitecrow",
             "scripts": ["forest.go_to_forest"],
-            "zone": [0, 0, 22, 27]
+                "zone": [0, 0, 2, 27]
         },
         {
             "name": "right_limit",
             "type": "no_go",
             "affect": "whitecrow",
-            "zone": [50, 0, 80, 27]
+            "zone": [41, 0, 80, 27]
         },
         {
             "name": "move_the_chest",
             "type": "interaction",
-            "affect": "whitecrow",
-            "scripts":  null,
-            "zone": [43, 20, 50, 26]
+            "affect": ["whitecrow"],
+            "scripts": [
+                "forest.chest_get_ready",
+                "forest.chest_try_to_open",
+                "forest.chest_try_to_open_from_idle",
+                "forest.chest_try_to_push",
+                "forest.chest_give_up",
+                "forest.chest_unlock_high",
+                "forest.chest_open",
+                "forest.chest_open_from_idle",
+                "forest.chest_empty_it_from_ready",
+                "forest.chest_close_from_ready",
+                "forest.chest_close_from_idle",
+                "forest.chest_empty_it_from_idle",
+                "forest.chest_succes_to_push",
+                "forest.chest_push_and_die"],
+            "zone": [40, 20, 50, 26]
+        },
+        {
+            "name": "unlock_the_chest",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": [
+                "forest.chest_unlock_low"],
+            "zone": [34, 20, 50, 26]
         }
     ],
     "elements": [
@@ -77,7 +99,7 @@
             "name": "tente/hatch",
             "type": "set_static",
             "file": "tente/hatch.png",
-            "position": [416, 235],
+            "position": [400, 235],
             "deph": 0.0
         },
         {
@@ -95,21 +117,62 @@
             "deph": 0.0
         },
         {
+            "name": "flail",
+            "type": "set_animated",
+            "file": "chest_flail.json",
+            "position": [457, 110],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
+            "name": "armor",
+            "type": "set_animated",
+            "file": "chest_armor.json",
+            "position": [475, 122],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
+            "name": "chest",
+            "type": "set_animated",
+            "file": "chest.json",
+            "position": [434, 170],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
+            "name": "chest_locker",
+            "type": "set_animated",
+            "file": "chest_locker.json",
+            "position": [430, 206],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
             "name": "whitecrow",
             "type": "player",
-            "block_position": [10, 8],
+            "block_position": [9, 8],
             "movedatas_file": "whitecrowparrot_exploration.json"
+        },
+        {
+            "name": "chest_props",
+            "type": "set_animated",
+            "file": "chest_props.json",
+            "position": [308, 85],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
+            "name": "chest_bag",
+            "type": "set_animated",
+            "file": "chest_bag.json",
+            "position": [341, 165],
+            "alpha": 255,
+            "deph": 0.0
         },
         {
             "name": "foreground",
             "type": "layer",
-            "deph": 0.0
-        },
-        {
-            "name": "tente/chest",
-            "type": "set_static",
-            "file": "tente/chest.png",
-            "position": [434, 193],
             "deph": 0.0
         },
         {
@@ -137,7 +200,7 @@
             "name": "tente/candlestick_02",
             "type": "set_static",
             "file": "tente/candlestick_02.png",
-            "position": [482, 189],
+            "position": [543, 189],
             "deph": 0.0
         },
         {
@@ -153,6 +216,13 @@
             "file": "tente/black_mask.png",
             "position": [0, 0],
             "deph": 0.0
+        },
+        {
+            "name": "tente/armor_boot",
+            "type": "set_static",
+            "file": "tente/armor_boot.png",
+            "position": [498, 236],
+            "deph": 0
         }
     ]
 }

@@ -1,7 +1,8 @@
 from functools import partial
 from corax.core import NODE_TYPES
 from corax.scene import find_player
-from corax.crackle.parser import object_attribute, object_name, object_type
+from corax.crackle.parser import \
+    object_attribute, object_name, object_type, BOOL_AS_STRING, string_to_bool
 
 
 def split_condition(line):
@@ -16,18 +17,21 @@ def create_subject_value_collector(subject, theatre):
     subject_type_ = object_type(subject)
     if subject_type_ == NODE_TYPES.PLAYER:
         return create_player_subject_collector(subject, theatre.scene)
-    if subject_type_ == "gamepad":
-        return get_gamepad_value_collector(subject, theatre)
-    if subject_type_ == "theatre":
+    elif subject_type_ == "gamepad":
+        return create_gamepad_value_collector(subject, theatre)
+    elif subject_type_ == "theatre":
         return create_theatre_value_collector(subject, theatre)
 
 
 def create_theatre_value_collector(subject, theatre):
-    if object_name(subject) == "scene" and object_attribute(subject) == "name":
+    attribute = object_attribute(subject)
+    if object_name(subject) == "scene" and attribute == "name":
         return lambda: theatre.scene.name
+    elif object_name(subject) == "globals":
+        return lambda: theatre.globals[attribute]
 
 
-def get_gamepad_value_collector(subject, theatre):
+def create_gamepad_value_collector(subject, theatre):
     if object_name(subject) == "keys":
         attribute = object_attribute(subject)
         if attribute == "pressed":
@@ -57,6 +61,8 @@ def create_condition_checker(line, theatre):
         return lambda: True
     subject, comparator, value = split_condition(line)
     subject_collector = create_subject_value_collector(subject, theatre)
+    if value in BOOL_AS_STRING:
+        value = string_to_bool(value)
     value_collector = lambda: value
     return partial(check_condition, subject_collector, comparator, value_collector)
 
