@@ -8,9 +8,10 @@ from corax.core import EVENTS
 from corax.animation import SpriteSheet, build_centers_list
 from corax.coordinates import to_block_position, to_pixel_position, map_pixel_position, flip_position
 from corax.mathutils import sum_num_arrays
+from corax.gamepad import reverse_buttons
 
 
-def filter_moves_by_inputs(data, input_buffer):
+def filter_moves_by_inputs(data, input_buffer, flip=False):
     """
     Filter existing moves in spritesheet data comparing the inputs they
     requires to the given input buffer statues.
@@ -18,6 +19,7 @@ def filter_moves_by_inputs(data, input_buffer):
     moves = []
     for move in data["evaluation_order"]:
         inputs = data["moves"][move]["inputs"]
+        inputs = reverse_buttons(inputs) if flip else inputs
         conditions = (
             any(i in input_buffer.pressed_delta() for i in inputs) and
             all(i in input_buffer.inputs() for i in inputs))
@@ -26,7 +28,7 @@ def filter_moves_by_inputs(data, input_buffer):
     return moves
 
 
-def filter_unholdable_moves(data, input_buffer):
+def filter_unholdable_moves(data, input_buffer, flip=False):
     """
     Filter existing moves in spritesheet data comparing the inputs they and
     holdable and check if the input required to unhold them fit with the input
@@ -37,6 +39,7 @@ def filter_unholdable_moves(data, input_buffer):
         if data["moves"][move]["hold"] is False:
             continue
         inputs = data["moves"][move]["inputs"]
+        inputs = reverse_buttons(inputs) if flip else inputs
         if any(i in input_buffer.released_delta() for i in inputs):
             moves.append(move)
     return moves

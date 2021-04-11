@@ -44,15 +44,16 @@ def get_current_commands(joystick):
         "RS_RIGHT": joystick.get_axis(3) > .5}
 
 
-def mirror_commands(commands):
-    left = commands["RIGHT"]
-    right = commands["LEFT"]
-    rs_left = commands["RS_RIGHT"]
-    rs_right = commands["RS_LEFT"]
-    commands["RIGHT"] = right
-    commands["LEFT"] = left
-    commands["RS_RIGHT"] = rs_right
-    commands["RS_LEFT"] = rs_left
+REVERSE_MAPPING = {
+    "RIGHT": "LEFT",
+    "LEFT": "RIGHT",
+    "RS_RIGHT": "RS_LEFT",
+    "RS_LEFT": "RS_RIGHT"
+}
+
+
+def reverse_buttons(buttons):
+    return [REVERSE_MAPPING.get(button, button) for button in buttons]
 
 
 class InputBuffer():
@@ -64,11 +65,9 @@ class InputBuffer():
     def flush(self):
         self.buffer_key_pressed = []
 
-    def update(self, joystick, flip=False):
+    def update(self, joystick):
         joystick.init()
         states = get_current_commands(joystick)
-        if flip is True:
-            mirror_commands(states)
         if states == self.current_states:
             return False
         self.old_states = self.current_states

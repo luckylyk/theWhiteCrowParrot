@@ -321,7 +321,7 @@
             {
                 "start_at_image": 70,
                 "center": [70, 155],
-                "frames_per_image": [1, 1, 1, 1, 4],
+                "frames_per_image": [2, 1, 1, 1, 4],
                 "triggers": [[0, "whoosh_whitecrow"]],
                 "frames_centers": null,
                 "release_frame": -1,

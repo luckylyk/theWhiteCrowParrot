@@ -253,7 +253,7 @@ class AnimationReader(QtWidgets.QWidget):
     def set_data(self, images, centers):
         self.animation_image_viewer.index = 0
         self.animation_image_viewer.images = images
-        self.animation_image_viewer.center = centers
+        self.animation_image_viewer.centers = centers
         self.slider.value = 0
         self.slider.maximum_settable_value = len(images)
         self.slider.maximum = len(images)

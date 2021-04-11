@@ -17,7 +17,7 @@ zone selected: {0}
         {{
             "name": "unnamed",
             "type": "no_go",
-            "affected": null,
+            "affect": null,
             "zone": {0}
         }}
 
@@ -25,7 +25,7 @@ zone selected: {0}
             "name": "unnamed",
             "type": "interaction",
             "scripts": null,
-            "affected": null,
+            "affect": null,
             "zone": {0}
         }}
 """

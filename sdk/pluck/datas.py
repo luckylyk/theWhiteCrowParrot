@@ -133,7 +133,7 @@ DATA_TEMPLATES = {
         "type": str,
         "file": str,
         "position": (int, int),
-        "alpha": float,
+        "alpha": int,
         "deph": float
     },
     "player": {

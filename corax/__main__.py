@@ -122,8 +122,8 @@ pygame.joystick.init()
 pygame.mixer.init()
 pygame.font.init()
 screen_mode_flags = 0
+screen_mode_flags |= pygame.SCALED
 if "--fullscreen" in sys.argv or "-f" in sys.argv:
-    screen_mode_flags |= pygame.SCALED
     screen_mode_flags |= pygame.FULLSCREEN
 screen = pygame.display.set_mode(cctx.RESOLUTION, screen_mode_flags)
 
@@ -140,5 +140,5 @@ while not done:
     done = joystick.get_button(7) == 1
     pygame.event.get()
     theatre.evaluate(joystick, screen)
-    clock.tick(cctx.FPS)
     pygame.display.flip()
+    clock.tick(cctx.FPS)

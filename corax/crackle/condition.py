@@ -49,6 +49,8 @@ def create_player_subject_collector(subject, theatre):
     attribute = object_attribute(subject)
     if attribute == "animation":
         return lambda: player.movement_manager.animation.name
+    elif attribute == "flip":
+        return lambda: player.movement_manager.coordinates.flip
     elif attribute == "movesheet":
         return lambda: player.movement_manager.spritesheet.name
     elif attribute.startswith("hitbox"):

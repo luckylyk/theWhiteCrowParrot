@@ -61,6 +61,7 @@ script go_to_forest
 
 
 script chest_get_ready
+    player.whitecrow.flip is false
     gamepad.keys.pressed has RIGHT
     theatre.globals.chest_moved is false
     player.whitecrow.movesheet is whitecrowparrot_exploration.json
@@ -124,6 +125,7 @@ script chest_try_to_open
 
 
 script chest_try_to_open_from_idle
+    player.whitecrow.flip is false
     gamepad.keys.pressed has A
     player.whitecrow.movesheet is whitecrowparrot_exploration.json
     player.whitecrow.animation is idle
@@ -150,6 +152,7 @@ script chest_open
 
 
 script chest_open_from_idle
+    player.whitecrow.flip is false
     gamepad.keys.pressed has A
     player.whitecrow.movesheet is whitecrowparrot_exploration.json
     player.whitecrow.animation is idle
@@ -165,6 +168,7 @@ script chest_open_from_idle
 
 
 script chest_unlock_low
+    player.whitecrow.flip is false
     player.whitecrow.movesheet is whitecrowparrot_sword.json
     player.whitecrow.animation is low_hit_shoot
     theatre.globals.chest_locked is true
@@ -175,16 +179,18 @@ script chest_unlock_low
 
 
 script chest_unlock_high
+    player.whitecrow.flip is false
     player.whitecrow.movesheet is whitecrowparrot_sword.json
     player.whitecrow.animation is high_hit_shoot
     theatre.globals.chest_locked is true
         nolock props.chest_locker play explode
-        freeze 3
+        freeze 5
         theatre.globals.chest_locked set false
 
 
 script chest_empty_it_from_idle
     gamepad.keys.pressed has A
+    player.whitecrow.flip is false
     player.whitecrow.movesheet is whitecrowparrot_exploration.json
     player.whitecrow.animation is idle
     theatre.globals.chest_locked is false
@@ -219,6 +225,7 @@ script chest_empty_it_from_ready
 
 script chest_close_from_idle
     gamepad.keys.pressed has A
+    player.whitecrow.flip is false
     player.whitecrow.movesheet is whitecrowparrot_exploration.json
     player.whitecrow.animation is idle
     theatre.globals.chest_open is true
@@ -243,3 +250,11 @@ script chest_close_from_ready
         nolock player.whitecrow play close
         wait 15
         props.chest play close
+
+
+// environment
+script rabbit_trigger
+    theatre.globals.rabbit_triggered is false
+        theatre.globals.rabbit_triggered set true
+        nolock props.rabbit play goes_out
+        nolock props.door play opening

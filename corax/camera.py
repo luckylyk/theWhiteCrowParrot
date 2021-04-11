@@ -63,7 +63,7 @@ class Scrolling():
         # those magic numbers have to be moved onto the game data
         self.smooth_level = 1
         self.smooth_divisor = 10
-        self.max_speed = 70
+        self.max_speed = cctx.CAMERA_SPEED
         self.current_area = None
 
     def evaluate(self):

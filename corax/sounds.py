@@ -7,6 +7,17 @@ from corax.iterators import shuffle
 from corax.core import LOOP_TYPES
 
 
+def not_executed_when_muted(func):
+    """
+    Decorator to limit a function usage when the Corax context is muted
+    """
+    def wrapper(*args, **kwargs):
+        if cctx.MUTE:
+            return
+        func(*args, **kwargs)
+    return wrapper
+
+
 class Ambiance():
     def __init__(self, filename, falloff, zone=None, listener=None):
         self.sound = load_sound(filename)
@@ -15,19 +26,21 @@ class Ambiance():
         self.listener = listener
         self.is_playing = False
 
+    @not_executed_when_muted
     def play(self):
-        if cctx.MUTE:
-            return
         self.sound.play(-1)
         self.is_playing = True
 
+    @not_executed_when_muted
     def stop(self):
         self.sound.stop()
         self.is_playing = False
 
+    @not_executed_when_muted
     def __del__(self):
         self.stop()
 
+    @not_executed_when_muted
     def update(self):
         if self.zone is None:
             if self.is_playing is False:
@@ -66,19 +79,20 @@ class SfxSoundCollection():
         else:
             self.iterator = cycle(self.sounds)
 
+    @not_executed_when_muted
     def play(self):
-        if cctx.MUTE:
-            return
         position = self.emitter.pixel_center
         ratio = self.zone.falloff_ratio(position, self.falloff)
         sound = next(self.iterator)
         sound.set_volume(ratio)
         sound.play()
 
+    @not_executed_when_muted
     def stop(self):
         for sound in self.sounds:
             sound.stop()
 
+    @not_executed_when_muted
     def __del__(self):
         self.stop()
 
@@ -99,17 +113,18 @@ class SfxSound():
         self.emitter = emitter
         self.trigger = trigger
 
+    @not_executed_when_muted
     def play(self):
-        if cctx.MUTE:
-            return
         position = self.emitter.pixel_center
         ratio = self.zone.falloff_ratio(position, self.falloff)
         self.sound.set_volume(ratio)
         self.sound.play()
 
+    @not_executed_when_muted
     def stop(self):
         self.sound.stop()
 
+    @not_executed_when_muted
     def __del__(self):
         self.stop()
 
@@ -119,6 +134,7 @@ class SoundShooter():
         self.sounds = []
         self.triggers = []
 
+    @not_executed_when_muted
     def shoot(self):
         for trigger in self.triggers:
             for sound in self.sounds:
