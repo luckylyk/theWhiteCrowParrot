@@ -1,0 +1,57 @@
+{
+    "default_move": "closed",
+    "evaluation_order": ["closed", "opening", "open"],
+    "filename": "tente_door.png",
+    "frame_size": [106, 153],
+    "key_color": [0, 255, 0],
+    "moves": {
+            "closed": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [1],
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "closed",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": 0,
+                    "start_at_image": 0,
+                    "triggers": []
+                },
+            "open": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [1],
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "open",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 10,
+                    "triggers":  null
+                },
+            "opening": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [2, 2, 25, 2, 2, 2, 2, 2, 2],
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "open",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 0,
+                    "triggers":  null
+                }
+        }
+}

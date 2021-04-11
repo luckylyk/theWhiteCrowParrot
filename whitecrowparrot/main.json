@@ -5,13 +5,15 @@
         "chest_moved": false,
         "chest_open": false,
         "chest_locked": true,
-        "chest_empty": false
+        "chest_empty": false,
+        "rabbit_triggered": false
     },
     "preferences": {
         "resolution": [800, 268],
         "fps": 30,
         "block_size": 10,
-        "key_color": [0, 255, 0]},
+        "key_color": [0, 255, 0],
+        "camera_speed": 500},
     "scenes": [
         {
             "name": "forest",

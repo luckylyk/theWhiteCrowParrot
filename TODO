@@ -1,17 +1,47 @@
-globals = done
+Corax/Crackle :
 
-implement 'nolock' crackle keyword = done
-implement 'wait' function keyword = done
-implement 'props' finding = done
-implement boolean = done
-implement 'freeze' function = todo
-nested script = to fix / redesign
-implement 'once' condition = will do later
+    globals = done
 
-escalade player to theatre system = todo
-escalade sound shooter to theatre system = todo
-keep scene statuses when changing scene = todoZ
+    implement 'nolock' crackle keyword = done
+    implement 'wait' function keyword = done
+    implement 'props' finding = done
+    implement boolean = done
+    implement 'freeze' function = done
+    implement 'player.<playername>.flip condition = done
+    nested script = to fix / redesign
+    implement 'once' condition = delayed
 
-implement hitboxes system = todo
-implement hitboxes collision = todo
-hitboxes fancy edit in pluck = todo
+    Player has to be zone agnostic, match has to be escalade to theatre system = done
+    escalade player to theatre system = todo
+    escalade sound shooter to theatre system = todo
+    keep scene statuses when changing scene = todo
+
+    implement hitboxes system = delayed
+    implement hitboxes collision = delayed
+    hitboxes fancy edit in pluck = wip
+
+    Bug:
+
+        fix "going through" issue
+
+White Crow Parrot:
+
+    Ressources:
+
+        Animate appreaing main char = done
+        Animate WhiteCrow return and slide in run = done
+        Animate appearing interactions = todo
+        Animate rabbit out of tente = wip
+        Animate gather sword = todo
+        Animate arbaletist targeting = todo
+        Animate arbaletist shot = todo
+        Animate WhiteCrow die standup = todo
+        Animate WhiteCrow die crouchdown = todo
+        Clean and split animation with/without sword = todo
+
+    Script:
+        implement WCP appearing = done
+        implement WCP appearing props = todo
+        implement rabbit goes out of tente = done
+        Implement sword gathering = todo
+        implement interactions with arbaletist = todo

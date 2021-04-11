@@ -30,10 +30,10 @@ class PluckMainWindow(QtWidgets.QMainWindow):
         self.project_explorer.setRootIndex(root)
 
     def add_scene(self, name, widget):
-        self.scenes.addTab(widget, name)
+        self.scenes.addTab(widget, name + "  ")
 
     def add_spritesheet(self, name, widget):
-        self.spritsheets.addTab(widget, name)
+        self.spritsheets.addTab(widget, name + "  ")
 
     def add_script(self, name, widget):
-        self.scripts.addTab(widget, name)
+        self.scripts.addTab(widget, name + "  ")

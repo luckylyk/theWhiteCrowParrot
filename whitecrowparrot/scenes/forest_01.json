@@ -5,7 +5,7 @@
     "boundary": [0, 0, 4640, 268],
     "grid_pixel_offset": [0, 0],
     "scroll_target": "whitecrow",
-    "soft_boundaries": [[0, 0, 1551, 268], [1551, 0, 3000, 268], [3001, 0, 4640, 268]],
+    "soft_boundaries": [[0, 0, 1551, 268], [1551, 0, 3000, 268], [3001, 0, 3800, 268], [3801, 0, 4640, 268]],
     "target_offset": [200, 0],
     "sounds": [
         {
@@ -90,6 +90,13 @@
             "affect": ["whitecrow"],
             "scripts": ["forest.go_to_tente_with_sword", "forest.go_to_tente"],
             "zone": [277, 24, 285, 27]
+        },
+        {
+            "name": "trigger_rabbit",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["forest.rabbit_trigger"],
+            "zone": [240, 23, 260, 27]
         },
         {
             "name": "into_the_cave",
@@ -353,7 +360,7 @@
             "name": "forest_01/mid_thin_trees_01",
             "type": "set_static",
             "file": "forest_01/mid_thin_trees_01.png",
-            "position": [3401, 97],
+            "position": [3530, 97],
             "deph": -0.14
         },
         {
@@ -367,7 +374,7 @@
             "name": "forest_01/mid_r_bg_tree_03",
             "type": "set_static",
             "file": "forest_01/mid_r_bg_tree_03.png",
-            "position": [3530, 134],
+            "position": [3540, 134],
             "deph": -0.1
         },
         {
@@ -562,20 +569,36 @@
             "type": "set_animated",
             "file": "smoke.json",
             "position": [1600, 152],
-            "alpha": 0.25,
+            "alpha": 25,
             "deph": 0.0
         },
         {
             "name": "forest_01/arbaletist",
             "type": "set_static",
             "file": "forest_01/arbaletist.png",
-            "position": [1100, 100],
+            "position": [4150, 100],
+            "deph": 0.0
+        },
+        {
+            "name": "door",
+            "type": "set_animated",
+            "file": "tente_door.json",
+            "position": [2753, 102],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
+            "name": "rabbit",
+            "type": "set_animated",
+            "file": "rabbit.json",
+            "position": [2777, 182],
+            "alpha": 255,
             "deph": 0.0
         },
         {
             "name": "whitecrow",
             "type": "player",
-            "block_position": [7, 10],
+            "block_position": [200, 10],
             "movedatas_file": "whitecrowparrot_exploration.json"
         },
         {

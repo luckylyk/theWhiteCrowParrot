@@ -15,7 +15,7 @@
             "name": "left_limit",
             "type": "interaction",
             "affect": "whitecrow",
-            "scripts": ["forest.go_to_forest"],
+            "scripts": [],
                 "zone": [0, 0, 2, 27]
         },
         {
@@ -51,7 +51,7 @@
             "affect": ["whitecrow"],
             "scripts": [
                 "forest.chest_unlock_low"],
-            "zone": [34, 20, 50, 26]
+            "zone": [34, 20, 38, 26]
         }
     ],
     "elements": [
@@ -151,7 +151,7 @@
         {
             "name": "whitecrow",
             "type": "player",
-            "block_position": [9, 8],
+            "block_position": [13, 8],
             "movedatas_file": "whitecrowparrot_exploration.json"
         },
         {

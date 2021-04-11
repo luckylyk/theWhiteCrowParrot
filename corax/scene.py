@@ -17,6 +17,7 @@ from corax.sounds import (
     Ambiance, SfxSoundCollection, SoundShooter, SfxSound)
 from corax.particles import (
     ParticlesSystem, Spot, DirectionBehavior, build_emitter)
+from corax.debugrender import render_player_debug
 
 
 class Scene():
@@ -56,6 +57,9 @@ class Scene():
         for zone in self.zones:
             zone.render(screen, self.camera)
         self.sound_shooter.shoot()
+        if cctx.DEBUG:
+            for player in self.players:
+                render_player_debug(player, layer.deph, screen, self.camera)
 
 
 class Layer():

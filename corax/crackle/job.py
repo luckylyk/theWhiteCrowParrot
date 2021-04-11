@@ -94,7 +94,7 @@ def nolock_job(job):
 
 def job_freeze_theatre(theatre, value):
     theatre.freeze += value
-    return 0
+    return 1
 
 
 def job_set_movesheet(theatre, player_name, spritesheet_filename):

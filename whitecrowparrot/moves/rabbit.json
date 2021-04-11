@@ -1,0 +1,41 @@
+{
+    "default_move": "goes_out",
+    "evaluation_order": ["idle", "goes_out"],
+    "filename": "rabbit.png",
+    "frame_size": [182, 73],
+    "key_color": [0, 255, 0],
+    "moves": {
+            "goes_out": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [2, 1, 2, 2, 18, 2, 2, 3, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 1, 2, 1, 1, 2, 1, 1, 1],
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "idle",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 1,
+                    "triggers":  null
+                },
+            "idle": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [1],
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "idle",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": 0,
+                    "start_at_image": 0,
+                    "triggers": []
+                }
+        }
+}

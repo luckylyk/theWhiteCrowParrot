@@ -48,8 +48,10 @@ def get_image(element):
         if images.get(filename) is None:
             images[filename] = QtGui.QImage(filename)
     else:
-        if element["type"] in SET_TYPES:
+        if element["type"] == NODE_TYPES.SET_STATIC:
             filename = os.path.join(cctx.SET_FOLDER, element["file"])
+        if element["type"] == NODE_TYPES.SET_ANIMATED:
+            filename = os.path.join(cctx.MOVE_FOLDER, element["file"])
         elif element["type"] == NODE_TYPES.PLAYER:
             filename = os.path.join(cctx.MOVE_FOLDER, element["movedatas_file"])
         if filename is None:
@@ -63,14 +65,14 @@ def get_image(element):
 
 def create_image(element):
     format_ = QtGui.QImage.Format_ARGB32_Premultiplied
-    if element["type"] in SET_TYPES:
+    if element["type"] == NODE_TYPES.SET_STATIC:
         path = os.path.join(cctx.SET_FOLDER, element["file"])
         image = QtGui.QImage(path)
         image2 = QtGui.QImage(image.size(), format_)
         w, h = image.size().width(), image.size().height()
 
-    elif element["type"] == NODE_TYPES.PLAYER:
-        filepath = os.path.join(cctx.MOVE_FOLDER, element["movedatas_file"])
+    elif element["type"] in (NODE_TYPES.SET_ANIMATED, NODE_TYPES.PLAYER):
+        filepath = os.path.join(cctx.MOVE_FOLDER, element.get("movedatas_file", element.get("file")))
         with open(filepath, "r") as f:
             movedatas = json.load(f)
         img_path = os.path.join(cctx.ANIMATION_FOLDER, movedatas["filename"])
@@ -89,6 +91,14 @@ def create_image(element):
                 continue
             image2.setPixelColor(i, j, image.pixelColor(i, j))
     return image2
+
+
+def get_spritesheet_image_from_index(filename, index):
+    path = os.path.join(cctx.MOVE_FOLDER, filename)
+    with open(path, "r") as f:
+        data = json.load(f)
+    filename = os.path.join(cctx.ANIMATION_FOLDER, data["filename"])
+    return spritesheet_to_images(filename, data["frame_size"])[index]
 
 
 def spritesheet_to_images(filename, frame_size):

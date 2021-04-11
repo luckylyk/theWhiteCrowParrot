@@ -129,19 +129,26 @@ class Theatre:
         self.scene.scrolling.evaluate()
 
     def evaluate_normal_mode(self, joystick, screen):
-        for player in self.scene.players:
-            player.update_inputs(joystick)
+        keystate_changed = self.input_buffer.update(joystick)
+        self.parse_and_try_scripts()
+        # if script is executed, the run mode is set to SCRIPT.
+        if keystate_changed is True and self.run_mode != RUN_MODE.SCRIPT:
+            for player in self.scene.players:
+                player.input_updated()
+
         for element in self.scene.evaluables:
             element.evaluate()
         self.scene.render(screen)
         self.scene.scrolling.evaluate()
 
+    def parse_and_try_scripts(self):
         for zone, script_names in self.script_names_by_zone.items():
             if not script_names:
                 continue
             for player in self.scene.players:
                 conditions = (
-                    zone not in player.zones or
+                    player.name not in zone.affect or
+                    player.pixel_center is None or
                     not zone.contains(pixel_position=player.pixel_center))
                 if conditions:
                     continue
@@ -150,7 +157,6 @@ class Theatre:
                         if script.name == script_name and script.check():
                             logging.debug(f"SCRIPT: running {script_name}")
                             self.run_script(script)
-                            break
 
     def run_script(self, script):
         self.script_iterator = iter_on_jobs(script.jobs())

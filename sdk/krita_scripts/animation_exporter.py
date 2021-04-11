@@ -3,14 +3,15 @@ import math
 from PyQt5 import QtGui, QtCore
 
 
+OUTPUT_PATH = r"D:\Works\code\GitHub\pygame_game\whitecrowparrot\animations/appearing.png"
 SRGB_PROFILE = "sRGB-elle-V2-srgbtrc.icc"
 
 
 def get_node_frames_duration(node, range_in=0, range_out=10):
-    durations = [0]
+    durations = [1]
     for i in range(range_in, range_out):
         if node.hasKeyframeAtTime(i):
-            durations.append(0)
+            durations.append(1)
             continue
         durations[-1] += 1
     return durations
@@ -87,4 +88,4 @@ def export(filename):
     print(get_node_frames_duration(node, range_out=document.animationLength()))
 
 
-export(r"D:\Works\code\GitHub\pygame_game\whitecrowparrot\animations/chest_props_test.png")
+export(OUTPUT_PATH)

@@ -30,7 +30,7 @@ if __name__ == "__main__":
     from pluck.main import PluckMainWindow
 
     for scene in GAME_DATAS["scenes"]:
-        if scene["name"] == 'tente':
+        if scene["name"] == 'forest':
             filename = scene["file"]
     scene_filepath = os.path.join(cctx.SCENE_FOLDER, filename)
     with open(scene_filepath, "r") as f:
@@ -50,11 +50,13 @@ if __name__ == "__main__":
     window = PluckMainWindow()
     print(GAMEDATAS_FOLDER)
     window.set_workspace(os.path.realpath(GAMEDATAS_FOLDER))
-    window.add_scene("tente", scene)
+    window.add_scene("forest_01", scene)
     window.add_script("forest.ckl", script)
-    window.add_spritesheet("wcp chest", AnimationDataEditor(load_spritesheet("whitecrowparrot_chest.json")))
+    window.add_spritesheet("rabbit", AnimationDataEditor(load_spritesheet("rabbit.json")))
+    window.add_spritesheet("tente door", AnimationDataEditor(load_spritesheet("tente_door.json")))
     window.add_spritesheet("wcp exploration", AnimationDataEditor(load_spritesheet("whitecrowparrot_exploration.json")))
     window.add_spritesheet("wcp sword", AnimationDataEditor(load_spritesheet("whitecrowparrot_sword.json")))
+    window.add_spritesheet("wcp appearing", AnimationDataEditor(load_spritesheet("whitecrowparrot_appearing.json")))
     window.add_spritesheet("chest", AnimationDataEditor(load_spritesheet("chest.json")))
     window.add_spritesheet("chest_armor", AnimationDataEditor(load_spritesheet("chest_armor.json")))
     window.add_spritesheet("chest_flail", AnimationDataEditor(load_spritesheet("chest_flail.json")))

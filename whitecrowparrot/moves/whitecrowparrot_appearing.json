@@ -1,0 +1,43 @@
+{
+    "default_move": "idle",
+    "evaluation_order": ["idle", "appears"],
+    "filename": "whitecrowparrot_appearing.png",
+    "frame_size": [220, 160],
+    "key_color": [0, 255, 0],
+    "moves": {
+            "idle": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [1],
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on": "idle",
+                    "next_move": "idle",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 0,
+                    "triggers":  null
+                },
+            "appears": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [1, 2, 2, 1, 1, 6, 2, 2, 2, 2, 1, 1, 1, 6, 2, 15, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 3, 3, 2, 3, 2, 2, 2, 1],
+                    "hold":  false,
+                    "inputs": ["A"],
+                    "loop_on": "idle",
+                    "next_move": "idle",
+                    "next_move_bufferable":  false,
+                    "post_events": {
+                            "switch_to": "whitecrowparrot_exploration.json"
+                        },
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 1,
+                    "triggers":  null
+                }
+        }
+}
