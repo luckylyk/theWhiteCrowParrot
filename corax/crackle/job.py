@@ -19,7 +19,7 @@ from corax.crackle.action import (
 
 SEEKERS = {
     "player": find_player,
-    "props": find_animated_set
+    "prop": find_animated_set
 }
 
 
@@ -76,7 +76,7 @@ def create_job_with_subject(subject, function, arguments, theatre):
             return partial(job_reach, theatre, subject_name, pos, animations)
         if function == "set":
             return partial(job_set_movesheet, theatre, subject_name, arguments)
-    elif subject_type == "props":
+    elif subject_type == "prop":
         if function == "play":
             anim = arguments
             return partial(
@@ -99,7 +99,7 @@ def job_freeze_theatre(theatre, value):
 
 def job_set_movesheet(theatre, player_name, spritesheet_filename):
     player = find_player(theatre.scene, player_name)
-    player.movement_manager.set_spritesheet(spritesheet_filename)
+    player.animation_controller.set_spritesheet(spritesheet_filename)
     return 0
 
 
@@ -133,8 +133,8 @@ def job_set_global(theatre, key, value):
 def job_play_animation(
         theatre, animable_object_name, animation_name, type_="player"):
     animable = SEEKERS[type_](theatre.scene, animable_object_name)
-    animable.movement_manager.set_move(animation_name)
-    return animable.movement_manager.animation.length
+    animable.animation_controller.set_move(animation_name)
+    return animable.animation_controller.animation.length
 
 
 def job_move_player(theatre, player_name, block_position):

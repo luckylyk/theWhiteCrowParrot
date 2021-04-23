@@ -25,7 +25,7 @@ RULES = {
                 'italic': False
             },
             {
-                'exp': r'\b' + r'\b|\b'.join(["theatre", "scene", "gamepad", "name", "pressed", "animation", "hitbox", "key", "player", "zone", "movesheet"]) + r'\b',
+                'exp': r'\b' + r'\b|\b'.join(["theatre", "scene", "gamepad", "name", "pressed", "animation", "hitbox", "key", "player", "zone", "sheet"]) + r'\b',
                 'color': '#88FFCC',
                 'bold': True,
                 'italic': False
@@ -134,7 +134,7 @@ if __name__ == "__main__":
 script go_to_tente_with_sword
     gamepad.keys.pressed has UP
     theatre.scene.name is forest
-    player.whitecrow.movesheet is whitecrowparrot_sword.json
+    player.whitecrow.sheet is whitecrowparrot_sword.json
     player.whitecrow.animation is idle
  //   player.whitecrow.hitbox.foot cross zone.tente
         player.whitecrow play tidy_up_sword
@@ -145,7 +145,7 @@ script go_to_tente_with_sword
 script go_to_tente // commentary test
     gamepad.keys.pressed has UP
     theatre.scene.name is forest
-    player.whitecrow.movesheet is whitecrowparrot_exploration.json
+    player.whitecrow.sheet is whitecrowparrot_exploration.json
     player.whitecrow.animation is idle
  // commentary test
      // commentary test

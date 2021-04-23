@@ -48,7 +48,7 @@
           "name": "constant.language.mysample"
         },
         {
-          "match": "(\\btheatre\\b|\\bscene\\b|\\bprops\\b|\\bglobals\\b|\\bgamepad\\b|\\bname\\b|\\bflip\\b|\\bpressed\\b|\\banimation\\b|\\bhitbox\\b|\\bkey\\b|\\bkeys\\b|\\bplayer\\b|\\bzone\\b|\\bmovesheet\\b)",
+          "match": "(\\btheatre\\b|\\bscene\\b|\\bprop\\b|\\bglobals\\b|\\bgamepad\\b|\\bname\\b|\\bflip\\b|\\bpressed\\b|\\banimation\\b|\\bhitbox\\b|\\bkeys\\b|\\bplayer\\b|\\bzone\\b|\\bsheet\\b)",
           "name": "variable.legacy.builtin.mysample"
         },
         {

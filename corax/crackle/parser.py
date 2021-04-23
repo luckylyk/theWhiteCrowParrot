@@ -25,6 +25,10 @@ def string_to_int_list(string):
     return [int(n) for n in string.strip("()").split(",")]
 
 
+def string_to_string_list(string):
+    return [s.strip(" ") for s in string.strip("()").split(",")]
+
+
 def string_to_bool(string):
     return string == "true"
 

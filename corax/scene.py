@@ -10,7 +10,7 @@ from corax.camera import Camera, Scrolling
 from corax.core import NODE_TYPES
 from corax.animation import SpriteSheet
 from corax.coordinates import Coordinate
-from corax.moves import MovementManager
+from corax.moves import AnimationController
 from corax.player import Player
 from corax.zone import Zone
 from corax.sounds import (
@@ -103,11 +103,11 @@ def build_player(data, grid_pixel_offset, input_buffer, sound_shooter):
     position = data["block_position"]
     coordinates = Coordinate(
         block_position=position, pixel_offset=grid_pixel_offset)
-    movementmanager = MovementManager(move_datas, spritesheet, coordinates)
+    animation_controller = AnimationController(move_datas, spritesheet, coordinates)
     name = data["name"]
     return Player(
         name,
-        movementmanager,
+        animation_controller,
         input_buffer,
         coordinates,
         sound_shooter)

@@ -88,7 +88,7 @@
             "name": "go_to_tent",
             "type": "interaction",
             "affect": ["whitecrow"],
-            "scripts": ["forest.go_to_tente_with_sword", "forest.go_to_tente"],
+            "scripts": ["forest.go_to_tente_with_sword", "forest.go_to_tente", "forest.go_to_tente_no_sword"],
             "zone": [277, 24, 285, 27]
         },
         {
@@ -103,6 +103,41 @@
             "type": "no_go",
             "affect": ["whitecrow"],
             "zone": [433, 21, 464, 27]
+        },
+        {
+            "name": "collects_sword",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["forest.collects_sword", "forest.collects_sword_leave_ready_right", "forest.collects_sword_leave_ready_left", "forest.collects_sword_get_ready"],
+            "zone": [354, 24, 356, 27]
+        },
+        {
+            "name": "collects_sword_adjust",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["forest.footsie_for_sword_collect"],
+            "zone": [352, 24, 354, 27]
+        },
+        {
+            "name": "aiming",
+            "type": "interaction",
+            "affect":  ["whitecrow"],
+            "scripts":  ["arbaletist.aiming"],
+            "zone": [397, 25, 406, 27]
+        },
+        {
+            "name": "discard_aiming",
+            "type": "interaction",
+            "affect":  ["whitecrow"],
+            "scripts":  ["arbaletist.discard_aiming"],
+            "zone": [392, 25, 396, 27]
+        },
+        {
+            "name": "shot",
+            "type": "interaction",
+            "affect":  ["whitecrow"],
+            "scripts":  ["arbaletist.shoot_1", "arbaletist.shoot_2", "arbaletist.shoot_3", "arbaletist.shoot_4"],
+            "zone": [407, 25, 414, 27]
         }
     ],
     "elements": [
@@ -573,10 +608,11 @@
             "deph": 0.0
         },
         {
-            "name": "forest_01/arbaletist",
-            "type": "set_static",
-            "file": "forest_01/arbaletist.png",
+            "name": "arbaletist",
+            "type": "set_animated",
+            "file": "arbaletist.json",
             "position": [4150, 100],
+            "alpha": 255,
             "deph": 0.0
         },
         {
@@ -584,6 +620,14 @@
             "type": "set_animated",
             "file": "tente_door.json",
             "position": [2753, 102],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
+            "name": "sword_holder",
+            "type": "set_animated",
+            "file": "sword_holder.json",
+            "position": [3480, 100],
             "alpha": 255,
             "deph": 0.0
         },
@@ -598,8 +642,8 @@
         {
             "name": "whitecrow",
             "type": "player",
-            "block_position": [200, 10],
-            "movedatas_file": "whitecrowparrot_exploration.json"
+            "block_position": [14, 10],
+            "movedatas_file": "whitecrowparrot_appearing.json"
         },
         {
             "name": "forest_dust_2",

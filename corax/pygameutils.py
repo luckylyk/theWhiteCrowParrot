@@ -20,8 +20,10 @@ def load_images(filename, frame_size, key_color):
     row = sheet.get_height() / height
     col = sheet.get_width() / width
     if row != int(row) or col != int(col):
-        raise ValueError(
-            "the sprite sheet file size doesn't match with his block size")
+        message = (
+            "the sprite sheet file {} size doesn't match "
+            "with his block size".format(filename))
+        raise ValueError(message)
     images = []
     for j, i in itertable(int(row), int(col)):
         image = pygame.Surface([width, height]).convert()

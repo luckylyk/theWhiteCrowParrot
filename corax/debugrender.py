@@ -5,8 +5,8 @@ from corax.pygameutils import render_rect, render_text
 
 
 def render_player_debug(player, deph, screen, camera):
-    size = player.movement_manager.data["frame_size"]
-    center = player.movement_manager.animation.pixel_center
+    size = player.animation_controller.data["frame_size"]
+    center = player.animation_controller.animation.pixel_center
     position = sum_num_arrays(center, player.pixel_position)
     x, y = camera.relative_pixel_position(position, deph)
     render_rect(screen, (255, 255, 0), x-1, y-1, 2, 2, 255)
@@ -15,7 +15,7 @@ def render_player_debug(player, deph, screen, camera):
     x, y = camera.relative_pixel_position(position, deph)
     size = cctx.BLOCK_SIZE
     render_rect(screen, (150, 150, 255), x, y, size, size, 50)
-    pcenter = player.movement_manager.animation.pixel_center
+    pcenter = player.animation_controller.animation.pixel_center
     bcenter = to_block_position(pcenter)
     bcenter = sum_num_arrays(player.coordinates.block_position, bcenter)
     wpcenter = sum_num_arrays(player.coordinates.pixel_position, pcenter)
@@ -23,7 +23,7 @@ def render_player_debug(player, deph, screen, camera):
     render_text(screen, (155, 255, 0), 0, 0, text)
     text = f"    (position: {player.coordinates.block_position})"
     render_text(screen, (155, 255, 0), 0, 15, text)
-    text = f"    (center pixel position: {player.movement_manager.animation.pixel_center})"
+    text = f"    (center pixel position: {player.animation_controller.animation.pixel_center})"
     render_text(screen, (155, 255, 0), 0, 30, text)
     text = f"    (center block position: {bcenter}"
     render_text(screen, (155, 255, 0), 0, 45, text)

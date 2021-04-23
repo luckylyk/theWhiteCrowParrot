@@ -1,7 +1,7 @@
 {
     "default_move": "idle",
-    "evaluation_order": ["run_start", "footsie_forced", "run_b", "run_a", "run_off", "walk_off", "walk_a", "walk_b", "return", "run_return", "crouched_return", "draw_sword", "footsie", "crouched_over_walk", "crouch_down", "stand_up", "crouched_over", "through_door", "idk", "idle"],
-    "filename": "whitecrowparrot_exploration.png",
+    "evaluation_order": ["run_start", "footsie_forced", "run_b", "run_a", "run_off", "walk_off", "walk_a", "walk_b", "return", "run_return", "crouched_return", "footsie", "crouched_over_walk", "crouch_down", "stand_up", "crouched_over", "through_door", "idk", "idle"],
+    "filename": "whitecrowparrot_exploration_no_sword.png",
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
     "moves": {
@@ -78,26 +78,6 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 57,
-                    "triggers":  null
-                },
-            "draw_sword": {
-                    "center": [70, 155],
-                    "conditions": {
-                            "animation_in": ["idle"]
-                        },
-                    "frames_centers":  null,
-                    "frames_per_image": [1, 1, 1, 1, 1, 1, 2, 3, 5, 2, 1, 2, 2, 1],
-                    "hold":  true,
-                    "inputs": ["Y"],
-                    "loop_on":  null,
-                    "next_move": "idle",
-                    "next_move_bufferable":  false,
-                    "post_events": {
-                            "switch_to": "whitecrowparrot_sword.json"
-                        },
-                    "pre_events": {},
-                    "release_frame": -1,
-                    "start_at_image": 28,
                     "triggers":  null
                 },
             "footsie": {

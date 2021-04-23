@@ -15,7 +15,7 @@
             "name": "left_limit",
             "type": "interaction",
             "affect": "whitecrow",
-            "scripts": [],
+            "scripts": ["forest.go_to_forest"],
                 "zone": [0, 0, 2, 27]
         },
         {
@@ -29,20 +29,20 @@
             "type": "interaction",
             "affect": ["whitecrow"],
             "scripts": [
-                "forest.chest_get_ready",
-                "forest.chest_try_to_open",
-                "forest.chest_try_to_open_from_idle",
-                "forest.chest_try_to_push",
-                "forest.chest_give_up",
-                "forest.chest_unlock_high",
-                "forest.chest_open",
-                "forest.chest_open_from_idle",
-                "forest.chest_empty_it_from_ready",
-                "forest.chest_close_from_ready",
-                "forest.chest_close_from_idle",
-                "forest.chest_empty_it_from_idle",
-                "forest.chest_succes_to_push",
-                "forest.chest_push_and_die"],
+                "chest.get_ready",
+                "chest.try_to_open",
+                "chest.try_to_open_from_idle",
+                "chest.try_to_push",
+                "chest.give_up",
+                "chest.unlock_high",
+                "chest.open",
+                "chest.open_from_idle",
+                "chest.empty_it_from_ready",
+                "chest.close_from_ready",
+                "chest.close_from_idle",
+                "chest.empty_it_from_idle",
+                "chest.succes_to_push",
+                "chest.push_and_die"],
             "zone": [40, 20, 50, 26]
         },
         {
@@ -50,7 +50,7 @@
             "type": "interaction",
             "affect": ["whitecrow"],
             "scripts": [
-                "forest.chest_unlock_low"],
+                "chest.unlock_low"],
             "zone": [34, 20, 38, 26]
         }
     ],

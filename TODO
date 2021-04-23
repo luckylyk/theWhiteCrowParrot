@@ -8,6 +8,7 @@ Corax/Crackle :
     implement boolean = done
     implement 'freeze' function = done
     implement 'player.<playername>.flip condition = done
+    implement string list value for condition = done
     nested script = to fix / redesign
     implement 'once' condition = delayed
 
@@ -22,7 +23,7 @@ Corax/Crackle :
 
     Bug:
 
-        fix "going through" issue
+        fix "going through" issue = todo
 
 White Crow Parrot:
 
@@ -30,18 +31,19 @@ White Crow Parrot:
 
         Animate appreaing main char = done
         Animate WhiteCrow return and slide in run = done
+        Animate WhiteCrow return / slide in run stop transition = todo
         Animate appearing interactions = todo
-        Animate rabbit out of tente = wip
-        Animate gather sword = todo
-        Animate arbaletist targeting = todo
-        Animate arbaletist shot = todo
-        Animate WhiteCrow die standup = todo
-        Animate WhiteCrow die crouchdown = todo
-        Clean and split animation with/without sword = todo
+        Animate rabbit out of tente = pass 1 done
+        Animate gather sword = done (need polish)
+        Animate arbaletist targeting = done
+        Animate arbaletist shot = done
+        Animate WhiteCrow die standup = rough done
+        Animate WhiteCrow die crouchdown = rough done
+        Clean and split animation with/without sword = wip
 
     Script:
         implement WCP appearing = done
         implement WCP appearing props = todo
         implement rabbit goes out of tente = done
-        Implement sword gathering = todo
-        implement interactions with arbaletist = todo
+        Implement sword gathering = done
+        implement interactions with arbaletist = done

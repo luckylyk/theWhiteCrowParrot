@@ -1,12 +1,16 @@
 from functools import partial
 from corax.core import NODE_TYPES
-from corax.scene import find_player
-from corax.crackle.parser import \
-    object_attribute, object_name, object_type, BOOL_AS_STRING, string_to_bool
+from corax.scene import find_player, find_animated_set
+from corax.crackle.parser import (
+    object_attribute, object_name, object_type, BOOL_AS_STRING, string_to_bool,
+    string_to_string_list)
 
 
 def split_condition(line):
     result = line.split(" ")
+    if len(result) > 3 and result[2].startswith("(") and result[-1].endswith(")"):
+        # check if the value is a valid list
+        result = result[0:2] + [" ".join(result[2:])]
     if len(result) != 3:
         msg = f"{line}, {result}: syntax must be: Subject Operator Value"
         raise SyntaxError(msg)
@@ -14,13 +18,15 @@ def split_condition(line):
 
 
 def create_subject_value_collector(subject, theatre):
-    subject_type_ = object_type(subject)
-    if subject_type_ == NODE_TYPES.PLAYER:
+    subject_type = object_type(subject)
+    if subject_type ==  NODE_TYPES.PLAYER:
         return create_player_subject_collector(subject, theatre.scene)
-    elif subject_type_ == "gamepad":
+    elif subject_type == "gamepad":
         return create_gamepad_value_collector(subject, theatre)
-    elif subject_type_ == "theatre":
+    elif subject_type == "theatre":
         return create_theatre_value_collector(subject, theatre)
+    elif subject_type == "prop":
+        return create_props_subject_collector(subject, theatre)
 
 
 def create_theatre_value_collector(subject, theatre):
@@ -48,14 +54,21 @@ def create_player_subject_collector(subject, theatre):
     player = find_player(theatre, object_name(subject))
     attribute = object_attribute(subject)
     if attribute == "animation":
-        return lambda: player.movement_manager.animation.name
+        return lambda: player.animation_controller.animation.name
     elif attribute == "flip":
-        return lambda: player.movement_manager.coordinates.flip
-    elif attribute == "movesheet":
-        return lambda: player.movement_manager.spritesheet.name
+        return lambda: player.animation_controller.coordinates.flip
+    elif attribute == "sheet":
+        return lambda: player.animation_controller.spritesheet.name
     elif attribute.startswith("hitbox"):
         name = attribute.split(".")[-1]
         return lambda: player.animation.hitboxes[name]
+
+
+def create_props_subject_collector(subject, theatre):
+    props = find_animated_set(theatre.scene, object_name(subject))
+    attribute = object_attribute(subject)
+    if attribute == "animation":
+        return lambda: props.animation_controller.animation.name
 
 
 def create_condition_checker(line, theatre):
@@ -65,8 +78,21 @@ def create_condition_checker(line, theatre):
     subject_collector = create_subject_value_collector(subject, theatre)
     if value in BOOL_AS_STRING:
         value = string_to_bool(value)
+    elif value.startswith("("):
+        value = string_to_string_list(value)
     value_collector = lambda: value
-    return partial(check_condition, subject_collector, comparator, value_collector)
+    collector = partial(
+        check_condition,
+        subject_collector,
+        comparator,
+        value_collector)
+    if not callable(subject_collector):
+        msg = "Line can't create a valid subject collector: {}".format(line)
+        raise ValueError(msg)
+    if not callable(value_collector):
+        msg = "Line can't create a valid value collector: {}".format(line)
+        raise ValueError(msg)
+    return collector
 
 
 def check_condition(subject_collector, comparator, value_collector):

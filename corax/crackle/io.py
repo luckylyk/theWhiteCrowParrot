@@ -51,7 +51,7 @@ def parse_crackle_file(filepath, namespace):
             elif line.startswith("    "):
                 if indent_level == 2:
                     msg = "conditions must be set before actions"
-                    raise SyntaxError(f"line {i} > invalid indent > {msg}")
+                    raise SyntaxError(f"file {filepath} > line {i} > invalid indent > {msg}")
                 script.conditions.append(line.strip(" "))
             else:
                 msg = "unrecongnized indent"

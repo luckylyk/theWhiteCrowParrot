@@ -1,0 +1,66 @@
+// Welcome to Crackle Script.
+//
+// This is the Corax Engine event script language.
+// Don't be scared, it's extremely easy to use. The language rely on indent of
+// four spaces. It is composed of scripts which are evaluated by the Zones
+// where it is attached. For instance, a zone named "chest_interaction" has is
+// defined as "affected by whitecrow", the script will be evaluated when the
+// zone contains the center of "whitecrow".
+// The syntax is pretty simple, zero indent is the script declaration level.
+// Firt indent level is the condition to execute the followings jobs and the
+// second indent level is the job queue.
+//
+// List of available keywords:
+// declaration: (script)
+// conditional and time related adverbs/function: (always, freeze, nolock,
+//                                                 wait)
+// comparators: (has, in, is)
+// functions: (force, move, play, reach, run, set)
+// corax known objects: (animation, gamepad, globals, hitbox, key, sheet,
+//                       name, player, pressed, scene, theatre, zone, flip)
+
+
+script aiming
+    prop.arbaletist.animation is idle
+        prop.arbaletist play aiming
+
+
+script discard_aiming
+    prop.arbaletist.animation is hold_aiming
+        prop.arbaletist play discard_aiming
+
+
+script shoot_1
+    player.whitecrow.sheet is whitecrowparrot_sword.json
+    player.whitecrow.flip is false
+        nolock prop.arbaletist play shoot
+        wait 7
+        player.whitecrow.sheet set whitecrowparrot_death.json
+        player.whitecrow play death_by_arrow_back_sword
+
+
+script shoot_2
+    player.whitecrow.sheet is whitecrowparrot_sword.json
+    player.whitecrow.flip is true
+        nolock prop.arbaletist play shoot
+        wait 7
+        player.whitecrow.sheet set whitecrowparrot_death.json
+        player.whitecrow play death_by_arrow_front_sword
+
+
+script shoot_3
+    player.whitecrow.sheet is whitecrowparrot_exploration.json
+    player.whitecrow.flip is true
+        nolock prop.arbaletist play shoot
+        wait 7
+        player.whitecrow.sheet set whitecrowparrot_death.json
+        player.whitecrow play death_by_arrow_false
+
+
+script shoot_4
+    player.whitecrow.sheet is whitecrowparrot_exploration.json
+    player.whitecrow.flip is false
+        nolock prop.arbaletist play shoot
+        wait 7
+        player.whitecrow.sheet set whitecrowparrot_death.json
+        player.whitecrow play death_by_arrow_front

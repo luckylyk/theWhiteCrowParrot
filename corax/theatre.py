@@ -59,7 +59,7 @@ class Theatre:
               ^  SetStaticElement     /\                          /
               |                      /  \________________________/
                \                    /
-            MovementManager ---<---/
+            AnimationController ---<---/
                    |       \
                    v        \
               Spritesheet    ^

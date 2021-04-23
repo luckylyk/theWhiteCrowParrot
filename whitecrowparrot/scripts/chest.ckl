@@ -1,0 +1,222 @@
+// Welcome to Crackle Script.
+//
+// This is the Corax Engine event script language.
+// Don't be scared, it's extremely easy to use. The language rely on indent of
+// four spaces. It is composed of scripts which are evaluated by the Zones
+// where it is attached. For instance, a zone named "chest_interaction" has is
+// defined as "affected by whitecrow", the script will be evaluated when the
+// zone contains the center of "whitecrow".
+// The syntax is pretty simple, zero indent is the script declaration level.
+// Firt indent level is the condition to execute the followings jobs and the
+// second indent level is the job queue.
+//
+// List of available keywords:
+// declaration: (script)
+// conditional and time related adverbs/function: (always, freeze, nolock,
+//                                                 wait)
+// comparators: (has, in, is)
+// functions: (force, move, play, reach, run, set)
+// corax known objects: (animation, gamepad, globals, hitbox, key, sheet,
+//                       name, player, pressed, scene, theatre, zone, flip)
+
+
+script get_ready
+    player.whitecrow.flip is false
+    gamepad.keys.pressed has RIGHT
+    theatre.globals.chest_moved is false
+    player.whitecrow.sheet in (whitecrowparrot_exploration.json, whitecrowparrot_exploration_no_sword.json)
+    player.whitecrow.animation is idle
+        player.whitecrow set whitecrowparrot_chest.json
+        player.whitecrow play get_ready
+
+
+script give_up
+    gamepad.keys.pressed has LEFT
+    player.whitecrow.sheet is whitecrowparrot_chest.json
+    player.whitecrow.animation is is_ready
+        player.whitecrow play give_up
+        force chest.check_no_sword_sheet
+
+
+script try_to_push
+    gamepad.keys.pressed has RIGHT
+    player.whitecrow.sheet is whitecrowparrot_chest.json
+    player.whitecrow.animation is is_ready
+    theatre.globals.chest_empty is false
+        player.whitecrow play try_to_push
+        force chest.check_no_sword_sheet
+
+
+script push_and_die
+    gamepad.keys.pressed has RIGHT
+    player.whitecrow.sheet is whitecrowparrot_chest.json
+    player.whitecrow.animation is is_ready
+    theatre.globals.chest_empty is true
+    theatre.globals.chest_open is true
+        nolock player.whitecrow play push_and_die
+        wait 6
+        nolock prop.chest play move_and_close
+        nolock prop.armor play nudged
+        wait 1
+        prop.flail play fall
+
+
+script succes_to_push
+    gamepad.keys.pressed has RIGHT
+    player.whitecrow.sheet is whitecrowparrot_chest.json
+    player.whitecrow.animation is is_ready
+    theatre.globals.chest_empty is true
+    theatre.globals.chest_open is false
+    theatre.globals.chest_moved is false
+        theatre.globals.chest_moved set true
+        nolock player.whitecrow play push_succes
+        wait 4
+        prop.chest play push_succes
+        wait 10
+
+
+script try_to_open
+    gamepad.keys.pressed has X
+    player.whitecrow.sheet is whitecrowparrot_chest.json
+    player.whitecrow.animation is is_ready
+    theatre.globals.chest_locked is true
+        nolock player.whitecrow play try_to_open
+        wait 30
+        nolock prop.chest play fail_to_open
+        prop.chest_locker play up_down
+        force chest.check_no_sword_sheet
+
+
+script try_to_open_from_idle
+    player.whitecrow.flip is false
+    gamepad.keys.pressed has X
+    player.whitecrow.sheet in (whitecrowparrot_exploration.json, whitecrowparrot_exploration_no_sword.json)
+    player.whitecrow.animation is idle
+    theatre.globals.chest_locked is true
+        player.whitecrow set whitecrowparrot_chest.json
+        player.whitecrow play get_ready
+        nolock player.whitecrow play try_to_open
+        wait 30
+        nolock prop.chest play fail_to_open
+        prop.chest_locker play up_down
+        force chest.check_no_sword_sheet
+
+
+script open
+    gamepad.keys.pressed has X
+    player.whitecrow.sheet is whitecrowparrot_chest.json
+    player.whitecrow.animation is is_ready
+    theatre.globals.chest_locked is false
+    theatre.globals.chest_moved is false
+    theatre.globals.chest_open is false
+        nolock player.whitecrow play open_succes
+        wait 4
+        prop.chest play succes_to_open
+        theatre.globals.chest_open set true
+
+
+script open_from_idle
+    player.whitecrow.flip is false
+    gamepad.keys.pressed has X
+    player.whitecrow.sheet is whitecrowparrot_exploration.json
+    player.whitecrow.animation is idle
+    theatre.globals.chest_locked is false
+    theatre.globals.chest_moved is false
+    theatre.globals.chest_open is false
+        player.whitecrow set whitecrowparrot_chest.json
+        player.whitecrow play get_ready
+        nolock player.whitecrow play open_succes
+        wait 4
+        prop.chest play succes_to_open
+        theatre.globals.chest_open set true
+
+
+script unlock_low
+    player.whitecrow.flip is false
+    player.whitecrow.sheet is whitecrowparrot_sword.json
+    player.whitecrow.animation is low_hit_shoot
+    theatre.globals.chest_locked is true
+        wait 1
+        nolock prop.chest_locker play explode
+        freeze 3
+        theatre.globals.chest_locked set false
+
+
+script unlock_high
+    player.whitecrow.flip is false
+    player.whitecrow.sheet is whitecrowparrot_sword.json
+    player.whitecrow.animation is high_hit_shoot
+    theatre.globals.chest_locked is true
+        nolock prop.chest_locker play explode
+        freeze 5
+        theatre.globals.chest_locked set false
+
+
+script empty_it_from_idle
+    gamepad.keys.pressed has X
+    player.whitecrow.flip is false
+    player.whitecrow.sheet is whitecrowparrot_exploration.json
+    player.whitecrow.animation is idle
+    theatre.globals.chest_locked is false
+    theatre.globals.chest_open is true
+    theatre.globals.chest_empty is false
+        theatre.globals.chest_empty set true
+        player.whitecrow set whitecrowparrot_chest.json
+        nolock player.whitecrow play empty_it
+        wait 24
+        prop.chest_props play empty_it
+        wait 12
+        prop.chest_bag play extract
+
+
+script empty_it_from_ready
+    gamepad.keys.pressed has X
+    player.whitecrow.sheet is whitecrowparrot_chest.json
+    player.whitecrow.animation is is_ready
+    theatre.globals.chest_locked is false
+    theatre.globals.chest_open is true
+    theatre.globals.chest_empty is false
+        theatre.globals.chest_empty set true
+        player.whitecrow play give_up
+        wait 1 // skip 1 frame to let post animation event happen
+        player.whitecrow set whitecrowparrot_chest.json
+        nolock player.whitecrow play empty_it
+        wait 24
+        prop.chest_props play empty_it
+        wait 12
+        prop.chest_bag play extract
+
+
+script close_from_idle
+    gamepad.keys.pressed has X
+    player.whitecrow.flip is false
+    player.whitecrow.sheet is whitecrowparrot_exploration.json
+    player.whitecrow.animation is idle
+    theatre.globals.chest_open is true
+    theatre.globals.chest_empty is true
+        theatre.globals.chest_open set false
+        player.whitecrow.sheet set whitecrowparrot_chest.json
+        nolock player.whitecrow play close
+        wait 15
+        prop.chest play close
+
+
+script close_from_ready
+    gamepad.keys.pressed has X
+    player.whitecrow.sheet is whitecrowparrot_chest.json
+    player.whitecrow.animation is is_ready
+    theatre.globals.chest_open is true
+    theatre.globals.chest_empty is true
+        theatre.globals.chest_open set false
+        player.whitecrow play give_up
+        wait 1 // skip 1 frame to let post animation event happen
+        player.whitecrow.sheet set whitecrowparrot_chest.json
+        nolock player.whitecrow play close
+        wait 15
+        prop.chest play close
+
+
+script check_no_sword_sheet
+    theatre.globals.has_sword is false
+        wait 1 // skip 1 frame to let post animation event happen
+        player.whitecrow.sheet set whitecrowparrot_exploration_no_sword.json

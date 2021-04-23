@@ -130,9 +130,9 @@ def predict_block_positions(
     return block_positions
 
 
-class MovementManager():
+class AnimationController():
     """
-    The movement manager (this name sucks, I have to find a better one) is an
+    The animation controller (this name sucks, I have to find a better one) is an
     object with manage the animations sequences and how they chains. It verify
     what are the next animation possible using the conditions filters,
     the movement predictions (to manage the environment boundaries),
@@ -267,7 +267,7 @@ class MovementManager():
         algorithme is looking in the buffer to find a valid sequence. If
         nothing is found, it does set the default animation next move.
         """
-        next_move = self.data["moves"][self.animation.name]["next_move"]
+        next_move = self.animation.next_move
         if not self.moves_buffer:
             self.set_move(next_move)
             return

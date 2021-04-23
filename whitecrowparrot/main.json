@@ -6,7 +6,8 @@
         "chest_open": false,
         "chest_locked": true,
         "chest_empty": false,
-        "rabbit_triggered": false
+        "rabbit_triggered": false,
+        "has_sword": false
     },
     "preferences": {
         "resolution": [800, 268],

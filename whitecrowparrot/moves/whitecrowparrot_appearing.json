@@ -27,12 +27,12 @@
                     "frames_centers":  null,
                     "frames_per_image": [1, 2, 2, 1, 1, 6, 2, 2, 2, 2, 1, 1, 1, 6, 2, 15, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 3, 3, 2, 3, 2, 2, 2, 1],
                     "hold":  false,
-                    "inputs": ["A"],
+                    "inputs": ["X"],
                     "loop_on": "idle",
                     "next_move": "idle",
                     "next_move_bufferable":  false,
                     "post_events": {
-                            "switch_to": "whitecrowparrot_exploration.json"
+                            "switch_to": "whitecrowparrot_exploration_no_sword.json"
                         },
                     "pre_events": {},
                     "release_frame": -1,

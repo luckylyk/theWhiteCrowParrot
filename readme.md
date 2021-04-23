@@ -17,7 +17,7 @@ Game story scripting is using the engine langage: crackle.  Very basic langage w
 script go_to_tente_with_sword // script definition
     key UP is pressed // first indent are the conditions
     scene is forest_01 // "and" operator is the one used implicitly
-    player whitecrow: movesheet is whitecrowparrot_sword.json
+    player whitecrow: sheet is whitecrowparrot_sword.json
     player whitecrow: animation is idle
     player whitecrow: hitbox foot in zone tente
         player whitecrow: play tidy_up_sword // second indent are actions executed
