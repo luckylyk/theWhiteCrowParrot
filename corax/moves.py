@@ -256,7 +256,7 @@ class AnimationController():
             self.set_spritesheet(value)
 
     def set_spritesheet(self, name):
-            filename = os.path.join(cctx.MOVE_FOLDER, name)
+            filename = os.path.join(cctx.SHEET_FOLDER, name)
             self.spritesheet = SpriteSheet.from_filename(name, filename)
             with open(filename, 'r') as f:
                 self.data = json.load(f)

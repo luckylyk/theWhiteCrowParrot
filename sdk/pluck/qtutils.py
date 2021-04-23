@@ -51,9 +51,9 @@ def get_image(element):
         if element["type"] == NODE_TYPES.SET_STATIC:
             filename = os.path.join(cctx.SET_FOLDER, element["file"])
         if element["type"] == NODE_TYPES.SET_ANIMATED:
-            filename = os.path.join(cctx.MOVE_FOLDER, element["file"])
+            filename = os.path.join(cctx.SHEET_FOLDER, element["file"])
         elif element["type"] == NODE_TYPES.PLAYER:
-            filename = os.path.join(cctx.MOVE_FOLDER, element["movedatas_file"])
+            filename = os.path.join(cctx.SHEET_FOLDER, element["movedatas_file"])
         if filename is None:
             return
         if images.get(filename) is None:
@@ -72,7 +72,7 @@ def create_image(element):
         w, h = image.size().width(), image.size().height()
 
     elif element["type"] in (NODE_TYPES.SET_ANIMATED, NODE_TYPES.PLAYER):
-        filepath = os.path.join(cctx.MOVE_FOLDER, element.get("movedatas_file", element.get("file")))
+        filepath = os.path.join(cctx.SHEET_FOLDER, element.get("movedatas_file", element.get("file")))
         with open(filepath, "r") as f:
             movedatas = json.load(f)
         img_path = os.path.join(cctx.ANIMATION_FOLDER, movedatas["filename"])
@@ -94,7 +94,7 @@ def create_image(element):
 
 
 def get_spritesheet_image_from_index(filename, index):
-    path = os.path.join(cctx.MOVE_FOLDER, filename)
+    path = os.path.join(cctx.SHEET_FOLDER, filename)
     with open(path, "r") as f:
         data = json.load(f)
     filename = os.path.join(cctx.ANIMATION_FOLDER, data["filename"])

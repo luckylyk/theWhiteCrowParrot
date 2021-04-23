@@ -88,7 +88,7 @@ def build_set_static_element(data):
 def build_set_animated_element(data):
     return SetAnimatedElement.from_filename(
         data["name"],
-        os.path.join(cctx.MOVE_FOLDER, data["file"]),
+        os.path.join(cctx.SHEET_FOLDER, data["file"]),
         pixel_position=data["position"],
         deph=data["deph"],
         alpha=data["alpha"])
@@ -96,7 +96,7 @@ def build_set_animated_element(data):
 
 def build_player(data, grid_pixel_offset, input_buffer, sound_shooter):
     filename = data.get("movedatas_file")
-    data_path = os.path.join(cctx.MOVE_FOLDER, filename)
+    data_path = os.path.join(cctx.SHEET_FOLDER, filename)
     with open(data_path, "r") as f:
         move_datas = json.load(f)
     spritesheet = SpriteSheet.from_filename(filename, data_path)

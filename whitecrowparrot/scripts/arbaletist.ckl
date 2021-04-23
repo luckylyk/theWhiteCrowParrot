@@ -54,7 +54,7 @@ script shoot_3
         nolock prop.arbaletist play shoot
         wait 7
         player.whitecrow.sheet set whitecrowparrot_death.json
-        player.whitecrow play death_by_arrow_false
+        player.whitecrow play death_by_arrow_back
 
 
 script shoot_4

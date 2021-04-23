@@ -16,7 +16,7 @@ GAME_DATAS = cctx.initialize(["", GAMEDATAS_FOLDER])
 
 
 def load_spritesheet(filename):
-    path = os.path.join(cctx.MOVE_FOLDER, filename)
+    path = os.path.join(cctx.SHEET_FOLDER, filename)
     with open(path) as f:
         return json.load(f)
 

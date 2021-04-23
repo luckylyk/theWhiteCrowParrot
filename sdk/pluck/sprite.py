@@ -398,7 +398,7 @@ class Options(QtWidgets.QWidget):
 
 
 if __name__ == "__main__":
-    path = os.path.join(cctx.MOVE_FOLDER, "whitecrowparrot_chest.json")
+    path = os.path.join(cctx.SHEET_FOLDER, "whitecrowparrot_chest.json")
     with open(path) as f:
         data = json.load(f)
     app = QtWidgets.QApplication([])
