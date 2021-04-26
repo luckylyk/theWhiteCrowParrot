@@ -7,7 +7,7 @@ from PyQt5 import QtGui, QtCore
 from corax.core import NODE_TYPES
 import corax.context as cctx
 from corax.iterators import itertable
-from pluck.datas import SET_TYPES, GRAPHIC_TYPES, SOUND_TYPES, ZONE_TYPES
+from pluck.data import SET_TYPES, GRAPHIC_TYPES, SOUND_TYPES, ZONE_TYPES
 
 
 HERE = os.path.dirname(os.path.realpath(__file__))
@@ -43,7 +43,7 @@ def get_image(element):
     if element is None:
         return
     filename = None
-    if element["type"] in SOUND_TYPES + ZONE_TYPES:
+    if element["type"] in list(SOUND_TYPES) + list(ZONE_TYPES) + [NODE_TYPES.PLAYER]:
         filename = os.path.join(ICON_FOLDER, ICON_MATCH[element["type"]])
         if images.get(filename) is None:
             images[filename] = QtGui.QImage(filename)
@@ -52,8 +52,6 @@ def get_image(element):
             filename = os.path.join(cctx.SET_FOLDER, element["file"])
         if element["type"] == NODE_TYPES.SET_ANIMATED:
             filename = os.path.join(cctx.SHEET_FOLDER, element["file"])
-        elif element["type"] == NODE_TYPES.PLAYER:
-            filename = os.path.join(cctx.SHEET_FOLDER, element["movedatas_file"])
         if filename is None:
             return
         if images.get(filename) is None:
@@ -71,12 +69,12 @@ def create_image(element):
         image2 = QtGui.QImage(image.size(), format_)
         w, h = image.size().width(), image.size().height()
 
-    elif element["type"] in (NODE_TYPES.SET_ANIMATED, NODE_TYPES.PLAYER):
-        filepath = os.path.join(cctx.SHEET_FOLDER, element.get("movedatas_file", element.get("file")))
+    elif element["type"] == NODE_TYPES.SET_ANIMATED:
+        filepath = os.path.join(cctx.SHEET_FOLDER, element.get("sheetdata_file", element.get("file")))
         with open(filepath, "r") as f:
-            movedatas = json.load(f)
-        img_path = os.path.join(cctx.ANIMATION_FOLDER, movedatas["filename"])
-        w, h = movedatas["frame_size"]
+            movedata = json.load(f)
+        img_path = os.path.join(cctx.ANIMATION_FOLDER, movedata["filename"])
+        w, h = movedata["frame_size"]
         image = QtGui.QImage(img_path)
         image2 = QtGui.QImage(QtCore.QSize(w, h), format_)
     # horrible fucking awfull scandalous ressource killing loop used

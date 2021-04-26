@@ -3,8 +3,6 @@
     "type": "scene",
     "background_color": [0, 0, 0],
     "boundary": [0, 0, 800, 268],
-    "grid_pixel_offset": [0, 0],
-    "scroll_target": "whitecrow",
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
@@ -152,7 +150,7 @@
             "name": "whitecrow",
             "type": "player",
             "block_position": [13, 8],
-            "movedatas_file": "whitecrowparrot_exploration.json"
+            "flip": false
         },
         {
             "name": "chest_props",

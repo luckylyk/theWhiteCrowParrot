@@ -9,18 +9,12 @@ to RUN_MODE.SCRIPT which block the gameplay evaluation.
 """
 
 from functools import partial
-from corax.scene import find_player, find_animated_set
+from corax.seeker import find_animated_set, find_player
 from corax.crackle.parser import (
     object_attribute, string_to_int_list, object_type, object_name)
 from corax.crackle.action import (
     has_subject, filter_action, split_with_subject, extract_reach_arguments,
     is_nolock_action)
-
-
-SEEKERS = {
-    "player": find_player,
-    "prop": find_animated_set
-}
 
 
 def create_job(line, theatre):
@@ -75,7 +69,7 @@ def create_job_with_subject(subject, function, arguments, theatre):
             pos, animations = extract_reach_arguments(arguments)
             return partial(job_reach, theatre, subject_name, pos, animations)
         if function == "set":
-            return partial(job_set_movesheet, theatre, subject_name, arguments)
+            return partial(job_set_sheet, theatre, subject_name, arguments)
     elif subject_type == "prop":
         if function == "play":
             anim = arguments
@@ -97,9 +91,9 @@ def job_freeze_theatre(theatre, value):
     return 1
 
 
-def job_set_movesheet(theatre, player_name, spritesheet_filename):
-    player = find_player(theatre.scene, player_name)
-    player.animation_controller.set_spritesheet(spritesheet_filename)
+def job_set_sheet(theatre, player_name, sheet_name):
+    player = theatre.find_player(player_name)
+    player.set_sheet(sheet_name)
     return 0
 
 
@@ -132,14 +126,17 @@ def job_set_global(theatre, key, value):
 
 def job_play_animation(
         theatre, animable_object_name, animation_name, type_="player"):
-    animable = SEEKERS[type_](theatre.scene, animable_object_name)
+    if type_ == "player":
+        animable = find_player(theatre, animable_object_name)
+    elif type_ == "prop":
+        animable = find_animated_set(theatre.scene, animable_object_name)
     animable.animation_controller.set_move(animation_name)
     return animable.animation_controller.animation.length
 
 
 def job_move_player(theatre, player_name, block_position):
-    player = find_player(theatre.scene, player_name)
-    player.coordinates.block_position = block_position
+    player = find_player(theatre, player_name)
+    player.coordinate.block_position = block_position
     return 0
 
 

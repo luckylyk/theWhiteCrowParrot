@@ -8,7 +8,7 @@ all frame informations necessary to create an animation object.
 import json
 from corax.pygameutils import load_images, image_mirror
 from corax.mathutils import sum_num_arrays
-from corax.coordinates import map_pixel_position
+from corax.coordinate import map_pixel_position
 
 
 class Animation():
@@ -111,6 +111,9 @@ class Animation():
 
 
 class SpriteSheet():
+    # NOTE: Keep an eye on this class. It contains only 3 functions which 2 are
+    # constructors. At some point, if it appears that no other method is
+    # necessary, I should considerate to replace it by a function.
     """
     This class represent a collection of animations. That very simple manager
     is able to create an animation on demand from his collections of image.
@@ -118,7 +121,7 @@ class SpriteSheet():
     def __init__(self, name, data, images):
         self.name = name
         self.data = data
-        self.moves_datas = data["moves"]
+        self.moves_data = data["moves"]
         self.images = images
         self.images_mirror = [image_mirror(img) for img in self.images]
 

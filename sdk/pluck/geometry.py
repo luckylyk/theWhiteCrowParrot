@@ -1,7 +1,7 @@
 from PyQt5 import QtCore
 from corax.core import NODE_TYPES
 import corax.context as cctx
-from pluck.datas import SET_TYPES
+from pluck.data import SET_TYPES
 
 
 def grow_rect(rect, value):

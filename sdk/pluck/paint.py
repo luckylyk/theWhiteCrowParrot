@@ -6,11 +6,11 @@ import corax.context as cctx
 
 from pluck.qtutils import ICON_FOLDER, get_image
 from pluck.geometry import grow_rect, get_position, pixel_position
-from pluck.datas import GRAPHIC_TYPES, SOUND_TYPES, ZONE_TYPES
+from pluck.data import GRAPHIC_TYPES, SOUND_TYPES, ZONE_TYPES
 
 
 class PaintContext():
-    def __init__(self, scene_datas):
+    def __init__(self, scene_data):
         self.zoom = 1
         self._extra_zone = 200
         self.grid_color = "grey"
@@ -93,9 +93,9 @@ def render_handler(painter, block_in, block_out, paintcontext):
     painter.drawRect(rect)
 
 
-def render_zone(painter, zone_datas, image, paintcontext):
-    x, y = pixel_position(zone_datas["zone"][:2])
-    z, a = pixel_position(zone_datas["zone"][2:])
+def render_zone(painter, zone_data, image, paintcontext):
+    x, y = pixel_position(zone_data["zone"][:2])
+    z, a = pixel_position(zone_data["zone"][2:])
     l = paintcontext.relatives(x)
     t = paintcontext.relatives(y)
     r = paintcontext.relatives(z)
@@ -154,10 +154,10 @@ def get_renderer(element):
             color=element["background_color"])
     elif element["type"] in SOUND_TYPES:
         image = get_image(element)
-        return partial(render_sound, sound_datas=element, image=image)
+        return partial(render_sound, sound_data=element, image=image)
     elif element["type"] in ZONE_TYPES:
         image = get_image(element)
-        return partial(render_zone, zone_datas=element, image=image)
+        return partial(render_zone, zone_data=element, image=image)
     elif element["type"] in GRAPHIC_TYPES:
         image = get_image(element)
         x, y = get_position(element)
@@ -195,14 +195,14 @@ def render_image(painter, image, x, y, paintcontext):
     painter.drawImage(rect, image)
 
 
-def render_sound(painter, sound_datas, image, paintcontext):
-    if sound_datas["zone"] is None:
+def render_sound(painter, sound_data, image, paintcontext):
+    if sound_data["zone"] is None:
         return
     rect = QtCore.QRectF()
-    rect.setLeft(paintcontext.relatives(sound_datas["zone"][0]))
-    rect.setTop(paintcontext.relatives(sound_datas["zone"][1]))
-    rect.setRight(paintcontext.relatives(sound_datas["zone"][2]))
-    rect.setBottom(paintcontext.relatives(sound_datas["zone"][3]))
+    rect.setLeft(paintcontext.relatives(sound_data["zone"][0]))
+    rect.setTop(paintcontext.relatives(sound_data["zone"][1]))
+    rect.setRight(paintcontext.relatives(sound_data["zone"][2]))
+    rect.setBottom(paintcontext.relatives(sound_data["zone"][3]))
     paintcontext.offset_rect(rect)
 
     brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 0))
@@ -211,7 +211,7 @@ def render_sound(painter, sound_datas, image, paintcontext):
     painter.setBrush(brush)
     painter.drawRect(rect)
 
-    falloff = paintcontext.relatives(sound_datas["falloff"])
+    falloff = paintcontext.relatives(sound_data["falloff"])
     rect = grow_rect(rect, -falloff)
 
     pen = QtGui.QPen(QtGui.QColor(paintcontext.sound_fade_off))
@@ -227,12 +227,11 @@ def render_sound(painter, sound_datas, image, paintcontext):
     painter.drawImage(point, image)
 
 
-def render_grid(painter, rect, block_size, offset=None, paintcontext=None):
+def render_grid(painter, rect, block_size, paintcontext=None):
     rect = grow_rect(rect, -paintcontext.extra_zone)
     block_size = paintcontext.relatives(block_size)
-    offset = offset or (0, 0)
-    l = rect.left() + paintcontext.relatives(offset[0])
-    t = rect.top() + paintcontext.relatives(offset[1])
+    l = rect.left()
+    t = rect.top()
     r = rect.right()
     b = rect.bottom()
     grid_color = QtGui.QColor(paintcontext.grid_color)

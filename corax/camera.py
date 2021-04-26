@@ -41,6 +41,8 @@ class Camera():
 
 
 class Scrolling():
+    # NOTE: As long as the object variable are not supposed to be changed,
+    # this should be replaced by an iterator.
     """
     This object is the algorithm who move constrain the camera to a target and
     evaluate his position into the world space. The scrolling has to update the
@@ -73,15 +75,15 @@ class Scrolling():
         target_offset = self.target_offset[0]
         if self.target.flip is True:
             target_offset = -target_offset
-        # define the target X that the scrolling will aim based
+        # Define the target X that the scrolling will aim.
         tx = self.target.pixel_center[0] + target_offset
 
-        # limit the target to the border of the scene defined by hard boundary
+        # Limit the target to the border of the scene defined by hard boundary.
         left = self.hard_boundary.left + (cctx.RESOLUTION[0] / 2)
         right = self.hard_boundary.right - (cctx.RESOLUTION[0] / 2)
         tx = clamp(tx, left, right)
 
-        # limit the target to the current soft boundary if there is
+        # Limit the target to the current soft boundary if there is.
         for area in self.soft_boundaries:
             if area.contains(self.target.pixel_center):
                 aleft = area.left + (cctx.RESOLUTION[0] / 2)
@@ -90,19 +92,19 @@ class Scrolling():
                 break
 
         difference_cam_target = self.camera.pixel_center[0] - tx
-        # do not move the camera if the camera is close enough to target
+        # Do not move the camera if the camera is close enough the target.
         if abs(round(difference_cam_target)) <= 5:
             if self.buffer_x:
                 self.buffer_x = []
             return
 
         offset = difference_cam_target / self.smooth_divisor
-        # to avoid arch camera acceleration, the speed is defined but on
+        # To avoid arch camera acceleration, the speed is defined but on
         # average of last speed recorded. That buffer lenght is defined by the
         # smooth level
         self.buffer_x = [offset] + self.buffer_x[:self.smooth_level]
         offset = (sum(self.buffer_x) / len(self.buffer_x))
-        # limit the camera speed to avoid too arch movements
+        # Limit the camera speed to avoid too arch movements.
         offset = clamp(offset, -self.max_speed, self.max_speed)
         result = (clamp(self.camera.pixel_center[0] - offset, left, right))
         self.camera.set_center([result, self.camera.pixel_center[1]])

@@ -255,6 +255,27 @@
                     "start_at_image": 88,
                     "triggers": [[0, "step_whitecrow"]]
                 },
+            "run_return": {
+                    "center": [70, 155],
+                    "conditions": {
+                            "animation_in": ["run_a", "run_b"]
+                        },
+                    "frames_centers": [[20, 0], [25, 0], [30, 0], [35, 0], [40, 0], [42, 0], [42, 0], [42, 0]],
+                    "frames_per_image": [1, 1, 1, 1, 1, 2, 2, 3],
+                    "hold":  true,
+                    "inputs": ["LEFT"],
+                    "loop_on": "run_a",
+                    "next_move": "idle",
+                    "next_move_bufferable":  true,
+                    "post_events": {
+                            "block_offset": [-4, 0],
+                            "flip":  true
+                        },
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 119,
+                    "triggers":  null
+                },
             "run_start": {
                     "center": [70, 155],
                     "conditions": {
@@ -366,28 +387,6 @@
                     "release_frame": 0,
                     "start_at_image": 109,
                     "triggers": []
-                },
-            "run_return":{
-                "center": [70, 155],
-                "conditions": {
-                        "animation_in": ["run_a", "run_b"]
-                    },
-                "frames_centers":  null,
-                "frames_per_image": [1, 1, 1, 1, 1, 2, 2, 3],
-                "hold":  true,
-                "inputs": ["LEFT"],
-                "loop_on": "run_a",
-                "next_move": "idle",
-                "next_move_bufferable":  true,
-                "post_events": {
-
-                    "block_offset": [-4, 0],
-                    "flip":  true
-                    },
-                "pre_events": {},
-                "release_frame": -1,
-                "start_at_image": 119,
-                "triggers":  null
-            }
+                }
         }
 }

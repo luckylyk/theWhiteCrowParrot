@@ -6,7 +6,7 @@ import os
 import corax.context as cctx
 from corax.core import EVENTS
 from corax.animation import SpriteSheet, build_centers_list
-from corax.coordinates import to_block_position, to_pixel_position, map_pixel_position, flip_position
+from corax.coordinate import to_block_position, to_pixel_position, map_pixel_position, flip_position
 from corax.mathutils import sum_num_arrays
 from corax.gamepad import reverse_buttons
 
@@ -49,8 +49,8 @@ def is_sequence_valid(move, data, animation):
     """
     Check if the move given is authorized look the move conditions.
     """
-    move_datas = data["moves"][move]
-    conditions = move_datas["conditions"]
+    sheet_data = data["moves"][move]
+    conditions = sheet_data["conditions"]
     if not conditions:
         return True
     return (
@@ -65,13 +65,13 @@ def is_move_cross_zone(
     Its also checking the next animations if the given one is in the middle of
     a sequence.
     """
-    move_datas = data["moves"][move]
+    sheet_data = data["moves"][move]
     block_positions = []
     while True:
-        pre_offset = move_datas["pre_events"].get(EVENTS.BLOCK_OFFSET)
-        post_offset = move_datas["post_events"].get(EVENTS.BLOCK_OFFSET)
-        flip_event = move_datas["post_events"].get(EVENTS.FLIP)
-        flip_event = flip_event or move_datas["pre_events"].get(EVENTS.FLIP)
+        pre_offset = sheet_data["pre_events"].get(EVENTS.BLOCK_OFFSET)
+        post_offset = sheet_data["post_events"].get(EVENTS.BLOCK_OFFSET)
+        flip_event = sheet_data["post_events"].get(EVENTS.FLIP)
+        flip_event = flip_event or sheet_data["pre_events"].get(EVENTS.FLIP)
         if (not pre_offset and not post_offset) or flip_event:
             # We assume if the first move contains a FLIP event, it will not
             # move in space (even if an offset to compensate the flip is set).
@@ -79,7 +79,7 @@ def is_move_cross_zone(
             # the futur but this is a tricky case. The that will not be
             # implemented as far as it is not necessary.
             break
-        centers = build_centers_list(move_datas, image_size, flip)
+        centers = build_centers_list(sheet_data, image_size, flip)
         block_positions.extend(predict_block_positions(
             centers=centers,
             image_size=image_size,
@@ -95,7 +95,7 @@ def is_move_cross_zone(
             post_offset = flip_position(post_offset) if flip else post_offset
             block_position = sum_num_arrays(block_position, post_offset)
 
-        move_datas = data["moves"][move_datas["next_move"]]
+        sheet_data = data["moves"][sheet_data["next_move"]]
 
     return any(z.contains(pos) for z in zones for pos in block_positions)
 
@@ -165,8 +165,8 @@ class AnimationController():
     - moves: move data by move name. For more details on frame data
     dictionnary structure see the class corax.animation.Animation.
     """
-    def __init__(self, data, spritesheet, coordinates):
-        self.coordinates = coordinates
+    def __init__(self, data, spritesheet, coordinate):
+        self.coordinate = coordinate
         self.data = data
         self.animation = None
         self.no_go_zones = []
@@ -211,17 +211,17 @@ class AnimationController():
         Check is the proposed animation or the sequence will cross a zone given
         in his internal attribute: self.zones
         """
-        block_position = self.coordinates.block_position
+        block_position = self.coordinate.block_position
         block_offset = self.animation.post_events.get(EVENTS.BLOCK_OFFSET)
         if block_offset:
-            fp = self.coordinates.flip
+            fp = self.coordinate.flip
             block_offset = flip_position(block_offset) if fp else block_offset
             block_position = sum_num_arrays(block_position, block_offset)
         return not is_move_cross_zone(
             move=move,
             image_size=self.data["frame_size"],
             block_position=block_position,
-            flip=self.coordinates.flip,
+            flip=self.coordinate.flip,
             data=self.data,
             zones=self.no_go_zones)
 
@@ -237,7 +237,7 @@ class AnimationController():
                 self.apply_event(event, value)
                 msg = f"EVENT: {self.animation.name}, {event}, {value}"
                 logging.debug(msg)
-        flip = self.coordinates.flip
+        flip = self.coordinate.flip
         self.animation = self.spritesheet.build_animation(move, flip)
         for event, value in self.animation.pre_events.items():
             self.apply_event(event, value)
@@ -246,20 +246,20 @@ class AnimationController():
 
     def apply_event(self, event, value):
         if event == EVENTS.BLOCK_OFFSET:
-            flip = self.coordinates.flip
+            flip = self.coordinate.flip
             block_offset = flip_position(value) if flip else value
-            self.coordinates.block_position[0] += block_offset[0]
-            self.coordinates.block_position[1] += block_offset[1]
+            self.coordinate.block_position[0] += block_offset[0]
+            self.coordinate.block_position[1] += block_offset[1]
         elif event == EVENTS.FLIP:
-            self.coordinates.flip = not self.coordinates.flip
+            self.coordinate.flip = not self.coordinate.flip
         elif event == EVENTS.SWITCH_TO:
-            self.set_spritesheet(value)
+            self.set_sheet(value)
 
-    def set_spritesheet(self, name):
-            filename = os.path.join(cctx.SHEET_FOLDER, name)
-            self.spritesheet = SpriteSheet.from_filename(name, filename)
-            with open(filename, 'r') as f:
-                self.data = json.load(f)
+    def set_sheet(self, filename):
+        filepath = os.path.join(cctx.SHEET_FOLDER, filename)
+        self.spritesheet = SpriteSheet.from_filename(filename, filepath)
+        with open(filepath, 'r') as f:
+            self.data = json.load(f)
 
     def set_next_move(self):
         """
@@ -296,7 +296,7 @@ class AnimationController():
             else:
                 self.animation.hold = False
         self.animation.evaluate()
-        self.coordinates.center_offset = self.animation.pixel_center
+        self.coordinate.center_offset = self.animation.pixel_center
 
     @property
     def trigger(self):

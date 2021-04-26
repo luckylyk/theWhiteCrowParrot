@@ -11,7 +11,7 @@ from corax.animation import build_images_list, build_centers_list
 from pluck.paint import render_grid, render_image, PaintContext
 from pluck.slider import Slider
 from pluck.qtutils import sub_rects, spritesheet_to_images
-from pluck.datas import data_to_plain_text, data_sanity_check, DEFAULT_MOVE
+from pluck.data import data_to_plain_text, data_sanity_check, DEFAULT_MOVE
 from pluck.highlighter import get_plaint_text_editor
 
 

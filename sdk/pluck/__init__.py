@@ -11,8 +11,8 @@ sys.path.append(SDK_FOLDER)
 
 # initialize project
 import corax.context as cctx
-GAMEDATAS_FOLDER = os.path.join(MAIN_FOLDER, "whitecrowparrot")
-GAME_DATAS = cctx.initialize(["", GAMEDATAS_FOLDER])
+GAMEDATA_FOLDER = os.path.join(MAIN_FOLDER, "whitecrowparrot")
+GAME_data = cctx.initialize(["", GAMEDATA_FOLDER])
 
 
 def load_spritesheet(filename):
@@ -29,16 +29,16 @@ if __name__ == "__main__":
     from pluck.sprite import AnimationDataEditor
     from pluck.main import PluckMainWindow
 
-    for scene in GAME_DATAS["scenes"]:
-        if scene["name"] == 'forest':
+    for scene in GAME_data["scenes"]:
+        if scene["name"] == 'tente':
             filename = scene["file"]
     scene_filepath = os.path.join(cctx.SCENE_FOLDER, filename)
     with open(scene_filepath, "r") as f:
-        scene_datas = json.load(f)
+        scene_data = json.load(f)
 
     app = QtWidgets.QApplication([])
 
-    scene = SceneEditor(scene_datas, cctx)
+    scene = SceneEditor(scene_data, cctx)
 
     codesample = os.path.join(cctx.SCRIPT_FOLDER, "forest.ckl")
     with open(codesample, "r") as f:
@@ -48,8 +48,7 @@ if __name__ == "__main__":
     script.setPlainText(text)
 
     window = PluckMainWindow()
-    print(GAMEDATAS_FOLDER)
-    window.set_workspace(os.path.realpath(GAMEDATAS_FOLDER))
+    window.set_workspace(os.path.realpath(GAMEDATA_FOLDER))
     window.add_scene("tente", scene)
     window.add_script("forest.ckl", script)
     window.add_spritesheet("rabbit", AnimationDataEditor(load_spritesheet("whitecrowparrot_death.json")))

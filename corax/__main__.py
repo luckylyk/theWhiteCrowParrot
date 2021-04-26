@@ -60,10 +60,13 @@ The engine will automatically split animation using the frame data assigned.
 
     -- moves --
 Contains the spritesheet data which is basically: inputs management, event
-triggers, move coordinates, frame data, etc. Those files are JSON.
+triggers, move coordinate, frame data, etc. Those files are JSON.
 
     -- scenes --
 Contains all the level data files as json.
+
+    -- players --
+Contains all the players data as json.
 
     -- scripts --
 This folder contains all the crackle scripts. Crackle script is the Corax
@@ -113,7 +116,7 @@ from corax.theatre import Theatre
 
 # Initializr the constante based on the passed application argument and loads
 # the main.json file.
-game_datas = cctx.initialize(sys.argv)
+game_data = cctx.initialize(sys.argv)
 
 # PyGame2 initialize needed modules
 import pygame
@@ -129,7 +132,7 @@ screen = pygame.display.set_mode(cctx.RESOLUTION, screen_mode_flags)
 
 # Theatre is the main controller class. It drive the story, build and load the
 # scenes.
-theatre = Theatre(game_datas)
+theatre = Theatre(game_data)
 pygame.display.set_caption(theatre.caption)
 joystick = pygame.joystick.Joystick(0)
 

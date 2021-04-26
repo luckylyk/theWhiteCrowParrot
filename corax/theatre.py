@@ -4,14 +4,17 @@ import json
 import logging
 
 import corax.context as cctx
-from corax.core import RUN_MODE
+from corax.core import RUN_MODE, NODE_TYPES
 from corax.scene import build_scene
 from corax.gamepad import InputBuffer
 from corax.crackle.io import load_scripts
 from corax.iterators import iter_on_jobs
+from corax.sounds import SoundShooter
+from corax.player import load_players
+from corax.seeker import find_player, find_start_scrolling_target
 
 
-def find_scene(data, name, input_buffer):
+def find_scene(data, name, theatre):
     """
     This function find the given scene name in the data and build a Scene
     object.
@@ -21,7 +24,7 @@ def find_scene(data, name, input_buffer):
             file_ = os.path.join(cctx.SCENE_FOLDER, scene["file"])
             with open(file_, "r") as f:
                 d = json.load(f)
-            return build_scene(name, d, input_buffer)
+            return build_scene(name, d, theatre)
 
 
 class Theatre:
@@ -68,11 +71,14 @@ class Theatre:
                     Animations
     """
     def __init__(self, data):
-        self.input_buffer = InputBuffer()
         self.data = data
         self.caption = data["caption"]
         self.globals = data["globals"]
         self.scene = None
+        self.input_buffer = InputBuffer()
+        self.sound_shooter = SoundShooter()
+        self.players = load_players(self.input_buffer, self.sound_shooter)
+        self.scrolling_target = find_start_scrolling_target(self.players, data)
         self.scripts = load_scripts()
         self.script_names_by_zone = {}
         self.current_scripts = []
@@ -85,34 +91,45 @@ class Theatre:
 
     def set_scene(self, scene_name):
         # Currently, the engine rebuild each scene from scratch each it is set.
-        # This is not a really efficient way but it spare high memory usage.
-        # It makes a small freeze between every cut. To avoid that, i should
-        # writte a streaming system which pre-load neightgour scene in a
-        # parrallel thread and keep it memory as long as the game is suceptible
+        # This is not a really efficient way but it spares high memory usage.
+        # It makes a small freeze between each cut. To avoid that, i should
+        # writte a streaming system which pre-load neighbour scenes in a
+        # parallel thread and keep in memory as long as the game is suceptible
         # to request it. Let's see if it is possible !
-        self.scene = find_scene(self.data, scene_name, self.input_buffer)
+        self.scene = find_scene(self.data, scene_name, self)
+        self.scene.scrolling.target = self.scrolling_target
         if self.scene is None:
             raise KeyError(f"{scene_name} scene does'nt exists in the game")
-        self.current_scripts = []
         zones = self.scene.zones
         self.script_names_by_zone = {z: z.script_names for z in zones}
         script_names = [n for z in zones for n in z.script_names]
+        self.current_scripts = []
         for script in self.scripts:
             if script.name in script_names:
                 # this rebuilt only the conditions checkers and action runner
                 # using the new scene environment. And filter the script which
                 # will be evaluated.
-                script.build()
+                script.build(self)
                 self.current_scripts.append(script)
+        for player in self.players:
+            for slot in self.scene.player_slots:
+                if player.name == slot.name:
+                    slot.player = player
+                    player.coordinate.block_position = slot.block_position
+                    player.coordinate.flip = slot.flip
+            player.set_no_go_zones([
+                z for z in self.scene.zones
+                if z.type == NODE_TYPES.NO_GO and
+                player.name in z.affect])
 
     def evaluate(self, joystick, screen):
         if self.freeze > 0:
             self.freeze -= 1
-            return
-        if self.run_mode == RUN_MODE.NORMAL:
+        elif self.run_mode == RUN_MODE.NORMAL:
             self.evaluate_normal_mode(joystick, screen)
         elif self.run_mode == RUN_MODE.SCRIPT:
             self.evaluate_script_mode(joystick, screen)
+        self.sound_shooter.shoot()
 
     def evaluate_script_mode(self, joystick, screen):
         try:
@@ -133,7 +150,7 @@ class Theatre:
         self.parse_and_try_scripts()
         # if script is executed, the run mode is set to SCRIPT.
         if keystate_changed is True and self.run_mode != RUN_MODE.SCRIPT:
-            for player in self.scene.players:
+            for player in self.players:
                 player.input_updated()
 
         for element in self.scene.evaluables:
@@ -145,7 +162,7 @@ class Theatre:
         for zone, script_names in self.script_names_by_zone.items():
             if not script_names:
                 continue
-            for player in self.scene.players:
+            for player in self.players:
                 conditions = (
                     player.name not in zone.affect or
                     player.pixel_center is None or
@@ -159,6 +176,12 @@ class Theatre:
                             self.run_script(script)
 
     def run_script(self, script):
-        self.script_iterator = iter_on_jobs(script.jobs())
+        jobs = script.jobs(self)
+        self.script_iterator = iter_on_jobs(jobs)
         self.run_mode = RUN_MODE.SCRIPT
 
+
+    def find_player(self, name):
+        for player in self.players:
+            if player.name == name:
+                return player

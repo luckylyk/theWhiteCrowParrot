@@ -1,6 +1,6 @@
 from functools import partial
 from corax.core import NODE_TYPES
-from corax.scene import find_player, find_animated_set
+from corax.seeker import find_animated_set
 from corax.crackle.parser import (
     object_attribute, object_name, object_type, BOOL_AS_STRING, string_to_bool,
     string_to_string_list)
@@ -20,7 +20,7 @@ def split_condition(line):
 def create_subject_value_collector(subject, theatre):
     subject_type = object_type(subject)
     if subject_type ==  NODE_TYPES.PLAYER:
-        return create_player_subject_collector(subject, theatre.scene)
+        return create_player_subject_collector(subject, theatre)
     elif subject_type == "gamepad":
         return create_gamepad_value_collector(subject, theatre)
     elif subject_type == "theatre":
@@ -51,14 +51,14 @@ def create_gamepad_value_collector(subject, theatre):
 
 
 def create_player_subject_collector(subject, theatre):
-    player = find_player(theatre, object_name(subject))
+    player = theatre.find_player(object_name(subject))
     attribute = object_attribute(subject)
     if attribute == "animation":
         return lambda: player.animation_controller.animation.name
     elif attribute == "flip":
-        return lambda: player.animation_controller.coordinates.flip
+        return lambda: player.animation_controller.coordinate.flip
     elif attribute == "sheet":
-        return lambda: player.animation_controller.spritesheet.name
+        return lambda: player.sheet_name
     elif attribute.startswith("hitbox"):
         name = attribute.split(".")[-1]
         return lambda: player.animation.hitboxes[name]

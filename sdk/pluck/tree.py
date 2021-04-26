@@ -1,4 +1,4 @@
-from pluck.datas import extract_scene_properties, data_to_plain_text
+from pluck.data import extract_scene_properties, data_to_plain_text
 from pluck.qtutils import get_icon, ICON_MATCH, get_image
 from pluck.paint import get_renderer
 
@@ -80,18 +80,18 @@ class CNode():
         self.renderer(painter=painter, paintcontext=paintcontext)
 
 
-def create_scene_outliner_tree(scene_datas):
+def create_scene_outliner_tree(scene_data):
     invisible_root = CNode(None)
-    datas = extract_scene_properties(scene_datas)
-    root = CNode(None, data=datas, parent=invisible_root)
+    data = extract_scene_properties(scene_data)
+    root = CNode(None, data=data, parent=invisible_root)
     sounds = CNode(get_icon("sound.png"), name="audios", parent=root)
 
-    for sound in scene_datas["sounds"]:
+    for sound in scene_data["sounds"]:
         icon = get_icon(ICON_MATCH[sound["type"]])
         CNode(icon=icon, data=sound, parent=sounds)
 
     zones = CNode(name="zones", icon=get_icon("zone.png"), parent=root)
-    for zone in scene_datas["zones"]:
+    for zone in scene_data["zones"]:
         icon = get_icon(ICON_MATCH[zone["type"]])
         CNode(icon=icon, data=zone, parent=zones)
 
@@ -99,7 +99,7 @@ def create_scene_outliner_tree(scene_datas):
     renderable = CNode(icon, name="renderable", parent=root)
 
     layer = None
-    for element in scene_datas["elements"]:
+    for element in scene_data["elements"]:
         icon = get_icon(ICON_MATCH[element["type"]])
         if element["type"] == NODE_TYPES.LAYER:
             layer = CNode(icon, data=element, parent=renderable)

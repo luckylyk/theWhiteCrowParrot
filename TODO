@@ -9,6 +9,8 @@ Corax/Crackle :
     implement 'freeze' function = done
     implement 'player.<playername>.flip condition = done
     implement string list value for condition = done
+    implement 'reach' function in Corax = todo
+    implement 'reach' function for Crackle = todo
     nested script = to fix / redesign
     implement 'once' condition = delayed
 

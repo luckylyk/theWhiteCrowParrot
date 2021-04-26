@@ -52,6 +52,9 @@ def to_pixel_position(block_position):
 
 
 def flip_position(position):
+    """
+    Flip only horizontal posisition (x)
+    """
     return -position[0], position[1]
 
 

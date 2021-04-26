@@ -1,6 +1,7 @@
 {
     "caption": "The White Crow Parrot",
     "start_scene": "forest",
+    "start_scrolling_target": "whitecrow",
     "globals": {
         "chest_moved": false,
         "chest_open": false,

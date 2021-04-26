@@ -59,7 +59,6 @@ DATA_TEMPLATES = {
         "type": str,
         "background_color": (int, int, int),
         "boundary": (int, int, int, int),
-        "grid_pixel_offset": (int, int),
         "scroll_target": str,
         "soft_boundaries": {(int, int, int, int)},
         "target_offset": (int, int)
@@ -140,7 +139,7 @@ DATA_TEMPLATES = {
         "name": str,
         "type": str,
         "block_position": (int, int),
-        "movedatas_file": str
+        "sheetdata_file": str
     },
     "particles_system": {
         "name": str,
@@ -222,9 +221,9 @@ def test_type_required(key, value, type_required):
                 test_type_required(key, v, t)
 
 
-def extract_scene_properties(scene_datas):
+def extract_scene_properties(scene_data):
     return {
-        k: v for k, v in scene_datas.items()
+        k: v for k, v in scene_data.items()
         if k not in EXCLUDED_PROPERTIES}
 
 

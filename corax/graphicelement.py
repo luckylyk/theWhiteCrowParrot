@@ -1,7 +1,7 @@
 import json
 
 from corax.animation import SpriteSheet
-from corax.coordinates import Coordinate
+from corax.coordinate import Coordinate
 from corax.pygameutils import load_image, render_image
 from corax.moves import AnimationController
 
@@ -29,10 +29,10 @@ class SetStaticElement():
 
 
 class SetAnimatedElement():
-    def __init__(self, name, animation_controller, coordinates, deph, alpha=255):
+    def __init__(self, name, animation_controller, coordinate, deph, alpha=255):
         self.name = name
         self.animation_controller = animation_controller
-        self.coordinates = coordinates
+        self.coordinate = coordinate
         self.deph = deph
         self.alpha = alpha
 
@@ -41,14 +41,14 @@ class SetAnimatedElement():
         spritesheet = SpriteSheet.from_filename(None, filename)
         with open(filename, 'r') as f:
             data = json.load(f)
-        coordinates = Coordinate(pixel_offset=pixel_position)
-        animation_controller = AnimationController(data, spritesheet, coordinates)
+        coordinate = Coordinate(pixel_offset=pixel_position)
+        animation_controller = AnimationController(data, spritesheet, coordinate)
         return SetAnimatedElement(
-            name, animation_controller, coordinates, deph, alpha)
+            name, animation_controller, coordinate, deph, alpha)
 
     @property
     def pixel_position(self):
-        return self.coordinates.pixel_position
+        return self.coordinate.pixel_position
 
     def evaluate(self):
         self.animation_controller.evaluate()

@@ -78,6 +78,9 @@ def collision_rect_rect(r1, r2):
 
 
 class Rect():
+    """
+    Common class representing a rectangle.
+    """
     def __init__(self, left, top, right, bottom):
         self.left = left
         self.top = top

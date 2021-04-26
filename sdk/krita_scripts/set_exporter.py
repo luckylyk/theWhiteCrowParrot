@@ -71,7 +71,7 @@ soft = krita.Krita()
 document = soft.activeDocument()
 nodes = document.activeNode().childNodes()
 check_name_clash(nodes)
-datas = []
+data = []
 for node in nodes:
     if not node.visible():
         continue
@@ -82,9 +82,9 @@ for node in nodes:
     data = DEFAULT_DATA.copy()
     data["file"] = os.path.join(LEVEL_FOLDER, filename).replace("\\", "/")
     data["position"] = node_bounds(node, document)[:2]
-    datas.append(data)
+    data.append(data)
 
 
 json_filename = os.path.join(FOLDER, LEVEL_FILE)
 with open(json_filename, "w") as f:
-    json.dump(datas, f , indent=4)
+    json.dump(data, f , indent=4)

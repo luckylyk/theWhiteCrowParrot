@@ -3,8 +3,6 @@
     "type": "scene",
     "background_color": [100, 195, 255],
     "boundary": [0, 0, 4640, 268],
-    "grid_pixel_offset": [0, 0],
-    "scroll_target": "whitecrow",
     "soft_boundaries": [[0, 0, 1551, 268], [1551, 0, 3000, 268], [3001, 0, 3800, 268], [3801, 0, 4640, 268]],
     "target_offset": [200, 0],
     "sounds": [
@@ -643,7 +641,7 @@
             "name": "whitecrow",
             "type": "player",
             "block_position": [14, 10],
-            "movedatas_file": "whitecrowparrot_appearing.json"
+            "flip": false
         },
         {
             "name": "forest_dust_2",

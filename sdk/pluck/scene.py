@@ -5,7 +5,7 @@ import corax.context as cctx
 
 from pluck.paint import PaintContext, render_grid, render_cursor, render_handler
 from pluck.highlighter import CoraxHighlighter, RULES
-from pluck.datas import data_sanity_check, tree_sanity_check, data_to_plain_text
+from pluck.data import data_sanity_check, tree_sanity_check, data_to_plain_text
 from pluck.tree import tree_to_plaintext, get_scene, list_sounds, list_layers, list_zones, get_scene, create_scene_outliner_tree
 from pluck.qtutils import get_image
 from pluck.outliner import OutlinerTreeModel, OutlinerView
@@ -233,8 +233,8 @@ class SceneWidget(QtWidgets.QWidget):
         self.repaint()
 
     def recompute_size(self):
-        scene_datas = self.tree.children[0].data
-        w, h = scene_datas["boundary"][2], scene_datas["boundary"][3]
+        scene_data = self.tree.children[0].data
+        w, h = scene_data["boundary"][2], scene_data["boundary"][3]
         w = self.paintcontext.relatives(w) + (2 * self.paintcontext.extra_zone)
         h = self.paintcontext.relatives(h) + (2 * self.paintcontext.extra_zone)
         self.setFixedSize(w, h)
@@ -257,7 +257,7 @@ class SceneWidget(QtWidgets.QWidget):
             raise
 
     def paint(self, painter):
-        scene_datas = self.tree.children[0].data
+        scene_data = self.tree.children[0].data
         self.tree.children[0].render(painter, self.paintcontext)
         nodes = [
             n for l in list_layers(self.tree)
@@ -270,7 +270,6 @@ class SceneWidget(QtWidgets.QWidget):
             painter,
             self.rect(),
             self.coraxcontext.BLOCK_SIZE,
-            scene_datas["grid_pixel_offset"],
             self.paintcontext)
         for sound in list_sounds(self.tree):
             if sound.has_to_be_rendered:

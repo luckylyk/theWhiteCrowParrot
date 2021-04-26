@@ -4,19 +4,22 @@ import json
 ROOT = None
 DEBUG = False
 MUTE = False
-DATA_FOLDER = None
-ANIMATION_FOLDER = None
-SET_FOLDER = None
-SHEET_FOLDER = None
-SCRIPT_FOLDER = None
-SCENE_FOLDER = None
-SOUNDS_FOLDER = None
-GAME_FILE = None
-RESOLUTION = None
+
+BLOCK_SIZE = None
 CAMERA_SPEED = None
 FPS = None
-BLOCK_SIZE = None
+GAME_FILE = None
 KEY_COLOR = None
+RESOLUTION = None
+
+ANIMATION_FOLDER = None
+DATA_FOLDER = None
+PLAYER_FOLDER = None
+SCENE_FOLDER = None
+SCRIPT_FOLDER = None
+SET_FOLDER = None
+SHEET_FOLDER = None
+SOUNDS_FOLDER = None
 
 
 def initialize(args):
@@ -30,25 +33,27 @@ def initialize(args):
     """
     global ROOT, DATA_FOLDER, ANIMATION_FOLDER, SET_FOLDER, SHEET_FOLDER, \
     SCRIPT_FOLDER, SCENE_FOLDER, SOUNDS_FOLDER, GAME_FILE, RESOLUTION, FPS, \
-    CAMERA_SPEED, BLOCK_SIZE, KEY_COLOR, DEBUG, MUTE
+    CAMERA_SPEED, BLOCK_SIZE, KEY_COLOR, DEBUG, MUTE, PLAYER_FOLDER
 
     ROOT = args[1]
     DEBUG = "--debug" in args or "-d" in args
     MUTE = "--mute" in args or "-m" in args
+
     ANIMATION_FOLDER = os.path.realpath(os.path.join(ROOT, "animations"))
-    SET_FOLDER = os.path.realpath(os.path.join(ROOT, "sets"))
-    SHEET_FOLDER = os.path.realpath(os.path.join(ROOT, "sheets"))
+    GAME_FILE = os.path.realpath(os.path.join(ROOT, "main.json"))
+    PLAYER_FOLDER = os.path.realpath(os.path.join(ROOT, "players"))
     SCRIPT_FOLDER = os.path.realpath(os.path.join(ROOT, "scripts"))
     SCENE_FOLDER = os.path.realpath(os.path.join(ROOT, "scenes"))
+    SET_FOLDER = os.path.realpath(os.path.join(ROOT, "sets"))
+    SHEET_FOLDER = os.path.realpath(os.path.join(ROOT, "sheets"))
     SOUNDS_FOLDER = os.path.realpath(os.path.join(ROOT, "sounds"))
-    GAME_FILE = os.path.realpath(os.path.join(ROOT, "main.json"))
 
     with open(os.path.join(ROOT, GAME_FILE), "r") as f:
-        game_datas = json.load(f)
-    CAMERA_SPEED = game_datas["preferences"]["camera_speed"]
-    RESOLUTION = game_datas["preferences"]["resolution"]
-    FPS = game_datas["preferences"]["fps"]
-    BLOCK_SIZE = game_datas["preferences"]["block_size"]
-    KEY_COLOR = game_datas["preferences"]["key_color"]
+        game_data = json.load(f)
+    BLOCK_SIZE = game_data["preferences"]["block_size"]
+    CAMERA_SPEED = game_data["preferences"]["camera_speed"]
+    FPS = game_data["preferences"]["fps"]
+    KEY_COLOR = game_data["preferences"]["key_color"]
+    RESOLUTION = game_data["preferences"]["resolution"]
 
-    return game_datas
+    return game_data

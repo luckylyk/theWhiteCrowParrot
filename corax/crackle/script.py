@@ -8,25 +8,19 @@ class CrackleScript:
         self.name = name
         self.conditions = []
         self.actions = []
-        self.theatre = None
         self.checkers = []
 
     def __str__(self):
         lines = self.conditions + self.actions
         return f"script {self.name}\n" + "\n".join(lines)
 
-    def build(self):
-        if self.theatre is None:
-            msg = (
-                "CrackleScript cant be built when attribute "
-                f"{self.name}.theatre isn't set.")
-            raise RuntimeError(msg)
+    def build(self, theatre):
         self.checkers = [
-            create_condition_checker(line, self.theatre)
+            create_condition_checker(line, theatre)
             for line in self.conditions]
 
-    def jobs(self):
-        return [create_job(line, self.theatre) for line in self.actions]
+    def jobs(self, theatre):
+        return [create_job(line, theatre) for line in self.actions]
 
     def check(self):
         return all(checker() for checker in self.checkers)

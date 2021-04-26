@@ -31,36 +31,36 @@ script discard_aiming
 
 
 script shoot_1
-    player.whitecrow.sheet is whitecrowparrot_sword.json
+    player.whitecrow.sheet is sword
     player.whitecrow.flip is false
         nolock prop.arbaletist play shoot
         wait 7
-        player.whitecrow.sheet set whitecrowparrot_death.json
+        player.whitecrow.sheet set death
         player.whitecrow play death_by_arrow_back_sword
 
 
 script shoot_2
-    player.whitecrow.sheet is whitecrowparrot_sword.json
+    player.whitecrow.sheet is sword
     player.whitecrow.flip is true
         nolock prop.arbaletist play shoot
         wait 7
-        player.whitecrow.sheet set whitecrowparrot_death.json
+        player.whitecrow.sheet set death
         player.whitecrow play death_by_arrow_front_sword
 
 
 script shoot_3
-    player.whitecrow.sheet is whitecrowparrot_exploration.json
+    player.whitecrow.sheet is exploration
     player.whitecrow.flip is true
         nolock prop.arbaletist play shoot
         wait 7
-        player.whitecrow.sheet set whitecrowparrot_death.json
+        player.whitecrow.sheet set death
         player.whitecrow play death_by_arrow_back
 
 
 script shoot_4
-    player.whitecrow.sheet is whitecrowparrot_exploration.json
+    player.whitecrow.sheet is exploration
     player.whitecrow.flip is false
         nolock prop.arbaletist play shoot
         wait 7
-        player.whitecrow.sheet set whitecrowparrot_death.json
+        player.whitecrow.sheet set death
         player.whitecrow play death_by_arrow_front
