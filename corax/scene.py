@@ -13,9 +13,6 @@ from corax.coordinate import Coordinate
 from corax.moves import AnimationController
 from corax.player import PlayerSlot
 from corax.zone import Zone
-from corax.seeker import find_element
-from corax.sounds import (
-    Ambiance, SfxSoundCollection, SoundShooter, SfxSound)
 from corax.particles import (
     ParticlesSystem, Spot, DirectionBehavior, build_emitter)
 from corax.debugrender import render_player_debug
@@ -35,13 +32,16 @@ class Scene():
         self.player_slots = []
         self.layers = []
         self.animated_sets = []
-        self.sounds = []
         self.evaluables = []
         self.zones = []
 
     @property
     def elements(self):
         return [e for l in self.layers for e in l.elements]
+
+    def evaluate(self):
+        for element in self.evaluables:
+            element.evaluate()
 
     def append(self, layer):
         self.layers.append(layer)
@@ -51,8 +51,6 @@ class Scene():
         for layer in sorted(self.layers, key=lambda layer: layer.deph):
             for element in layer.elements:
                 element.render(screen, layer.deph, self.camera)
-        for sound in self.sounds:
-            sound.update()
         for zone in self.zones:
             zone.render(screen, self.camera)
         if cctx.DEBUG:
@@ -115,32 +113,6 @@ def build_scrolling(camera, data):
         target_offset=data["target_offset"])
 
 
-def build_ambiance(data):
-    return Ambiance(
-        filename=data["file"],
-        zone=data["zone"],
-        falloff=data["falloff"],)
-
-
-def build_sfx_sound(data):
-    return SfxSound(
-        name=data["name"],
-        filename=data["filename"],
-        trigger=data["trigger"],
-        falloff=data["falloff"],
-        zone=data["zone"])
-
-
-def build_sfx_collection(data):
-    return SfxSoundCollection(
-        name=data["name"],
-        files=data["files"],
-        order=data["order"],
-        trigger=data["trigger"],
-        falloff=data["falloff"],
-        zone=data["zone"])
-
-
 def build_particles_system(data):
     zone = Rect(*data["emission_zone"]) if data["emission_zone"] else None
     emitter = build_emitter(zone=zone, spots=data["emission_positions"])
@@ -168,7 +140,6 @@ def build_scene(name, data, theatre):
         scrolling=scrolling)
     build_scene_zones(scene, data)
     build_scene_layers(scene, data)
-    # build_scene_sounds(scene, data, theatre.sound_shooter)
     return scene
 
 
@@ -202,24 +173,3 @@ def build_scene_layers(scene, data):
             particles = build_particles_system(element)
             scene.evaluables.append(particles)
             layer.append(particles)
-
-
-def build_scene_sounds(scene, data, sound_shooter):
-    ambiances = (NODE_TYPES.AMBIANCE, NODE_TYPES.MUSIC)
-    for sound_data in data["sounds"]:
-        if sound_data.get("type") in ambiances:
-            ambiance = build_ambiance(sound_data)
-            element = find_element(scene, sound_data["listener"])
-            ambiance.listener = element.coordinate
-            scene.sounds.append(ambiance)
-        elif sound_data.get("type") == NODE_TYPES.SFX_COLLECTION:
-            collection = build_sfx_collection(sound_data)
-            element = find_element(scene, sound_data["emitter"])
-            collection.emitter = element.coordinate
-            sound_shooter.sounds.append(collection)
-        elif sound_data.get("type") == NODE_TYPES.SFX:
-            sound = build_sfx_sound(sound_data)
-            element = find_element(scene, sound_data["emitter"])
-            sound.emitter = element.coordinate
-            sound_shooter.sounds.append(sound)
-

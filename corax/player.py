@@ -38,9 +38,13 @@ class PlayerSlot():
     def evaluate(self):
         self.player.animation_controller.evaluate()
 
+    @property
+    def coordinate(self):
+        return self.player.coordinate
+
 
 class Player():
-    def __init__(self, data, input_buffer, sound_shooter):
+    def __init__(self, data, input_buffer, audio_streamer):
         self.data = data
         self.name = data["name"]
         self.coordinate = Coordinate()
@@ -85,6 +89,10 @@ class Player():
                 return name
 
     @property
+    def trigger(self):
+        return self.animation_controller.trigger
+
+    @property
     def animation(self):
         return self.animation_controller.animation
 
@@ -118,13 +126,13 @@ def build_player_animation_controller(data, coordinate):
     return AnimationController(sheet_data, spritesheet, coordinate)
 
 
-def load_players(input_buffer, sound_shooter):
+def load_players(input_buffer, audio_streamer):
     player_files = os.listdir(cctx.PLAYER_FOLDER)
     filenames = [os.path.join(cctx.PLAYER_FOLDER, f) for f in player_files]
     players = []
     for filename in filenames:
         with open(filename, "r") as f:
             data = json.load(f)
-        player = Player(data, input_buffer, sound_shooter)
+        player = Player(data, input_buffer, audio_streamer)
         players.append(player)
     return players

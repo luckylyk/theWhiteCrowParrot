@@ -15,8 +15,9 @@ Corax/Crackle :
     implement 'once' condition = delayed
 
     Player has to be zone agnostic, match has to be escalade to theatre system = done
-    escalade player to theatre system = todo
-    escalade sound shooter to theatre system = todo
+    escalade player to theatre system = done
+    escalade sound shooter to theatre system = done
+    layer system for player = todo
     keep scene statuses when changing scene = todo
 
     implement hitboxes system = delayed
@@ -33,7 +34,7 @@ White Crow Parrot:
 
         Animate appreaing main char = done
         Animate WhiteCrow return and slide in run = done
-        Animate WhiteCrow return / slide in run stop transition = todo
+        Animate WhiteCrow return / slide in run out transition = todo
         Animate appearing interactions = todo
         Animate rabbit out of tente = pass 1 done
         Animate gather sword = done (need polish)

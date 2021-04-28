@@ -6,7 +6,15 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-
+        {
+            "name": "saqueboute",
+            "type": "music",
+            "file": "musics/saqueboute.ogg",
+            "channel": 5,
+            "falloff":  null,
+            "listener": "whitecrow",
+            "zone":  null
+        }
     ],
     "zones": [
         {

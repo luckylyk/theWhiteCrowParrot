@@ -9,12 +9,12 @@ from corax.scene import build_scene
 from corax.gamepad import InputBuffer
 from corax.crackle.io import load_scripts
 from corax.iterators import iter_on_jobs
-from corax.sounds import SoundShooter
+from corax.sounds import AudioStreamer
 from corax.player import load_players
 from corax.seeker import find_player, find_start_scrolling_target
 
 
-def find_scene(data, name, theatre):
+def load_scene_data(data, name, theatre):
     """
     This function find the given scene name in the data and build a Scene
     object.
@@ -23,8 +23,7 @@ def find_scene(data, name, theatre):
         if scene["name"] == name:
             file_ = os.path.join(cctx.SCENE_FOLDER, scene["file"])
             with open(file_, "r") as f:
-                d = json.load(f)
-            return build_scene(name, d, theatre)
+                return json.load(f)
 
 
 class Theatre:
@@ -34,35 +33,35 @@ class Theatre:
     execution and the global variable (not implemented yet).
     Simplyfied map off the Corax engine workflow.
 
-                       ------------> Theatre
-                     /                 |
-                    |                  v
-                InputBuffer            |
-                 /        ________ RUN_MODES______
-                /        /      ____/  |          \
-               /        v      /       v           \
-              /      NORMAL   |   RUN_MODE.SCRIPT   |
-             /         ^ \    ^                     v
-            /          |  v   |                 RUN_MODE.MENU
-           /           |   \   \
-          /          Scene  \   \
-         /            /|\    CrackleScript -----<--------\
-        |            / | \____________________            \
-        |       ____/  \                      \            \
-        |      |        \---- scene_2---       |            \
-        |   scene_1           ^  ^       \   scene_3         \
-        |                ____/   |        \                   \
-        |               /       Zone       v                   \
-        |             Layers        \       \                   \
-        |            /  |   \        \        SoundShooter       \
-        \          /    |  Particles  |           |               |
-         \---> Player   |             |           v               |
-               /        v             |        Ambiance           |
-              | SetAnimatedElement    |     Sfx, SfxCollection    |
-              ^  SetStaticElement     /\                          /
-              |                      /  \________________________/
-               \                    /
-            AnimationController ---<---/
+            ----------------------> Theatre <-----------------
+           /               ---->---/   |                       \
+          /               /            v                        \
+         /      InputBuffer            |                         \
+        /         |       ________ RUN_MODES______                \
+       /          |      /      ____/  |          \                \
+      /          /      v      /       v           \               |
+     /          /    NORMAL   |   RUN_MODE.SCRIPT   |              |
+    |          /       | \    ^                     v              |
+  Player--<---         ^  v   |                 RUN_MODE.MENU      |
+    | |                |   \   \                                   |
+    | |              Scene  \   \                                  |
+    | |               /|\    CrackleScript -----<---\              |
+    | |              / | \____________________       \             |
+    | |         ____/  \                      \       \            |
+    | |        |        \---- scene_2          |       \           |
+    | |     scene_1           ^  ^           scene_3    |          |
+    | |                   ___/   |                      |          |
+    | ^                  /      Zone                    |          |
+    | \               Layers        \                   |          |
+    |  \             /  |   \        \                  |    AudioStreamer
+    |   \           /   |  Particles  |                 |          |
+    |    \---PlayerSlot |             |                 |          |
+    |                   v             |                 |        Ambiance
+    |           SetAnimatedElement    |                 |  Sfx, SfxCollection
+    |            SetStaticElement     /\               /
+    |                                /  \_____________/
+     \                              /
+      \-->--AnimationController--<-/
                    |       \
                    v        \
               Spritesheet    ^
@@ -76,8 +75,8 @@ class Theatre:
         self.globals = data["globals"]
         self.scene = None
         self.input_buffer = InputBuffer()
-        self.sound_shooter = SoundShooter()
-        self.players = load_players(self.input_buffer, self.sound_shooter)
+        self.audio_streamer = AudioStreamer()
+        self.players = load_players(self.input_buffer, self.audio_streamer)
         self.scrolling_target = find_start_scrolling_target(self.players, data)
         self.scripts = load_scripts()
         self.script_names_by_zone = {}
@@ -96,7 +95,8 @@ class Theatre:
         # writte a streaming system which pre-load neighbour scenes in a
         # parallel thread and keep in memory as long as the game is suceptible
         # to request it. Let's see if it is possible !
-        self.scene = find_scene(self.data, scene_name, self)
+        scene_data = load_scene_data(self.data, scene_name, self)
+        self.scene = build_scene(scene_name, scene_data, self)
         self.scene.scrolling.target = self.scrolling_target
         if self.scene is None:
             raise KeyError(f"{scene_name} scene does'nt exists in the game")
@@ -121,6 +121,7 @@ class Theatre:
                 z for z in self.scene.zones
                 if z.type == NODE_TYPES.NO_GO and
                 player.name in z.affect])
+        self.audio_streamer.set_scene(scene_data["sounds"], self.scene)
 
     def evaluate(self, joystick, screen):
         if self.freeze > 0:
@@ -129,7 +130,11 @@ class Theatre:
             self.evaluate_normal_mode(joystick, screen)
         elif self.run_mode == RUN_MODE.SCRIPT:
             self.evaluate_script_mode(joystick, screen)
-        self.sound_shooter.shoot()
+        self.scene.evaluate()
+        self.audio_streamer.evaluate()
+        self.audio_streamer.shoot([p.trigger for p in self.players])
+        self.scene.render(screen)
+        self.scene.scrolling.evaluate()
 
     def evaluate_script_mode(self, joystick, screen):
         try:
@@ -139,11 +144,6 @@ class Theatre:
             self.run_mode = RUN_MODE.NORMAL
             self.script_iterator = None
             self.evaluate_normal_mode(joystick, screen)
-            return
-        for element in self.scene.evaluables:
-            element.evaluate()
-        self.scene.render(screen)
-        self.scene.scrolling.evaluate()
 
     def evaluate_normal_mode(self, joystick, screen):
         keystate_changed = self.input_buffer.update(joystick)
@@ -152,11 +152,6 @@ class Theatre:
         if keystate_changed is True and self.run_mode != RUN_MODE.SCRIPT:
             for player in self.players:
                 player.input_updated()
-
-        for element in self.scene.evaluables:
-            element.evaluate()
-        self.scene.render(screen)
-        self.scene.scrolling.evaluate()
 
     def parse_and_try_scripts(self):
         for zone, script_names in self.script_names_by_zone.items():

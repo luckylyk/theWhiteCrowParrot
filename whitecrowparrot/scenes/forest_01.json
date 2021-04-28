@@ -50,7 +50,7 @@
             "channel": 5,
             "emitter": "whitecrow",
             "falloff": 150,
-            "filename": "effects/whoosh.wav",
+            "file": "effects/whoosh.wav",
             "trigger": "whoosh_whitecrow",
             "zone": [-150, -150, 1580, 420]
         },
@@ -60,7 +60,7 @@
             "channel": 5,
             "emitter": "whitecrow",
             "falloff": 150,
-            "filename": "effects/whish.wav",
+            "file": "effects/whish.wav",
             "trigger": "whish_whitecrow",
             "zone": [-150, -150, 1580, 420]
         },
@@ -70,7 +70,7 @@
             "channel": 5,
             "emitter": "whitecrow",
             "falloff": 150,
-            "filename": "effects/swordin.ogg",
+            "file": "effects/swordin.ogg",
             "trigger": "swordin_whitecrow",
             "zone": [-150, -150, 1580, 420]
         }
