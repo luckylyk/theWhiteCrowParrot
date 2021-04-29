@@ -78,7 +78,15 @@ def render_ellipse(screen, color, x, y, height, width):
 
 
 def render_text(screen, color, x, y, text):
-    FONT = pygame.font.SysFont('Consolas', 15)
+    font = pygame.font.SysFont('Consolas', 15)
 
-    textsurface = FONT.render(text, False, color)
+    textsurface = font.render(text, False, color)
     screen.blit(textsurface,(x, y))
+
+
+def render_centered_text(screen, text, color):
+    font = pygame.font.SysFont('Consolas', 15)
+    text = font.render(text, True, (255, 255, 255))
+    x, y = cctx.RESOLUTION
+    text_rect = text.get_rect(center=(x/2, y/2))
+    screen.blit(text, text_rect)
