@@ -113,7 +113,7 @@ if "--debug" in sys.argv or "-d" in sys.argv:
 
 import corax.context as cctx
 from corax.theatre import Theatre
-from corax.pygameutils import render_centered_text
+from corax.pygameutils import render_centered_text, escape_in_events
 
 # Initializr the constante based on the passed application argument and loads
 # the main.json file.
@@ -144,15 +144,13 @@ while pygame.joystick.get_count() == 0:
     pygame.display.flip()
     clock.tick(cctx.FPS)
 
-print("joystick found")
 joystick = pygame.joystick.Joystick(0)
-print(joystick.get_name())
 # game loop
 done = False
 while not done:
     joystick.init()
-    done = joystick.get_button(7) == 1
-    pygame.event.get()
+    events = pygame.event.get()
+    done = joystick.get_button(7) == 1 or escape_in_events(events)
     theatre.evaluate(joystick, screen)
     pygame.display.flip()
     clock.tick(cctx.FPS)

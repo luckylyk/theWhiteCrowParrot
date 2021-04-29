@@ -13,6 +13,12 @@ import corax.context as cctx
 from corax.iterators import itertable
 
 
+def escape_in_events(events):
+    return any(
+        event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE
+        for event in events)
+
+
 def load_images(filename, frame_size, key_color):
     filename = os.path.join(cctx.ANIMATION_FOLDER, filename)
     sheet = pygame.image.load(filename).convert()
