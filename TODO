@@ -1,52 +1,55 @@
 Corax/Crackle :
 
-    globals = done
+    Features:
+        done:
+            variable globals
+            implement 'nolock' crackle keyword
+            implement 'wait' function keyword
+            implement 'props' finding
+            implement boolean
+            implement 'freeze' function
+            implement 'player.<playername>.flip condition
+            implement string list value for condition
+            Player has to be zone agnostic, match has to be escalade to theatre system
+            escalade player to theatre system
+            escalade sound shooter to theatre system
+            add gamepad warning
 
-    implement 'nolock' crackle keyword = done
-    implement 'wait' function keyword = done
-    implement 'props' finding = done
-    implement boolean = done
-    implement 'freeze' function = done
-    implement 'player.<playername>.flip condition = done
-    implement string list value for condition = done
-    implement 'reach' function in Corax = todo
-    implement 'reach' function for Crackle = todo
-    nested script = to fix / redesign
-    implement 'once' condition = delayed
-
-    Player has to be zone agnostic, match has to be escalade to theatre system = done
-    escalade player to theatre system = done
-    escalade sound shooter to theatre system = done
-    layer system for player = todo
-    keep scene statuses when changing scene = todo
-
-    implement hitboxes system = delayed
-    implement hitboxes collision = delayed
-    hitboxes fancy edit in pluck = wip
+        hitboxes fancy edit in pluck = in progress
+        layer system for player = in progress
+        implement 'reach' function in Corax = todo
+        implement 'reach' function for Crackle = todo
+        implement 'offset' function = todo
+        nested script = fix / redesign
+        flush character animation and pre/post event on scene change todo
+        keep scene statuses when changing scene = todo
+        implement 'once' condition = delayed
+        implement hitboxes system = delayed
+        implement hitboxes collision = delayed
 
     Bug:
-
         fix "going through" issue = todo
 
 White Crow Parrot:
 
     Ressources:
-
-        Animate appreaing main char = done
-        Animate WhiteCrow return and slide in run = done
-        Animate WhiteCrow return / slide in run out transition = todo
-        Animate appearing interactions = todo
-        Animate rabbit out of tente = pass 1 done
-        Animate gather sword = done (need polish)
-        Animate arbaletist targeting = done
-        Animate arbaletist shot = done
-        Animate WhiteCrow die standup = rough done
-        Animate WhiteCrow die crouchdown = rough done
+        done:
+            Animate appreaing main char = done
+            Animate WhiteCrow return and slide in run = done
+            Animate WhiteCrow return / slide in run out transition = todo
+            Animate appearing interactions = todo
+            Animate rabbit out of tente = pass 1 done
+            Animate gather sword = done (need polish)
+            Animate arbaletist targeting = done
+            Animate arbaletist shot = done
+            Animate WhiteCrow die standup = rough done
+            Animate WhiteCrow die crouchdown = rough done
         Clean and split animation with/without sword = wip
 
     Script:
-        implement WCP appearing = done
+        done:
+            implement WCP appearing = done
+            implement rabbit goes out of tente = done
+            Implement sword gathering = done
+            implement interactions with arbaletist = done
         implement WCP appearing props = todo
-        implement rabbit goes out of tente = done
-        Implement sword gathering = done
-        implement interactions with arbaletist = done
