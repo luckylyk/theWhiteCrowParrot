@@ -45,6 +45,17 @@ def filter_unholdable_moves(data, input_buffer, flip=False):
     return moves
 
 
+def is_layers_authorised(move, data, layers):
+    """
+    Verify if current layers match with moves conditions proposed
+    """
+    sheet_data = data["moves"][move]
+    conditions = sheet_data["conditions"]
+    if not conditions or not conditions.get("has_layers"):
+        return True
+    return all(layer in layers for layer in conditions.get("has_layers"))
+
+
 def is_sequence_valid(move, data, animation):
     """
     Check if the move given is authorized look the move conditions.
@@ -165,13 +176,14 @@ class AnimationController():
     - moves: move data by move name. For more details on frame data
     dictionnary structure see the class corax.animation.Animation.
     """
-    def __init__(self, data, spritesheet, coordinate):
+    def __init__(self, data, spritesheet, coordinate, layers=None):
+        self.animation = None
         self.coordinate = coordinate
         self.data = data
-        self.animation = None
         self.no_go_zones = []
-        self.spritesheet = spritesheet
+        self.layers = layers or [str(key) for key in spritesheet.data["layers"].keys()]
         self.moves_buffer = []
+        self.spritesheet = spritesheet
         self.set_move(data["default_move"])
 
     def unhold(self, unholdable):
@@ -194,6 +206,7 @@ class AnimationController():
             conditions = (
                 not self.animation.is_lock() and
                 is_sequence_valid(move, self.data, self.animation) and
+                is_layers_authorised(move, self.data, self.layers) and
                 self.is_offset_allowed(move))
             if conditions:
                 self.set_move(move)
@@ -237,12 +250,26 @@ class AnimationController():
                 self.apply_event(event, value)
                 msg = f"EVENT: {self.animation.name}, {event}, {value}"
                 logging.debug(msg)
+
         flip = self.coordinate.flip
-        self.animation = self.spritesheet.build_animation(move, flip)
+        layers = self.layers
+        self.animation = self.spritesheet.build_animation(move, flip, layers)
+
         for event, value in self.animation.pre_events.items():
             self.apply_event(event, value)
             msg = f"EVENT: {self.animation.name}, {event}, {value}"
             logging.debug(msg)
+
+    def flush(self):
+        """
+        This method immediatly reset animation state setting back the default
+        move skipping the animation post event trigger. It usually triggered
+        at scene change.
+        """
+        flip = self.coordinate.flip
+        layers = self.layers
+        move = self.data["default_move"]
+        self.animation = self.spritesheet.build_animation(move, flip, layers)
 
     def apply_event(self, event, value):
         if event == EVENTS.BLOCK_OFFSET:
@@ -255,7 +282,8 @@ class AnimationController():
         elif event == EVENTS.SWITCH_TO:
             self.set_sheet(value)
 
-    def set_sheet(self, filename):
+    def set_sheet(self, filename, layers=None):
+        self.layers = layers or self.layers
         filepath = os.path.join(cctx.SHEET_FOLDER, filename)
         self.spritesheet = SpriteSheet.from_filename(filename, filepath)
         with open(filepath, 'r') as f:
@@ -272,14 +300,12 @@ class AnimationController():
             self.set_move(next_move)
             return
 
-        key = "animation_in"
         for move in self.moves_buffer:
-            moves_filter = self.data["moves"][move]["conditions"].get(key)
             conditions = (
-                moves_filter is not None and
-                self.animation.name not in moves_filter and
-                next_move not in moves_filter)
-            if conditions or not self.is_offset_allowed(move):
+                is_sequence_valid(move, self.data, self.animation) and
+                is_layers_authorised(move, self.data, self.layers) and
+                self.is_offset_allowed(move))
+            if not conditions:
                 continue
             self.set_move(move)
             return
@@ -303,6 +329,6 @@ class AnimationController():
         return self.animation.trigger
 
     @property
-    def image(self):
-        return self.animation.image
+    def images(self):
+        return self.animation.images
 

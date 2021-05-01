@@ -1,7 +1,7 @@
 {
     "default_move": "goes_out",
     "evaluation_order": ["idle", "goes_out"],
-    "filename": "rabbit.png",
+    "layers": {"base": "rabbit.png"},
     "frame_size": [182, 73],
     "key_color": [0, 255, 0],
     "moves": {

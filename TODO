@@ -17,6 +17,9 @@ Corax/Crackle :
 
         hitboxes fancy edit in pluck = in progress
         layer system for player = in progress
+        implement 'flush' function in Corax = done
+        implement 'flush' function in Crackle = done
+        implement 'show' and 'hide' function in Crackle = done
         implement 'reach' function in Corax = todo
         implement 'reach' function for Crackle = todo
         implement 'offset' function = todo

@@ -44,20 +44,20 @@ class PlayerSlot():
 
 
 class Player():
-    def __init__(self, data, input_buffer, audio_streamer):
+    def __init__(self, data):
         self.data = data
         self.name = data["name"]
+        self.layers = data["layers"]
         self.coordinate = Coordinate()
         self.animation_controller = build_player_animation_controller(data, self.coordinate)
-        self.input_buffer = input_buffer
 
     def set_no_go_zones(self, zones):
         self.animation_controller.no_go_zones = zones
 
-    def input_updated(self):
+    def input_updated(self, input_buffer):
         data = self.animation_controller.data
-        moves = filter_moves_by_inputs(data, self.input_buffer, self.flip)
-        unholdable = filter_unholdable_moves(data, self.input_buffer, self.flip)
+        moves = filter_moves_by_inputs(data, input_buffer, self.flip)
+        unholdable = filter_unholdable_moves(data, input_buffer, self.flip)
         self.animation_controller.unhold(unholdable)
         self.animation_controller.propose_moves(moves)
         if cctx.DEBUG:
@@ -69,11 +69,20 @@ class Player():
     def render(self, screen, deph, camera):
         deph = deph + self.deph
         position = camera.relative_pixel_position(self.pixel_position, deph)
-        render_image(self.animation_controller.image, screen, position)
+        for image in self.animation_controller.images:
+            render_image(image, screen, position)
 
     def set_sheet(self, sheet_name):
         sheet_filename = self.data["sheets"][sheet_name]
-        self.animation_controller.set_sheet(sheet_filename)
+        layers = [layer for layer, state in self.layers.items() if state]
+        self.animation_controller.set_sheet(sheet_filename, layers)
+
+    def set_layer_visible(self, layer, state):
+        self.layers[layer] = state
+        if state and layer not in self.animation_controller.layers:
+            self.animation_controller.layers.append(layer)
+        elif not state and layer in self.animation_controller.layers:
+            self.animation_controller.layers.remove(layer)
 
     @property
     def pixel_center(self):
@@ -105,10 +114,6 @@ class Player():
         return self.coordinate.deph
 
     @property
-    def size(self):
-        return self.animation_controller.image.get_size()
-
-    @property
     def flip(self):
         return self.coordinate.flip
 
@@ -123,16 +128,17 @@ def build_player_animation_controller(data, coordinate):
     with open(data_path, "r") as f:
         sheet_data = json.load(f)
     spritesheet = SpriteSheet.from_filename(filename, data_path)
-    return AnimationController(sheet_data, spritesheet, coordinate)
+    layers = [str(key) for key in data["layers"] if data["layers"][key]]
+    return AnimationController(sheet_data, spritesheet, coordinate, layers)
 
 
-def load_players(input_buffer, audio_streamer):
+def load_players():
     player_files = os.listdir(cctx.PLAYER_FOLDER)
     filenames = [os.path.join(cctx.PLAYER_FOLDER, f) for f in player_files]
     players = []
     for filename in filenames:
         with open(filename, "r") as f:
             data = json.load(f)
-        player = Player(data, input_buffer, audio_streamer)
+        player = Player(data)
         players.append(player)
     return players

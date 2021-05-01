@@ -2,7 +2,7 @@
 from corax.crackle.parser import string_to_int_list
 
 
-ACTION_KEYWORDS = ["run", "play", "set", "wait", "freeze", "reach", "move", "force"]
+ACTION_KEYWORDS = ["run", "play", "set", "wait", "freeze", "reach", "move", "force", "flush"]
 
 
 def is_nolock_action(line):

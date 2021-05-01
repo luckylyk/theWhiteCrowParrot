@@ -56,4 +56,5 @@ class SetAnimatedElement():
     def render(self, screen, deph, camera):
         deph = deph + self.deph
         position = camera.relative_pixel_position(self.pixel_position, deph)
-        render_image(self.animation_controller.image, screen, position, self.alpha)
+        for image in self.animation_controller.images:
+            render_image(image, screen, position, self.alpha)

@@ -1,7 +1,7 @@
 {
         "default_move": "idle",
         "evaluation_order": ["idle", "fall", "fallen"],
-        "filename": "chest_flail.png",
+        "layers": {"body": "chest_flail.png"},
         "frame_size": [75, 145],
         "key_color": [0, 255, 0],
         "moves": {

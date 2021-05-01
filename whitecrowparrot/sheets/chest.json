@@ -1,7 +1,7 @@
 {
     "default_move": "closed",
     "evaluation_order": ["closed", "fail_to_open", "succes_to_open", "open", "close", "push_succes", "pushed", "move_and_close", "closed_and_moved"],
-    "filename": "chest.png",
+    "layers": {"base": "chest.png"},
     "frame_size": [85, 81],
     "key_color": [0, 255, 0],
     "moves": {

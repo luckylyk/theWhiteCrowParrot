@@ -64,7 +64,7 @@ class Animation():
         self.bufferable = data["next_move_bufferable"]
         self.index = -1
         self.centers = build_centers_list(data, size, flip)
-        self.images = build_images_list(data, images)
+        self.sequences = [build_sequence(data, imgs) for imgs in images]
         self.hold = data["hold"]
         self.next_move = data["next_move"]
         self.loop_on = data["loop_on"]
@@ -73,7 +73,7 @@ class Animation():
 
     @property
     def length(self):
-        return len(self.images)
+        return len(self.sequences[0])
 
     def is_lock(self):
         if self.release_frame == -1:
@@ -81,7 +81,7 @@ class Animation():
         return self.index < self.release_frame
 
     def is_finished(self):
-        return self.index + 1 == len(self.images)
+        return self.index + 1 == len(self.sequences[0])
 
     def is_playing(self):
         return not self.is_finished() and self.index >= 0
@@ -89,7 +89,7 @@ class Animation():
     def evaluate(self):
         if self.is_finished() is False:
             self.index += 1
-        return self.image
+        return self.images
 
     @property
     def pixel_center(self):
@@ -104,10 +104,10 @@ class Animation():
         return self.triggers[self.index]
 
     @property
-    def image(self):
+    def images(self):
         if self.index < 0:
             return None
-        return self.images[self.index]
+        return [images[self.index] for images in self.sequences]
 
 
 class SpriteSheet():
@@ -118,28 +118,33 @@ class SpriteSheet():
     This class represent a collection of animations. That very simple manager
     is able to create an animation on demand from his collections of image.
     """
-    def __init__(self, name, data, images):
+    def __init__(self, name, data, sequences):
         self.name = name
         self.data = data
         self.moves_data = data["moves"]
-        self.images = images
-        self.images_mirror = [image_mirror(img) for img in self.images]
+        self.sequences = sequences
+        self.sequences_mirror = {
+            layer: [image_mirror(image) for image in images]
+            for layer, images in self.sequences.items()}
 
     @staticmethod
     def from_filename(name, filename):
         with open(filename) as f:
             data = json.load(f)
-        filename = data["filename"]
         frame_size = data["frame_size"]
         key_color = data["key_color"]
-        images = load_images(filename, frame_size, key_color)
-        return SpriteSheet(name, data, images)
+        sequences = {
+            layer: load_images(filename, frame_size, key_color)
+            for layer, filename in data["layers"].items()}
+        return SpriteSheet(name, data, sequences)
 
-    def build_animation(self, move, flip):
-        images = self.images_mirror if flip else self.images
+    def build_animation(self, move, flip, layer_names=None):
+        assert layer_names
+        sequences = self.sequences_mirror if flip else self.sequences
+        sequences = [sequences[layer] for layer in layer_names if sequences.get(layer)]
         data = self.data["moves"][move]
         size = self.data["frame_size"]
-        return Animation(move, images, data, size, flip)
+        return Animation(move, sequences, data, size, flip)
 
 
 def build_triggers_list(data):
@@ -160,7 +165,7 @@ def build_triggers_list(data):
     return [triggers[i] if i in triggers else None for i in range(length)]
 
 
-def build_images_list(data, images):
+def build_sequence(data, images):
     """
     Build of images from the spreadsheet image list based on a animation data.
     Basically it also duplicate the frames base on a data when it is necessary

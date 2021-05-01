@@ -94,4 +94,3 @@ class InputBuffer():
     def inputs(self):
         return [k for k, v in self.current_states.items() if v is True]
 
-

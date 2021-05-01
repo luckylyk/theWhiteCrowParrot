@@ -24,7 +24,7 @@ script get_ready
     player.whitecrow.flip is false
     gamepad.keys.pressed has RIGHT
     theatre.globals.chest_moved is false
-    player.whitecrow.sheet in (exploration, exploration_no_sword)
+    player.whitecrow.sheet is exploration
     player.whitecrow.animation is idle
         player.whitecrow set chest
         player.whitecrow play get_ready
@@ -35,7 +35,6 @@ script give_up
     player.whitecrow.sheet is chest
     player.whitecrow.animation is is_ready
         player.whitecrow play give_up
-        force chest.check_no_sword_sheet
 
 
 script try_to_push
@@ -44,7 +43,6 @@ script try_to_push
     player.whitecrow.animation is is_ready
     theatre.globals.chest_empty is false
         player.whitecrow play try_to_push
-        force chest.check_no_sword_sheet
 
 
 script push_and_die
@@ -84,13 +82,12 @@ script try_to_open
         wait 30
         nolock prop.chest play fail_to_open
         prop.chest_locker play up_down
-        force chest.check_no_sword_sheet
 
 
 script try_to_open_from_idle
     player.whitecrow.flip is false
     gamepad.keys.pressed has X
-    player.whitecrow.sheet in (exploration, exploration_no_sword)
+    player.whitecrow.sheet is exploration
     player.whitecrow.animation is idle
     theatre.globals.chest_locked is true
         player.whitecrow set chest
@@ -99,7 +96,6 @@ script try_to_open_from_idle
         wait 30
         nolock prop.chest play fail_to_open
         prop.chest_locker play up_down
-        force chest.check_no_sword_sheet
 
 
 script open
@@ -214,9 +210,3 @@ script close_from_ready
         nolock player.whitecrow play close
         wait 15
         prop.chest play close
-
-
-script check_no_sword_sheet
-    theatre.globals.has_sword is false
-        wait 1 // skip 1 frame to let post animation event happen
-        player.whitecrow.sheet set exploration_no_sword

@@ -1,7 +1,8 @@
 {
     "default_move": "get_ready",
     "evaluation_order": ["get_ready", "is_ready", "give_up", "collects"],
-    "filename": "whitecrowparrot_collects_sword.png",
+    "layers": {
+        "body": "whitecrowparrot_collects_sword.png"},
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
     "moves": {

@@ -1,7 +1,7 @@
 {
     "default_move": "idle",
     "evaluation_order": ["idle", "nudged"],
-    "filename": "chest_armor.png",
+    "layers": {"body": "chest_armor.png"},
     "frame_size": [81, 133],
     "key_color": [0, 255, 0],
     "moves": {

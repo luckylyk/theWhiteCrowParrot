@@ -1,7 +1,9 @@
 {
     "default_move": "idle",
     "evaluation_order": ["run_start", "footsie_forced", "run_b", "run_a", "run_off", "walk_off", "walk_a", "walk_b", "return", "run_return", "crouched_return", "draw_sword", "footsie", "crouched_over_walk", "crouch_down", "stand_up", "crouched_over", "through_door", "idk", "idle"],
-    "filename": "whitecrowparrot_exploration.png",
+    "layers": {
+        "body": "whitecrowparrot_exploration_body.png",
+        "sword": "whitecrowparrot_exploration_sword.png"},
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
     "moves": {
@@ -83,6 +85,7 @@
             "draw_sword": {
                     "center": [70, 155],
                     "conditions": {
+                            "has_layers": ["sword"],
                             "animation_in": ["idle"]
                         },
                     "frames_centers":  null,

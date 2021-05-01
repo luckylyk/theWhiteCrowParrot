@@ -76,14 +76,12 @@ class Theatre:
         self.scene = None
         self.input_buffer = InputBuffer()
         self.audio_streamer = AudioStreamer()
-        self.players = load_players(self.input_buffer, self.audio_streamer)
+        self.players = load_players()
         self.scrolling_target = find_start_scrolling_target(self.players, data)
-        self.scripts = load_scripts()
+        self.scripts = load_scripts(self)
         self.script_names_by_zone = {}
         self.current_scripts = []
         self.freeze = 0
-        for script in self.scripts:
-            script.theatre = self
         self.set_scene(data["start_scene"])
         self.run_mode = RUN_MODE.NORMAL
         self.script_iterator = None
@@ -98,12 +96,10 @@ class Theatre:
         scene_data = load_scene_data(self.data, scene_name, self)
         self.scene = build_scene(scene_name, scene_data, self)
         self.scene.scrolling.target = self.scrolling_target
-        if self.scene is None:
-            raise KeyError(f"{scene_name} scene does'nt exists in the game")
-        zones = self.scene.zones
-        self.script_names_by_zone = {z: z.script_names for z in zones}
-        script_names = [n for z in zones for n in z.script_names]
+        self.script_names_by_zone = {z: z.script_names for z in self.scene.zones}
+        script_names = [n for z in self.scene.zones for n in z.script_names]
         self.current_scripts = []
+
         for script in self.scripts:
             if script.name in script_names:
                 # this rebuilt only the conditions checkers and action runner
@@ -111,6 +107,7 @@ class Theatre:
                 # will be evaluated.
                 script.build(self)
                 self.current_scripts.append(script)
+
         for player in self.players:
             for slot in self.scene.player_slots:
                 if player.name == slot.name:
@@ -121,6 +118,7 @@ class Theatre:
                 z for z in self.scene.zones
                 if z.type == NODE_TYPES.NO_GO and
                 player.name in z.affect])
+
         self.audio_streamer.set_scene(scene_data["sounds"], self.scene)
 
     def evaluate(self, joystick, screen):
@@ -130,6 +128,7 @@ class Theatre:
             self.evaluate_normal_mode(joystick, screen)
         elif self.run_mode == RUN_MODE.SCRIPT:
             self.evaluate_script_mode(joystick, screen)
+
         self.scene.evaluate()
         self.audio_streamer.evaluate()
         self.audio_streamer.shoot([p.trigger for p in self.players])
@@ -151,7 +150,7 @@ class Theatre:
         # if script is executed, the run mode is set to SCRIPT.
         if keystate_changed is True and self.run_mode != RUN_MODE.SCRIPT:
             for player in self.players:
-                player.input_updated()
+                player.input_updated(self.input_buffer)
 
     def parse_and_try_scripts(self):
         for zone, script_names in self.script_names_by_zone.items():
@@ -174,7 +173,6 @@ class Theatre:
         jobs = script.jobs(self)
         self.script_iterator = iter_on_jobs(jobs)
         self.run_mode = RUN_MODE.SCRIPT
-
 
     def find_player(self, name):
         for player in self.players:

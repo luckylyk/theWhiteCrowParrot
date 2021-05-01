@@ -1,9 +1,12 @@
 {
     "name": "whitecrow",
     "default_sheet": "introduction",
+    "layers": {
+        "body": true,
+        "sword": false
+    },
     "sheets": {
         "exploration": "whitecrowparrot_exploration.json",
-        "exploration_no_sword": "whitecrowparrot_exploration_no_sword.json",
         "introduction": "whitecrowparrot_appearing.json",
         "chest": "whitecrowparrot_chest.json",
         "death": "whitecrowparrot_death.json",

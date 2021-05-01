@@ -1,7 +1,7 @@
 {
     "default_move": "idle",
     "evaluation_order": ["idle", "aiming", "hold_aiming", "discard_aiming", "shoot"],
-    "filename": "arbaletist.png",
+    "layers": {"body": "arbaletist.png"},
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
     "moves": {

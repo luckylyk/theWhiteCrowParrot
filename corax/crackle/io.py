@@ -10,7 +10,7 @@ import corax.context as cctx
 from corax.crackle.script import CrackleScript
 
 
-def load_scripts():
+def load_scripts(theatre):
     """
     Load all scripts located in the folder <root>/scripts
     It parse the crackle files and build CrackleScript objects from.
@@ -20,6 +20,8 @@ def load_scripts():
         filepath = os.path.join(cctx.SCRIPT_FOLDER, filename)
         namespace = ".".join(filename.split(".")[:-1])
         scripts.extend(parse_crackle_file(filepath, namespace))
+    for script in scripts:
+        script.theatre = theatre
     return scripts
 
 

@@ -1,7 +1,8 @@
 {
     "default_move": "idle",
     "evaluation_order": ["idle", "get_ready", "is_ready", "give_up", "try_to_push", "try_to_open", "open_succes", "empty_it", "close", "push_succes", "push_and_die", "dead"],
-    "filename": "whitecrowparrot_chest.png",
+    "layers": {
+        "body": "whitecrowparrot_chest.png"},
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
     "moves": {

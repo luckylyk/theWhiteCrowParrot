@@ -31,6 +31,9 @@ def create_job(line, theatre):
             result = lambda: int(line.split(" ")[-1])
         elif function == "freeze":
             result = partial(job_freeze_theatre, theatre, int(int(line.split(" ")[-1])))
+        elif function == "flush":
+            player_name = object_name(line.split(" ")[-1])
+            result = partial(job_flush_animation, theatre, player_name)
     else:
         subject, function, arguments = split_with_subject(line)
         result = create_job_with_subject(subject, function, arguments, theatre)
@@ -62,13 +65,18 @@ def create_job_with_subject(subject, function, arguments, theatre):
                 subject_name,
                 anim,
                 type_=subject_type)
-        if function == "move":
+        elif function == "show":
+            layer = arguments
+            return partial(job_switch_layer, theatre, subject_name, True, layer)
+        elif function == "hide":
+            return partial(job_switch_layer, theatre, subject_name, False, layer)
+        elif function == "move":
             position = string_to_int_list(arguments)
             return partial(job_move_player, theatre, subject_name, position)
         elif function == "reach":
             pos, animations = extract_reach_arguments(arguments)
             return partial(job_reach, theatre, subject_name, pos, animations)
-        if function == "set":
+        elif function == "set":
             return partial(job_set_sheet, theatre, subject_name, arguments)
     elif subject_type == "prop":
         if function == "play":
@@ -83,6 +91,12 @@ def create_job_with_subject(subject, function, arguments, theatre):
 
 def nolock_job(job):
     job()
+    return 0
+
+
+def job_switch_layer(theatre, player_name, state, layer):
+    player = theatre.find_player(player_name)
+    player.set_layer_visible(layer, state)
     return 0
 
 
@@ -121,6 +135,12 @@ def job_set_global(theatre, key, value):
     elif value == 'false':
         value = False
     theatre.globals[key] = value
+    return 0
+
+
+def job_flush_animation(theatre, player_name):
+    player = find_player(theatre, player_name)
+    player.animation_controller.flush()
     return 0
 
 

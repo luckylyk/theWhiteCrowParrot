@@ -1,5 +1,6 @@
 {
-    "filename": "whitecrowparrot_sword.png",
+    "layers": {
+        "body": "whitecrowparrot_sword.png"},
     "key_color": [0, 255, 0],
     "frame_size": [240, 160],
     "default_move": "idle",

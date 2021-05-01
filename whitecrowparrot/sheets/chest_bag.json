@@ -1,7 +1,7 @@
 {
         "default_move": "invisible",
         "evaluation_order": ["invisible", "extract", "dropped"],
-        "filename": "chest_bag.png",
+        "layers": {"body": "chest_bag.png"},
         "frame_size": [131, 92],
         "key_color": [0, 255, 0],
         "moves": {

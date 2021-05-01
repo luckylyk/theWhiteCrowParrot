@@ -1,5 +1,5 @@
 {
-    "filename": "smoke.png",
+    "layers": {"base": "smoke.png"},
     "key_color": [0, 255, 0],
     "frame_size": [829, 127],
     "default_move": "base",

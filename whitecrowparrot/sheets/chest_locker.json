@@ -1,7 +1,7 @@
 {
     "default_move": "locked",
     "evaluation_order": ["locked", "up_down", "explode", "exploded"],
-    "filename": "chest_locker.png",
+    "layers": {"body": "chest_locker.png"},
     "frame_size": [42, 60],
     "key_color": [0, 255, 0],
     "moves": {

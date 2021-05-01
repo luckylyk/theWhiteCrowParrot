@@ -32,7 +32,7 @@
           }
         },
         {
-          "match": "(\\brun\\b|\\bplay\\b|\\bset\\b|\\breach\\b|\\bmove\\b|\\bforce\\b)",
+          "match": "(\\brun\\b|\\bplay\\b|\\bset\\b|\\breach\\b|\\bflush\\b|\\bshow\\b|\\bhide\\b|\\bmove\\b|\\bforce\\b)",
           "name": "entity.name.function.mysample"
         },
         {
@@ -48,7 +48,7 @@
           "name": "constant.language.mysample"
         },
         {
-          "match": "(\\btheatre\\b|\\bscene\\b|\\bprop\\b|\\bglobals\\b|\\bgamepad\\b|\\bname\\b|\\bflip\\b|\\bpressed\\b|\\banimation\\b|\\bhitbox\\b|\\bkeys\\b|\\bplayer\\b|\\bzone\\b|\\bsheet\\b)",
+          "match": "(\\btheatre\\b|\\bscene\\b|\\bprop\\b|\\bglobals\\b|\\blayer\\b|\\bgamepad\\b|\\bname\\b|\\bflip\\b|\\bpressed\\b|\\banimation\\b|\\bhitbox\\b|\\bkeys\\b|\\bplayer\\b|\\bzone\\b|\\bsheet\\b)",
           "name": "variable.legacy.builtin.mysample"
         },
         {

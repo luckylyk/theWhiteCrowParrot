@@ -1,7 +1,7 @@
 {
     "default_move": "closed",
     "evaluation_order": ["closed", "opening", "open"],
-    "filename": "tente_door.png",
+    "layers": {"base": "tente_door.png"},
     "frame_size": [106, 153],
     "key_color": [0, 255, 0],
     "moves": {

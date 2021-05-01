@@ -85,6 +85,7 @@ resolution, the name of the game and the list of the levels.
 
 """
 
+
 import os
 import sys
 
@@ -136,10 +137,10 @@ screen = pygame.display.set_mode(cctx.RESOLUTION, screen_mode_flags)
 theatre = Theatre(game_data)
 pygame.display.set_caption(theatre.caption)
 
+text = "Connect game controller (X Input)"
 while pygame.joystick.get_count() == 0:
     pygame.joystick.quit()
     pygame.joystick.init()
-    text = "Connect game controller (X Input)"
     render_centered_text(screen, text, (255, 255, 255))
     pygame.display.flip()
     clock.tick(cctx.FPS)

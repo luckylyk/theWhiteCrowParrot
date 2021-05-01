@@ -1,7 +1,7 @@
 {
     "default_move": "attached",
     "evaluation_order": ["attached", "detached", "lie_down"],
-    "filename": "sword_holder.png",
+    "layers": {"base": "sword_holder.png"},
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
     "moves": {
