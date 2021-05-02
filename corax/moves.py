@@ -107,7 +107,6 @@ def is_move_cross_zone(
             block_position = sum_num_arrays(block_position, post_offset)
 
         sheet_data = data["moves"][sheet_data["next_move"]]
-
     return any(z.contains(pos) for z in zones for pos in block_positions)
 
 
@@ -226,15 +225,16 @@ class AnimationController():
         """
         block_position = self.coordinate.block_position
         block_offset = self.animation.post_events.get(EVENTS.BLOCK_OFFSET)
+        flip_event = self.animation.post_events.get(EVENTS.FLIP)
+        flip = not self.coordinate.flip if flip_event else self.coordinate.flip
         if block_offset:
-            fp = self.coordinate.flip
-            block_offset = flip_position(block_offset) if fp else block_offset
+            block_offset = flip_position(block_offset) if flip else block_offset
             block_position = sum_num_arrays(block_position, block_offset)
         return not is_move_cross_zone(
             move=move,
             image_size=self.data["frame_size"],
             block_position=block_position,
-            flip=self.coordinate.flip,
+            flip=flip,
             data=self.data,
             zones=self.no_go_zones)
 

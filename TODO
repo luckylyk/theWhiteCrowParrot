@@ -14,24 +14,25 @@ Corax/Crackle :
             escalade player to theatre system
             escalade sound shooter to theatre system
             add gamepad warning
+            implement 'flush' function in Corax
+            implement 'flush' function in Crackle
+            implement 'show' and 'hide' function in Crackle
+            layer system for player
 
         hitboxes fancy edit in pluck = in progress
-        layer system for player = in progress
-        implement 'flush' function in Corax = done
-        implement 'flush' function in Crackle = done
-        implement 'show' and 'hide' function in Crackle = done
         implement 'reach' function in Corax = todo
         implement 'reach' function for Crackle = todo
         implement 'offset' function = todo
         nested script = fix / redesign
-        flush character animation and pre/post event on scene change todo
         keep scene statuses when changing scene = todo
         implement 'once' condition = delayed
         implement hitboxes system = delayed
         implement hitboxes collision = delayed
 
     Bug:
-        fix "going through" issue = todo
+        done:
+            fix "going through" issue
+            fix freeze not working
 
 White Crow Parrot:
 

@@ -22,7 +22,7 @@
             "type": "interaction",
             "affect": "whitecrow",
             "scripts": ["forest.go_to_forest"],
-                "zone": [0, 0, 2, 27]
+                "zone": [0, 0, 20, 27]
         },
         {
             "name": "right_limit",

@@ -129,6 +129,8 @@ class Theatre:
         elif self.run_mode == RUN_MODE.SCRIPT:
             self.evaluate_script_mode(joystick, screen)
 
+        if self.freeze:
+            return
         self.scene.evaluate()
         self.audio_streamer.evaluate()
         self.audio_streamer.shoot([p.trigger for p in self.players])
