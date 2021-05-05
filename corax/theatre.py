@@ -5,13 +5,13 @@ import logging
 
 import corax.context as cctx
 from corax.core import RUN_MODE, NODE_TYPES
-from corax.scene import build_scene
-from corax.gamepad import InputBuffer
 from corax.crackle.io import load_scripts
 from corax.iterators import iter_on_jobs
-from corax.sounds import AudioStreamer
+from corax.gamepad import InputBuffer
 from corax.player import load_players
+from corax.scene import build_scene
 from corax.seeker import find_player, find_start_scrolling_target
+from corax.sounds import AudioStreamer
 
 
 def load_scene_data(data, name, theatre):
@@ -141,7 +141,7 @@ class Theatre:
         try:
             next(self.script_iterator)
         except StopIteration:
-            # the script is finished then go back to normal
+            # The script is finished then go back to normal mode.
             self.run_mode = RUN_MODE.NORMAL
             self.script_iterator = None
             self.evaluate_normal_mode(joystick, screen)
@@ -149,7 +149,7 @@ class Theatre:
     def evaluate_normal_mode(self, joystick, screen):
         keystate_changed = self.input_buffer.update(joystick)
         self.parse_and_try_scripts()
-        # if script is executed, the run mode is set to SCRIPT.
+        # If script is executed, the run mode is set to SCRIPT.
         if keystate_changed is True and self.run_mode != RUN_MODE.SCRIPT:
             for player in self.players:
                 player.input_updated(self.input_buffer)
@@ -175,8 +175,3 @@ class Theatre:
         jobs = script.jobs(self)
         self.script_iterator = iter_on_jobs(jobs)
         self.run_mode = RUN_MODE.SCRIPT
-
-    def find_player(self, name):
-        for player in self.players:
-            if player.name == name:
-                return player

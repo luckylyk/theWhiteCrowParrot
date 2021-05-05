@@ -3,19 +3,19 @@ import json
 from functools import partial
 
 import corax.context as cctx
-from corax.pygameutils import load_image
-from corax.euclide import Rect
-from corax.graphicelement import SetStaticElement, SetAnimatedElement
+from corax.animation import SpriteSheet
 from corax.camera import Camera, Scrolling
 from corax.core import NODE_TYPES
-from corax.animation import SpriteSheet
 from corax.coordinate import Coordinate
-from corax.moves import AnimationController
-from corax.player import PlayerSlot
-from corax.zone import Zone
+from corax.controller import AnimationController
+from corax.debugrender import render_player_debug
+from corax.euclide import Rect
+from corax.graphicelement import SetStaticElement, SetAnimatedElement
 from corax.particles import (
     ParticlesSystem, Spot, DirectionBehavior, build_emitter)
-from corax.debugrender import render_player_debug
+from corax.player import PlayerSlot
+from corax.pygameutils import load_image
+from corax.zone import Zone
 
 
 class Scene():
@@ -164,7 +164,7 @@ def build_scene_layers(scene, data):
             layer.append(animated)
             scene.evaluables.append(animated)
             scene.animated_sets.append(animated)
-        elif element.get("type") == "player":
+        elif element.get("type") == NODE_TYPES.PLAYER:
             slot = build_player_slot(element)
             layer.append(slot)
             scene.player_slots.append(slot)

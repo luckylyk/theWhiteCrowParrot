@@ -1,6 +1,6 @@
 from functools import partial
 from corax.core import NODE_TYPES
-from corax.seeker import find_animated_set
+from corax.seeker import find_animated_set, find_player
 from corax.crackle.parser import (
     object_attribute, object_name, object_type, BOOL_AS_STRING, string_to_bool,
     string_to_string_list)
@@ -51,7 +51,7 @@ def create_gamepad_value_collector(subject, theatre):
 
 
 def create_player_subject_collector(subject, theatre):
-    player = theatre.find_player(object_name(subject))
+    player = find_player(theatre, object_name(subject))
     attribute = object_attribute(subject)
     if attribute == "animation":
         return lambda: player.animation_controller.animation.name

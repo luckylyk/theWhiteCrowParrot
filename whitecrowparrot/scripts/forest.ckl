@@ -45,7 +45,7 @@ script go_to_tente
 script go_to_forest
     always
         theatre.scene set forest
-        player.whitecrow move (273, 10)
+        player.whitecrow move (272, 10)
         theatre.camera move (2600, 134)
         flush player.whitecrow
 

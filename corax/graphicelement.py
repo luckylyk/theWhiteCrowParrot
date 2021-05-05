@@ -1,9 +1,9 @@
 import json
 
 from corax.animation import SpriteSheet
+from corax.controller import AnimationController
 from corax.coordinate import Coordinate
 from corax.pygameutils import load_image, render_image
-from corax.moves import AnimationController
 
 
 class SetStaticElement():

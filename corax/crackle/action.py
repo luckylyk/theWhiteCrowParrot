@@ -1,8 +1,9 @@
 
-from corax.crackle.parser import string_to_int_list
+from corax.crackle.parser import string_to_int_list, string_to_string_list
 
 
-ACTION_KEYWORDS = ["run", "play", "set", "wait", "freeze", "reach", "move", "force", "flush"]
+ACTION_KEYWORDS = [
+    "run", "play", "set", "wait", "freeze", "reach", "move", "force", "flush"]
 
 
 def is_nolock_action(line):
@@ -23,9 +24,9 @@ def filter_action(line):
 
 
 def extract_reach_arguments(arguments):
-    arguments = arguments.split(" ")
+    arguments = arguments.split(" by ")
     position = string_to_int_list(arguments[0])
-    animations = [a.strip(" ") for a in arguments[-1].strip("()").split(",")]
+    animations = string_to_string_list(arguments[-1])
     return position, animations
 
 

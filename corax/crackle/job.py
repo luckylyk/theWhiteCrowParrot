@@ -15,6 +15,7 @@ from corax.crackle.parser import (
 from corax.crackle.action import (
     has_subject, filter_action, split_with_subject, extract_reach_arguments,
     is_nolock_action)
+from corax.sequence import build_sequence_to_destination
 
 
 def create_job(line, theatre):
@@ -95,7 +96,7 @@ def nolock_job(job):
 
 
 def job_switch_layer(theatre, player_name, state, layer):
-    player = theatre.find_player(player_name)
+    player = find_player(theatre, player_name)
     player.set_layer_visible(layer, state)
     return 0
 
@@ -106,7 +107,7 @@ def job_freeze_theatre(theatre, value):
 
 
 def job_set_sheet(theatre, player_name, sheet_name):
-    player = theatre.find_player(player_name)
+    player = find_player(theatre, player_name)
     player.set_sheet(sheet_name)
     return 0
 
@@ -166,5 +167,10 @@ def job_move_camera(theatre, pixel_position):
 
 
 def job_reach(theatre, player_name, block_position, animations):
-    pass #TODO
+    player = find_player(theatre, player_name)
+    sequence = player.reach(block_position, animations)
+    data = player.animation_controller.data
+    key = "frames_per_image"
+    return sum(sum(data["moves"][move][key]) for move in sequence)
+
 

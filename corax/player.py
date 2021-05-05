@@ -3,14 +3,15 @@ import os
 import logging
 
 import corax.context as cctx
-from corax.core import NODE_TYPES
-from corax.pygameutils import render_image
-from corax.mathutils import sum_num_arrays
 from corax.animation import SpriteSheet
-from corax.moves import AnimationController
+from corax.core import NODE_TYPES
+from corax.controller import AnimationController
 from corax.coordinate import Coordinate
-from corax.moves import (
-    filter_moves_by_inputs, filter_unholdable_moves, AnimationController)
+from corax.mathutils import sum_num_arrays
+from corax.pygameutils import render_image
+from corax.sequence import (
+    filter_moves_by_inputs, filter_unholdable_moves,
+    build_sequence_to_destination)
 
 
 class PlayerSlot():
@@ -83,6 +84,17 @@ class Player():
             self.animation_controller.layers.append(layer)
         elif not state and layer in self.animation_controller.layers:
             self.animation_controller.layers.remove(layer)
+
+    def reach(self, destination, moves):
+        self.animation_controller.flush()
+        sequence = build_sequence_to_destination(
+            moves=moves,
+            data=self.animation_controller.data,
+            coordinate=self.coordinate,
+            dst=destination)
+        print (sequence)
+        self.animation_controller.sequence = sequence
+        return sequence
 
     @property
     def pixel_center(self):

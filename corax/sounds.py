@@ -2,9 +2,9 @@ from itertools import cycle
 
 import corax.context as cctx
 from corax.core import LOOP_TYPES, NODE_TYPES
-from corax.pygameutils import load_sound
 from corax.euclide import Rect
 from corax.iterators import shuffle
+from corax.pygameutils import load_sound
 from corax.seeker import find_element
 
 

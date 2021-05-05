@@ -18,10 +18,10 @@ Corax/Crackle :
             implement 'flush' function in Crackle
             implement 'show' and 'hide' function in Crackle
             layer system for player
+            implement 'reach' function in Corax
+            implement 'reach' function for Crackle
 
         hitboxes fancy edit in pluck = in progress
-        implement 'reach' function in Corax = todo
-        implement 'reach' function for Crackle = todo
         implement 'offset' function = todo
         nested script = fix / redesign
         keep scene statuses when changing scene = todo

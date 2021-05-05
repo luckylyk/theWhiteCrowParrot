@@ -39,6 +39,11 @@ class Coordinate():
         return [x, y]
 
 
+def aim_target(position, flip, target):
+    left_right = position[0] < target[0]
+    return (left_right and not flip) or (not left_right and flip)
+
+
 def to_block_position(pixel_position):
     x = pixel_position[0] // cctx.BLOCK_SIZE
     y = pixel_position[1] // cctx.BLOCK_SIZE

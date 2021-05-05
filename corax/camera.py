@@ -1,8 +1,8 @@
 
 import math
 import corax.context as cctx
-from corax.mathutils import clamp
 from corax.euclide import Rect
+from corax.mathutils import clamp
 
 
 class Camera():

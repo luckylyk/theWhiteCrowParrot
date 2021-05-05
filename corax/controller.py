@@ -4,140 +4,12 @@ import logging
 import os
 
 import corax.context as cctx
+from corax.animation import SpriteSheet
+from corax.coordinate import flip_position
 from corax.core import EVENTS
-from corax.animation import SpriteSheet, build_centers_list
-from corax.coordinate import to_block_position, to_pixel_position, map_pixel_position, flip_position
 from corax.mathutils import sum_num_arrays
-from corax.gamepad import reverse_buttons
-
-
-def filter_moves_by_inputs(data, input_buffer, flip=False):
-    """
-    Filter existing moves in spritesheet data comparing the inputs they
-    requires to the given input buffer statues.
-    """
-    moves = []
-    for move in data["evaluation_order"]:
-        inputs = data["moves"][move]["inputs"]
-        inputs = reverse_buttons(inputs) if flip else inputs
-        conditions = (
-            any(i in input_buffer.pressed_delta() for i in inputs) and
-            all(i in input_buffer.inputs() for i in inputs))
-        if conditions:
-            moves.append(move)
-    return moves
-
-
-def filter_unholdable_moves(data, input_buffer, flip=False):
-    """
-    Filter existing moves in spritesheet data comparing the inputs they and
-    holdable and check if the input required to unhold them fit with the input
-    buffer status.
-    """
-    moves = []
-    for move in data["evaluation_order"]:
-        if data["moves"][move]["hold"] is False:
-            continue
-        inputs = data["moves"][move]["inputs"]
-        inputs = reverse_buttons(inputs) if flip else inputs
-        if any(i in input_buffer.released_delta() for i in inputs):
-            moves.append(move)
-    return moves
-
-
-def is_layers_authorised(move, data, layers):
-    """
-    Verify if current layers match with moves conditions proposed
-    """
-    sheet_data = data["moves"][move]
-    conditions = sheet_data["conditions"]
-    if not conditions or not conditions.get("has_layers"):
-        return True
-    return all(layer in layers for layer in conditions.get("has_layers"))
-
-
-def is_sequence_valid(move, data, animation):
-    """
-    Check if the move given is authorized look the move conditions.
-    """
-    sheet_data = data["moves"][move]
-    conditions = sheet_data["conditions"]
-    if not conditions:
-        return True
-    return (
-        animation.name in conditions.get("animation_in", []) and
-        animation.name not in conditions.get("animation_not_in", []))
-
-
-def is_move_cross_zone(
-        data, move, block_position, flip, zones, image_size):
-    """
-    Check if the block positions centers are passing across a zone give.
-    Its also checking the next animations if the given one is in the middle of
-    a sequence.
-    """
-    sheet_data = data["moves"][move]
-    block_positions = []
-    while True:
-        pre_offset = sheet_data["pre_events"].get(EVENTS.BLOCK_OFFSET)
-        post_offset = sheet_data["post_events"].get(EVENTS.BLOCK_OFFSET)
-        flip_event = sheet_data["post_events"].get(EVENTS.FLIP)
-        flip_event = flip_event or sheet_data["pre_events"].get(EVENTS.FLIP)
-        if (not pre_offset and not post_offset) or flip_event:
-            # We assume if the first move contains a FLIP event, it will not
-            # move in space (even if an offset to compensate the flip is set).
-            # By the way, a case where this need to evaluate could happend in
-            # the futur but this is a tricky case. The that will not be
-            # implemented as far as it is not necessary.
-            break
-        centers = build_centers_list(sheet_data, image_size, flip)
-        block_positions.extend(predict_block_positions(
-            centers=centers,
-            image_size=image_size,
-            block_position=block_position,
-            flip=flip,
-            pre_offset=pre_offset,
-            post_offset=post_offset))
-
-        if pre_offset:
-            pre_offset = flip_position(pre_offset) if flip else pre_offset
-            block_position = sum_num_arrays(block_position, pre_offset)
-        if post_offset:
-            post_offset = flip_position(post_offset) if flip else post_offset
-            block_position = sum_num_arrays(block_position, post_offset)
-
-        sheet_data = data["moves"][sheet_data["next_move"]]
-    return any(z.contains(pos) for z in zones for pos in block_positions)
-
-
-def predict_block_positions(
-        centers,
-        image_size,
-        block_position,
-        flip,
-        pre_offset=None,
-        post_offset=None):
-
-    if pre_offset:
-        pre_offset = flip_position(pre_offset) if flip else pre_offset
-        block_position = sum_num_arrays(pre_offset, block_position)
-
-    block_positions = []
-    pixel_position = to_pixel_position(block_position)
-
-    for center in centers or []:
-        center = sum_num_arrays(center, pixel_position)
-        if center == pixel_position:
-            continue
-        block_positions.append(to_block_position(center))
-
-    if post_offset is not None:
-        pixel_offset = to_pixel_position(post_offset)
-        pixel_offset = flip_position(pixel_offset) if flip else pixel_offset
-        center = sum_num_arrays(pixel_offset, centers[0], pixel_position)
-        block_position = to_block_position(center)
-        block_positions.append(block_position)
-    return block_positions
+from corax.sequence import (
+    is_moves_sequence_valid, is_layers_authorized, is_move_cross_zone)
 
 
 class AnimationController():
@@ -182,6 +54,7 @@ class AnimationController():
         self.no_go_zones = []
         self.layers = layers or [str(key) for key in spritesheet.data["layers"].keys()]
         self.moves_buffer = []
+        self.sequence = []
         self.spritesheet = spritesheet
         self.set_move(data["default_move"])
 
@@ -204,8 +77,8 @@ class AnimationController():
         for move in moves:
             conditions = (
                 not self.animation.is_lock() and
-                is_sequence_valid(move, self.data, self.animation) and
-                is_layers_authorised(move, self.data, self.layers) and
+                is_moves_sequence_valid(move, self.data, self.animation) and
+                is_layers_authorized(move, self.data, self.layers) and
                 self.is_offset_allowed(move))
             if conditions:
                 self.set_move(move)
@@ -269,6 +142,7 @@ class AnimationController():
         flip = self.coordinate.flip
         layers = self.layers
         move = self.data["default_move"]
+        self.moves_buffer = []
         self.animation = self.spritesheet.build_animation(move, flip, layers)
 
     def apply_event(self, event, value):
@@ -295,6 +169,13 @@ class AnimationController():
         algorithme is looking in the buffer to find a valid sequence. If
         nothing is found, it does set the default animation next move.
         """
+        if self.sequence:
+            self.set_move(self.sequence.pop(0))
+            # Loop animation sequences rely on hold attribute, force unhold
+            # avoid this loop to happen and force the given sequence.
+            self.animation.hold = False
+            return
+
         next_move = self.animation.next_move
         if not self.moves_buffer:
             self.set_move(next_move)
@@ -302,13 +183,14 @@ class AnimationController():
 
         for move in self.moves_buffer:
             conditions = (
-                is_sequence_valid(move, self.data, self.animation) and
-                is_layers_authorised(move, self.data, self.layers) and
+                is_moves_sequence_valid(move, self.data, self.animation) and
+                is_layers_authorized(move, self.data, self.layers) and
                 self.is_offset_allowed(move))
             if not conditions:
                 continue
             self.set_move(move)
             return
+
         self.set_move(next_move)
 
     def evaluate(self):
@@ -316,6 +198,8 @@ class AnimationController():
         if anim.is_finished() and anim.hold is False:
             self.set_next_move()
         if anim.is_finished() and anim.hold is True and anim.repeatable:
+            if self.sequence:
+                self.set_next_move()
             # this repeat the current animation or next animation on the loop
             if self.is_offset_allowed(self.animation.loop_on):
                 self.set_move(self.animation.loop_on)

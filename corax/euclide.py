@@ -19,6 +19,12 @@ def limit_angle(value, in_angle, out_angle):
     return normalize(value, out_angle, in_angle) + math.pi
 
 
+def distance2d(point1, point2):
+    return math.sqrt(
+        ((point2[0] - point1[0]) ** 2) +
+        ((point2[1] - point1[1]) ** 2))
+
+
 def points_to_vector(point1, point2):
     return (point1[0] - point2[0], point1[1] - point2[1])
 
