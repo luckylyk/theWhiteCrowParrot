@@ -32,7 +32,7 @@
           }
         },
         {
-          "match": "(\\brun\\b|\\bplay\\b|\\bset\\b|\\breach\\b|\\bflush\\b|\\bshow\\b|\\bhide\\b|\\bmove\\b|\\bforce\\b)",
+          "match": "(\\brun\\b|\\bplay\\b|\\bset\\b|\\breach\\b|\\bflush\\b|\\bshow\\b|\\bhide\\b|\\bmove\\b|\\baim\\b|\\bforce\\b)",
           "name": "entity.name.function.mysample"
         },
         {

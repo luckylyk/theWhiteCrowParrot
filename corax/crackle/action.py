@@ -24,7 +24,7 @@ def filter_action(line):
 
 
 def extract_reach_arguments(arguments):
-    arguments = arguments.split(" by ")
+    arguments = arguments.replace(" ", "").split(")by(")
     position = string_to_int_list(arguments[0])
     animations = string_to_string_list(arguments[-1])
     return position, animations

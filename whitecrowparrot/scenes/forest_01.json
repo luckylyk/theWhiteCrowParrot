@@ -110,6 +110,13 @@
             "zone": [354, 24, 356, 27]
         },
         {
+            "name": "collects_sword_from_around",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["forest.collects_sword_from_around"],
+            "zone": [356, 24, 368, 27]
+        },
+        {
             "name": "collects_sword_adjust",
             "type": "interaction",
             "affect": ["whitecrow"],

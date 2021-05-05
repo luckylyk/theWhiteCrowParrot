@@ -92,7 +92,6 @@ class Player():
             data=self.animation_controller.data,
             coordinate=self.coordinate,
             dst=destination)
-        print (sequence)
         self.animation_controller.sequence = sequence
         return sequence
 

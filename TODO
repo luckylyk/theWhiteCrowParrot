@@ -20,6 +20,8 @@ Corax/Crackle :
             layer system for player
             implement 'reach' function in Corax
             implement 'reach' function for Crackle
+            implement 'aim' function in Corax
+            implement 'aim' function for Crackle
 
         hitboxes fancy edit in pluck = in progress
         implement 'offset' function = todo

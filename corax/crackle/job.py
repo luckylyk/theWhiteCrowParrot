@@ -9,13 +9,16 @@ to RUN_MODE.SCRIPT which block the gameplay evaluation.
 """
 
 from functools import partial
+
+from corax.core import EVENTS
+from corax.sequence import build_sequence_to_destination
 from corax.seeker import find_animated_set, find_player
+
 from corax.crackle.parser import (
     object_attribute, string_to_int_list, object_type, object_name)
 from corax.crackle.action import (
     has_subject, filter_action, split_with_subject, extract_reach_arguments,
     is_nolock_action)
-from corax.sequence import build_sequence_to_destination
 
 
 def create_job(line, theatre):
@@ -58,36 +61,35 @@ def create_job_with_subject(subject, function, arguments, theatre):
                 position = string_to_int_list(arguments)
                 return partial(job_move_camera, theatre, position)
     elif subject_type == "player":
-        if function == "play":
-            anim = arguments
-            return partial(
-                job_play_animation,
-                theatre,
-                subject_name,
-                anim,
-                type_=subject_type)
-        elif function == "show":
-            layer = arguments
-            return partial(job_switch_layer, theatre, subject_name, True, layer)
-        elif function == "hide":
-            return partial(job_switch_layer, theatre, subject_name, False, layer)
-        elif function == "move":
-            position = string_to_int_list(arguments)
-            return partial(job_move_player, theatre, subject_name, position)
-        elif function == "reach":
-            pos, animations = extract_reach_arguments(arguments)
-            return partial(job_reach, theatre, subject_name, pos, animations)
-        elif function == "set":
-            return partial(job_set_sheet, theatre, subject_name, arguments)
+        return create_player_job(theatre, subject_name, function, arguments)
     elif subject_type == "prop":
         if function == "play":
-            anim = arguments
-            return partial(
-                job_play_animation,
-                theatre,
-                subject_name,
-                anim,
-                type_=subject_type)
+            animation = arguments
+            prop = find_animated_set(theatre.scene, subject_name)
+            return partial(job_play_animation, prop, animation, type_="prop")
+
+
+def create_player_job(theatre, player_name, function, arguments):
+    player = find_player(theatre, player_name)
+    if function == "play":
+        anim = arguments
+        return partial(job_play_animation, player, anim, type_="player")
+    elif function == "show":
+        layer = arguments
+        return partial(job_switch_layer, player, True, layer)
+    elif function == "hide":
+        return partial(job_switch_layer, player, False, layer)
+    elif function == "move":
+        position = string_to_int_list(arguments)
+        return partial(job_move_player, player, position)
+    elif function == "reach":
+        pos, animations = extract_reach_arguments(arguments)
+        return partial(job_reach, player, pos, animations)
+    elif function == "aim":
+        direction, move = arguments.split(" by ")
+        return partial(job_aim, player, move, direction)
+    elif function == "set":
+        return partial(job_set_sheet, player, arguments)
 
 
 def nolock_job(job):
@@ -95,8 +97,7 @@ def nolock_job(job):
     return 0
 
 
-def job_switch_layer(theatre, player_name, state, layer):
-    player = find_player(theatre, player_name)
+def job_switch_layer(player, state, layer):
     player.set_layer_visible(layer, state)
     return 0
 
@@ -106,8 +107,7 @@ def job_freeze_theatre(theatre, value):
     return 1
 
 
-def job_set_sheet(theatre, player_name, sheet_name):
-    player = find_player(theatre, player_name)
+def job_set_sheet(player, sheet_name):
     player.set_sheet(sheet_name)
     return 0
 
@@ -145,18 +145,12 @@ def job_flush_animation(theatre, player_name):
     return 0
 
 
-def job_play_animation(
-        theatre, animable_object_name, animation_name, type_="player"):
-    if type_ == "player":
-        animable = find_player(theatre, animable_object_name)
-    elif type_ == "prop":
-        animable = find_animated_set(theatre.scene, animable_object_name)
+def job_play_animation(animable, animation_name, type_="player"):
     animable.animation_controller.set_move(animation_name)
     return animable.animation_controller.animation.length
 
 
-def job_move_player(theatre, player_name, block_position):
-    player = find_player(theatre, player_name)
+def job_move_player(player, block_position):
     player.coordinate.block_position = block_position
     return 0
 
@@ -166,11 +160,24 @@ def job_move_camera(theatre, pixel_position):
     return 0
 
 
-def job_reach(theatre, player_name, block_position, animations):
-    player = find_player(theatre, player_name)
+def job_reach(player, block_position, animations):
     sequence = player.reach(block_position, animations)
     data = player.animation_controller.data
     key = "frames_per_image"
     return sum(sum(data["moves"][move][key]) for move in sequence)
 
 
+def job_aim(player, move, direction):
+    data = player.animation_controller.data
+    event = (
+        data["moves"][move]["post_events"].get(EVENTS.FLIP) or
+        data["moves"][move]["pre_events"].get(EVENTS.FLIP))
+
+    if not event:
+        msg = f"{move} has no flip event, can't be used for aim function"
+        raise ValueError(msg)
+    if (direction == "LEFT") == player.coordinate.flip:
+        return 0
+
+    player.animation_controller.set_move(move)
+    return player.animation_controller.animation.length
