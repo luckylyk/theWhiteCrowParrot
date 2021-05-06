@@ -19,7 +19,7 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 11,
-                    "triggers":  null
+                    "triggers": [[0, "chest_close"]]
                 },
             "closed": {
                     "center": [0, 0],
@@ -147,7 +147,7 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 4,
-                    "triggers":  null
+                    "triggers": [[0, "chest_open"]]
                 }
         }
 }

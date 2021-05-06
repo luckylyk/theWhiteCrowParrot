@@ -40,7 +40,7 @@
           "name": "keyword.mysample"
         },
         {
-          "match": "(\\bscript\\b|\\balways\\b|\\bonce\\b|\\bnolock\\b|\\bfreeze\\b|\\wait\\b)",
+          "match": "(\\bscript\\b|\\balways\\b|\\bonce\\b|\\bnolock\\b|\\brestart\\b|\\bfreeze\\b|\\wait\\b)",
           "name": "support.type.mysample"
         },
         {

@@ -156,7 +156,7 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 146,
-                    "triggers":  null
+                    "triggers":  [[0, "chest_breaks"]]
                 },
             "push_succes": {
                     "center": [0, 0],

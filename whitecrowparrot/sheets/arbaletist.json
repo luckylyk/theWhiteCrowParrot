@@ -83,7 +83,7 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 5,
-                    "triggers":  null
+                    "triggers":  [[5, "shoot_arrow"]]
                 }
         }
 }

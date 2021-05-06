@@ -14,6 +14,76 @@
             "falloff":  null,
             "listener": "whitecrow",
             "zone":  null
+        },
+        {
+            "name": "chest_squeak_open",
+            "type": "sfx_sound",
+            "channel": 5,
+            "emitter": "chest",
+            "falloff": 0,
+            "file": "effects/chest_squeak_open.ogg",
+            "trigger": "chest_open",
+            "zone": [0, 0, 2000, 2000]
+        },
+        {
+            "name": "chest_breaks",
+            "type": "sfx_sound",
+            "channel": 5,
+            "emitter": "whitecrow",
+            "falloff": 0,
+            "file": "effects/chest_breaks.ogg",
+            "trigger": "chest_breaks",
+            "zone": [0, 0, 2000, 2000]
+        },
+        {
+            "name": "chest_squeak_close",
+            "type": "sfx_sound",
+            "channel": 5,
+            "emitter": "chest",
+            "falloff": 0,
+            "file": "effects/chest_squeak_close.ogg",
+            "trigger": "chest_close",
+            "zone": [0, 0, 2000, 2000]
+        },
+        {
+            "name": "sword_whoosh",
+            "type": "sfx_sound",
+            "channel": 5,
+            "emitter": "whitecrow",
+            "falloff": 150,
+            "file": "effects/whoosh.wav",
+            "trigger": "whoosh_whitecrow",
+            "zone": [-150, -150, 1580, 420]
+        },
+        {
+            "name": "sword_whish",
+            "type": "sfx_sound",
+            "channel": 5,
+            "emitter": "whitecrow",
+            "falloff": 150,
+            "file": "effects/whish.wav",
+            "trigger": "whish_whitecrow",
+            "zone": [-150, -150, 1580, 420]
+        },
+        {
+            "name": "swordin",
+            "type": "sfx_sound",
+            "channel": 5,
+            "emitter": "whitecrow",
+            "falloff": 150,
+            "file": "effects/swordin.ogg",
+            "trigger": "swordin_whitecrow",
+            "zone": [-150, -150, 1580, 420]
+        },
+        {
+            "name": "run_skid",
+            "type": "sfx_sound",
+            "channel": 5,
+            "emitter": "whitecrow",
+            "falloff": 150,
+            "file": "effects/skid.ogg",
+            "trigger": "run_skid",
+            "zone": [-150, -150, 4000, 420]
         }
     ],
     "zones": [
@@ -105,7 +175,7 @@
             "name": "tente/hatch",
             "type": "set_static",
             "file": "tente/hatch.png",
-            "position": [400, 235],
+            "position": [395, 235],
             "deph": 0.0
         },
         {

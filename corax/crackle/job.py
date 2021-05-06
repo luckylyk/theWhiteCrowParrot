@@ -10,7 +10,7 @@ to RUN_MODE.SCRIPT which block the gameplay evaluation.
 
 from functools import partial
 
-from corax.core import EVENTS
+from corax.core import EVENTS, RUN_MODE
 from corax.sequence import build_sequence_to_destination
 from corax.seeker import find_animated_set, find_player
 
@@ -26,24 +26,30 @@ def create_job(line, theatre):
     if nolock:
         line = " ".join(line.split(" ")[1:])
     if not has_subject(line):
-        function = filter_action(line)
-        if function == "run":
-            result = partial(job_run_script, theatre, line.split(" ")[-1])
-        elif function == "force":
-            result = partial(job_force_script, theatre, line.split(" ")[-1])
-        elif function == "wait":
-            result = lambda: int(line.split(" ")[-1])
-        elif function == "freeze":
-            result = partial(job_freeze_theatre, theatre, int(int(line.split(" ")[-1])))
-        elif function == "flush":
-            player_name = object_name(line.split(" ")[-1])
-            result = partial(job_flush_animation, theatre, player_name)
+        result = create_job_without_subject(line, theatre)
     else:
         subject, function, arguments = split_with_subject(line)
         result = create_job_with_subject(subject, function, arguments, theatre)
     if not nolock:
         return result
     return partial(nolock_job, result)
+
+
+def create_job_without_subject(line, theatre):
+    function = filter_action(line)
+    if function == "run":
+        return partial(job_run_script, theatre, line.split(" ")[-1])
+    elif function == "force":
+        return partial(job_force_script, theatre, line.split(" ")[-1])
+    elif function == "wait":
+        return lambda: int(line.split(" ")[-1])
+    elif function == "freeze":
+        return partial(job_freeze_theatre, theatre, int(int(line.split(" ")[-1])))
+    elif function == "flush":
+        player_name = object_name(line.split(" ")[-1])
+        return partial(job_flush_animation, theatre, player_name)
+    elif function == "restart":
+        return partial(job_restart, theatre)
 
 
 def create_job_with_subject(subject, function, arguments, theatre):
@@ -94,6 +100,11 @@ def create_player_job(theatre, player_name, function, arguments):
 
 def nolock_job(job):
     job()
+    return 0
+
+
+def job_restart(theatre):
+    theatre.run_mode = RUN_MODE.RESTART
     return 0
 
 

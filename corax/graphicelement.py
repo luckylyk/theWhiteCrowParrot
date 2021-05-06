@@ -50,6 +50,10 @@ class SetAnimatedElement():
     def pixel_position(self):
         return self.coordinate.pixel_position
 
+    @property
+    def trigger(self):
+        return self.animation_controller.trigger
+
     def evaluate(self):
         self.animation_controller.evaluate()
 

@@ -216,7 +216,7 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 64,
-                    "triggers":  null
+                    "triggers": [[0, "step_whitecrow"]]
                 },
             "run_b": {
                     "center": [70, 155],
@@ -277,7 +277,7 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 119,
-                    "triggers":  null
+                    "triggers": [[0, "run_skid"]]
                 },
             "run_start": {
                     "center": [70, 155],

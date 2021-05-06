@@ -6,6 +6,7 @@ class RUN_MODE():
     SCRIPT = "script"
     NORMAL = "normal"
     PAUSE = "pause"
+    RESTART = "restart"
 
 
 class EVENTS():

@@ -74,6 +74,7 @@ class Theatre:
         self.caption = data["caption"]
         self.globals = data["globals"]
         self.scene = None
+        self.loaded_scenes = {}
         self.input_buffer = InputBuffer()
         self.audio_streamer = AudioStreamer()
         self.players = load_players()
@@ -86,6 +87,10 @@ class Theatre:
         self.run_mode = RUN_MODE.NORMAL
         self.script_iterator = None
 
+    def get_scene(self, scene_name, scene_data):
+        return self.loaded_scenes.get(scene_name) or self.loaded_scenes.setdefault(
+            scene_name, build_scene(scene_name, scene_data, self))
+
     def set_scene(self, scene_name):
         # Currently, the engine rebuild each scene from scratch each it is set.
         # This is not a really efficient way but it spares high memory usage.
@@ -94,7 +99,7 @@ class Theatre:
         # parallel thread and keep in memory as long as the game is suceptible
         # to request it. Let's see if it is possible !
         scene_data = load_scene_data(self.data, scene_name, self)
-        self.scene = build_scene(scene_name, scene_data, self)
+        self.scene = self.get_scene(scene_name, scene_data)
         self.scene.scrolling.target = self.scrolling_target
         self.script_names_by_zone = {z: z.script_names for z in self.scene.zones}
         script_names = [n for z in self.scene.zones for n in z.script_names]
@@ -132,8 +137,9 @@ class Theatre:
         if self.freeze:
             return
         self.scene.evaluate()
+        triggerable = self.players + self.scene.animated_sets
         self.audio_streamer.evaluate()
-        self.audio_streamer.shoot([p.trigger for p in self.players])
+        self.audio_streamer.shoot([t.trigger for t in triggerable])
         self.scene.render(screen)
         self.scene.scrolling.evaluate()
 
@@ -142,6 +148,8 @@ class Theatre:
             next(self.script_iterator)
         except StopIteration:
             # The script is finished then go back to normal mode.
+            if self.run_mode == RUN_MODE.RESTART:
+                return
             self.run_mode = RUN_MODE.NORMAL
             self.script_iterator = None
             self.evaluate_normal_mode(joystick, screen)

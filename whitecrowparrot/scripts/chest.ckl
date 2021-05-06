@@ -57,6 +57,8 @@ script push_and_die
         nolock prop.armor play nudged
         wait 1
         prop.flail play fall
+        wait 100
+        restart
 
 
 script succes_to_push
@@ -144,7 +146,19 @@ script unlock_high
     player.whitecrow.animation is high_hit_shoot
     theatre.globals.chest_locked is true
         nolock prop.chest_locker play explode
-        freeze 5
+        wait 1
+        freeze 3
+        theatre.globals.chest_locked set false
+
+
+script unlock_crouch
+    player.whitecrow.flip is false
+    player.whitecrow.sheet is sword
+    player.whitecrow.animation is crouch_hit_shoot
+    theatre.globals.chest_locked is true
+        nolock prop.chest_locker play explode
+        wait 1
+        freeze 3
         theatre.globals.chest_locked set false
 
 

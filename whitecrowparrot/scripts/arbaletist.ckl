@@ -37,6 +37,8 @@ script shoot_1
         wait 7
         player.whitecrow.sheet set death
         player.whitecrow play death_by_arrow_back_sword
+        wait 30
+        restart
 
 
 script shoot_2
@@ -46,6 +48,8 @@ script shoot_2
         wait 7
         player.whitecrow.sheet set death
         player.whitecrow play death_by_arrow_front_sword
+        wait 30
+        restart
 
 
 script shoot_3
@@ -55,6 +59,8 @@ script shoot_3
         wait 7
         player.whitecrow.sheet set death
         player.whitecrow play death_by_arrow_back
+        wait 30
+        restart
 
 
 script shoot_4
@@ -64,3 +70,5 @@ script shoot_4
         wait 7
         player.whitecrow.sheet set death
         player.whitecrow play death_by_arrow_front
+        wait 30
+        restart

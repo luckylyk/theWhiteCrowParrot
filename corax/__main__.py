@@ -113,6 +113,7 @@ if "--debug" in sys.argv or "-d" in sys.argv:
 
 
 import corax.context as cctx
+from corax.core import RUN_MODE
 from corax.theatre import Theatre
 from corax.pygameutils import render_centered_text, escape_in_events
 
@@ -149,6 +150,9 @@ joystick = pygame.joystick.Joystick(0)
 # game loop
 done = False
 while not done:
+    if theatre.run_mode == RUN_MODE.RESTART:
+        theatre.audio_streamer.stop()
+        theatre = Theatre(game_data)
     joystick.init()
     events = pygame.event.get()
     done = joystick.get_button(7) == 1 or escape_in_events(events)

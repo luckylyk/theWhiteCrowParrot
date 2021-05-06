@@ -42,7 +42,18 @@
             "files": ["effects/grass_step_01.ogg", "effects/grass_step_02.ogg", "effects/grass_step_03.ogg", "effects/grass_step_04.ogg", "effects/grass_step_05.ogg", "effects/grass_step_06.ogg", "effects/grass_step_07.ogg"],
             "order": "shuffle",
             "trigger": "step_whitecrow",
-            "zone": [-150, -150, 1580, 420]
+            "zone": [-150, -150, 4500, 420]
+        },
+        {
+            "name": "gravel_step",
+            "type": "sfx_sound_collection",
+            "channel": 4,
+            "emitter": "whitecrow",
+            "falloff": 150,
+            "files": ["effects/gravel_step_01.ogg", "effects/gravel_step_02.ogg", "effects/gravel_step_03.ogg"],
+            "order": "shuffle",
+            "trigger": "step_whitecrow",
+            "zone": [-150, -150, 4500, 420]
         },
         {
             "name": "sword_whoosh",
@@ -53,6 +64,16 @@
             "file": "effects/whoosh.wav",
             "trigger": "whoosh_whitecrow",
             "zone": [-150, -150, 1580, 420]
+        },
+        {
+            "name": "shoot_arrow",
+            "type": "sfx_sound",
+            "channel": 5,
+            "emitter": "arbaletist",
+            "falloff": 0,
+            "file": "effects/shoot_arrow.ogg",
+            "trigger": "shoot_arrow",
+            "zone": [3000, -150, 6000, 420]
         },
         {
             "name": "sword_whish",
@@ -73,6 +94,16 @@
             "file": "effects/swordin.ogg",
             "trigger": "swordin_whitecrow",
             "zone": [-150, -150, 1580, 420]
+        },
+        {
+            "name": "run_skid",
+            "type": "sfx_sound",
+            "channel": 5,
+            "emitter": "whitecrow",
+            "falloff": 150,
+            "file": "effects/skid.ogg",
+            "trigger": "run_skid",
+            "zone": [-150, -150, 4000, 420]
         }
     ],
     "zones": [
@@ -106,21 +137,21 @@
             "name": "collects_sword",
             "type": "interaction",
             "affect": ["whitecrow"],
-            "scripts": ["forest.collects_sword", "forest.collects_sword_leave_ready_right", "forest.collects_sword_leave_ready_left", "forest.collects_sword_get_ready"],
+            "scripts": ["collects_sword.collects_sword", "collects_sword.collects_sword_leave_ready_right", "collects_sword.collects_sword_leave_ready_left", "collects_sword.collects_sword_get_ready"],
             "zone": [354, 24, 356, 27]
         },
         {
             "name": "collects_sword_from_around",
             "type": "interaction",
             "affect": ["whitecrow"],
-            "scripts": ["forest.collects_sword_from_around"],
+            "scripts": ["collects_sword.collects_sword_from_around"],
             "zone": [356, 24, 368, 27]
         },
         {
             "name": "collects_sword_adjust",
             "type": "interaction",
             "affect": ["whitecrow"],
-            "scripts": ["forest.footsie_for_sword_collect"],
+            "scripts": ["collects_sword.footsie_for_sword_collect"],
             "zone": [352, 24, 354, 27]
         },
         {
@@ -400,7 +431,7 @@
             "name": "forest_01/mid_thin_trees_01",
             "type": "set_static",
             "file": "forest_01/mid_thin_trees_01.png",
-            "position": [3530, 97],
+            "position": [3510, 97],
             "deph": -0.14
         },
         {
@@ -414,14 +445,14 @@
             "name": "forest_01/mid_r_bg_tree_03",
             "type": "set_static",
             "file": "forest_01/mid_r_bg_tree_03.png",
-            "position": [3540, 134],
+            "position": [3510, 134],
             "deph": -0.1
         },
         {
             "name": "forest_01/mid_r_bg_tree_04",
             "type": "set_static",
             "file": "forest_01/mid_r_bg_tree_04.png",
-            "position": [3579, 83],
+            "position": [3470, 83],
             "deph": -0.1
         },
         {

@@ -38,6 +38,7 @@ script go_to_tente
         player.whitecrow aim RIGHT by return
         player.whitecrow play through_door
         theatre.scene set tente
+        player.whitecrow move (13, 8)
         player.whitecrow play walk_b
         player.whitecrow play walk_a
         player.whitecrow play walk_off
@@ -62,62 +63,3 @@ script rabbit_trigger
         theatre.globals.rabbit_triggered set true
         nolock prop.rabbit play goes_out
         nolock prop.door play opening
-
-
-///////////////////////////////////////////////////////////////////////////////
-//// -- COLLECTS SWORD -- /////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////
-
-
-script collects_sword_get_ready
-    player.whitecrow.sheet is exploration
-    player.whitecrow.animation is idle
-    prop.sword_holder.animation is attached
-    player.whitecrow.flip is false
-        player.whitecrow.sheet set collects_sword
-        player.whitecrow play get_ready
-
-
-script collects_sword_leave_ready_left
-    player.whitecrow.sheet is collects_sword
-    player.whitecrow.animation is is_ready
-    gamepad.keys.pressed has LEFT
-        player.whitecrow.sheet set exploration
-        player.whitecrow play return
-        player.whitecrow play walk_a
-
-
-script collects_sword_leave_ready_right
-    player.whitecrow.sheet is collects_sword
-    player.whitecrow.animation is is_ready
-    gamepad.keys.pressed has RIGHT
-        player.whitecrow.sheet set exploration
-        player.whitecrow.sheet play walk_a
-
-
-script collects_sword
-    gamepad.keys.pressed has X
-    player.whitecrow.sheet is collects_sword
-    player.whitecrow.animation is is_ready
-        theatre.globals.has_sword set true
-        nolock player.whitecrow play collects
-        player.whitecrow.layer show sword
-        prop.sword_holder play detached
-
-
-script footsie_for_sword_collect
-    prop.sword_holder.animation is attached
-    player.whitecrow.flip is false
-    player.whitecrow.animation is idle
-        player.whitecrow play footsie
-
-
-script collects_sword_from_around
-    gamepad.keys.pressed has X
-    prop.sword_holder.animation is attached
-    player.whitecrow.animation is idle
-        player.whitecrow reach (348, 10) by (return, walk_a, footsie)
-        player.whitecrow aim RIGHT by return
-        player.whitecrow.sheet set collects_sword
-        player.whitecrow play get_ready
-        force forest.collects_sword

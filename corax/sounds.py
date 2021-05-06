@@ -149,6 +149,10 @@ class AudioStreamer():
                     continue
                 sound.play()
 
+    def stop(self):
+        for sound in self.ambiances + self.sounds:
+            sound.stop()
+
     def evaluate(self):
         for ambiance in self.ambiances:
             ambiance.evaluate()
