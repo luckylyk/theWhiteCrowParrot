@@ -88,6 +88,7 @@ resolution, the name of the game and the list of the levels.
 
 import os
 import sys
+import copy
 
 try:
     sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
@@ -135,7 +136,7 @@ screen = pygame.display.set_mode(cctx.RESOLUTION, screen_mode_flags)
 
 # Theatre is the main controller class. It drive the story, build and load the
 # scenes.
-theatre = Theatre(game_data)
+theatre = Theatre(copy.deepcopy(game_data))
 pygame.display.set_caption(theatre.caption)
 
 text = "Connect game controller (X Input)"
@@ -152,7 +153,7 @@ done = False
 while not done:
     if theatre.run_mode == RUN_MODE.RESTART:
         theatre.audio_streamer.stop()
-        theatre = Theatre(game_data)
+        theatre = Theatre(copy.deepcopy(game_data))
     joystick.init()
     events = pygame.event.get()
     done = joystick.get_button(7) == 1 or escape_in_events(events)
