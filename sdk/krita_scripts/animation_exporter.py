@@ -3,7 +3,7 @@ import math
 from PyQt5 import QtGui, QtCore
 
 
-OUTPUT_PATH = r"D:\Works\code\GitHub\pygame_game\whitecrowparrot\animations/appearing.png"
+OUTPUT_PATH = r"D:\Works\code\GitHub\theWhiteCrowParrot\whitecrowparrot\animations/appearing.png"
 SRGB_PROFILE = "sRGB-elle-V2-srgbtrc.icc"
 
 

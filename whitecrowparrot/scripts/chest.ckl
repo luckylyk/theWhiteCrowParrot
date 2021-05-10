@@ -25,7 +25,7 @@ script get_ready
     gamepad.keys.pressed has RIGHT
     theatre.globals.chest_moved is false
     player.whitecrow.sheet is exploration
-    player.whitecrow.animation is idle
+    player.whitecrow.animation in (idle, walk_off)
         player.whitecrow set chest
         player.whitecrow play get_ready
 
