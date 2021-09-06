@@ -26,8 +26,7 @@
 |                                                                             |
 ===============================================================================
 
-To initialize the engine with game data, use in your terminal command that
-argument list:
+To initialize the engine with game data, use in your terminal comand syntax:
 python {$CoraxEngineRoot} {$GameDataRoot} [flags]
 flags available:
     --help       -h | Show the help. If that flag is set, the engine will not
@@ -89,16 +88,11 @@ resolution, the name of the game and the list of the levels.
 import os
 import sys
 import copy
+# exit() function is only built-in in interactive console. We need to import
+# it from sys for cx_Freeze's compiled version.
+from sys import exit
 
-try:
-    sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
-except NameError:
-    # This means the script is running under py2exe distribution.
-    # Add the corax path to the system becomes useless in order that
-    # py2exe is automatically adding the current folder to the distribution.
-    # By the way, we have to import exit from sys as far as it is in the global
-    # scope of an py2exe executable.
-    from sys import exit
+sys.path.append(os.path.join(os.path.dirname(__file__), ".."))
 
 
 if len(sys.argv) == 1:

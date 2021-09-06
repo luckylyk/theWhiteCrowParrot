@@ -7,10 +7,10 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
 
 from PyQt5 import QtCore, QtWidgets, QtGui
 import corax.context as cctx
-from corax.animation import build_images_list, build_centers_list
+from corax.animation import build_centers_list, build_images_list
 from pluck.paint import render_grid, render_image, PaintContext
 from pluck.slider import Slider
-from pluck.qtutils import sub_rects, spritesheet_to_images
+from pluck.qtutils import sub_rects, spritesheet_to_images, build_spritesheet_image
 from pluck.data import data_to_plain_text, data_sanity_check, DEFAULT_MOVE
 from pluck.highlighter import get_plaint_text_editor
 
@@ -18,8 +18,10 @@ from pluck.highlighter import get_plaint_text_editor
 class AnimationDataEditor(QtWidgets.QWidget):
     def __init__(self, data, parent=None):
         super().__init__(parent=parent)
-        path = os.path.join(cctx.ANIMATION_FOLDER, data["filename"])
-        image = QtGui.QImage(path)
+
+        filenames = [v for _, v in data["layers"].items()]
+        filenames = [os.path.join(cctx.ANIMATION_FOLDER, fn) for fn in filenames]
+        image = build_spritesheet_image(filenames)
 
         self.data = data
         self.move = None
@@ -45,7 +47,7 @@ class AnimationDataEditor(QtWidgets.QWidget):
         self.move_editor.textChanged.connect(self.data_edited)
 
         self.data_traceback = QtWidgets.QLabel()
-        self.images = spritesheet_to_images(path, data["frame_size"])
+        self.images = spritesheet_to_images(filenames, data["frame_size"])
         pc = PaintContext(data)
         pc.extra_zone = 0
 
@@ -267,7 +269,7 @@ class AnimationImageViewer(QtWidgets.QWidget):
             background_color,
             images,
             centers,
-            paintcontext=None,
+            paintcontext,
             parent=None):
         super().__init__(parent)
         self.paintcontext = paintcontext
@@ -344,7 +346,7 @@ class Options(QtWidgets.QWidget):
 
     def set_data(self, data):
         self.data = data
-        self.filename.setText(data["filename"])
+        self.filename.setText(", ".join(str(v) for v in data["layers"].values()))
         self.key_color.setText(", ".join(str(n) for n in data["key_color"]))
         self.frame_size.setText(", ".join(str(n) for n in data["frame_size"]))
         self.default_move.setText(data["default_move"])
@@ -393,8 +395,6 @@ class Options(QtWidgets.QWidget):
             self.data["key_color"] = key_color
             self.data["frame_size"] = frame_size
             self.data["default_move"] = default_move
-
-
 
 
 if __name__ == "__main__":

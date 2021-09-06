@@ -1,11 +1,22 @@
-from distutils.core import setup
-import py2exe
+# Command to build: python setup.py build
+
+import sys
+from cx_Freeze import setup, Executable
+
+
+build_exe_options = {
+    "excludes": [
+        "tkinter", "numpy", "scipy", "unittest", "urllib", "http", "html",
+        "unicodedata", "email", "pkg_resources", "xml", "pydoc_data",
+        "pyexpat", "ctypes"]}
 
 setup(
     name="Corax Engine",
     author="Lionel Brouyère",
     author_email="lionel.brouyere@gmail.com",
-    console=['corax/__main__.py'])
+    options = {"build_exe": build_exe_options},
+    executables=[Executable('corax/__main__.py')])
+
 
 import os
 import shutil
@@ -13,8 +24,8 @@ import shutil
 command = '"corax/corax.exe" data --fullscreen'
 current = os.path.dirname(__file__)
 desktop = os.path.expanduser("~/Desktop")
-src = os.path.join(current, "dist")
 gameroot = os.path.join(desktop, "whitecrowparrot")
+src = os.path.join(current, "build/exe.win32-3.7")
 dst = os.path.join(gameroot, "corax")
 
 os.makedirs(gameroot)

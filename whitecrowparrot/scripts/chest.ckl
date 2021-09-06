@@ -72,7 +72,14 @@ script succes_to_push
         nolock player.whitecrow play push_succes
         wait 4
         prop.chest play push_succes
+        wait 50
+        player.whitecrow play return
+        player.whitecrow play walk_a
+        player.whitecrow play walk_off
+        player.whitecrow play return
         wait 10
+        player.whitecrow play crouch_down
+
 
 
 script try_to_open

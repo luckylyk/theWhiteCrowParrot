@@ -7,7 +7,7 @@ from PyQt5 import QtGui, QtCore
 from corax.core import NODE_TYPES
 import corax.context as cctx
 from corax.iterators import itertable
-from pluck.data import SET_TYPES, GRAPHIC_TYPES, SOUND_TYPES, ZONE_TYPES
+from pluck.data import SOUND_TYPES, ZONE_TYPES
 
 
 HERE = os.path.dirname(os.path.realpath(__file__))
@@ -39,6 +39,10 @@ def get_icon(filename):
     return icons[filename]
 
 
+def key_color():
+    return QtGui.QColor(*cctx.KEY_COLOR).rgb()
+
+
 def get_image(element):
     if element is None:
         return
@@ -62,33 +66,44 @@ def get_image(element):
 
 
 def create_image(element):
-    format_ = QtGui.QImage.Format_ARGB32_Premultiplied
     if element["type"] == NODE_TYPES.SET_STATIC:
         path = os.path.join(cctx.SET_FOLDER, element["file"])
         image = QtGui.QImage(path)
-        image2 = QtGui.QImage(image.size(), format_)
-        w, h = image.size().width(), image.size().height()
+        size = image.size().width(), image.size().height()
+        return merge_images([image], size)
 
-    elif element["type"] == NODE_TYPES.SET_ANIMATED:
-        filepath = os.path.join(cctx.SHEET_FOLDER, element.get("sheetdata_file", element.get("file")))
-        with open(filepath, "r") as f:
-            movedata = json.load(f)
-        img_path = os.path.join(cctx.ANIMATION_FOLDER, movedata["filename"])
-        w, h = movedata["frame_size"]
-        image = QtGui.QImage(img_path)
-        image2 = QtGui.QImage(QtCore.QSize(w, h), format_)
+    elif element["type"] != NODE_TYPES.SET_ANIMATED:
+        raise ValueError(element["type"] + " is not supported")
+
+    folder = element.get("sheetdata_file", element.get("file"))
+    filepath = os.path.join(cctx.SHEET_FOLDER, folder)
+
+    with open(filepath, "r") as f:
+        movedata = json.load(f)
+
+    filenames = [v for _, v in movedata["layers"].items()]
+    paths = [os.path.join(cctx.ANIMATION_FOLDER, fn) for fn in filenames]
+    size = movedata["frame_size"]
+    images = [QtGui.QImage(path) for path in paths]
+    return merge_images(images, size)
+
+
+def merge_images(images, size):
     # horrible fucking awfull scandalous ressource killing loop used
     # because that basic "setAlphaChannel" method isn't available
     # in PyQt5 ): ): ): ): ): ): ):
-    color = QtGui.QColor(255, 0, 0, 0)
-    mask = image.createMaskFromColor(QtGui.QColor(*cctx.KEY_COLOR).rgb())
-    for i in range(w):
-        for j in range(h):
-            if mask.pixelColor(i, j) == QtGui.QColor(255, 255, 255, 255):
-                image2.setPixelColor(i, j, color)
-                continue
-            image2.setPixelColor(i, j, image.pixelColor(i, j))
-    return image2
+    format_ = QtGui.QImage.Format_ARGB32_Premultiplied
+    result = QtGui.QImage(images[0].size(), format_)
+    green = key_color()
+    transparent = QtGui.QColor(0, 0, 0, 0)
+    for i, j in itertable(*size):
+        if all(image.pixelColor(i, j).rgb() == green for image in images):
+            result.setPixelColor(i, j, transparent)
+            continue
+        for image in images:
+            if image.pixelColor(i, j) != green:
+                result.setPixelColor(i, j, image.pixelColor(i, j))
+    return result
 
 
 def get_spritesheet_image_from_index(filename, index):
@@ -99,9 +114,14 @@ def get_spritesheet_image_from_index(filename, index):
     return spritesheet_to_images(filename, data["frame_size"])[index]
 
 
-def spritesheet_to_images(filename, frame_size):
-    filename = os.path.join(cctx.ANIMATION_FOLDER, filename)
-    sheet = QtGui.QImage(filename)
+def build_spritesheet_image(filenames):
+    images = [QtGui.QImage(filename) for filename in filenames]
+    size = images[0].size().width(), images[0].size().height()
+    return merge_images(images, size)
+
+
+def spritesheet_to_images(filenames, frame_size):
+    sheet = build_spritesheet_image(filenames)
     width, height = frame_size
     row = sheet.height() / height
     col = sheet.width() / width
