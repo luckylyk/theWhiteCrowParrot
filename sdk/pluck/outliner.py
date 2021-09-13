@@ -76,23 +76,3 @@ class OutlinerTreeModel(QtCore.QAbstractItemModel):
             if node:
                 return node
         return self._root
-
-    # def insertRows(self, position, rows, parent=QtCore.QModelIndex()):
-    #     parent_node = self.getNode(parent)
-    #     self.beginInsertRows(parent, position, position + rows - 1)
-
-    #     for _ in range(rows):
-    #         childCount = parent_node.childCount()
-    #         childNode = Node("untitled" + str(childCount))
-    #         success = parent_node.insertChild(position, childNode)
-
-    #     self.endInsertRows()
-    #     return success
-
-    # def removeRows(self, position, rows, parent=QtCore.QModelIndex()):
-    #     parent_node = self.getNode(parent)
-    #     self.beginRemoveRows(parent, position, position + rows - 1)
-    #     for _ in range(rows):
-    #         success = parent_node.removeChild(position)
-    #     self.endRemoveRows()
-    #     return success

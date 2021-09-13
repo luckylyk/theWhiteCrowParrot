@@ -59,7 +59,7 @@ class AnimationController():
         self.set_move(data["default_move"])
 
     def unhold(self, unholdable):
-        if self.animation.hold is False:
+        if not self.animation or self.animation.hold is False:
             return
         self.animation.hold = self.animation.name not in unholdable
 
@@ -74,6 +74,8 @@ class AnimationController():
         Note that the buffer is parsed when the current animation is ended, not
         when it is unlocked.
         """
+        if not self.animation:
+            return
         for move in moves:
             conditions = (
                 not self.animation.is_lock() and
@@ -96,6 +98,8 @@ class AnimationController():
         Check is the proposed animation or the sequence will cross a zone given
         in his internal attribute: self.zones
         """
+        if not self.animation:
+            return False
         block_position = self.coordinate.block_position
         block_offset = self.animation.post_events.get(EVENTS.BLOCK_OFFSET)
         flip_event = self.animation.post_events.get(EVENTS.FLIP)
@@ -169,6 +173,9 @@ class AnimationController():
         algorithme is looking in the buffer to find a valid sequence. If
         nothing is found, it does set the default animation next move.
         """
+        if not self.animation:
+            return
+
         if self.sequence:
             self.set_move(self.sequence.pop(0))
             # Loop animation sequences rely on hold attribute, force unhold
@@ -194,6 +201,9 @@ class AnimationController():
         self.set_move(next_move)
 
     def evaluate(self):
+        if not self.animation:
+            return
+
         anim = self.animation
         if anim.is_finished() and anim.hold is False:
             self.set_next_move()
@@ -210,9 +220,11 @@ class AnimationController():
 
     @property
     def trigger(self):
-        return self.animation.trigger
+        if self.animation:
+            return self.animation.trigger
 
     @property
     def images(self):
-        return self.animation.images
+        if self.animation:
+            return self.animation.images
 

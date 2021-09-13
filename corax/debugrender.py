@@ -6,6 +6,7 @@ from corax.pygameutils import render_rect, render_text
 
 
 def render_player_debug(player, deph, screen, camera):
+    # Render coordinates infos on onverlay
     size = player.animation_controller.data["frame_size"]
     center = player.animation_controller.animation.pixel_center
     position = sum_num_arrays(center, player.pixel_position)
@@ -30,3 +31,14 @@ def render_player_debug(player, deph, screen, camera):
     render_text(screen, (155, 255, 0), 0, 45, text)
     text = f"    (global pixel center: {wpcenter}"
     render_text(screen, (155, 255, 0), 0, 60, text)
+
+    # Render hitboxes
+    for name, blocks in player.hitboxes.items():
+        color = player.hitbox_colors.get(name)
+        if not color:
+            continue
+        for block in blocks:
+            block = sum_num_arrays(block, player.coordinate.block_position)
+            position = to_pixel_position(block)
+            x, y = camera.relative_pixel_position(position, deph)
+            render_rect(screen, color, x, y, size, size, 50)

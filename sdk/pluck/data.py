@@ -27,7 +27,8 @@ DEFAULT_MOVE = {
     "conditions": {},
     "inputs": [],
     "pre_events": {},
-    "post_events": {}}
+    "post_events": {},
+    "hitboxes": None}
 
 DATA_TEMPLATES = {
     "spritesheet": {

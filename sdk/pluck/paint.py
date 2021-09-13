@@ -1,3 +1,4 @@
+from corax.coordinate import to_pixel_position
 import os
 from functools import partial
 
@@ -10,7 +11,7 @@ from pluck.data import GRAPHIC_TYPES, SOUND_TYPES, ZONE_TYPES
 
 
 class PaintContext():
-    def __init__(self, scene_data):
+    def __init__(self):
         self.zoom = 1
         self._extra_zone = 200
         self.grid_color = "grey"
@@ -245,8 +246,22 @@ def render_grid(painter, rect, block_size, paintcontext=None):
     while y < b:
         painter.drawLine(l, y, r, y)
         y += block_size
-
+    painter.setBrush(QtGui.QBrush(QtGui.QColor(0, 0, 0, 0)))
     pen = QtGui.QPen(QtGui.QColor(paintcontext.grid_border_color))
     pen.setWidth(2)
     painter.setPen(pen)
     painter.drawRect(rect)
+
+
+def render_hitbox(painter, hitbox, color, paintcontext):
+    color = QtGui.QColor(*color)
+    color.setAlphaF(0.25)
+    painter.setBrush(QtGui.QBrush(color))
+    painter.setPen(QtGui.QPen(QtGui.QColor(0, 0, 0, 0)))
+    for block in hitbox:
+        x, y = paintcontext.offset(*to_pixel_position(block))
+        x = paintcontext.relatives(x)
+        y = paintcontext.relatives(y)
+        size = paintcontext.relatives(cctx.BLOCK_SIZE)
+        rect = QtCore.QRectF(x, y, size, size)
+        painter.drawRect(rect)

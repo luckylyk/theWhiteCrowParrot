@@ -117,6 +117,14 @@ class Player():
         return self.animation_controller.animation
 
     @property
+    def hitboxes(self):
+        return self.animation.hitboxes
+
+    @property
+    def hitbox_colors(self):
+        return self.data["hitboxes_color"]
+
+    @property
     def pixel_position(self):
         return self.coordinate.pixel_position
 
@@ -144,6 +152,9 @@ def build_player_animation_controller(data, coordinate):
 
 
 def load_players():
+    """
+    Load player found from the game player folder.
+    """
     player_files = os.listdir(cctx.PLAYER_FOLDER)
     filenames = [os.path.join(cctx.PLAYER_FOLDER, f) for f in player_files]
     players = []

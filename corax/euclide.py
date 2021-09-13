@@ -4,7 +4,7 @@ trigonometry and shape collisions.
 """
 
 import math
-from corax.mathutils import normalize, linear_ratio
+from corax.mathutils import normalize, linear_ratio, sum_num_arrays
 
 
 def angle_to_vector(angle):
@@ -81,6 +81,22 @@ def collision_rect_rect(r1, r2):
     return (
         any(r1.contains(c) for c in r2.corners) or
         any(r2.contains(c) for c in r1.corners))
+
+
+def collision_hitbox_hitbox(hitbox1, hitbox2):
+    """
+    Hitbox is a list of block coordinates: [(0, 5), (1, 5), (2, 5)]
+    If in the two given hitboxes, two blocks are similare, then it collide.
+    """
+    for block1 in hitbox1:
+        for block2 in hitbox2:
+            if block1[0] == block2[0] and block1[1] == block2[1]:
+                return True
+    return False
+
+
+def offset_hitbox(hitbox, offset):
+    return [sum_num_arrays(block, offset) for block in hitbox]
 
 
 class Rect():

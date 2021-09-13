@@ -6,7 +6,8 @@ images are multiple animations. The sprites sheet data are a json containing
 all frame informations necessary to create an animation object.
 """
 import json
-from corax.coordinate import map_pixel_position
+from typing import Sequence
+from corax.coordinate import map_pixel_position, to_block_position
 from corax.mathutils import sum_num_arrays
 from corax.pygameutils import load_images, image_mirror
 
@@ -32,6 +33,7 @@ class Animation():
             "conditions": dict,
             "pre_events": dict,
             "post_events": dict
+            "hitboxes": {str: [[(int, int), ...], [(int, int), ...], ...]}
         }
     this is the dictionnary key purpose:
     - start_frame: the first frame in the sprite sheet (unused by Animation())
@@ -69,6 +71,7 @@ class Animation():
         self.next_move = data["next_move"]
         self.loop_on = data["loop_on"]
         self.repeatable = data["loop_on"] is not None
+        self.hitboxes_sequence = build_hitboxes_sequence(data, size, flip)
         self.triggers = build_triggers_list(data)
 
     @property
@@ -108,6 +111,12 @@ class Animation():
         if self.index < 0:
             return None
         return [images[self.index] for images in self.sequences]
+
+    @property
+    def hitboxes(self):
+        if self.index < 0 or self.hitboxes_sequence is None:
+            return None
+        return {k: v[self.index] for k, v in self.hitboxes_sequence.items()}
 
 
 class SpriteSheet():
@@ -201,7 +210,7 @@ def build_sequence(data, images):
 
 def build_centers_list(data, size, flip):
     """
-    build a list of (int, int) pixel positions indicating the center of each
+    Build a list of (int, int) pixel positions indicating the center of each
     frame.
     """
     default_center = data["center"]
@@ -218,3 +227,25 @@ def build_centers_list(data, size, flip):
         for _ in range(d):
             centers.append(center)
     return centers
+
+
+def build_hitboxes_sequence(data, size, flip):
+    """
+    Build a list of hitbocks corresponding to the frame data and flipped if
+    necessary."""
+    size = to_block_position(size)
+    return {
+        name: [
+            [map_pixel_position(block, size, flip) for block in hitbox[i]]
+            for i, d in enumerate(data["frames_per_image"])
+            for _ in range(d)]
+        for name, hitbox in data.get("hitboxes", {}).items()}
+
+
+def map_frame_index(index, data):
+    loop = 0
+    for i, d in enumerate(data["frames_per_image"]):
+        for _ in range(d):
+            if index == loop:
+                return i
+            loop += 1

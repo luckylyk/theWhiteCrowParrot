@@ -35,7 +35,7 @@ class SceneEditor(QtWidgets.QWidget):
     def __init__(self, scene_data, gamecontext, parent=None):
         super().__init__(parent=parent)
         self.tree = create_scene_outliner_tree(scene_data)
-        self.paintcontext = PaintContext(scene_data)
+        self.paintcontext = PaintContext()
         self.gamecontext = gamecontext
 
         self.scenewidget = SceneWidget(self.tree, gamecontext, self.paintcontext)

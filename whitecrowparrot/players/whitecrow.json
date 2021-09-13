@@ -15,5 +15,9 @@
     },
     "variables": {
         "has_sword": false
+    },
+    "hitboxes_color": {
+        "leggs": [255, 50, 75],
+        "torso": [50, 75, 255]
     }
 }
