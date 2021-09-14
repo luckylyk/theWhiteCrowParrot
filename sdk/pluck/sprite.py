@@ -73,6 +73,7 @@ class AnimationDataEditor(QtWidgets.QWidget):
         self.hitbox_reader.hitboxRemoved.connect(self.delete_hitbox)
         self.hitbox_reader.blockErased.connect(self.erase_block)
         self.hitbox_reader.blockPainted.connect(self.paint_block)
+        self.hitbox_reader.clearHitbox.connect(self.clear_hitbox)
 
         self.result, self.result_highliter = get_plaint_text_editor("json")
         self.result.setReadOnly(True)
@@ -148,6 +149,17 @@ class AnimationDataEditor(QtWidgets.QWidget):
         self.move_editor.setPlainText(data_to_plain_text(move_data))
         self.change_move()
 
+    def clear_hitbox(self, name):
+        move_data = self.data["moves"][self.move]
+        if self.hitbox_reader.edit_current_frame():
+            index = map_frame_index(self.hitbox_reader.slider.value, move_data)
+            hitbox = move_data["hitboxes"][name][index]
+            hitbox.clear()
+        else:
+            for hitbox in move_data["hitboxes"][name]:
+                hitbox.clear()
+        self.update_hitboxes()
+
     def delete_hitbox(self, name):
         move_data = self.data["moves"][self.move]
         del move_data["hitboxes"][name]
@@ -157,22 +169,32 @@ class AnimationDataEditor(QtWidgets.QWidget):
 
     def paint_block(self, name, x, y):
         move_data = self.data["moves"][self.move]
-        index = map_frame_index(self.hitbox_reader.slider.value, move_data)
-        hitbox = move_data["hitboxes"][name][index]
-        # Skip if block already in the hitbox
-        for block in hitbox:
-            if block[0] == x and block[1] == y:
-                return
-        hitbox.append([x, y])
+        if self.hitbox_reader.edit_current_frame():
+            index = map_frame_index(self.hitbox_reader.slider.value, move_data)
+            hitboxes = [move_data["hitboxes"][name][index]]
+        else:
+            hitboxes = move_data["hitboxes"][name]
+
+        for hitbox in hitboxes:
+            # Skip if block already in the hitbox
+            for block in hitbox:
+                if block[0] == x and block[1] == y:
+                    return
+            hitbox.append([x, y])
         self.update_hitboxes()
 
     def erase_block(self, name, x, y):
         move_data = self.data["moves"][self.move]
-        index = map_frame_index(self.hitbox_reader.slider.value, move_data)
-        hitbox = move_data["hitboxes"][name][index]
-        for block in hitbox:
-            if block[0] == x and block[1] == y:
-                hitbox.remove(block)
+        if self.hitbox_reader.edit_current_frame():
+            index = map_frame_index(self.hitbox_reader.slider.value, move_data)
+            hitboxes = [move_data["hitboxes"][name][index]]
+        else:
+            hitboxes = move_data["hitboxes"][name]
+
+        for hitbox in hitboxes:
+            for block in hitbox:
+                if block[0] == x and block[1] == y:
+                    hitbox.remove(block)
         self.update_hitboxes()
 
     def update_hitboxes(self):
@@ -286,6 +308,7 @@ class HitboxReader(QtWidgets.QWidget):
     hitboxRemoved = QtCore.pyqtSignal(str)
     blockPainted = QtCore.pyqtSignal(str, int, int)
     blockErased = QtCore.pyqtSignal(str, int, int)
+    clearHitbox = QtCore.pyqtSignal(str)
 
     def __init__(
             self,
@@ -303,6 +326,7 @@ class HitboxReader(QtWidgets.QWidget):
         self.toolbar.hitboxCreated.connect(self.hitboxCreated.emit)
         self.toolbar.hitboxRemoved.connect(self.hitboxRemoved.emit)
         self.toolbar.hitboxChanged.connect(self.change_hitbox)
+        self.toolbar.clearHitbox.connect(self.clearHitbox.emit)
 
         hitboxes = hitboxes[list(hitboxes.keys())[0]] if hitboxes.keys() else []
         self.animation_image_viewer = AnimationImageViewer(
@@ -355,6 +379,9 @@ class HitboxReader(QtWidgets.QWidget):
             if not name:
                 return
             self.blockErased.emit(name, x, y)
+
+    def edit_current_frame(self):
+        return self.toolbar.edit_current_frame()
 
     def change_hitbox(self, name):
         if not name or name not in self.hitboxes:
@@ -462,6 +489,7 @@ class HitboxToolbar(QtWidgets.QToolBar):
     hitboxCreated = QtCore.pyqtSignal(str)
     hitboxRemoved = QtCore.pyqtSignal(str)
     hitboxChanged = QtCore.pyqtSignal(str)
+    clearHitbox = QtCore.pyqtSignal(str)
 
     def __init__(self, hitbox_names, parent=None):
         super().__init__(parent)
@@ -472,11 +500,22 @@ class HitboxToolbar(QtWidgets.QToolBar):
         self.brush.setCheckable(True)
         self.erase = QtWidgets.QAction(get_icon("eraser.png"), "", self)
         self.erase.setCheckable(True)
+        self.clear = QtWidgets.QAction(get_icon("clear.png"), "", self)
+        self.clear.triggered.connect(self.clear_requested)
 
         self.actions = QtWidgets.QActionGroup(self)
         self.actions.addAction(self.pointer)
         self.actions.addAction(self.brush)
         self.actions.addAction(self.erase)
+
+        self.unique = QtWidgets.QAction(get_icon("frame.png"), "", self)
+        self.unique.setCheckable(True)
+        self.unique.setChecked(True)
+        self.frames = QtWidgets.QAction(get_icon("frames.png"), "", self)
+        self.frames.setCheckable(True)
+        self.actions2 = QtWidgets.QActionGroup(self)
+        self.actions2.addAction(self.unique)
+        self.actions2.addAction(self.frames)
 
         self.hitbox_names = QtWidgets.QComboBox()
         self.hitbox_names.addItems(hitbox_names)
@@ -490,6 +529,10 @@ class HitboxToolbar(QtWidgets.QToolBar):
         self.addAction(self.pointer)
         self.addAction(self.brush)
         self.addAction(self.erase)
+        self.addAction(self.clear)
+        self.addSeparator()
+        self.addAction(self.unique)
+        self.addAction(self.frames)
         self.addSeparator()
         self.addWidget(self.hitbox_names)
         self.addAction(self.add)
@@ -510,6 +553,12 @@ class HitboxToolbar(QtWidgets.QToolBar):
         elif self.brush.isChecked():
             return "paint"
         return "erase"
+
+    def edit_current_frame(self):
+        return self.unique.isChecked()
+
+    def clear_requested(self):
+        self.clearHitbox.emit(self.hitbox_names.currentText())
 
     def add_requested(self):
         message = "Enter a hitbox name"
