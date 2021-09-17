@@ -19,6 +19,8 @@ from pluck.highlighter import get_plaint_text_editor
 
 
 class AnimationDataEditor(QtWidgets.QWidget):
+    modified = QtCore.pyqtSignal()
+
     def __init__(self, data, parent=None):
         super().__init__(parent=parent)
 
@@ -26,6 +28,8 @@ class AnimationDataEditor(QtWidgets.QWidget):
         filenames = [os.path.join(cctx.ANIMATION_FOLDER, fn) for fn in filenames]
         image = build_spritesheet_image(filenames)
 
+        self.is_modified = False
+        self.block_modified_signal = False
         self.data = data
         self.move = None
         self.options = Options()
@@ -78,6 +82,7 @@ class AnimationDataEditor(QtWidgets.QWidget):
         self.result, self.result_highliter = get_plaint_text_editor("json")
         self.result.setReadOnly(True)
         self.result.setPlainText(data_to_plain_text(data))
+        self.result.document().contentsChanged.connect(self.contents_changed)
 
         self.move_options = QtWidgets.QWidget()
         self.move_options_layout = QtWidgets.QVBoxLayout(self.move_options)
@@ -119,7 +124,9 @@ class AnimationDataEditor(QtWidgets.QWidget):
         hitboxes = build_hitboxes_sequence(move_data, size, flip=False)
         self.hitbox_reader.set_data(images, centers, hitboxes)
         self.spritesheet_view.hightlight_move(self.move)
+        self.block_modified_signal = True
         self.move_editor.setPlainText(data_to_plain_text(move_data))
+        self.block_modified_signal = False
 
     def reordered(self, event):
         QtWidgets.QListWidget.dropEvent(self.move_selector, event)
@@ -247,6 +254,18 @@ class AnimationDataEditor(QtWidgets.QWidget):
         self.spritesheet_view.hightlight_move(self.move)
         self.result.setPlainText(data_to_plain_text(self.data))
 
+    def contents_changed(self):
+        if self.is_modified or self.block_modified_signal is True:
+            return
+        self.is_modified = True
+        self.modified.emit()
+
+    def save(self, filename):
+        if not self.is_modified:
+            return
+        with open(filename, "w") as f:
+            f.write(str(self.result.toPlainText()))
+        self.is_modified = False
 
 class SpriteSheetView(QtWidgets.QWidget):
     def __init__(self, image, data, paintcontext, parent=None):

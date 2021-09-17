@@ -6,8 +6,7 @@ images are multiple animations. The sprites sheet data are a json containing
 all frame informations necessary to create an animation object.
 """
 import json
-from typing import Sequence
-from corax.coordinate import map_pixel_position, to_block_position
+from corax.coordinate import map_pixel_position, to_block_size
 from corax.mathutils import sum_num_arrays
 from corax.pygameutils import load_images, image_mirror
 
@@ -233,7 +232,7 @@ def build_hitboxes_sequence(data, size, flip):
     """
     Build a list of hitbocks corresponding to the frame data and flipped if
     necessary."""
-    size = to_block_position(size)
+    size = to_block_size(size)
     return {
         name: [
             [map_pixel_position(block, size, flip) for block in hitbox[i]]

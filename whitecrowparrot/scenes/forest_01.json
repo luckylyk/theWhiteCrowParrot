@@ -4,7 +4,7 @@
     "background_color": [100, 195, 255],
     "boundary": [0, 0, 4640, 268],
     "soft_boundaries": [[0, 0, 1551, 268], [1551, 0, 3000, 268], [3001, 0, 3800, 268], [3801, 0, 4640, 268]],
-    "target_offset": [200, 0],
+    "target_offset": [190, 0],
     "sounds": [
         {
             "name": "ambiance_nature_outisde",
@@ -58,50 +58,50 @@
         {
             "name": "sword_whoosh",
             "type": "sfx_sound",
+            "file": "effects/whoosh.wav",
             "channel": 5,
             "emitter": "whitecrow",
             "falloff": 150,
-            "file": "effects/whoosh.wav",
             "trigger": "whoosh_whitecrow",
             "zone": [-150, -150, 1580, 420]
         },
         {
             "name": "shoot_arrow",
             "type": "sfx_sound",
+            "file": "effects/shoot_arrow.ogg",
             "channel": 5,
             "emitter": "arbaletist",
             "falloff": 0,
-            "file": "effects/shoot_arrow.ogg",
             "trigger": "shoot_arrow",
             "zone": [3000, -150, 6000, 420]
         },
         {
             "name": "sword_whish",
             "type": "sfx_sound",
+            "file": "effects/whish.wav",
             "channel": 5,
             "emitter": "whitecrow",
             "falloff": 150,
-            "file": "effects/whish.wav",
             "trigger": "whish_whitecrow",
             "zone": [-150, -150, 1580, 420]
         },
         {
             "name": "swordin",
             "type": "sfx_sound",
+            "file": "effects/swordin.ogg",
             "channel": 5,
             "emitter": "whitecrow",
             "falloff": 150,
-            "file": "effects/swordin.ogg",
             "trigger": "swordin_whitecrow",
             "zone": [-150, -150, 1580, 420]
         },
         {
             "name": "run_skid",
             "type": "sfx_sound",
+            "file": "effects/skid.ogg",
             "channel": 5,
             "emitter": "whitecrow",
             "falloff": 150,
-            "file": "effects/skid.ogg",
             "trigger": "run_skid",
             "zone": [-150, -150, 4000, 420]
         }
@@ -157,22 +157,22 @@
         {
             "name": "aiming",
             "type": "interaction",
-            "affect":  ["whitecrow"],
-            "scripts":  ["arbaletist.aiming"],
+            "affect": ["whitecrow"],
+            "scripts": ["arbaletist.aiming"],
             "zone": [397, 25, 406, 27]
         },
         {
             "name": "discard_aiming",
             "type": "interaction",
-            "affect":  ["whitecrow"],
-            "scripts":  ["arbaletist.discard_aiming"],
+            "affect": ["whitecrow"],
+            "scripts": ["arbaletist.discard_aiming"],
             "zone": [392, 25, 396, 27]
         },
         {
             "name": "shot",
             "type": "interaction",
-            "affect":  ["whitecrow"],
-            "scripts":  ["arbaletist.shoot_1", "arbaletist.shoot_2", "arbaletist.shoot_3", "arbaletist.shoot_4"],
+            "affect": ["whitecrow"],
+            "scripts": ["arbaletist.shoot_1", "arbaletist.shoot_2", "arbaletist.shoot_3", "arbaletist.shoot_4"],
             "zone": [407, 25, 414, 27]
         }
     ],
@@ -679,7 +679,7 @@
             "name": "whitecrow",
             "type": "player",
             "block_position": [14, 10],
-            "flip": false
+            "flip":  false
         },
         {
             "name": "forest_dust_2",

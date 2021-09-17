@@ -18,81 +18,81 @@
         {
             "name": "chest_squeak_open",
             "type": "sfx_sound",
+            "file": "effects/chest_squeak_open.ogg",
             "channel": 5,
             "emitter": "chest",
             "falloff": 0,
-            "file": "effects/chest_squeak_open.ogg",
             "trigger": "chest_open",
             "zone": [0, 0, 2000, 2000]
         },
         {
             "name": "chest_breaks",
             "type": "sfx_sound",
+            "file": "effects/chest_breaks.ogg",
             "channel": 5,
             "emitter": "whitecrow",
             "falloff": 0,
-            "file": "effects/chest_breaks.ogg",
             "trigger": "chest_breaks",
             "zone": [0, 0, 2000, 2000]
         },
         {
             "name": "chest_squeak_close",
             "type": "sfx_sound",
+            "file": "effects/chest_squeak_close.ogg",
             "channel": 5,
             "emitter": "chest",
             "falloff": 0,
-            "file": "effects/chest_squeak_close.ogg",
             "trigger": "chest_close",
             "zone": [0, 0, 2000, 2000]
         },
         {
             "name": "sword_whoosh",
             "type": "sfx_sound",
+            "file": "effects/whoosh.wav",
             "channel": 5,
             "emitter": "whitecrow",
             "falloff": 150,
-            "file": "effects/whoosh.wav",
             "trigger": "whoosh_whitecrow",
             "zone": [-150, -150, 1580, 420]
         },
         {
             "name": "sword_whish",
             "type": "sfx_sound",
+            "file": "effects/whish.wav",
             "channel": 5,
             "emitter": "whitecrow",
             "falloff": 150,
-            "file": "effects/whish.wav",
             "trigger": "whish_whitecrow",
             "zone": [-150, -150, 1580, 420]
         },
         {
             "name": "swordin",
             "type": "sfx_sound",
+            "file": "effects/swordin.ogg",
             "channel": 5,
             "emitter": "whitecrow",
             "falloff": 150,
-            "file": "effects/swordin.ogg",
             "trigger": "swordin_whitecrow",
             "zone": [-150, -150, 1580, 420]
         },
         {
             "name": "run_skid",
             "type": "sfx_sound",
+            "file": "effects/skid.ogg",
             "channel": 5,
             "emitter": "whitecrow",
             "falloff": 150,
-            "file": "effects/skid.ogg",
             "trigger": "run_skid",
             "zone": [-150, -150, 4000, 420]
         }
     ],
     "zones": [
         {
-            "name": "left_limit",
+            "name": "right",
             "type": "interaction",
             "affect": "whitecrow",
             "scripts": ["forest.go_to_forest"],
-                "zone": [0, 0, 20, 27]
+            "zone": [0, 0, 20, 27]
         },
         {
             "name": "right_limit",
@@ -104,29 +104,14 @@
             "name": "move_the_chest",
             "type": "interaction",
             "affect": ["whitecrow"],
-            "scripts": [
-                "chest.get_ready",
-                "chest.try_to_open",
-                "chest.try_to_open_from_idle",
-                "chest.try_to_push",
-                "chest.give_up",
-                "chest.unlock_high",
-                "chest.open",
-                "chest.open_from_idle",
-                "chest.empty_it_from_ready",
-                "chest.close_from_ready",
-                "chest.close_from_idle",
-                "chest.empty_it_from_idle",
-                "chest.succes_to_push",
-                "chest.push_and_die"],
+            "scripts": ["chest.get_ready", "chest.try_to_open", "chest.try_to_open_from_idle", "chest.try_to_push", "chest.give_up", "chest.unlock_high", "chest.open", "chest.open_from_idle", "chest.empty_it_from_ready", "chest.close_from_ready", "chest.close_from_idle", "chest.empty_it_from_idle", "chest.succes_to_push", "chest.push_and_die"],
             "zone": [40, 20, 50, 26]
         },
         {
             "name": "unlock_the_chest",
             "type": "interaction",
             "affect": ["whitecrow"],
-            "scripts": [
-                "chest.unlock_low"],
+            "scripts": ["chest.unlock_low"],
             "zone": [34, 20, 38, 26]
         }
     ],
@@ -228,7 +213,7 @@
             "name": "whitecrow",
             "type": "player",
             "block_position": [13, 8],
-            "flip": false
+            "flip":  false
         },
         {
             "name": "chest_props",
@@ -298,7 +283,7 @@
             "type": "set_static",
             "file": "tente/armor_boot.png",
             "position": [498, 236],
-            "deph": 0
+            "deph": 0.0
         }
     ]
 }

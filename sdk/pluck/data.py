@@ -3,6 +3,7 @@ from corax.core import NODE_TYPES
 
 
 KEY_ORDER = "name", "type", "file", "position"
+DONT_SORT_KEYS = "post_events", "pre_events"
 EXCLUDED_PROPERTIES = "sounds", "areas", "elements", "zones"
 GRAPHIC_TYPES = NODE_TYPES.SET_ANIMATED, NODE_TYPES.SET_STATIC, NODE_TYPES.PLAYER
 SET_TYPES = NODE_TYPES.SET_ANIMATED, NODE_TYPES.SET_STATIC
@@ -54,13 +55,13 @@ DATA_TEMPLATES = {
         "inputs": {str},
         "pre_events": None,
         "post_events": None,
+        "hitboxes": None
     },
     "scene": {
         "name": str,
         "type": str,
         "background_color": (int, int, int),
         "boundary": (int, int, int, int),
-        "scroll_target": str,
         "soft_boundaries": {(int, int, int, int)},
         "target_offset": (int, int)
     },
@@ -112,7 +113,7 @@ DATA_TEMPLATES = {
         "emitter": str,
         "falloff": int,
         "channel": int,
-        "filename": str,
+        "file": str,
         "trigger": str,
         "zone": (int, int, int, int)
     },
@@ -140,7 +141,7 @@ DATA_TEMPLATES = {
         "name": str,
         "type": str,
         "block_position": (int, int),
-        "sheetdata_file": str
+        "flip": bool
     },
     "particles_system": {
         "name": str,
@@ -237,8 +238,11 @@ def sort_keys(elements):
     return copy + sorted(elements)
 
 
-def data_to_plain_text(data, indent=0):
-    keys = sort_keys([str(key) for key in data.keys()])
+def data_to_plain_text(data, indent=0, sorted_keys=True):
+    if sorted_keys:
+        keys = sort_keys([str(key) for key in data.keys()])
+    else:
+        keys = [str(key) for key in data.keys()]
     lines = []
     for key in keys:
         value = data[key]
@@ -253,7 +257,8 @@ def data_to_plain_text(data, indent=0):
         elif value == {}:
             value = "{}"
         elif isinstance(value, dict):
-            value = data_to_plain_text(value, indent=indent+2)
+            value = data_to_plain_text(
+                value, indent=indent+2, sorted_keys=key not in DONT_SORT_KEYS)
         lines.append(f"    \"{key}\": {value}".replace("'", '"'))
     spacer = "    " * indent
     return f"{{\n{spacer}" + f",\n{spacer}".join(lines) + f"\n{spacer}}}"

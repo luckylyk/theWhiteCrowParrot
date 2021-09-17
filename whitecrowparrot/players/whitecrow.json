@@ -13,11 +13,9 @@
         "sword": "whitecrowparrot_sword.json",
         "collects_sword": "whitecrowparrot_collects_sword.json"
     },
-    "variables": {
-        "has_sword": false
-    },
     "hitboxes_color": {
         "leggs": [255, 50, 75],
-        "torso": [50, 75, 255]
+        "torso": [50, 75, 255],
+        "head": [50, 255, 255]
     }
 }

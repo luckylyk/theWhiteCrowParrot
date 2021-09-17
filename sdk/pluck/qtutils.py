@@ -2,7 +2,7 @@
 import os
 import json
 
-from PyQt5 import QtGui, QtCore
+from PyQt5 import QtGui, QtCore, QtWidgets
 
 from corax.core import NODE_TYPES
 import corax.context as cctx
@@ -31,6 +31,20 @@ ICON_MATCH = {
 
 icons = {}
 images = {}
+
+
+def wait_cursor(func):
+    def wrapper(*args, **kwargs):
+        QtWidgets.QApplication.setOverrideCursor(QtCore.Qt.WaitCursor)
+        result = func(*args, **kwargs)
+        QtWidgets.QApplication.restoreOverrideCursor()
+        return result
+    return wrapper
+
+
+def set_shortcut(keysequence, parent, method):
+    shortcut = QtWidgets.QShortcut(QtGui.QKeySequence(keysequence), parent)
+    shortcut.activated.connect(method)
 
 
 def get_icon(filename):

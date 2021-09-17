@@ -2,10 +2,12 @@
 import corax.context as cctx
 from corax.coordinate import to_block_position, to_pixel_position, map_pixel_position
 from corax.mathutils import sum_num_arrays
-from corax.pygameutils import render_rect, render_text
+from corax.pygameutils import render_rect, render_text, render_grid
 
 
 def render_player_debug(player, deph, screen, camera):
+    render_grid(screen, camera, (125, 125, 125), alpha=50)
+
     # Render coordinates infos on onverlay
     size = player.animation_controller.data["frame_size"]
     center = player.animation_controller.animation.pixel_center

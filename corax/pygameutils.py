@@ -83,6 +83,21 @@ def render_ellipse(screen, color, x, y, height, width):
     pygame.draw.ellipse(screen, color, [x, y, height, width])
 
 
+def render_grid(screen, camera, color, alpha=255):
+    temp = pygame.Surface(cctx.RESOLUTION).convert()
+    # Render grid
+    l = -camera.pixel_position[0] % cctx.BLOCK_SIZE
+    while l < cctx.RESOLUTION[0]:
+        pygame.draw.line(temp, color, (l, 0), (l, cctx.RESOLUTION[1]))
+        l += cctx.BLOCK_SIZE
+    t = 0
+    while t < cctx.RESOLUTION[1]:
+        pygame.draw.line(temp, color, (0, t), (cctx.RESOLUTION[0], t))
+        t += cctx.BLOCK_SIZE
+    temp.set_alpha(alpha)
+    screen.blit(temp, (0, 0))
+
+
 def render_text(screen, color, x, y, text):
     font = pygame.font.SysFont('Consolas', 15)
 

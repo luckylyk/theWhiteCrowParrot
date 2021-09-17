@@ -1,485 +1,462 @@
 {
-    "layers": {
-        "body": "whitecrowparrot_sword.png"},
-    "key_color": [0, 255, 0],
-    "frame_size": [240, 160],
     "default_move": "idle",
-    "evaluation_order": [
-        "stroke_ready",
-        "low_hit_ready",
-        "high_hit_ready",
-        "jump",
-        "high_block",
-        "low_block",
-        "crouch_hit_shoot",
-        "return",
-        "crouch_down",
-        "crouch_up",
-        "step_forward",
-        "back_dash",
-        "step_backward",
-        "high_block_retrieve",
-        "high_hit_shoot",
-        "low_hit_shoot",
-        "low_block_retrieve",
-        "stroke_shoot",
-        "crouch_hit_retrieve",
-        "high_hit_retrieve",
-        "stroke_retrieve",
-        "tidy_up_sword",
-        "idle"],
+    "evaluation_order": ["stroke_ready", "low_hit_ready", "high_hit_ready", "jump", "high_block", "low_block", "crouch_hit_shoot", "return", "crouch_down", "crouch_up", "step_forward", "back_dash", "step_backward", "high_block_retrieve", "high_hit_shoot", "low_hit_shoot", "low_block_retrieve", "stroke_shoot", "crouch_hit_retrieve", "high_hit_retrieve", "stroke_retrieve", "tidy_up_sword", "idle"],
+    "filename": "whitecrowparrot_sword.png",
+    "frame_size": [240, 160],
+    "key_color": [0, 255, 0],
+    "layers": {
+            "body": "whitecrowparrot_sword.png"
+        },
     "moves": {
-        "idle":
-            {
-                "start_at_image": 0,
-                "center": [70, 155],
-                "frames_per_image": [1],
-                "triggers": null,
-                "frames_centers": null,
-                "release_frame": -1,
-                "next_move": "idle",
-                "next_move_bufferable": false,
-                "hold": false,
-                "hitboxes": {},
-                "loop_on": null,
-                "conditions": {},
-                "inputs": [],
-                "pre_events": {},
-                "post_events": {}
-            },
-        "crouch_down":
-            {
-                "start_at_image": 1,
-                "center": [70, 155],
-                "frames_per_image": [1, 1, 1, 1, 1, 1],
-                "triggers": null,
-                "frames_centers": null,
-                "release_frame": -1,
-                "hitboxes": {},
-                "hold": true,
-                "next_move": "crouch_up",
-                "next_move_bufferable": false,
-                "loop_on": null,
-                "conditions": {
-                    "animation_in": ["idle"]},
-                "inputs": ["DOWN"],
-                "pre_events": {},
-                "post_events": {}
-            },
-        "low_hit_ready":
-            {
-                "start_at_image": 7,
-                "center": [70, 155],
-                "frames_per_image": [1, 1, 1],
-                "triggers": null,
-                "frames_centers": null,
-                "release_frame": -1,
-                "hitboxes": {},
-                "hold": true,
-                "next_move": "low_hit_shoot",
-                "next_move_bufferable": false,
-                "loop_on": null,
-                "conditions": {
-                    "animation_in": ["idle"]},
-                "inputs": ["R1"],
-                "pre_events": {},
-                "post_events": {}
-            },
-        "jump":
-            {
-                "start_at_image": 10,
-                "center": [70, 155],
-                "frames_per_image": [1, 1, 2, 3, 4, 3, 2, 1, 1],
-                "triggers": null,
-                "frames_centers": null,
-                "release_frame": 10,
-                "hitboxes": {},
-                "hold": false,
-                "next_move": "idle",
-                "next_move_bufferable": false,
-                "loop_on": null,
-                "conditions": {
-                    "animation_in": ["idle"]},
-                "inputs": ["A"],
-                "pre_events": {},
-                "post_events": {}
-            },
-        "crouch_up":
-            {
-                "start_at_image": 20,
-                "center": [70, 155],
-                "frames_per_image": [1, 1, 1, 1, 1],
-                "triggers": null,
-                "frames_centers": null,
-                "release_frame": 2,
-                "hitboxes": {},
-                "hold": false,
-                "next_move": "idle",
-                "next_move_bufferable": true,
-                "loop_on": null,
-                "conditions": {
-                    "animation_in": ["crouch_down"]},
-                "inputs": [],
-                "pre_events": {},
-                "post_events": {}
-            },
-        "high_block_retrieve":
-            {
-                "start_at_image": 25,
-                "center": [70, 155],
-                "frames_per_image": [1, 1, 1],
-                "triggers": null,
-                "frames_centers": null,
-                "release_frame": 0,
-                "hitboxes": {},
-                "hold": false,
-                "next_move": "idle",
-                "next_move_bufferable": true,
-                "loop_on": null,
-                "conditions": {
-                    "animation_in": ["high_block"]},
-                "inputs": [],
-                "pre_events": {},
-                "post_events": {}
-            },
-        "high_hit_retrieve":
-            {
-                "start_at_image": 28,
-                "center": [70, 155],
-                "frames_per_image": [1, 1],
-                "triggers": null,
-                "frames_centers": null,
-                "release_frame": 0,
-                "hitboxes": {},
-                "hold": false,
-                "next_move": "idle",
-                "next_move_bufferable": true,
-                "loop_on": null,
-                "conditions": {
-                    "animation_in": ["high_hit_shoot"]},
-                "inputs": [],
-                "pre_events": {},
-                "post_events": {}
-            },
-        "low_hit_shoot":
-            {
-                "start_at_image": 30,
-                "center": [70, 155],
-                "hitboxes": {},
-                "hold": false,
-                "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1],
-                "triggers": null,
-                "frames_centers": null,
-                "release_frame": -1,
-                "next_move": "idle",
-                "next_move_bufferable": false,
-                "loop_on": null,
-                "conditions": {
-                    "animation_in": ["low_hit_ready"]},
-                "inputs": [],
-                "pre_events": {},
-                "post_events": {}
-            },
-        "high_block":
-            {
-                "start_at_image": 38,
-                "center": [70, 155],
-                "frames_per_image": [1, 1],
-                "triggers": [[0, "whish_whitecrow"]],
-                "frames_centers": null,
-                "release_frame": -1,
-                "hitboxes": {},
-                "hold": true,
-                "next_move": "high_block_retrieve",
-                "next_move_bufferable": false,
-                "loop_on": null,
-                "conditions": {
-                    "animation_in": ["idle"]},
-                "inputs": ["R2"],
-                "pre_events": {},
-                "post_events": {}
-            },
-        "low_block":
-            {
-                "start_at_image": 40,
-                "center": [70, 155],
-                "frames_per_image": [1, 1, 1, 1],
-                "triggers": [[0, "whish_whitecrow"]],
-                "frames_centers": null,
-                "release_frame": -1,
-                "hitboxes": {},
-                "hold": true,
-                "next_move": "low_block_retrieve",
-                "next_move_bufferable": false,
-                "loop_on": null,
-                "conditions": {
-                    "animation_in": ["idle"]},
-                "inputs": ["L2"],
-                "pre_events": {},
-                "post_events": {}
-            },
-        "low_block_retrieve":
-            {
-                "start_at_image": 44,
-                "center": [70, 155],
-                "frames_per_image": [1, 1, 1, 1, 1],
-                "triggers": null,
-                "frames_centers": null,
-                "release_frame": -1,
-                "hitboxes": {},
-                "hold": false,
-                "next_move": "idle",
-                "next_move_bufferable": true,
-                "loop_on": null,
-                "conditions": {
-                    "animation_in": ["low_block"]},
-                "inputs": [],
-                "pre_events": {},
-                "post_events": {}
-            },
-        "stroke_ready":
-            {
-                "start_at_image": 50,
-                "center": [70, 155],
-                "frames_per_image": [1, 2, 2, 3, 5],
-                "triggers": null,
-                "frames_centers": null,
-                "release_frame": -1,
-                "hitboxes": {},
-                "hold": true,
-                "next_move": "stroke_shoot",
-                "next_move_bufferable": false,
-                "loop_on": null,
-                "conditions": {
-                    "animation_in": ["idle"]},
-                "inputs": ["L1", "R1"],
-                "pre_events": {},
-                "post_events": {}
-            },
-        "stroke_shoot":
-            {
-                "start_at_image": 55,
-                "center": [70, 155],
-                "frames_per_image": [1, 1, 1, 1],
-                "triggers": null,
-                "frames_centers": null,
-                "release_frame": -1,
-                "hitboxes": {},
-                "hold": false,
-                "next_move": "stroke_retrieve",
-                "next_move_bufferable": false,
-                "loop_on": null,
-                "inputs": [],
-                "conditions": {
-                    "animation_in": ["stroke_ready"]},
-                "pre_events": {},
-                "post_events": {}
-            },
-        "stroke_retrieve":
-            {
-                "start_at_image": 60,
-                "center": [70, 155],
-                "frames_per_image": [1, 1, 1, 1],
-                "triggers": null,
-                "frames_centers": null,
-                "release_frame": 0,
-                "next_move_bufferable": true,
-                "hitboxes": {},
-                "hold": false,
-                "next_move": "idle",
-                "loop_on": null,
-                "conditions": {
-                    "animation_in": ["stroke_shoot"]},
-                "inputs": [],
-                "pre_events": {},
-                "post_events": {}
-            },
-        "high_hit_ready":
-            {
-                "start_at_image": 64,
-                "center": [70, 155],
-                "frames_per_image": [1, 1, 1],
-                "triggers": [[0, "whish_whitecrow"]],
-                "frames_centers": null,
-                "release_frame": -1,
-                "hitboxes": {},
-                "hold": true,
-                "next_move": "high_hit_shoot",
-                "next_move_bufferable": false,
-                "loop_on": null,
-                "conditions": {
-                    "animation_in": ["idle"],
-                    "animation_not_in": ["crouch_down"]},
-                "inputs": ["L1"],
-                "pre_events": {},
-                "post_events": {}
-            },
-        "crouch_hit_retrieve":
-            {
-                "start_at_image": 67,
-                "center": [70, 155],
-                "frames_per_image": [1, 1, 1],
-                "triggers": null,
-                "frames_centers": null,
-                "release_frame": 0,
-                "hitboxes": {},
-                "hold": false,
-                "next_move": "idle",
-                "next_move_bufferable": true,
-                "loop_on": null,
-                "inputs": [],
-                "conditions": {
-                    "animation_in": ["crouch_hit_shoot"],
-                    "animation_not_in": ["crouch_hit"]},
-                "pre_events": {},
-                "post_events": {}
-            },
-        "high_hit_shoot":
-            {
-                "start_at_image": 70,
-                "center": [70, 155],
-                "frames_per_image": [2, 1, 1, 1, 4],
-                "triggers": [[0, "whoosh_whitecrow"]],
-                "frames_centers": null,
-                "release_frame": -1,
-                "hitboxes": {},
-                "hold": false,
-                "next_move": "high_hit_retrieve",
-                "next_move_bufferable": false,
-                "loop_on": null,
-                "inputs": [],
-                "conditions": {
-                    "animation_not_in": ["crouch_hit"]},
-                "pre_events": {},
-                "post_events": {}
-            },
-        "step_forward":
-            {
-                "start_at_image": 75,
-                "center": [70, 155],
-                "frames_per_image": [3, 2, 4, 6],
-                "triggers": [[0, "step_whitecrow"]],
-                "frames_centers": [[5, 0], [10, 0], [15, 0], [20, 0]],
-                "release_frame": 1,
-                "hitboxes": {},
-                "hold": true,
-                "next_move": "idle",
-                "next_move_bufferable": true,
-                "loop_on": "step_forward",
-                "inputs": ["RIGHT"],
-                "conditions": {
-                    "animation_in": ["idle"]},
-                "pre_events": {},
-                "post_events": {
-                    "block_offset": [2, 0]}
-            },
-        "crouch_hit_shoot":
-            {
-                "start_at_image": 80,
-                "center": [70, 155],
-                "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1],
-                "triggers": null,
-                "frames_centers": null,
-                "release_frame": -1,
-                "hitboxes": {},
-                "hold": true,
-                "next_move": "crouch_hit_retrieve",
-                "next_move_bufferable": false,
-                "loop_on": null,
-                "inputs": ["L1"],
-                "conditions": {
-                    "animation_in": ["crouch_down"]},
-                "pre_events": {},
-                "post_events": {}
-            },
-        "back_dash":
-            {
-                "start_at_image": 90,
-                "center": [190, 155],
-                "frames_per_image": [2, 2, 3, 2, 1, 1, 1, 1],
-                "frames_centers": [
-                    [-10, 0],
-                    [-30, 0],
-                    [-60, 0],
-                    [-100, 0],
-                    [-110, 0],
-                    [-120, 0],
-                    [-120, 0],
-                    [-120, 0]],
-                "triggers": null,
-                "release_frame": 10,
-                "hitboxes": {},
-                "hold": false,
-                "loop_on": null,
-                "next_move": "idle",
-                "next_move_bufferable": false,
-                "inputs": ["B"],
-                "conditions": {
-                    "animation_in": ["idle"]},
-                "pre_events": {
-                    "block_offset": [-12, 0]},
-                "post_events": {}
-            },
-        "step_backward":
-            {
-                "start_at_image": 100,
-                "center": [90, 155],
-                "frames_per_image": [2, 2, 5, 5],
-                "triggers": null,
-                "frames_centers": [[-5, 0], [-10, 0], [-15, 0], [-20, 0]],
-                "release_frame": -1,
-                "hitboxes": {},
-                "hold": true,
-                "loop_on": "step_backward",
-                "next_move_bufferable": true,
-                "next_move": "idle",
-                "inputs": ["LEFT"],
-                "conditions": {
-                    "animation_in": ["idle"]},
-                "pre_events": {
-                    "block_offset": [-2, 0]},
-                "post_events": {}
-            },
-        "return":
-            {
-                "start_at_image": 104,
-                "center": [70, 155],
-                "frames_per_image": [1, 1, 1, 1, 1],
-                "triggers": null,
-                "frames_centers": null,
-                "release_frame": -1,
-                "hitboxes": {},
-                "hold": false,
-                "next_move": "idle",
-                "next_move_bufferable": true,
-                "loop_on": null,
-                "inputs": ["RS_LEFT"],
-                "conditions": {
-                    "animation_in": ["idle"]},
-                "pre_events": {},
-                "post_events": {
-                    "flip": true,
-                    "block_offset": [10, 0]}
-            },
-        "tidy_up_sword":
-            {
-                "start_at_image": 110,
-                "center": [70, 155],
-                "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 3, 1, 5, 2, 2, 2, 0],
-                "triggers": [[0, "whish_whitecrow"],[5, "whoosh_whitecrow"], [20, "swordin_whitecrow"]],
-                "frames_centers": null,
-                "release_frame": -1,
-                "next_move": "idle",
-                "next_move_bufferable": false,
-                "hitboxes": {},
-                "hold": false,
-                "loop_on": null,
-                "conditions": {},
-                "inputs": ["Y"],
-                "pre_events": {},
-                "post_events": {
-                    "switch_to": "whitecrowparrot_exploration.json"
+            "back_dash": {
+                    "center": [190, 155],
+                    "conditions": {
+                            "animation_in": ["idle"]
+                        },
+                    "frames_centers": [[-10, 0], [-30, 0], [-60, 0], [-100, 0], [-110, 0], [-120, 0], [-120, 0], [-120, 0]],
+                    "frames_per_image": [2, 2, 3, 2, 1, 1, 1, 1],
+                    "hitboxes": {},
+                    "hold":  false,
+                    "inputs": ["B"],
+                    "loop_on":  null,
+                    "next_move": "idle",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {
+                            "block_offset": [-12, 0]
+                        },
+                    "release_frame": 10,
+                    "start_at_image": 90,
+                    "triggers":  null
+                },
+            "crouch_down": {
+                    "center": [70, 155],
+                    "conditions": {
+                            "animation_in": ["idle"]
+                        },
+                    "frames_centers":  null,
+                    "frames_per_image": [1, 1, 1, 1, 1, 1],
+                    "hitboxes": {},
+                    "hold":  true,
+                    "inputs": ["DOWN"],
+                    "loop_on":  null,
+                    "next_move": "crouch_up",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 1,
+                    "triggers":  null
+                },
+            "crouch_hit_retrieve": {
+                    "center": [70, 155],
+                    "conditions": {
+                            "animation_in": ["crouch_hit_shoot"],
+                            "animation_not_in": ["crouch_hit"]
+                        },
+                    "frames_centers":  null,
+                    "frames_per_image": [1, 1, 1],
+                    "hitboxes": {},
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "idle",
+                    "next_move_bufferable":  true,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": 0,
+                    "start_at_image": 67,
+                    "triggers":  null
+                },
+            "crouch_hit_shoot": {
+                    "center": [70, 155],
+                    "conditions": {
+                            "animation_in": ["crouch_down"]
+                        },
+                    "frames_centers":  null,
+                    "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1],
+                    "hitboxes": {},
+                    "hold":  true,
+                    "inputs": ["L1"],
+                    "loop_on":  null,
+                    "next_move": "crouch_hit_retrieve",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 80,
+                    "triggers":  null
+                },
+            "crouch_up": {
+                    "center": [70, 155],
+                    "conditions": {
+                            "animation_in": ["crouch_down"]
+                        },
+                    "frames_centers":  null,
+                    "frames_per_image": [1, 1, 1, 1, 1],
+                    "hitboxes": {},
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "idle",
+                    "next_move_bufferable":  true,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": 2,
+                    "start_at_image": 20,
+                    "triggers":  null
+                },
+            "high_block": {
+                    "center": [70, 155],
+                    "conditions": {
+                            "animation_in": ["idle"]
+                        },
+                    "frames_centers":  null,
+                    "frames_per_image": [1, 1],
+                    "hitboxes": {},
+                    "hold":  true,
+                    "inputs": ["R2"],
+                    "loop_on":  null,
+                    "next_move": "high_block_retrieve",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 38,
+                    "triggers": [[0, "whish_whitecrow"]]
+                },
+            "high_block_retrieve": {
+                    "center": [70, 155],
+                    "conditions": {
+                            "animation_in": ["high_block"]
+                        },
+                    "frames_centers":  null,
+                    "frames_per_image": [1, 1, 1],
+                    "hitboxes": {},
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "idle",
+                    "next_move_bufferable":  true,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": 0,
+                    "start_at_image": 25,
+                    "triggers":  null
+                },
+            "high_hit_ready": {
+                    "center": [70, 155],
+                    "conditions": {
+                            "animation_in": ["idle"],
+                            "animation_not_in": ["crouch_down"]
+                        },
+                    "frames_centers":  null,
+                    "frames_per_image": [1, 1, 1],
+                    "hitboxes": {},
+                    "hold":  true,
+                    "inputs": ["L1"],
+                    "loop_on":  null,
+                    "next_move": "high_hit_shoot",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 64,
+                    "triggers": [[0, "whish_whitecrow"]]
+                },
+            "high_hit_retrieve": {
+                    "center": [70, 155],
+                    "conditions": {
+                            "animation_in": ["high_hit_shoot"]
+                        },
+                    "frames_centers":  null,
+                    "frames_per_image": [1, 1],
+                    "hitboxes": {},
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "idle",
+                    "next_move_bufferable":  true,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": 0,
+                    "start_at_image": 28,
+                    "triggers":  null
+                },
+            "high_hit_shoot": {
+                    "center": [70, 155],
+                    "conditions": {
+                            "animation_not_in": ["crouch_hit"]
+                        },
+                    "frames_centers":  null,
+                    "frames_per_image": [2, 1, 1, 1, 4],
+                    "hitboxes": {},
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "high_hit_retrieve",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 70,
+                    "triggers": [[0, "whoosh_whitecrow"]]
+                },
+            "idle": {
+                    "center": [70, 155],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [1],
+                    "hitboxes": {},
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "idle",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 0,
+                    "triggers":  null
+                },
+            "jump": {
+                    "center": [70, 155],
+                    "conditions": {
+                            "animation_in": ["idle"]
+                        },
+                    "frames_centers":  null,
+                    "frames_per_image": [1, 1, 2, 3, 4, 3, 2, 1, 1],
+                    "hitboxes": {},
+                    "hold":  false,
+                    "inputs": ["A"],
+                    "loop_on":  null,
+                    "next_move": "idle",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": 10,
+                    "start_at_image": 10,
+                    "triggers":  null
+                },
+            "low_block": {
+                    "center": [70, 155],
+                    "conditions": {
+                            "animation_in": ["idle"]
+                        },
+                    "frames_centers":  null,
+                    "frames_per_image": [1, 1, 1, 1],
+                    "hitboxes": {},
+                    "hold":  true,
+                    "inputs": ["L2"],
+                    "loop_on":  null,
+                    "next_move": "low_block_retrieve",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 40,
+                    "triggers": [[0, "whish_whitecrow"]]
+                },
+            "low_block_retrieve": {
+                    "center": [70, 155],
+                    "conditions": {
+                            "animation_in": ["low_block"]
+                        },
+                    "frames_centers":  null,
+                    "frames_per_image": [1, 1, 1, 1, 1],
+                    "hitboxes": {},
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "idle",
+                    "next_move_bufferable":  true,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 44,
+                    "triggers":  null
+                },
+            "low_hit_ready": {
+                    "center": [70, 155],
+                    "conditions": {
+                            "animation_in": ["idle"]
+                        },
+                    "frames_centers":  null,
+                    "frames_per_image": [1, 1, 1],
+                    "hitboxes": {},
+                    "hold":  true,
+                    "inputs": ["R1"],
+                    "loop_on":  null,
+                    "next_move": "low_hit_shoot",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 7,
+                    "triggers":  null
+                },
+            "low_hit_shoot": {
+                    "center": [70, 155],
+                    "conditions": {
+                            "animation_in": ["low_hit_ready"]
+                        },
+                    "frames_centers":  null,
+                    "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1],
+                    "hitboxes": {},
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "idle",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 30,
+                    "triggers":  null
+                },
+            "return": {
+                    "center": [70, 155],
+                    "conditions": {
+                            "animation_in": ["idle"]
+                        },
+                    "frames_centers":  null,
+                    "frames_per_image": [1, 1, 1, 1, 1],
+                    "hitboxes": {},
+                    "hold":  false,
+                    "inputs": ["RS_LEFT"],
+                    "loop_on":  null,
+                    "next_move": "idle",
+                    "next_move_bufferable":  true,
+                    "post_events": {
+                            "flip":  true,
+                            "block_offset": [10, 0]
+                        },
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 104,
+                    "triggers":  null
+                },
+            "step_backward": {
+                    "center": [90, 155],
+                    "conditions": {
+                            "animation_in": ["idle"]
+                        },
+                    "frames_centers": [[-5, 0], [-10, 0], [-15, 0], [-20, 0]],
+                    "frames_per_image": [2, 2, 5, 5],
+                    "hitboxes": {},
+                    "hold":  true,
+                    "inputs": ["LEFT"],
+                    "loop_on": "step_backward",
+                    "next_move": "idle",
+                    "next_move_bufferable":  true,
+                    "post_events": {},
+                    "pre_events": {
+                            "block_offset": [-2, 0]
+                        },
+                    "release_frame": -1,
+                    "start_at_image": 100,
+                    "triggers":  null
+                },
+            "step_forward": {
+                    "center": [70, 155],
+                    "conditions": {
+                            "animation_in": ["idle"]
+                        },
+                    "frames_centers": [[5, 0], [10, 0], [15, 0], [20, 0]],
+                    "frames_per_image": [3, 2, 4, 6],
+                    "hitboxes": {},
+                    "hold":  true,
+                    "inputs": ["RIGHT"],
+                    "loop_on": "step_forward",
+                    "next_move": "idle",
+                    "next_move_bufferable":  true,
+                    "post_events": {
+                            "block_offset": [2, 0]
+                        },
+                    "pre_events": {},
+                    "release_frame": 1,
+                    "start_at_image": 75,
+                    "triggers": [[0, "step_whitecrow"]]
+                },
+            "stroke_ready": {
+                    "center": [70, 155],
+                    "conditions": {
+                            "animation_in": ["idle"]
+                        },
+                    "frames_centers":  null,
+                    "frames_per_image": [1, 2, 2, 3, 5],
+                    "hitboxes": {
+                            "head": [[], [[4, 8], [5, 8], [5, 9], [4, 9]], [[4, 8], [5, 8], [5, 9], [4, 9]], [[4, 8], [5, 8], [5, 9], [4, 9]], [[4, 8], [5, 8], [5, 9], [4, 9]]],
+                            "leggs": [[[4, 11], [4, 12], [4, 13], [4, 14], [4, 15], [5, 15], [6, 15], [7, 15], [8, 15], [8, 14], [8, 13], [8, 12], [8, 11], [7, 11], [6, 11], [5, 11], [7, 12], [6, 12], [5, 12], [5, 13], [6, 13], [7, 13], [7, 14], [6, 14], [5, 14]], [[4, 12], [5, 12], [5, 13], [6, 13], [6, 14], [7, 14], [7, 15], [8, 15], [6, 15], [5, 15], [4, 15], [3, 15], [2, 15], [2, 14], [2, 13], [2, 12], [3, 12], [4, 13], [3, 13], [3, 14], [4, 14], [5, 14]], [[4, 12], [5, 12], [5, 13], [6, 13], [6, 14], [7, 14], [7, 15], [8, 15], [6, 15], [5, 15], [4, 15], [3, 15], [2, 15], [2, 14], [2, 13], [2, 12], [3, 12], [4, 13], [3, 13], [3, 14], [4, 14], [5, 14]], [[4, 12], [5, 12], [5, 13], [6, 13], [6, 14], [7, 14], [7, 15], [8, 15], [6, 15], [5, 15], [4, 15], [3, 15], [2, 15], [2, 14], [2, 13], [2, 12], [3, 12], [4, 13], [3, 13], [3, 14], [4, 14], [5, 14]], [[4, 12], [5, 12], [5, 13], [6, 13], [6, 14], [7, 14], [7, 15], [8, 15], [6, 15], [5, 15], [4, 15], [3, 15], [2, 15], [2, 14], [2, 13], [2, 12], [3, 12], [4, 13], [3, 13], [3, 14], [4, 14], [5, 14]]],
+                            "torso": [[[5, 8], [7, 9], [5, 9], [6, 9], [7, 10], [6, 10], [5, 10]], [[5, 10], [5, 11], [1, 11], [1, 10], [1, 9], [2, 9], [3, 9], [3, 10], [4, 10], [2, 10], [2, 11], [3, 11], [4, 11]], [[5, 10], [5, 11], [1, 11], [1, 10], [1, 9], [2, 9], [3, 9], [3, 10], [4, 10], [2, 10], [2, 11], [3, 11], [4, 11]], [[5, 10], [5, 11], [1, 11], [1, 10], [1, 9], [2, 9], [3, 9], [3, 10], [4, 10], [2, 10], [2, 11], [3, 11], [4, 11]], [[5, 10], [5, 11], [1, 11], [1, 10], [1, 9], [2, 9], [3, 9], [3, 10], [4, 10], [2, 10], [2, 11], [3, 11], [4, 11]]]
+                        },
+                    "hold":  true,
+                    "inputs": ["L1", "R1"],
+                    "loop_on":  null,
+                    "next_move": "stroke_shoot",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 50,
+                    "triggers":  null
+                },
+            "stroke_retrieve": {
+                    "center": [70, 155],
+                    "conditions": {
+                            "animation_in": ["stroke_shoot"]
+                        },
+                    "frames_centers":  null,
+                    "frames_per_image": [1, 1, 1, 1],
+                    "hitboxes": {},
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "idle",
+                    "next_move_bufferable":  true,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": 0,
+                    "start_at_image": 60,
+                    "triggers":  null
+                },
+            "stroke_shoot": {
+                    "center": [70, 155],
+                    "conditions": {
+                            "animation_in": ["stroke_ready"]
+                        },
+                    "frames_centers":  null,
+                    "frames_per_image": [1, 1, 1, 1],
+                    "hitboxes": {},
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "stroke_retrieve",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 55,
+                    "triggers":  null
+                },
+            "tidy_up_sword": {
+                    "center": [70, 155],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1, 2, 3, 4, 3, 1, 5, 2, 2, 2, 0],
+                    "hitboxes": {},
+                    "hold":  false,
+                    "inputs": ["Y"],
+                    "loop_on":  null,
+                    "next_move": "idle",
+                    "next_move_bufferable":  false,
+                    "post_events": {
+                            "switch_to": "whitecrowparrot_exploration.json"
+                        },
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 110,
+                    "triggers": [[0, "whish_whitecrow"], [5, "whoosh_whitecrow"], [20, "swordin_whitecrow"]]
                 }
-            }
         }
 }

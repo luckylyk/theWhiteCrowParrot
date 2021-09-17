@@ -32,8 +32,12 @@ zone selected: {0}
 
 
 class SceneEditor(QtWidgets.QWidget):
+    modified = QtCore.pyqtSignal()
+
     def __init__(self, scene_data, gamecontext, parent=None):
         super().__init__(parent=parent)
+        self.is_modified = False
+        self.block_modified_signal = False
         self.tree = create_scene_outliner_tree(scene_data)
         self.paintcontext = PaintContext()
         self.gamecontext = gamecontext
@@ -104,6 +108,7 @@ class SceneEditor(QtWidgets.QWidget):
         self.layout = QtWidgets.QHBoxLayout(self)
         self.layout.addWidget(self.hsplitter2)
         self.json_editor.setPlainText(tree_to_plaintext(self.tree))
+        document.contentsChanged.connect(self.contents_changed)
 
     def update_data(self, *useless_signal_args):
         self.outliner.setEnabled(True)
@@ -117,6 +122,8 @@ class SceneEditor(QtWidgets.QWidget):
             data = json.loads(text)
             data_sanity_check(data)
             node = self.selected_node()
+            if not node:
+                return
             node.data = data
             self.scenewidget.repaint()
             self.data_traceback.setText("")
@@ -164,6 +171,19 @@ class SceneEditor(QtWidgets.QWidget):
         self.scenewidget.recompute_size()
         self.scenewidget.repaint()
 
+    def contents_changed(self):
+        if self.is_modified or self.block_modified_signal is True:
+            return
+        self.is_modified = True
+        self.modified.emit()
+
+    def save(self, filename):
+        if not self.is_modified:
+            return
+        with open(filename, "w") as f:
+            f.write(str(self.json_editor.toPlainText()))
+        self.is_modified = False
+
     def update_graphics(self, *useless_signal_args):
         self.scenewidget.repaint()
 
@@ -174,6 +194,7 @@ class SceneEditor(QtWidgets.QWidget):
         return self.model.getNode(indexes[0])
 
     def node_selected(self, selection, _):
+        self.block_modified_signal = True
         indexes = selection.indexes()
         data = self.model.getNode(indexes[0]).data
         if data is None:
@@ -183,6 +204,7 @@ class SceneEditor(QtWidgets.QWidget):
         self.dataeditor.setEnabled(True)
         text = data_to_plain_text(data)
         self.dataeditor.setPlainText(text)
+        self.block_modified_signal = False
 
 
 class SceneWidget(QtWidgets.QWidget):

@@ -22,6 +22,10 @@
             "file": "forest_01.json"
         },
         {
+            "name": "fight",
+            "file": "fight.json"
+        },
+        {
             "name": "tente",
             "file": "tente.json"
         }

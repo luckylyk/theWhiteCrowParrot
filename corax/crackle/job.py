@@ -48,6 +48,9 @@ def create_job_without_subject(line, theatre):
     elif function == "flush":
         player_name = object_name(line.split(" ")[-1])
         return partial(job_flush_animation, theatre, player_name)
+    elif function == "pin":
+        player_name = object_name(line.split(" ")[-1])
+        return partial(job_pin_play, theatre, player_name)
     elif function == "restart":
         return partial(job_restart, theatre)
 
@@ -153,6 +156,12 @@ def job_set_global(theatre, key, value):
 def job_flush_animation(theatre, player_name):
     player = find_player(theatre, player_name)
     player.animation_controller.flush()
+    return 0
+
+
+def job_pin_play(theatre, player_name):
+    player = find_player(theatre, player_name)
+    player.pin()
     return 0
 
 

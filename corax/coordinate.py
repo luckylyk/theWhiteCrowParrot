@@ -50,6 +50,12 @@ def to_block_position(pixel_position):
     return x, y
 
 
+def to_block_size(size):
+    x = (size[0] // cctx.BLOCK_SIZE) - 1
+    y = (size[1] // cctx.BLOCK_SIZE) - 1
+    return x, y
+
+
 def to_pixel_position(block_position):
     x = block_position[0] * cctx.BLOCK_SIZE
     y = block_position[1] * cctx.BLOCK_SIZE

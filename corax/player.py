@@ -4,9 +4,9 @@ import logging
 
 import corax.context as cctx
 from corax.animation import SpriteSheet
-from corax.core import NODE_TYPES
 from corax.controller import AnimationController
-from corax.coordinate import Coordinate
+from corax.coordinate import Coordinate, to_block_position
+from corax.euclide import points_to_vector
 from corax.mathutils import sum_num_arrays
 from corax.pygameutils import render_image
 from corax.sequence import (
@@ -94,6 +94,14 @@ class Player():
             dst=destination)
         self.animation_controller.sequence = sequence
         return sequence
+
+    def pin(self):
+        vector = points_to_vector(
+            self.animation.pixel_center,
+            self.animation.centers[0])
+        offset = to_block_position(vector)
+        position = sum_num_arrays(self.coordinate.block_position, offset)
+        self.coordinate.block_position = position
 
     @property
     def pixel_center(self):

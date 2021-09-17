@@ -1,10 +1,12 @@
 import json
 import os
-from PyQt5 import QtWidgets, QtCore
+from functools import partial
+from PyQt5 import QtWidgets, QtCore, QtGui
 import corax.context as cctx
 from pluck.sprite import AnimationDataEditor
 from pluck.highlighter import get_plaint_text_editor
 from pluck.scene import SceneEditor
+from pluck.qtutils import wait_cursor, get_icon, set_shortcut
 
 
 SUPPORTED_FILETYPES = "sheets", "scenes", "scripts"
@@ -28,21 +30,19 @@ def load_json(filename):
 class PluckMainWindow(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
+        set_shortcut("CTRL+S", self, self.save_current_tab)
+
         self.project_explorer_model = QtWidgets.QFileSystemModel()
         self.project_explorer = QtWidgets.QTreeView()
         self.project_explorer.setModel(self.project_explorer_model)
         self.project_explorer.doubleClicked.connect(self.request_open_file)
 
-        self.scenes = None
-        self.spritesheets = None
-        self.scripts = None
-
-        self.area = QtWidgets.QMdiArea()
-        self.area.setViewMode(QtWidgets.QMdiArea.TabbedView)
+        self.tab = QtWidgets.QTabWidget()
+        self.tab.setTabsClosable(True)
 
         self.splitter = QtWidgets.QSplitter(QtCore.Qt.Horizontal)
         self.splitter.addWidget(self.project_explorer)
-        self.splitter.addWidget(self.area)
+        self.splitter.addWidget(self.tab)
 
         self.setCentralWidget(self.splitter)
 
@@ -51,44 +51,31 @@ class PluckMainWindow(QtWidgets.QMainWindow):
         root = self.project_explorer_model.setRootPath(workspace)
         self.project_explorer.setRootIndex(root)
 
-    def create_tab_window(self, tabname, widget, name):
-        tab_window = QtWidgets.QTabWidget()
-        tab_window.setWindowTitle(tabname)
-        tab_window.setTabsClosable(True)
-        self.area.addSubWindow(tab_window)
-        tab_window.addTab(widget, name + "  ")
-        tab_window.show()
-        return tab_window
-
-    def add_scene(self, name, widget):
+    @wait_cursor
+    def add_widget(self, name, widget):
+        self.tab.addTab(widget, name)
+        method = partial(self.set_savable_tab, widget)
         try:
-            if not self.scenes:
-                raise RuntimeError
-            self.scenes.isVisible()
-            self.scenes.addTab(widget, name + "  ")
+            widget.modified.connect(method)
+        except AttributeError:
+            # Widget is not ready to trace change and not able to save files
+            pass
 
-        except RuntimeError:
-            self.scenes = self.create_tab_window("scene", widget, name)
+    def set_savable_tab(self, widget):
+        for i in range(self.tab.count()):
+            if widget == self.tab.widget(i):
+                break
+        else: # widget doesn't exist
+            return
+        self.tab.setTabIcon(i, get_icon("save.png"))
 
-    def add_spritesheet(self, name, widget):
-        try:
-            if not self.spritesheets:
-                raise RuntimeError
-            self.spritesheets.isVisible()
-            self.spritesheets.addTab(widget, name + "  ")
-
-        except RuntimeError:
-            self.spritesheets = self.create_tab_window("sheet", widget, name)
-
-    def add_script(self, name, widget):
-        try:
-            if not self.scripts:
-                raise RuntimeError
-            self.scripts.isVisible()
-            self.scripts.addTab(widget, name + "  ")
-
-        except RuntimeError:
-            self.scripts = self.create_tab_window("script", widget, name)
+    def save_current_tab(self):
+        widget = self.tab.currentWidget()
+        if not widget.is_modified:
+            return
+        widget.save(widget.filename)
+        index = self.tab.currentIndex()
+        self.tab.setTabIcon(index, QtGui.QIcon())
 
     def request_open_file(self):
         indexes = self.project_explorer.selectionModel().selectedIndexes()
@@ -99,18 +86,16 @@ class PluckMainWindow(QtWidgets.QMainWindow):
             filetype = detect_filetype(filename)
             if filetype not in SUPPORTED_FILETYPES:
                 continue
-            elif filetype == "sheets":
+            tabname = os.path.basename(filename)
+            if filetype == "sheets":
                 spritesheet = load_json(filename)
-                self.add_spritesheet(
-                    os.path.basename(filename),
-                    AnimationDataEditor(spritesheet))
+                widget = AnimationDataEditor(spritesheet)
             elif filetype == "scripts":
                 with open(filename, "r") as f:
                     text = f.read()
-                script, h = get_plaint_text_editor("crackle")
-                script.setPlainText(text)
-                self.add_script(os.path.basename(filename), script)
-            elif filetype == "scenes":
-                scene = SceneEditor(load_json(filename), cctx)
-                self.add_scene(os.path.basename(filename), scene)
-
+                widget, _ = get_plaint_text_editor("crackle")
+                widget.setPlainText(text)
+            else: #filetype == "scenes":
+                widget = SceneEditor(load_json(filename), cctx)
+            widget.filename = filename
+            self.add_widget(tabname, widget)

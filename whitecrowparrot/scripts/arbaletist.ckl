@@ -35,6 +35,8 @@ script shoot_1
     player.whitecrow.flip is false
         nolock prop.arbaletist play shoot
         wait 7
+        pin player.whitecrow
+        flush player.whitecrow
         player.whitecrow.sheet set death
         player.whitecrow play death_by_arrow_back_sword
         wait 30
@@ -46,6 +48,8 @@ script shoot_2
     player.whitecrow.flip is true
         nolock prop.arbaletist play shoot
         wait 7
+        pin player.whitecrow
+        flush player.whitecrow
         player.whitecrow.sheet set death
         player.whitecrow play death_by_arrow_front_sword
         wait 30
@@ -57,6 +61,8 @@ script shoot_3
     player.whitecrow.flip is true
         nolock prop.arbaletist play shoot
         wait 7
+        pin player.whitecrow
+        flush player.whitecrow
         player.whitecrow.sheet set death
         player.whitecrow play death_by_arrow_back
         wait 30
@@ -68,6 +74,8 @@ script shoot_4
     player.whitecrow.flip is false
         nolock prop.arbaletist play shoot
         wait 7
+        pin player.whitecrow
+        flush player.whitecrow
         player.whitecrow.sheet set death
         player.whitecrow play death_by_arrow_front
         wait 30
