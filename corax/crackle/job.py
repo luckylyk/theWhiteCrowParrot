@@ -3,14 +3,14 @@ This module convert an action line to an interpretable job for the Theatre
 evalutation. Basically, a job is a function which return the number of frames
 it take to be done. Some job returns 0 (eg: variable set, scene changed) but
 for instance if a job play an animations, it has to return the animation
-length. This duration is needed to inform the theatre that the RUN_MODE can be
-set back to RUN_MODE.NORMAL. As long as a job is running, the RUN_MODE is set
-to RUN_MODE.SCRIPT which block the gameplay evaluation.
+length. This duration is needed to inform the theatre that the RUN_MODES can be
+set back to RUN_MODES.NORMAL. As long as a job is running, the RUN_MODES is set
+to RUN_MODES.SCRIPT which block the gameplay evaluation.
 """
 
 from functools import partial
 
-from corax.core import EVENTS, RUN_MODE
+from corax.core import EVENTS, RUN_MODES
 from corax.sequence import build_sequence_to_destination
 from corax.seeker import find_animated_set, find_player
 
@@ -107,7 +107,7 @@ def nolock_job(job):
 
 
 def job_restart(theatre):
-    theatre.run_mode = RUN_MODE.RESTART
+    theatre.run_mode = RUN_MODES.RESTART
     return 0
 
 

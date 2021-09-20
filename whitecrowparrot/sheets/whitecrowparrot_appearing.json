@@ -1,7 +1,6 @@
 {
     "default_move": "idle",
     "evaluation_order": ["idle", "appears"],
-    "filename": "whitecrowparrot_appearing.png",
     "frame_size": [220, 160],
     "key_color": [0, 255, 0],
     "layers": {

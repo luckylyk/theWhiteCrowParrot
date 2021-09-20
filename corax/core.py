@@ -2,32 +2,54 @@
 This modules contains all constants used in the game file data
 """
 
-class RUN_MODE():
+
+class COLORS:
+    WHITE = (255, 255, 255)
+
+
+class RUN_MODES:
     SCRIPT = "script"
     NORMAL = "normal"
     PAUSE = "pause"
     RESTART = "restart"
 
 
-class EVENTS():
+class GAMELOOP_ACTIONS:
+    RESUME = "resume"
+    RESTART = "restart"
+    EXIT = "exit"
+
+
+class MENU_MODES:
+    INTERACTIVE = "interactive"
+    INACTIVE = "inactive"
+    ANIMATED = "animated"
+
+
+class MENU_EVENTS:
+    ENTER = "enter"
+    QUIT = "quit"
+
+
+class EVENTS:
     FLIP = "flip"
     BLOCK_OFFSET = "block_offset"
     SWITCH_TO = "switch_to"
 
 
-class LOOP_TYPES():
+class LOOP_TYPES:
     CYCLE = "cycle"
     SHUFFLE = "shuffle"
 
 
-class SHAPE_TYPES():
+class SHAPE_TYPES:
     SQUARE = "square"
     ELLIPSE = "ellipse"
     IMAGE = "image"
     ANIMATION = "animation"
 
 
-class NODE_TYPES():
+class NODE_TYPES:
     # graphics elements
     PLAYER = "player"
     SET_STATIC = "set_static"

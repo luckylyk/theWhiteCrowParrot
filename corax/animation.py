@@ -238,7 +238,7 @@ def build_hitboxes_sequence(data, size, flip):
             [map_pixel_position(block, size, flip) for block in hitbox[i]]
             for i, d in enumerate(data["frames_per_image"])
             for _ in range(d)]
-        for name, hitbox in data.get("hitboxes", {}).items()}
+        for name, hitbox in (data.get("hitboxes", {}) or {}).items()}
 
 
 def map_frame_index(index, data):

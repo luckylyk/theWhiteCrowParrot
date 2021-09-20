@@ -29,12 +29,13 @@
 To initialize the engine with game data, use in your terminal comand syntax:
 python {$CoraxEngineRoot} {$GameDataRoot} [flags]
 flags available:
-    --help       -h | Show the help. If that flag is set, the engine will not
-                    | initialize any game.
     --debug      -d | Run game in debug mode. Add some verbose and render the
                     | infos HUD.
+    --fullscreen -f | Launch the game in fullscreen mode.
+    --help       -h | Show the help. If that flag is set, the engine will not
+                    | initialize any game.
     --mute       -m | Disable all sounds.
-    --fullscreen -f | Launch the game in fullscreen mode
+    --scaled -s     | Scaled pixels
 
 ===============================================================================
 
@@ -87,7 +88,6 @@ resolution, the name of the game and the list of the levels.
 
 import os
 import sys
-import copy
 # exit() function is only built-in in interactive console. We need to import
 # it from sys for cx_Freeze's compiled version.
 from sys import exit
@@ -99,58 +99,31 @@ if len(sys.argv) == 1:
     raise ValueError(
         "Corax Engine cannot be launched without arguments."
         "Use --help flag to see more details.")
+
 if "--help" in sys.argv or "-h" in sys.argv:
     print(__doc__)
     exit()
-import logging
+
+
 if "--debug" in sys.argv or "-d" in sys.argv:
+    import logging
     logging.getLogger().setLevel(logging.DEBUG)
 
 
 import corax.context as cctx
-from corax.core import RUN_MODE
-from corax.theatre import Theatre
-from corax.pygameutils import render_centered_text, escape_in_events
-
+from corax.gameloop import GameLoop
+from corax.pygameutils import setup_display
 # Initializr the constante based on the passed application argument and loads
 # the main.json file.
 game_data = cctx.initialize(sys.argv)
-
 # PyGame2 initialize needed modules
 import pygame
-clock = pygame.time.Clock()
 pygame.joystick.init()
 pygame.mixer.init()
 pygame.font.init()
-screen_mode_flags = 0
-screen_mode_flags |= pygame.SCALED
-if "--fullscreen" in sys.argv or "-f" in sys.argv:
-    screen_mode_flags |= pygame.FULLSCREEN
-screen = pygame.display.set_mode(cctx.RESOLUTION, screen_mode_flags)
 
-# Theatre is the main controller class. It drive the story, build and load the
-# scenes.
-theatre = Theatre(copy.deepcopy(game_data))
-pygame.display.set_caption(theatre.caption)
+screen = setup_display(game_data["title"], sys.argv)
+gameloop = GameLoop(game_data, screen)
+while not gameloop.done:
+    next(gameloop)
 
-text = "Connect game controller (X Input)"
-while pygame.joystick.get_count() == 0:
-    pygame.joystick.quit()
-    pygame.joystick.init()
-    render_centered_text(screen, text, (255, 255, 255))
-    pygame.display.flip()
-    clock.tick(cctx.FPS)
-
-joystick = pygame.joystick.Joystick(0)
-# game loop
-done = False
-while not done:
-    if theatre.run_mode == RUN_MODE.RESTART:
-        theatre.audio_streamer.stop()
-        theatre = Theatre(copy.deepcopy(game_data))
-    joystick.init()
-    events = pygame.event.get()
-    done = joystick.get_button(7) == 1 or escape_in_events(events)
-    theatre.evaluate(joystick, screen)
-    pygame.display.flip()
-    clock.tick(cctx.FPS)

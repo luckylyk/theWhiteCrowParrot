@@ -1,0 +1,63 @@
+{
+    "default_move": "hidden",
+    "evaluation_order": ["open", "opening", "hidden"],
+    "filename": "hatch.png",
+    "frame_size": [90, 80],
+    "key_color": [0, 255, 0],
+    "layers": {
+            "body": "hatch.png"
+        },
+    "moves": {
+            "hidden": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [1],
+                    "hitboxes":  null,
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "hidden",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 14,
+                    "triggers":  null
+                },
+            "open": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [1],
+                    "hitboxes":  null,
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "open",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 13,
+                    "triggers":  null
+                },
+            "opening": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [12, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+                    "hitboxes":  null,
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "open",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 0,
+                    "triggers":  null
+                }
+        }
+}

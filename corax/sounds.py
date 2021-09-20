@@ -30,11 +30,22 @@ class Ambiance():
         self.falloff = falloff
         self.listener = listener
         self.is_playing = False
+        self._backed_volume = 1
 
     @not_executed_when_muted
     def play(self):
         self.sound.play(-1)
         self.is_playing = True
+
+
+    @not_executed_when_muted
+    def pause(self):
+        self._backed_volume = self.sound.get_volume()
+        self.sound.set_volume(0)
+
+    @not_executed_when_muted
+    def resume(self):
+        self.sound.set_volume(self._backed_volume)
 
     @not_executed_when_muted
     def stop(self):
@@ -148,6 +159,16 @@ class AudioStreamer():
                 if sound.zone and sound.zone.contains(position) is False:
                     continue
                 sound.play()
+
+    def pause(self):
+        for sound in self.sounds:
+            sound.stop()
+        for sound in self.ambiances:
+            sound.pause()
+
+    def resume(self):
+        for sound in self.ambiances:
+            sound.resume()
 
     def stop(self):
         for sound in self.ambiances + self.sounds:

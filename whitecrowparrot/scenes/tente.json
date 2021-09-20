@@ -157,10 +157,11 @@
             "deph": 0.0
         },
         {
-            "name": "tente/hatch",
-            "type": "set_static",
-            "file": "tente/hatch.png",
-            "position": [395, 235],
+            "name": "hatch",
+            "type": "set_animated",
+            "file": "hatch.json",
+            "position": [390, 180],
+            "alpha": 255,
             "deph": 0.0
         },
         {
@@ -206,6 +207,14 @@
             "type": "set_animated",
             "file": "chest_locker.json",
             "position": [430, 206],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
+            "name": "hatch2",
+            "type": "set_animated",
+            "file": "hatch2.json",
+            "position": [390, 180],
             "alpha": 255,
             "deph": 0.0
         },

@@ -79,7 +79,10 @@ script succes_to_push
         player.whitecrow play return
         wait 10
         player.whitecrow play crouch_down
-
+        nolock prop.hatch play hidden
+        nolock prop.hatch2 play opening
+        player.whitecrow set chest
+        player.whitecrow play hatch
 
 
 script try_to_open

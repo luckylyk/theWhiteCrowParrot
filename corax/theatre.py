@@ -4,13 +4,13 @@ import json
 import logging
 
 import corax.context as cctx
-from corax.core import RUN_MODE, NODE_TYPES
+from corax.core import RUN_MODES, NODE_TYPES
 from corax.crackle.io import load_scripts
 from corax.iterators import iter_on_jobs
 from corax.gamepad import InputBuffer
 from corax.player import load_players
 from corax.scene import build_scene
-from corax.seeker import find_player, find_start_scrolling_target
+from corax.seeker import find_start_scrolling_target
 from corax.sounds import AudioStreamer
 
 
@@ -37,12 +37,12 @@ class Theatre:
            /               ---->---/   |                       \
           /               /            v                        \
          /      InputBuffer            |                         \
-        /         |       ________ RUN_MODES______                \
-       /          |      /      ____/  |          \                \
-      /          /      v      /       v           \               |
-     /          /    NORMAL   |   RUN_MODE.SCRIPT   |              |
-    |          /       | \    ^                     v              |
-  Player--<---         ^  v   |                 RUN_MODE.MENU      |
+        /         |       ________ RUN_MODES                      \
+       /          |      /      ____/  |                           \
+      /          /      v      /       v                           |
+     /          /    NORMAL   |      SCRIPT                        |
+    |          /       | \    ^                                    |
+  Player--<---         ^  v   |                                    |
     | |                |   \   \                                   |
     | |              Scene  \   \                                  |
     | |               /|\    CrackleScript -----<---\              |
@@ -71,7 +71,6 @@ class Theatre:
     """
     def __init__(self, data):
         self.data = data
-        self.caption = data["caption"]
         self.globals = data["globals"]
         self.scene = None
         self.loaded_scenes = {}
@@ -84,7 +83,7 @@ class Theatre:
         self.current_scripts = []
         self.freeze = 0
         self.set_scene(data["start_scene"])
-        self.run_mode = RUN_MODE.NORMAL
+        self.run_mode = RUN_MODES.NORMAL
         self.script_iterator = None
 
     def get_scene(self, scene_name, scene_data):
@@ -129,36 +128,36 @@ class Theatre:
     def evaluate(self, joystick, screen):
         if self.freeze > 0:
             self.freeze -= 1
-        elif self.run_mode == RUN_MODE.NORMAL:
-            self.evaluate_normal_mode(joystick, screen)
-        elif self.run_mode == RUN_MODE.SCRIPT:
-            self.evaluate_script_mode(joystick, screen)
-
+        elif self.run_mode == RUN_MODES.NORMAL:
+            self.evaluate_normal_mode(joystick)
+        elif self.run_mode == RUN_MODES.SCRIPT:
+            self.evaluate_script_mode(joystick)
         if self.freeze:
             return
+
         self.scene.evaluate()
         triggerable = self.players + self.scene.animated_sets
         self.audio_streamer.evaluate()
         self.audio_streamer.shoot([t.trigger for t in triggerable])
-        self.scene.render(screen)
+        self.render(screen)
         self.scene.scrolling.evaluate()
 
-    def evaluate_script_mode(self, joystick, screen):
+    def evaluate_script_mode(self, joystick):
         try:
             next(self.script_iterator)
         except StopIteration:
             # The script is finished then go back to normal mode.
-            if self.run_mode == RUN_MODE.RESTART:
+            if self.run_mode == RUN_MODES.RESTART:
                 return
-            self.run_mode = RUN_MODE.NORMAL
+            self.run_mode = RUN_MODES.NORMAL
             self.script_iterator = None
-            self.evaluate_normal_mode(joystick, screen)
+            self.evaluate_normal_mode(joystick)
 
-    def evaluate_normal_mode(self, joystick, screen):
+    def evaluate_normal_mode(self, joystick):
         keystate_changed = self.input_buffer.update(joystick)
         self.parse_and_try_scripts()
         # If script is executed, the run mode is set to SCRIPT.
-        if keystate_changed is True and self.run_mode != RUN_MODE.SCRIPT:
+        if keystate_changed is True and self.run_mode != RUN_MODES.SCRIPT:
             for player in self.players:
                 player.input_updated(self.input_buffer)
 
@@ -182,4 +181,13 @@ class Theatre:
     def run_script(self, script):
         jobs = script.jobs(self)
         self.script_iterator = iter_on_jobs(jobs)
-        self.run_mode = RUN_MODE.SCRIPT
+        self.run_mode = RUN_MODES.SCRIPT
+
+    def pause(self):
+        self.audio_streamer.pause()
+
+    def resume(self):
+        self.audio_streamer.resume()
+
+    def render(self, screen):
+        self.scene.render(screen)

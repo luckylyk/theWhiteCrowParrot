@@ -13,6 +13,17 @@ import corax.context as cctx
 from corax.iterators import itertable
 
 
+def setup_display(caption, args):
+    screen_mode_flags = 0
+    if "--scaled" in args or "-s" in args:
+        screen_mode_flags |= pygame.SCALED
+    if "--fullscreen" in args or "-f" in args:
+        screen_mode_flags |= pygame.FULLSCREEN
+    screen = pygame.display.set_mode(cctx.RESOLUTION, screen_mode_flags)
+    pygame.display.set_caption(caption)
+    return screen
+
+
 def escape_in_events(events):
     return any(
         event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE
@@ -79,6 +90,17 @@ def render_rect(screen, color, x, y, width, height , alpha=255):
     screen.blit(temp, (x, y))
 
 
+def render_background(screen, color, alpha=255):
+    render_rect(
+        screen=screen,
+        color=color,
+        x=0,
+        y=0,
+        width=cctx.RESOLUTION[0],
+        height=cctx.RESOLUTION[1],
+        alpha=alpha)
+
+
 def render_ellipse(screen, color, x, y, height, width):
     pygame.draw.ellipse(screen, color, [x, y, height, width])
 
@@ -98,11 +120,11 @@ def render_grid(screen, camera, color, alpha=255):
     screen.blit(temp, (0, 0))
 
 
-def render_text(screen, color, x, y, text):
-    font = pygame.font.SysFont('Consolas', 15)
-
+def render_text(screen, color, x, y, text, size=15, bold=False):
+    font = pygame.font.SysFont('Consolas', size)
+    font.bold = bold
     textsurface = font.render(text, False, color)
-    screen.blit(textsurface,(x, y))
+    screen.blit(textsurface, (x, y))
 
 
 def render_centered_text(screen, text, color):

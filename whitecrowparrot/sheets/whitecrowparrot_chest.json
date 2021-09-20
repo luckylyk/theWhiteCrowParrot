@@ -1,10 +1,11 @@
 {
     "default_move": "idle",
-    "evaluation_order": ["idle", "get_ready", "is_ready", "give_up", "try_to_push", "try_to_open", "open_succes", "empty_it", "close", "push_succes", "push_and_die", "dead"],
-    "layers": {
-        "body": "whitecrowparrot_chest.png"},
+    "evaluation_order": ["idle", "get_ready", "is_ready", "give_up", "try_to_push", "try_to_open", "open_succes", "empty_it", "close", "push_succes", "push_and_die", "dead", "hatch"],
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
+    "layers": {
+            "body": "whitecrowparrot_chest.png"
+        },
     "moves": {
             "close": {
                     "center": [0, 0],
@@ -33,7 +34,7 @@
                     "hitboxes": {},
                     "hold":  false,
                     "inputs": [],
-                    "loop_on": null,
+                    "loop_on":  null,
                     "next_move": "dead",
                     "next_move_bufferable":  false,
                     "post_events": {},
@@ -95,6 +96,25 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 15,
+                    "triggers":  null
+                },
+            "hatch": {
+                    "center": [70, 155],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+                    "hitboxes":  null,
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on": "idle",
+                    "next_move": "idle",
+                    "next_move_bufferable":  false,
+                    "post_events": {
+                            "switch_to": "whitecrowparrot_exploration.json"
+                        },
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 252,
                     "triggers":  null
                 },
             "idle": {
@@ -165,7 +185,7 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 146,
-                    "triggers":  [[0, "chest_breaks"]]
+                    "triggers": [[0, "chest_breaks"]]
                 },
             "push_succes": {
                     "center": [0, 0],

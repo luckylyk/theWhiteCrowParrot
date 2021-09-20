@@ -1,12 +1,18 @@
+
+from functools import partial
 import json
 import os
-from functools import partial
+import subprocess
+import sys
+
 from PyQt5 import QtWidgets, QtCore, QtGui
+
 import corax.context as cctx
 from pluck.sprite import AnimationDataEditor
 from pluck.highlighter import get_plaint_text_editor
 from pluck.scene import SceneEditor
 from pluck.qtutils import wait_cursor, get_icon, set_shortcut
+from pluck.dialog import GameKicker
 
 
 SUPPORTED_FILETYPES = "sheets", "scenes", "scripts"
@@ -31,6 +37,7 @@ class PluckMainWindow(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
         super().__init__(parent)
         set_shortcut("CTRL+S", self, self.save_current_tab)
+        set_shortcut("CTRL+P", self, self.kick_game)
 
         self.project_explorer_model = QtWidgets.QFileSystemModel()
         self.project_explorer = QtWidgets.QTreeView()
@@ -60,6 +67,15 @@ class PluckMainWindow(QtWidgets.QMainWindow):
         except AttributeError:
             # Widget is not ready to trace change and not able to save files
             pass
+
+    def kick_game(self):
+        dialog = GameKicker()
+        result = dialog.exec_()
+        if result != QtWidgets.QDialog.Accepted:
+            return
+        corax_root = os.path.join(os.path.dirname(__file__), "../../corax")
+        arguments = [sys.executable, corax_root, cctx.ROOT, *dialog.arguments()]
+        subprocess.Popen(arguments)
 
     def set_savable_tab(self, widget):
         for i in range(self.tab.count()):

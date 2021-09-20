@@ -1,5 +1,5 @@
 {
-    "caption": "The White Crow Parrot",
+    "title": "The White Crow Parrot",
     "start_scene": "forest",
     "start_scrolling_target": "whitecrow",
     "globals": {
@@ -29,7 +29,47 @@
             "name": "tente",
             "file": "tente.json"
         }
-    ]
+    ],
+    "menu": {
+        "top": 135,
+        "left": 35,
+        "column_width": 80,
+        "text_color": [255, 255, 255],
+        "current_text_color": [255, 255, 0],
+        "row_height": 25,
+        "size": 22,
+        "background_color": [0, 0, 0],
+        "background_alpha": 190,
+        "acceleration": 1.5,
+        "speed": 3,
+        "overlap": 3,
+        "sounds": {
+            "enter": "menu/enter.ogg",
+            "quit": "menu/quit.ogg",
+            "next": "menu/next.ogg",
+            "previous": "menu/previous.ogg",
+            "press": "menu/press.ogg"
+        },
+        "content":
+            [
+                {
+                    "text": "Continue",
+                    "event": "resume"
+                },
+                {
+                    "text": "Restart",
+                    "event": "restart"
+                },
+                {
+                    "text": "Controls",
+                    "event": null
+                },
+                {
+                    "text": "Exit",
+                    "event": "exit"
+                }
+            ]
+    }
 }
 
 
