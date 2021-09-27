@@ -16,6 +16,7 @@ from pluck.dialog import GameKicker
 
 
 SUPPORTED_FILETYPES = "sheets", "scenes", "scripts"
+WINDOW_TITLE = "Pluck"
 
 
 def detect_filetype(filename):
@@ -42,9 +43,12 @@ class PluckMainWindow(QtWidgets.QMainWindow):
         self.project_explorer_model = QtWidgets.QFileSystemModel()
         self.project_explorer = QtWidgets.QTreeView()
         self.project_explorer.setModel(self.project_explorer_model)
+        for i in range(1, self.project_explorer_model.columnCount()):
+            self.project_explorer.hideColumn(i)
         self.project_explorer.doubleClicked.connect(self.request_open_file)
 
         self.tab = QtWidgets.QTabWidget()
+        self.tab.sizeHint = lambda: QtCore.QSize(800, 800)
         self.tab.setTabsClosable(True)
 
         self.splitter = QtWidgets.QSplitter(QtCore.Qt.Horizontal)
@@ -52,9 +56,11 @@ class PluckMainWindow(QtWidgets.QMainWindow):
         self.splitter.addWidget(self.tab)
 
         self.setCentralWidget(self.splitter)
+        self.sizeHint = lambda: QtCore.QSize(1200, 800)
 
     def set_workspace(self, workspace):
         # cctx.initialize(workspace)
+        self.setWindowTitle(WINDOW_TITLE + " - " + cctx.TITLE)
         root = self.project_explorer_model.setRootPath(workspace)
         self.project_explorer.setRootIndex(root)
 

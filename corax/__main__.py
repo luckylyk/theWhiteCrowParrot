@@ -29,13 +29,17 @@
 To initialize the engine with game data, use in your terminal comand syntax:
 python {$CoraxEngineRoot} {$GameDataRoot} [flags]
 flags available:
-    --debug      -d | Run game in debug mode. Add some verbose and render the
-                    | infos HUD.
-    --fullscreen -f | Launch the game in fullscreen mode.
-    --help       -h | Show the help. If that flag is set, the engine will not
-                    | initialize any game.
-    --mute       -m | Disable all sounds.
-    --scaled -s     | Scaled pixels
+    --debug        -d | Run game in debug mode. Add some verbose and render the
+                      | infos HUD.
+    --fullscreen   -f | Launch the game in fullscreen mode.
+    --help         -h | Show the help. If that flag is set, the engine will not
+                      | initialize any game.
+    --mute         -m | Disable all sounds.
+    --scaled -s       | Scaled pixels
+    --skip_splash -ss | Skip Corax Splash screen. This is for debug purpose.
+                      | This is not mandatory, but keeping the splash screen
+                      | enable with distributed version of software would be
+                      | appreciated.
 
 ===============================================================================
 
@@ -121,8 +125,18 @@ import pygame
 pygame.joystick.init()
 pygame.mixer.init()
 pygame.font.init()
+screen = setup_display(sys.argv)
 
-screen = setup_display(game_data["title"], sys.argv)
+
+# This execute the Corax Engine splash screen.
+if "--skip_splash" not in sys.argv and "-ss" not in sys.argv:
+    from corax.splash import splash_screen, SPLASH_FPS
+    splash = splash_screen(screen)
+    clock = pygame.time.Clock()
+    for _ in splash:
+        pygame.display.flip()
+        clock.tick(SPLASH_FPS)
+
 gameloop = GameLoop(game_data, screen)
 while not gameloop.done:
     next(gameloop)

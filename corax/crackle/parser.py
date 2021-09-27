@@ -16,7 +16,7 @@ def object_name(obj):
 
 
 def object_attribute(obj):
-    if not obj.count(".") < 3:
+    if obj.count(".") >= 3:
         raise ValueError(f"No attibute specified for \"{obj}\"")
     return ".".join(obj.split(".")[2:])
 

@@ -454,6 +454,8 @@ class AnimationImageViewer(QtWidgets.QWidget):
             self.emit_block_clicked(event.pos())
 
     def emit_block_clicked(self, position):
+        if not self.rect().contains(position):
+            return
         x, y = self.paintcontext.block_position(position.x(), position.y())
         self.blockClicked.emit(x, y)
 

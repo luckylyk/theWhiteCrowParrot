@@ -5,6 +5,7 @@ ROOT = None
 DEBUG = False
 MUTE = False
 
+TITLE = None
 BLOCK_SIZE = None
 CAMERA_SPEED = None
 FPS = None
@@ -33,7 +34,7 @@ def initialize(args):
     """
     global ROOT, DATA_FOLDER, ANIMATION_FOLDER, SET_FOLDER, SHEET_FOLDER, \
     SCRIPT_FOLDER, SCENE_FOLDER, SOUNDS_FOLDER, GAME_FILE, RESOLUTION, FPS, \
-    CAMERA_SPEED, BLOCK_SIZE, KEY_COLOR, DEBUG, MUTE, PLAYER_FOLDER
+    CAMERA_SPEED, BLOCK_SIZE, KEY_COLOR, DEBUG, MUTE, PLAYER_FOLDER, TITLE
 
     ROOT = args[1]
     DEBUG = "--debug" in args or "-d" in args
@@ -50,6 +51,7 @@ def initialize(args):
 
     with open(os.path.join(ROOT, GAME_FILE), "r") as f:
         game_data = json.load(f)
+    TITLE = game_data["title"]
     BLOCK_SIZE = game_data["preferences"]["block_size"]
     CAMERA_SPEED = game_data["preferences"]["camera_speed"]
     FPS = game_data["preferences"]["fps"]

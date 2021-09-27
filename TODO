@@ -25,7 +25,8 @@ Corax/Crackle :
             keep scene statuses when changing scene
             hitboxes fancy edit in pluck
             implement hitboxes system
-            implement 'pin' function = wip
+            implement 'pin' function
+            Add splash screen
 
         nested script = fix / redesign
         implement 'once' condition = delayed
@@ -58,4 +59,5 @@ White Crow Parrot:
             implement rabbit goes out of tente = done
             Implement sword gathering = done
             implement interactions with arbaletist = done
+            imprement zone shift
         implement WCP appearing props = todo

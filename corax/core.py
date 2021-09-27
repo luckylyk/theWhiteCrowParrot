@@ -5,6 +5,8 @@ This modules contains all constants used in the game file data
 
 class COLORS:
     WHITE = (255, 255, 255)
+    BLACK = (0, 0, 0)
+    GREEN = (0, 255, 0)
 
 
 class RUN_MODES:

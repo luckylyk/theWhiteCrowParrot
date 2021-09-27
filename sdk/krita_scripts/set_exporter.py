@@ -12,13 +12,14 @@ import json
 
 SRGB_PROFILE = "sRGB-elle-V2-srgbtrc.icc"
 FOLDER = r"C:\Users\lio\Desktop\walk\test"
-LEVEL_FOLDER = "level_01"
-LEVEL_FILE = "level.json"
+LEVEL_FOLDER = "mine_01"
+LEVEL_FILE = "mine_01.json"
 DEFAULT_DATA = {
+    "name": None,
     "type": "set_static",
     "file": None,
     "position": None,
-    "deph": 0
+    "deph": 0.0
 }
 
 def check_name_clash(nodes):
@@ -71,7 +72,7 @@ soft = krita.Krita()
 document = soft.activeDocument()
 nodes = document.activeNode().childNodes()
 check_name_clash(nodes)
-data = []
+scene = []
 for node in nodes:
     if not node.visible():
         continue
@@ -81,10 +82,11 @@ for node in nodes:
     image.save(path, "PNG")
     data = DEFAULT_DATA.copy()
     data["file"] = os.path.join(LEVEL_FOLDER, filename).replace("\\", "/")
+    data["name"] = node.name()
     data["position"] = node_bounds(node, document)[:2]
-    data.append(data)
+    scene.append(data)
 
 
 json_filename = os.path.join(FOLDER, LEVEL_FILE)
 with open(json_filename, "w") as f:
-    json.dump(data, f , indent=4)
+    json.dump(scene, f , indent=4)

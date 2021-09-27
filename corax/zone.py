@@ -1,3 +1,4 @@
+
 """
 This module contains all object representing the node the Zone category.
 Thats mainly data stuctures.
@@ -32,6 +33,9 @@ class Zone():
     @property
     def zone(self):
         return self.data["zone"]
+
+    def set_rect(self, rect):
+        self.data["zone"] = rect
 
     @property
     def l(self):

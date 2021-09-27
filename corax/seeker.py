@@ -21,3 +21,9 @@ def find_animated_set(scene, name):
     for element in scene.animated_sets:
         if element.name == name:
             return element
+
+
+def find_zone(scene, name):
+    for zone in scene.zones:
+        if zone.name == name:
+            return zone

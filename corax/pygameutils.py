@@ -13,14 +13,14 @@ import corax.context as cctx
 from corax.iterators import itertable
 
 
-def setup_display(caption, args):
+def setup_display(args):
     screen_mode_flags = 0
     if "--scaled" in args or "-s" in args:
         screen_mode_flags |= pygame.SCALED
     if "--fullscreen" in args or "-f" in args:
         screen_mode_flags |= pygame.FULLSCREEN
     screen = pygame.display.set_mode(cctx.RESOLUTION, screen_mode_flags)
-    pygame.display.set_caption(caption)
+    pygame.display.set_caption(cctx.TITLE)
     return screen
 
 
@@ -30,8 +30,9 @@ def escape_in_events(events):
         for event in events)
 
 
-def load_images(filename, frame_size, key_color):
-    filename = os.path.join(cctx.ANIMATION_FOLDER, filename)
+def load_images(filename, frame_size, key_color, relative=True):
+    if relative:
+        filename = os.path.join(cctx.ANIMATION_FOLDER, filename)
     sheet = pygame.image.load(filename).convert()
     width, height = frame_size
     row = sheet.get_height() / height
