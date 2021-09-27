@@ -61,7 +61,7 @@ script push_and_die
         restart
 
 
-script succes_to_push
+script push_successfully
     gamepad.keys.pressed has RIGHT
     player.whitecrow.sheet is chest
     player.whitecrow.animation is is_ready
@@ -83,6 +83,7 @@ script succes_to_push
         nolock prop.hatch2 play opening
         player.whitecrow set chest
         player.whitecrow play hatch
+        zone.right_limit shift (39, 0, 80, 27)
 
 
 script try_to_open
