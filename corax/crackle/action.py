@@ -3,8 +3,9 @@ from corax.crackle.parser import string_to_int_list, string_to_string_list
 
 
 ACTION_KEYWORDS = [
-    "run", "play", "set", "wait", "freeze", "reach", "move", "force", "flush",
-    "pin", "restart", "shift"]
+    'aim', 'clear', 'fadein', 'fadeout', 'flush', 'force', 'freeze', 'hide',
+    'move', 'pin', 'play', 'reach', 'restart', 'run', 'show', 'set', 'shift',
+    'wait']
 
 
 def is_nolock_action(line):

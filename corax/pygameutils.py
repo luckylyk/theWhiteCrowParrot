@@ -10,18 +10,10 @@ object from files.
 import os
 import pygame
 import corax.context as cctx
+from corax.core import COLORS
 from corax.iterators import itertable
+import corax.screen as sctx
 
-
-def setup_display(args):
-    screen_mode_flags = 0
-    if "--scaled" in args or "-s" in args:
-        screen_mode_flags |= pygame.SCALED
-    if "--fullscreen" in args or "-f" in args:
-        screen_mode_flags |= pygame.FULLSCREEN
-    screen = pygame.display.set_mode(cctx.RESOLUTION, screen_mode_flags)
-    pygame.display.set_caption(cctx.TITLE)
-    return screen
 
 
 def escape_in_events(events):
@@ -65,7 +57,10 @@ def image_mirror(image, horizontal=True, vertical=False):
 
 def load_sound(filename):
     filename = os.path.join(cctx.SOUNDS_FOLDER, filename)
-    return pygame.mixer.Sound(filename)
+    try:
+        return pygame.mixer.Sound(filename)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"No such file or directory: {filename}")
 
 
 def render_image(image, screen, position, alpha=255):
@@ -91,14 +86,15 @@ def render_rect(screen, color, x, y, width, height , alpha=255):
     screen.blit(temp, (x, y))
 
 
-def render_background(screen, color, alpha=255):
+def render_background(screen, color=None, alpha=255):
+    color = color or COLORS.BLACK
     render_rect(
         screen=screen,
         color=color,
         x=0,
         y=0,
-        width=cctx.RESOLUTION[0],
-        height=cctx.RESOLUTION[1],
+        width=sctx.SCREEN[0],
+        height=sctx.SCREEN[1],
         alpha=alpha)
 
 
@@ -111,11 +107,11 @@ def render_grid(screen, camera, color, alpha=255):
     # Render grid
     l = -camera.pixel_position[0] % cctx.BLOCK_SIZE
     while l < cctx.RESOLUTION[0]:
-        pygame.draw.line(temp, color, (l, 0), (l, cctx.RESOLUTION[1]))
+        pygame.draw.line(temp, color, (l, 0), (l, sctx.SCREEN[1]))
         l += cctx.BLOCK_SIZE
-    t = 0
+    t = sctx.HIGH_LETTERBOX[-1] if sctx.USE_LETTERBOX else 0
     while t < cctx.RESOLUTION[1]:
-        pygame.draw.line(temp, color, (0, t), (cctx.RESOLUTION[0], t))
+        pygame.draw.line(temp, color, (0, t), (sctx.SCREEN[0], t))
         t += cctx.BLOCK_SIZE
     temp.set_alpha(alpha)
     screen.blit(temp, (0, 0))
@@ -128,9 +124,17 @@ def render_text(screen, color, x, y, text, size=15, bold=False):
     screen.blit(textsurface, (x, y))
 
 
-def render_centered_text(screen, text, color):
+def render_centered_text(screen, text, color=None):
+    color = color or COLORS.WHITE
     font = pygame.font.SysFont('Consolas', 15)
-    text = font.render(text, True, (255, 255, 255))
-    x, y = cctx.RESOLUTION
+    text = font.render(text, True, color)
+    x, y = sctx.SCREEN
     text_rect = text.get_rect(center=(x/2, y/2))
     screen.blit(text, text_rect)
+
+
+def draw_letterbox(screen):
+    if not sctx.USE_LETTERBOX:
+        return
+    render_rect(screen, COLORS.BLACK, *sctx.HIGH_LETTERBOX)
+    render_rect(screen, COLORS.BLACK, *sctx.LOW_LETTERBOX)

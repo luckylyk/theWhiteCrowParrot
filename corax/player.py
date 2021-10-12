@@ -32,6 +32,7 @@ class PlayerSlot():
         self.block_position = block_position
         self.flip = flip
         self.player = None
+        self.visible = True
 
     def render(self, screen, deph, camera):
         self.player.render(screen, deph, camera)

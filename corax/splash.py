@@ -8,6 +8,7 @@ import corax.context as cctx
 from corax.core import COLORS
 from corax.pygameutils import (
     load_image, load_images, load_sound, render_background, render_image)
+from corax.screen import screen_relative_y
 
 
 RESSOURCES_FOLDER = os.path.join(os.path.dirname(__file__), "ressources")
@@ -34,6 +35,7 @@ def splash_screen(screen):
     images_iterator = cycle(logo_images)
     x = (LOGO_SIZE[0] / 2) + (cctx.RESOLUTION[0] / 2) - LOGO_SIZE[0]
     y = (LOGO_SIZE[1] / 2) + (cctx.RESOLUTION[1] / 2.5) - LOGO_SIZE[1]
+    y = screen_relative_y(y)
     while frame < DURATION:
         if frame == PLAY_SOUND_AT:
             sound.play()

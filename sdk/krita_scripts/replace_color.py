@@ -25,4 +25,3 @@ for i in range(0, pixel_data.length(), 4):
     new_pixel_data.append(color)
 node.setPixelData(new_pixel_data, 0, 0, w, h)
 document.refreshProjection()
-print(pixel_found)

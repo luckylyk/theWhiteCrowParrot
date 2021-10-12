@@ -4,11 +4,13 @@ import os
 count = 0
 paths = [
     os.path.join(os.path.dirname(__file__), "..", "corax"),
-    os.path.join(os.path.dirname(__file__), "..", "sdk", "pluck"),
-    os.path.join(os.path.dirname(__file__), "..", "sdk", "krita_scripts"),
+    # os.path.join(os.path.dirname(__file__), "..", "sdk", "pluck"),
+    # os.path.join(os.path.dirname(__file__), "..", "sdk", "krita_scripts"),
     os.path.join(os.path.dirname(__file__), "..", "corax", "crackle")]
 
 # paths.append(os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot", "sheets"))
+# paths.append(os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot", "sheets/gamejam"))
+# paths.append(os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot", "scenes/gamejam"))
 # paths.append(os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot", "scripts"))
 # paths.append(os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot", "players"))
 

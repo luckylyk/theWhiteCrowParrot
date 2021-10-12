@@ -1,14 +1,16 @@
 {
     "title": "The White Crow Parrot",
     "start_scene": "forest",
-    "start_scrolling_target": "whitecrow",
+    "start_scrolling_target": "whitecrow_gamejam",
     "globals": {
         "chest_moved": false,
         "chest_open": false,
         "chest_locked": true,
         "chest_empty": false,
         "rabbit_triggered": false,
-        "has_sword": false
+        "has_sword": false,
+        "lie_down_miner_is_dead": false,
+        "wearing_blackhelmet": false
     },
     "preferences": {
         "resolution": [800, 268],
@@ -16,18 +18,35 @@
         "block_size": 10,
         "key_color": [0, 255, 0],
         "camera_speed": 500},
+    "fade_in_duration": 10,
     "scenes": [
         {
             "name": "forest",
-            "file": "forest_01.json"
+            "file": "gamejam/forest_01.json"
         },
         {
-            "name": "fight",
-            "file": "fight.json"
+            "name": "mine",
+            "file": "gamejam/mine_01.json"
+        },
+        {
+            "name": "hole",
+            "file": "gamejam/hole.json"
+        },
+        {
+            "name": "exit",
+            "file": "gamejam/exit.json"
         },
         {
             "name": "tente",
-            "file": "tente.json"
+            "file": "gamejam/tente.json"
+        },
+        {
+            "name": "ending",
+            "file": "gamejam/ending.json"
+        },
+        {
+            "name": "credits",
+            "file": "gamejam/credits.json"
         }
     ],
     "menu": {
@@ -59,10 +78,6 @@
                 {
                     "text": "Restart",
                     "event": "restart"
-                },
-                {
-                    "text": "Controls",
-                    "event": null
                 },
                 {
                     "text": "Exit",

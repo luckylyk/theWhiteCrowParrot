@@ -1,0 +1,63 @@
+{
+    "default_move": "in",
+    "evaluation_order": ["cut_scene", "out", "in"],
+    "filename": "mine_cutscene.png",
+    "frame_size": [360, 228],
+    "key_color": [0, 255, 0],
+    "layers": {
+            "base": "mine_cutscene.png"
+        },
+    "moves": {
+            "cut_scene": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2],
+                    "hitboxes": {},
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "out",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 1,
+                    "triggers": [[3, "fanfare"],[38, "unfold1"], [88, "neck_snap"], [103, "whoosh"], [110, "bodyfall"], [120, "unfold2"]]
+                },
+            "in": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [1],
+                    "hitboxes":  null,
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "in",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 1,
+                    "triggers":  null
+                },
+            "out": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [600],
+                    "hitboxes": {},
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "out",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": 0,
+                    "start_at_image": 149,
+                    "triggers": []
+                }
+        }
+}

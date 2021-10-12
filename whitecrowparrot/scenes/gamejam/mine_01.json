@@ -1,0 +1,213 @@
+{
+    "name": "mine_01",
+    "type": "scene",
+    "background_color": [0, 0, 0],
+    "boundary": [0, 0, 800, 268],
+    "soft_boundaries": [],
+    "target_offset": [75, 0],
+    "sounds": [
+
+        {
+            "name": "cave_mood",
+            "type": "ambiance",
+            "file": "ambiances/cave.ogg",
+            "channel": 5,
+            "falloff": 0,
+            "listener": "whitecrow_gamejam",
+            "zone": [-150, -150, 800, 420]
+        },
+        {
+            "name": "gravel_step",
+            "type": "sfx_sound_collection",
+            "channel": 4,
+            "emitter": "whitecrow_gamejam",
+            "falloff": 150,
+            "files": ["effects/gravel_step_01.ogg", "effects/gravel_step_02.ogg", "effects/gravel_step_03.ogg"],
+            "order": "shuffle",
+            "trigger": "step_whitecrow",
+            "zone": [0, 0, 800, 420]
+        },
+        {
+            "name": "necksnap",
+            "type": "sfx_sound",
+            "file": "effects/neck_snap.ogg",
+            "channel": 5,
+            "emitter": "cut_scene",
+            "falloff": 150,
+            "trigger": "neck_snap",
+            "zone": [0, 0, 800, 420]
+        },
+        {
+            "name": "bodyfall",
+            "type": "sfx_sound",
+            "file": "effects/body_fall_01.ogg",
+            "channel": 5,
+            "emitter": "cut_scene",
+            "falloff": 150,
+            "trigger": "bodyfall",
+            "zone": [0, 0, 800, 420]
+        },
+        {
+            "name": "fanfare",
+            "type": "sfx_sound",
+            "file": "effects/fanfare.ogg",
+            "channel": 5,
+            "emitter": "cut_scene",
+            "falloff": 150,
+            "trigger": "fanfare",
+            "zone": [0, 0, 800, 420]
+        },
+        {
+            "name": "unfold1",
+            "type": "sfx_sound",
+            "file": "effects/unfold_paper.ogg",
+            "channel": 5,
+            "emitter": "cut_scene",
+            "falloff": 150,
+            "trigger": "unfold1",
+            "zone": [0, 0, 800, 420]
+        },
+        {
+            "name": "sword_whoosh",
+            "type": "sfx_sound",
+            "file": "effects/whoosh.ogg",
+            "channel": 5,
+            "emitter": "cut_scene",
+            "falloff": 150,
+            "trigger": "whoosh",
+            "zone": [0, 0, 800, 420]
+        },
+        {
+            "name": "unfold2",
+            "type": "sfx_sound",
+            "file": "effects/unfold_paper_2.ogg",
+            "channel": 5,
+            "emitter": "cut_scene",
+            "falloff": 150,
+            "trigger": "unfold2",
+            "zone": [0, 0, 800, 420]
+        }
+    ],
+    "zones": [
+        {
+            "name": "left_limit",
+            "type": "no_go",
+            "affect": ["whitecrow_gamejam"],
+            "zone": [0, 19, 3, 27]
+        },
+        {
+            "name": "right_limit",
+            "type": "no_go",
+            "affect": ["whitecrow_gamejam"],
+            "zone": [74, 15, 80, 27]
+        },
+        {
+            "name": "denunciation",
+            "type": "interaction",
+            "affect": ["whitecrow_gamejam"],
+            "scripts": ["mine.denunciation", "mine.strangulation"],
+            "zone": [26, 19, 45, 27]
+        },
+        {
+            "name": "face_faith",
+            "type": "interaction",
+            "affect": ["whitecrow_gamejam"],
+            "scripts": ["mine.miner_face_his_faith"],
+            "zone": [12, 19, 26, 27]
+        },
+        {
+            "name": "right_leave",
+            "type": "interaction",
+            "affect": ["whitecrow_gamejam"],
+            "scripts": ["mine.go_to_exit"],
+            "zone": [71, 15, 80, 27]
+        }
+    ],
+    "elements": [
+        {
+            "name": "background",
+            "type": "layer",
+            "deph": 0.0
+        },
+        {
+            "name": "wall",
+            "type": "set_static",
+            "file": "mine_01/wall.png",
+            "position": [0, 0],
+            "deph": 0.0
+        },
+        {
+            "name": "ground",
+            "type": "set_static",
+            "file": "mine_01/ground.png",
+            "position": [0, 0],
+            "deph": 0.0
+        },
+        {
+            "name": "wood",
+            "type": "set_static",
+            "file": "mine_01/wood.png",
+            "position": [0, 0],
+            "deph": 0.0
+        },
+        {
+            "name": "rocks",
+            "type": "set_static",
+            "file": "mine_01/rocks.png",
+            "position": [136, 0],
+            "deph": 0.0
+        },
+        {
+            "name": "lie_down_miner_bg",
+            "type": "set_animated",
+            "file": "mine_lie_down_miner.json",
+            "position": [350, 120],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
+            "name": "cut_scene",
+            "type": "set_animated",
+            "file": "mine_cut_scene.json",
+            "position": [130, 40],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
+            "name": "blackknight_strangulation",
+            "type": "set_animated",
+            "file": "blackknight_strangulation.json",
+            "position": [300, 90],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
+            "name": "lie_down_miner_fg",
+            "type": "set_animated",
+            "file": "mine_lie_down_miner.json",
+            "position": [350, 120],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
+            "name": "whitecrow_gamejam",
+            "type": "player",
+            "block_position": [-10, 7],
+            "flip":  false
+        },
+        {
+            "name": "mask",
+            "type": "set_static",
+            "file": "mine_01/mask.png",
+            "position": [0, 126],
+            "deph": 0.0
+        },
+        {
+            "name": "foreground",
+            "type": "set_static",
+            "file": "mine_01/foreground.png",
+            "position": [0, 0],
+            "deph": 0.0
+        }
+    ]
+}

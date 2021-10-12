@@ -105,6 +105,8 @@ class PluckMainWindow(QtWidgets.QMainWindow):
             return
         filenames = {self.project_explorer_model.filePath(i) for i in indexes}
         for filename in filenames:
+            if os.path.isdir(filename):
+                continue
             filetype = detect_filetype(filename)
             if filetype not in SUPPORTED_FILETYPES:
                 continue

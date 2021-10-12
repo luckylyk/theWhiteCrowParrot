@@ -1,0 +1,31 @@
+{
+    "name": "credits",
+    "type": "scene",
+    "background_color": [8, 11, 20],
+    "boundary": [0, 0, 800, 268],
+    "soft_boundaries": [],
+    "target_offset": [75, 0],
+    "sounds": [
+
+    ],
+    "zones": [
+
+    ],
+    "elements": [
+        {
+            "name": "background",
+            "type": "layer",
+            "deph": 0.0
+        },
+        {
+            "name": "Gameby",
+            "type": "set_static",
+            "file": "credits/game_by.png",
+            "position": [
+                309,
+                103
+            ],
+            "deph": 0.0
+        }
+    ]
+}

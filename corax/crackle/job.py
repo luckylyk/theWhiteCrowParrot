@@ -11,7 +11,8 @@ to RUN_MODES.SCRIPT which block the gameplay evaluation.
 from functools import partial
 
 from corax.core import EVENTS, RUN_MODES
-from corax.seeker import find_animated_set, find_player, find_zone
+from corax.iterators import fade
+from corax.seeker import find_animated_set, find_element, find_player, find_zone
 
 from corax.crackle.parser import (
     object_attribute, string_to_int_list, object_type, object_name)
@@ -38,8 +39,13 @@ def create_job_without_subject(line, theatre):
     function = filter_action(line)
     if function == "run":
         return partial(job_run_script, theatre, line.split(" ")[-1])
+    if function == "clear":
+        return partial(job_clear, theatre)
     elif function == "force":
         return partial(job_force_script, theatre, line.split(" ")[-1])
+    elif function in ("hide", "show"):
+        element = object_name(line.split(" ")[-1])
+        return partial(job_switch_visibility, theatre, element, function == "show")
     elif function == "wait":
         return lambda: int(line.split(" ")[-1])
     elif function == "freeze":
@@ -52,6 +58,9 @@ def create_job_without_subject(line, theatre):
         return partial(job_pin_play, theatre, player_name)
     elif function == "restart":
         return partial(job_restart, theatre)
+    elif function in ("fadein", "fadeout"):
+        duration = int(line.split(" ")[-1])
+        return partial(job_fade, theatre, function == "fadein", duration)
 
 
 def create_job_with_subject(subject, function, arguments, theatre):
@@ -124,6 +133,16 @@ def job_aim(player, move, direction):
 
     player.animation_controller.set_move(move)
     return player.animation_controller.animation.length
+
+
+def job_clear(theatre):
+    theatre.loaded_scenes.clear()
+    return 0
+
+
+def job_fade(theatre, reverse=True, duration=10):
+    theatre.transition = fade(duration, maximum=255, reverse=reverse)
+    return duration - 1
 
 
 def job_freeze_theatre(theatre, value):
@@ -209,4 +228,10 @@ def job_shift_zone(zone, rect):
 
 def job_switch_layer(player, state, layer):
     player.set_layer_visible(layer, state)
+    return 0
+
+
+def job_switch_visibility(theatre, name, visible):
+    element = find_element(theatre.scene, name)
+    element.visible = visible
     return 0

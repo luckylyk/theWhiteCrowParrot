@@ -1,0 +1,129 @@
+{
+    "name": "mine_01",
+    "type": "scene",
+    "background_color": [0, 0, 0],
+    "boundary": [0, 0, 800, 268],
+    "soft_boundaries": [],
+    "target_offset": [75, 0],
+    "sounds": [
+        {
+            "name": "cave_mood",
+            "type": "ambiance",
+            "file": "ambiances/cave.ogg",
+            "channel": 5,
+            "falloff": 0,
+            "listener": "whitecrow_gamejam",
+            "zone": [-150, -150, 800, 420]
+        },
+        {
+            "name": "gravel_step",
+            "type": "sfx_sound_collection",
+            "channel": 4,
+            "emitter": "whitecrow_gamejam",
+            "falloff": 150,
+            "files": ["effects/gravel_step_01.ogg", "effects/gravel_step_02.ogg", "effects/gravel_step_03.ogg"],
+            "order": "shuffle",
+            "trigger": "step_whitecrow",
+            "zone": [-150, -150, 8000, 420]
+        },
+        {
+            "name": "break_sword",
+            "type": "sfx_sound",
+            "file": "effects/sword_break.ogg",
+            "channel": 5,
+            "emitter": "whitecrow_gamejam",
+            "falloff": 150,
+            "trigger": "break_sword",
+            "zone": [-150, -150, 8000, 420]
+        },
+        {
+            "name": "fall1",
+            "type": "sfx_sound",
+            "file": "effects/body_fall_02.ogg",
+            "channel": 5,
+            "emitter": "whitecrow_gamejam",
+            "falloff": 150,
+            "trigger": "fall1",
+            "zone": [-150, -150, 8000, 420]
+        },
+        {
+            "name": "fall2",
+            "type": "sfx_sound",
+            "file": "effects/body_fall_03.ogg",
+            "channel": 5,
+            "emitter": "whitecrow_gamejam",
+            "falloff": 150,
+            "trigger": "fall2",
+            "zone": [-150, -150, 8000, 420]
+        }
+    ],
+    "zones": [
+        {
+            "name": "left_limit",
+            "type": "no_go",
+            "affect": "whitecrow_gamejam",
+            "zone": [0, 0, 29, 27]
+        },
+        {
+            "name": "right_limit",
+            "type": "no_go",
+            "affect": ["whitecrow_gamejam"],
+            "zone": [49, 16, 80, 27]
+        },
+        {
+            "name": "right_leave",
+            "type": "interaction",
+            "affect": "whitecrow_gamejam",
+            "scripts": ["mine.leave_hole", "mine.leave_hole_standed_up"],
+            "zone": [45, 16, 80, 27]
+        }
+    ],
+    "elements": [
+        {
+            "name": "background",
+            "type": "layer",
+            "deph": 0.0
+        },
+        {
+            "name": "wall",
+            "type": "set_static",
+            "file": "hole/wall.png",
+            "position": [208, 0],
+            "deph": 0.0
+        },
+        {
+            "name": "rock",
+            "type": "set_static",
+            "file": "hole/rock.png",
+            "position": [278, 0],
+            "deph": 0.0
+        },
+        {
+            "name": "wood",
+            "type": "set_static",
+            "file": "hole/wood.png",
+            "position": [51, 0],
+            "deph": 0.0
+        },
+        {
+            "name": "ground",
+            "type": "set_static",
+            "file": "hole/ground.png",
+            "position": [296, 219],
+            "deph": 0.0
+        },
+        {
+            "name": "whitecrow_gamejam",
+            "type": "player",
+            "block_position": [27, 0],
+            "flip":  false
+        },
+        {
+            "name": "foreground",
+            "type": "set_static",
+            "file": "hole/foreground.png",
+            "position": [0, 0],
+            "deph": 0.0
+        }
+    ]
+}

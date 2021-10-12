@@ -92,6 +92,7 @@ class ParticlesSystem():
 
         self.name = name
         self.deph = deph
+        self.visible = True
         self.zone = Rect(*zone)
         self.flow = cycle(range(flow)) if flow else None
         self.emitter = emitter

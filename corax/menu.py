@@ -1,6 +1,8 @@
-from pygameutils import load_sound, render_text, render_background
+
 from corax.core import MENU_MODES, MENU_EVENTS
 from corax.gamepad import InputBuffer
+from corax.pygameutils import load_sound, render_text, render_background
+from corax.screen import screen_relative_y
 
 
 class Menu:
@@ -82,9 +84,9 @@ class Menu:
             self.set_next()
         elif "UP" in buttons:
             self.set_previous()
-        elif "start" in buttons or "B" in buttons:
+        elif "B" in buttons:
             self.quit()
-        elif "A" in buttons or "X" in buttons:
+        elif "A" in buttons or "X" in buttons or "start" in buttons:
             self.quit(self.data["content"][self.index].get("event"))
         self.render(screen)
 
@@ -145,10 +147,10 @@ class Menu:
 class MenuItem:
     def __init__(self, text, event, origin, destination, speed, acceleration):
         self.acceleration = acceleration
-        self.destination = destination
+        self.destination = [destination[0], screen_relative_y(destination[1])]
         self.event = event
-        self.origin = origin
-        self.position = origin[:]
+        self.origin = [origin[0], screen_relative_y(origin[1])]
+        self.position = self.origin[:]
         self.speed = speed
         self.text = text
         self.animation = None

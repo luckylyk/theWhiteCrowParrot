@@ -1,0 +1,259 @@
+{
+    "name": "ending",
+    "type": "scene",
+    "background_color": [128, 216, 255],
+    "boundary": [0, 0, 1300, 268],
+    "soft_boundaries": [],
+    "target_offset": [75, 0],
+    "sounds": [
+        {
+            "name": "ambiance_nature_outisde",
+            "type": "ambiance",
+            "file": "ambiances/nature1.ogg",
+            "channel": 5,
+            "falloff": 150,
+            "listener": "whitecrow_gamejam",
+            "zone": [-150, -150, 1580, 420]
+        },
+        {
+            "name": "grass_step",
+            "type": "sfx_sound_collection",
+            "channel": 5,
+            "emitter": "whitecrow_gamejam",
+            "falloff": 150,
+            "files": ["effects/grass_step_01.ogg", "effects/grass_step_02.ogg", "effects/grass_step_03.ogg", "effects/grass_step_04.ogg", "effects/grass_step_05.ogg", "effects/grass_step_06.ogg", "effects/grass_step_07.ogg"],
+            "order": "shuffle",
+            "trigger": "step_whitecrow",
+            "zone": [-150, -150, 8000, 420]
+        },
+        {
+            "name": "gravel_step",
+            "type": "sfx_sound_collection",
+            "channel": 4,
+            "emitter": "whitecrow_gamejam",
+            "falloff": 150,
+            "files": ["effects/gravel_step_01.ogg", "effects/gravel_step_02.ogg", "effects/gravel_step_03.ogg"],
+            "order": "shuffle",
+            "trigger": "step_whitecrow",
+            "zone": [-150, -150, 8000, 420]
+        }
+    ],
+    "zones": [
+        {
+            "name": "stop right",
+            "type": "no_go",
+            "affect": ["whitecrow_gamejam"],
+            "zone": [115, 23, 123, 25]
+        },
+        {
+            "name": "shoot",
+            "type": "interaction",
+            "affect": ["whitecrow_gamejam"],
+            "scripts": ["arbaletist.shoot_1", "arbaletist.shoot_2", "arbaletist.shoot_3", "arbaletist.shoot_4"],
+            "zone": [24, 23, 48, 26]
+        },
+        {
+            "name": "aim",
+            "type": "interaction",
+            "affect": ["whitecrow_gamejam"],
+            "scripts": ["arbaletist.discard_aiming"],
+            "zone": [15, 23, 24, 26]
+        },
+        {
+            "name": "leave_left",
+            "type": "interaction",
+            "affect": ["whitecrow_gamejam"],
+            "scripts": ["forest.go_to_exit_mine"],
+            "zone": [0, 23, 4, 26]
+        },
+        {
+            "name": "congrat",
+            "type": "interaction",
+            "affect": ["whitecrow_gamejam"],
+            "scripts": ["forest.go_to_credits"],
+            "zone": [112, 23, 120, 25]
+        }
+    ],
+    "elements": [
+        {
+            "name": "background",
+            "type": "layer",
+            "deph": 0.0
+        },
+        {
+            "name": "montain2",
+            "type": "set_static",
+            "file": "ending/montain2.png",
+            "position": [0, 10],
+            "deph": -0.6
+        },
+        {
+            "name": "montain1",
+            "type": "set_static",
+            "file": "ending/montain1.png",
+            "position": [356, 38],
+            "deph": -0.5
+        },
+        {
+            "name": "bg_trees",
+            "type": "set_static",
+            "file": "ending/bg_trees.png",
+            "position": [950, 0],
+            "deph": -0.3
+        },
+        {
+            "name": "bg_yellow_bushes",
+            "type": "set_static",
+            "file": "ending/bg_yellow_bushes.png",
+            "position": [87, 150],
+            "deph": -0.2
+        },
+        {
+            "name": "ground",
+            "type": "set_static",
+            "file": "ending/ground.png",
+            "position": [0, 184],
+            "deph": 0.0
+        },
+        {
+            "name": "left_red_tree",
+            "type": "set_static",
+            "file": "ending/left_red_tree.png",
+            "position": [165, 0],
+            "deph": 0.0
+        },
+        {
+            "name": "right_yellow_bg_tree",
+            "type": "set_static",
+            "file": "ending/right_yellow_bg_tree.png",
+            "position": [1164, 39],
+            "deph": 0.0
+        },
+        {
+            "name": "right_tree",
+            "type": "set_static",
+            "file": "ending/right_tree.png",
+            "position": [1120, 0],
+            "deph": 0.0
+        },
+        {
+            "name": "right_bush",
+            "type": "set_static",
+            "file": "ending/right_bush.png",
+            "position": [1090, 158],
+            "deph": 0.0
+        },
+        {
+            "name": "left_bush",
+            "type": "set_static",
+            "file": "ending/left_bush.png",
+            "position": [337, 152],
+            "deph": 0.0
+        },
+        {
+            "name": "bg_rock",
+            "type": "set_static",
+            "file": "ending/bg_rock.png",
+            "position": [0, 0],
+            "deph": 0.0
+        },
+        {
+            "name": "knight",
+            "type": "set_static",
+            "file": "ending/knight.png",
+            "position": [725, 124],
+            "deph": 0.0
+        },
+        {
+            "name": "woods",
+            "type": "set_static",
+            "file": "ending/woods.png",
+            "position": [99, 83],
+            "deph": 0.0
+        },
+        {
+            "name": "knights_01",
+            "type": "set_static",
+            "file": "ending/knights_01.png",
+            "position": [235, 111],
+            "deph": 0.0
+        },
+        {
+            "name": "whitecrow_gamejam",
+            "type": "player",
+            "block_position": [0, 8],
+            "flip":  false
+        },
+        {
+            "name": "arbaletist",
+            "type": "set_animated",
+            "file": "arbaletist.json",
+            "position": [350, 80],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
+            "name": "fg_mask",
+            "type": "set_static",
+            "file": "ending/fg_mask.png",
+            "position": [0, 0],
+            "deph": 0.0
+        },
+        {
+            "name": "right_fg_leaves",
+            "type": "set_static",
+            "file": "ending/right_fg_leaves.png",
+            "position": [0, 150],
+            "deph": 0.1
+        },
+        {
+            "name": "fg_mine_woods",
+            "type": "set_static",
+            "file": "ending/fg_mine_woods.png",
+            "position": [96, 119],
+            "deph": 0.0
+        },
+        {
+            "name": "fg_rock_01",
+            "type": "set_static",
+            "file": "ending/fg_rock_01.png",
+            "position": [425, 0],
+            "deph": 0.08
+        },
+        {
+            "name": "fg_plant",
+            "type": "set_static",
+            "file": "ending/fg_plant.png",
+            "position": [527, 99],
+            "deph": 0.1
+        },
+        {
+            "name": "fg_rock_02",
+            "type": "set_static",
+            "file": "ending/fg_rock_02.png",
+            "position": [569, 217],
+            "deph": 0.12
+        },
+        {
+            "name": "fg_knight_front_of_cam",
+            "type": "set_static",
+            "file": "ending/fg_knight_front_of_cam.png",
+            "position": [750, 106],
+            "deph": 0.25
+        },
+        {
+            "name": "horse",
+            "type": "set_static",
+            "file": "ending/horse.png",
+            "position": [1148, 121],
+            "deph": 0.0
+        },
+        {
+            "name": "fg_knight_showing_his_back",
+            "type": "set_static",
+            "file": "ending/fg_knight_showing_his_back.png",
+            "position": [750, 132],
+            "deph": 0.333
+        }
+    ]
+}

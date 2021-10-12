@@ -6,9 +6,10 @@ import logging
 import corax.context as cctx
 from corax.core import RUN_MODES, NODE_TYPES
 from corax.crackle.io import load_scripts
-from corax.iterators import iter_on_jobs
+from corax.iterators import iter_on_jobs, fade
 from corax.gamepad import InputBuffer
 from corax.player import load_players
+from corax.pygameutils import draw_letterbox, render_background
 from corax.scene import build_scene
 from corax.seeker import find_start_scrolling_target
 from corax.sounds import AudioStreamer
@@ -85,6 +86,8 @@ class Theatre:
         self.set_scene(data["start_scene"])
         self.run_mode = RUN_MODES.NORMAL
         self.script_iterator = None
+        self.transition = fade(data["fade_in_duration"], maximum=255, reverse=True)
+        self.alpha = 0
 
     def get_scene(self, scene_name, scene_data):
         return self.loaded_scenes.get(scene_name) or self.loaded_scenes.setdefault(
@@ -180,7 +183,7 @@ class Theatre:
 
     def run_script(self, script):
         jobs = script.jobs(self)
-        self.script_iterator = iter_on_jobs(jobs)
+        self.script_iterator = iter_on_jobs(jobs, script.actions)
         self.run_mode = RUN_MODES.SCRIPT
 
     def pause(self):
@@ -191,3 +194,13 @@ class Theatre:
 
     def render(self, screen):
         self.scene.render(screen)
+        draw_letterbox(screen)
+
+        if self.transition:
+            try:
+                self.alpha = next(self.transition)
+            except StopIteration:
+                self.transition = None
+        transition_alpha = 255 - self.alpha
+        if transition_alpha:
+            render_background(screen, alpha=transition_alpha)

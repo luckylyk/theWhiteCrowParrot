@@ -1,0 +1,82 @@
+{
+    "default_move": "get_ready",
+    "evaluation_order": ["get_ready", "is_ready", "give_up", "collects"],
+    "layers": {
+        "body": "whitecrowparrot_collects_sword.png"},
+    "frame_size": [240, 160],
+    "key_color": [0, 255, 0],
+    "moves": {
+            "collects": {
+                    "center": [70, 155],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [2, 2, 2, 2, 3, 3, 2, 2, 2, 2, 5, 2, 1, 1, 1, 1, 1, 1, 1, 2, 3, 3, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 1, 1, 1, 1, 1, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+                    "hitboxes": {},
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "idle",
+                    "next_move_bufferable":  false,
+                    "post_events": {
+                            "switch_to": "gamejam/whitecrowparrot_sword.json"
+                        },
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 14,
+                    "triggers":  null
+                },
+            "get_ready": {
+                    "center": [70, 155],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1],
+                    "hitboxes": {},
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "is_ready",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 0,
+                    "triggers":  null
+                },
+            "give_up": {
+                    "center": [70, 155],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [1, 2, 2, 2, 1, 3],
+                    "hitboxes": {},
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "is_ready",
+                    "next_move_bufferable":  false,
+                    "post_events": {
+                            "switch_to": "gamejam/whitecrowparrot_exploration.json"
+                        },
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 8,
+                    "triggers":  null
+                },
+            "is_ready": {
+                    "center": [70, 155],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [1],
+                    "hitboxes": {},
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "is_ready",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 8,
+                    "triggers":  null
+                }
+        }
+}

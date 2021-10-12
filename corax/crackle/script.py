@@ -1,4 +1,4 @@
-
+import logging
 from corax.crackle.condition import create_condition_checker
 from corax.crackle.job import create_job
 
@@ -23,5 +23,8 @@ class CrackleScript:
         return [create_job(line, theatre) for line in self.actions]
 
     def check(self):
-        return all(checker() for checker in self.checkers)
+        checks = [checker() for checker in self.checkers]
+        message = self.name + ": " + str([str(r) + ": " + c for r, c in zip(checks, self.conditions)])
+        logging.debug(message)
+        return all(checks)
 

@@ -11,7 +11,7 @@ from corax.seeker import find_element
 LONG_SOUND_TYPES = NODE_TYPES.AMBIANCE, NODE_TYPES.MUSIC
 
 
-def not_executed_when_muted(func):
+def does_not_execute_on_muted(func):
     """
     Decorator to limit a function usage when the Corax context is muted
     """
@@ -32,27 +32,27 @@ class Ambiance():
         self.is_playing = False
         self._backed_volume = 1
 
-    @not_executed_when_muted
+    @does_not_execute_on_muted
     def play(self):
         self.sound.play(-1)
         self.is_playing = True
 
 
-    @not_executed_when_muted
+    @does_not_execute_on_muted
     def pause(self):
         self._backed_volume = self.sound.get_volume()
         self.sound.set_volume(0)
 
-    @not_executed_when_muted
+    @does_not_execute_on_muted
     def resume(self):
         self.sound.set_volume(self._backed_volume)
 
-    @not_executed_when_muted
+    @does_not_execute_on_muted
     def stop(self):
         self.sound.stop()
         self.is_playing = False
 
-    @not_executed_when_muted
+    @does_not_execute_on_muted
     def evaluate(self):
         if self.zone is None:
             if self.is_playing is False:
@@ -89,6 +89,7 @@ class SfxSoundCollection():
             emitter=None,
             zone=None):
 
+        self.name = name
         self.files = files
         self.sounds = sounds or [load_sound(f) for f in files]
         self.zone = Rect(*zone) if zone else None
@@ -100,7 +101,7 @@ class SfxSoundCollection():
         else:
             self.iterator = cycle(self.sounds)
 
-    @not_executed_when_muted
+    @does_not_execute_on_muted
     def play(self):
         position = self.emitter.pixel_center
         ratio = self.zone.falloff_ratio(position, self.falloff)
@@ -108,7 +109,7 @@ class SfxSoundCollection():
         sound.set_volume(ratio)
         sound.play()
 
-    @not_executed_when_muted
+    @does_not_execute_on_muted
     def stop(self):
         for sound in self.sounds:
             sound.stop()
@@ -132,14 +133,14 @@ class SfxSound():
         self.emitter = emitter
         self.trigger = trigger
 
-    @not_executed_when_muted
+    @does_not_execute_on_muted
     def play(self):
         position = self.emitter.pixel_center
         ratio = self.zone.falloff_ratio(position, self.falloff)
         self.sound.set_volume(ratio)
         self.sound.play()
 
-    @not_executed_when_muted
+    @does_not_execute_on_muted
     def stop(self):
         self.sound.stop()
 
@@ -149,8 +150,10 @@ class AudioStreamer():
         self.sounds = []
         self.ambiances = []
 
-    @not_executed_when_muted
+    @does_not_execute_on_muted
     def shoot(self, triggers):
+        if not any(triggers):
+            return
         for trigger in triggers:
             for sound in self.sounds:
                 if sound.trigger != trigger:

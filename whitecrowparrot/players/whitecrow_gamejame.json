@@ -1,0 +1,26 @@
+{
+    "name": "whitecrow_gamejam",
+    "default_sheet": "introduction",
+    "layers": {
+        "body": true,
+        "sword": false,
+        "head": true,
+        "blackhelmet": false
+    },
+    "sheets": {
+        "exploration": "gamejam/whitecrowparrot_exploration.json",
+        "exploration_2": "gamejam/whitecrowparrot_exploration_2.json",
+        "introduction": "gamejam/whitecrowparrot_appearing.json",
+        "chest": "gamejam/whitecrowparrot_chest.json",
+        "death": "gamejam/whitecrowparrot_death.json",
+        "sword": "gamejam/whitecrowparrot_sword.json",
+        "collects_sword": "gamejam/whitecrowparrot_collects_sword.json",
+        "fall": "gamejam/whitecrowparrot_fall.json"
+    },
+    "hitboxes_color": {
+        "leggs": [255, 50, 75],
+        "torso": [50, 75, 255],
+        "head": [50, 255, 255],
+        "hit_sword": [0, 0, 255]
+    }
+}

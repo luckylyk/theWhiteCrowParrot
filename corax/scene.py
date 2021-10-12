@@ -3,18 +3,13 @@ import json
 from functools import partial
 
 import corax.context as cctx
-from corax.animation import SpriteSheet
 from corax.camera import Camera, Scrolling
 from corax.core import NODE_TYPES
-from corax.coordinate import Coordinate
-from corax.controller import AnimationController
 from corax.debugrender import render_player_debug
 from corax.euclide import Rect
 from corax.graphicelement import SetStaticElement, SetAnimatedElement
-from corax.particles import (
-    ParticlesSystem, Spot, DirectionBehavior, build_emitter)
+from corax.particles import ParticlesSystem, build_emitter
 from corax.player import PlayerSlot
-from corax.pygameutils import load_image
 from corax.zone import Zone
 
 
@@ -50,6 +45,8 @@ class Scene():
         screen.fill(self.background_color)
         for layer in sorted(self.layers, key=lambda layer: layer.deph):
             for element in layer.elements:
+                if not element.visible:
+                    continue
                 element.render(screen, layer.deph, self.camera)
         for zone in self.zones:
             zone.render(screen, self.camera)
@@ -81,7 +78,8 @@ def assert_first_is_layer(data):
 
 def build_set_static_element(data):
     return SetStaticElement.from_filename(
-        os.path.join(cctx.SET_FOLDER, data["file"]),
+        name=data["name"],
+        filename=os.path.join(cctx.SET_FOLDER, data["file"]),
         pixel_position=data["position"],
         key_color=cctx.KEY_COLOR,
         deph=data["deph"])

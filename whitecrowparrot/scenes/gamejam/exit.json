@@ -1,0 +1,265 @@
+{
+    "name": "exit",
+    "type": "scene",
+    "background_color": [0, 0, 0],
+    "boundary": [0, 0, 800, 268],
+    "soft_boundaries": [],
+    "target_offset": [75, 0],
+    "sounds": [
+        {
+            "name": "cave_mood",
+            "type": "ambiance",
+            "file": "ambiances/cave.ogg",
+            "channel": 5,
+            "falloff": 0,
+            "listener": "whitecrow_gamejam",
+            "zone": [-150, -150, 8000, 420]
+        },
+        {
+            "name": "cave_drop",
+            "type": "ambiance",
+            "file": "ambiances/drop_water.ogg",
+            "channel": 5,
+            "falloff": 0,
+            "listener": "whitecrow_gamejam",
+            "zone": [300, -150, 800, 420]
+        },
+        {
+            "name": "woodstep",
+            "type": "sfx_sound_collection",
+            "channel": 4,
+            "emitter": "whitecrow_gamejam",
+            "falloff": 0,
+            "files": ["effects/step_wood_01.ogg", "effects/step_wood_02.ogg", "effects/step_wood_03.ogg", "effects/step_wood_04.ogg"],
+            "order": "shuffle",
+            "trigger": "step_whitecrow",
+            "zone": [180, 0, 380, 280]
+        },
+        {
+            "name": "woodstep",
+            "type": "sfx_sound_collection",
+            "channel": 4,
+            "emitter": "whitecrow_gamejam",
+            "falloff": 0,
+            "files": ["effects/step_wood_01.ogg", "effects/step_wood_02.ogg", "effects/step_wood_03.ogg", "effects/step_wood_04.ogg"],
+            "order": "shuffle",
+            "trigger": "step_whitecrow",
+            "zone": [520, 0, 620, 280]
+        },
+        {
+            "name": "gravel_step",
+            "type": "sfx_sound_collection",
+            "channel": 4,
+            "emitter": "whitecrow_gamejam",
+            "falloff": 0,
+            "files": ["effects/gravel_step_01.ogg", "effects/gravel_step_02.ogg", "effects/gravel_step_03.ogg"],
+            "order": "shuffle",
+            "trigger": "step_whitecrow",
+            "zone": [0, 0, 180, 280]
+        },
+        {
+            "name": "gravel_step",
+            "type": "sfx_sound_collection",
+            "channel": 4,
+            "emitter": "whitecrow_gamejam",
+            "falloff": 0,
+            "files": ["effects/gravel_step_01.ogg", "effects/gravel_step_02.ogg", "effects/gravel_step_03.ogg"],
+            "order": "shuffle",
+            "trigger": "step_whitecrow",
+            "zone": [380, 0, 520, 200]
+        },
+        {
+            "name": "gravel_step",
+            "type": "sfx_sound_collection",
+            "channel": 4,
+            "emitter": "whitecrow_gamejam",
+            "falloff": 0,
+            "files": ["effects/gravel_step_01.ogg", "effects/gravel_step_02.ogg", "effects/gravel_step_03.ogg"],
+            "order": "shuffle",
+            "trigger": "step_whitecrow",
+            "zone": [620, 0, 810, 200]
+        },
+        {
+            "name": "cart",
+            "type": "sfx_sound",
+            "file": "effects/cart.ogg",
+            "channel": 5,
+            "emitter": "cart_fg",
+            "falloff": 0,
+            "trigger": "cart",
+            "zone": [-500, -500, 800, 420]
+        },
+        {
+            "name": "chest_breaks",
+            "type": "sfx_sound",
+            "file": "effects/chest_breaks.ogg",
+            "channel": 5,
+            "emitter": "cart_fg",
+            "falloff": 0,
+            "trigger": "chest_breaks",
+            "zone": [-500, -500, 800, 420]
+        }
+    ],
+    "zones": [
+        {
+            "name": "ready_for_interaction",
+            "type": "interaction",
+            "affect": ["whitecrow_gamejam"],
+            "scripts": ["mine.climb_without_getting_the_mask", "mine.climb_with_the_mask", "mine.getting_the_mask"],
+            "zone": [16, 20, 25, 26]
+        },
+        {
+            "name": "climb",
+            "type": "interaction",
+            "affect": ["whitecrow_gamejam"],
+            "scripts": ["mine.climb_normal"],
+            "zone": [17, 22, 23, 27]
+        },
+        {
+            "name": "descending",
+            "type": "interaction",
+            "affect": ["whitecrow_gamejam"],
+            "scripts": ["mine.descending_for_snusnu", "mine.descending_for_scavenging"],
+            "zone": [35, 10, 43, 15]
+        },
+        {
+            "name": "maintain_dscent",
+            "type": "no_go",
+            "affect": ["whitecrow_gamejam"],
+            "zone": [35, 10, 40, 15]
+        },
+        {
+            "name": "climb_stop",
+            "type": "no_go",
+            "affect": ["whitecrow_gamejam"],
+            "zone": [19, 22, 23, 27]
+        },
+        {
+            "name": "left_stop",
+            "type": "no_go",
+            "affect": ["whitecrow_gamejam"],
+            "zone": [7, 22, 11, 27]
+        },
+        {
+            "name": "dead_mandatory",
+            "type": "interaction",
+            "affect": ["whitecrow_gamejam"],
+            "scripts": ["mine.dead_by_snusnu"],
+            "zone": [5, 22, 23, 27]
+        },
+        {
+            "name": "prepare_cart_animation",
+            "type": "interaction",
+            "affect": ["whitecrow_gamejam"],
+            "scripts": ["mine.push_cart_with_direction", "mine.push_cart_with_X", "mine.prepare_to_push_the_cart"],
+            "zone": [54, 11, 62, 14]
+        },
+        {
+            "name": "leave_right",
+            "type": "interaction",
+            "affect": ["whitecrow_gamejam"],
+            "scripts": ["mine.go_to_ending"],
+            "zone": [73, 2, 80, 14]
+        }
+    ],
+    "elements": [
+        {
+            "name": "background",
+            "type": "layer",
+            "deph": 0.0
+        },
+        {
+            "name": "background",
+            "type": "set_static",
+            "file": "exit/background.png",
+            "position": [0, 0],
+            "deph": 0.0
+        },
+        {
+            "name": "ground",
+            "type": "set_static",
+            "file": "exit/ground.png",
+            "position": [75, 0],
+            "deph": 0.0
+        },
+        {
+            "name": "cart_bg",
+            "type": "set_animated",
+            "file": "cart.json",
+            "position": [80, 50],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
+            "name": "blackknight",
+            "type": "set_animated",
+            "file": "blackknight_exit.json",
+            "position": [60, 130],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
+            "name": "whitecrow_gamejam",
+            "type": "player",
+            "block_position": [7, 9],
+            "flip":  false
+        },
+        {
+            "name": "cart_fg",
+            "type": "set_animated",
+            "file": "cart.json",
+            "position": [80, 50],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
+            "name": "ladder",
+            "type": "set_static",
+            "file": "exit/ladder.png",
+            "position": [14, 136],
+            "deph": 0.0
+        },
+        {
+            "name": "foreground-02",
+            "type": "set_static",
+            "file": "exit/foreground-02.png",
+            "position": [0, 0],
+            "deph": 0.0
+        },
+        {
+            "name": "tools",
+            "type": "set_static",
+            "file": "exit/tools.png",
+            "position": [0, 171],
+            "deph": 0.0
+        },
+        {
+            "name": "wood",
+            "type": "set_static",
+            "file": "exit/wood.png",
+            "position": [0, 0],
+            "deph": 0.0
+        },
+        {
+            "name": "mask_right_door",
+            "type": "set_static",
+            "file": "exit/mask_right_door.png",
+            "position": [679, 0],
+            "deph": 0.0
+        },
+        {
+            "name": "foreground",
+            "type": "set_static",
+            "file": "exit/foreground.png",
+            "position": [0, 0],
+            "deph": 0.0
+        },
+        {
+            "name": "foreground_mask",
+            "type": "set_static",
+            "file": "exit/foreground_mask.png",
+            "position": [80, 138],
+            "deph": 0.0
+        }
+    ]
+}

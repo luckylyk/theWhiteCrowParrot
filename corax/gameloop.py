@@ -3,10 +3,11 @@ import copy
 import pygame
 
 import corax.context as cctx
-from corax.core import RUN_MODES, COLORS, MENU_EVENTS, GAMELOOP_ACTIONS
+from corax.core import RUN_MODES, MENU_EVENTS, GAMELOOP_ACTIONS
+from corax.keyboard import Joystick
 from corax.theatre import Theatre
 from corax.menu import Menu
-from corax.pygameutils import render_centered_text, escape_in_events
+from corax.pygameutils import render_centered_text, escape_in_events, draw_letterbox
 
 
 CONNECT_CONTROLLER_WARNING = "Connect game controller (X Input)"
@@ -22,14 +23,15 @@ class GameLoop:
         # load the scenes.
         self.theatre = Theatre(copy.deepcopy(self.data))
         self.ensure_controller_connected()
-        self.joystick = pygame.joystick.Joystick(0)
+        self.joystick = Joystick()
         self.menu = Menu(data["menu"])
 
     def __next__(self):
         self.ensure_controller_connected()
         self.joystick.init()
         events = pygame.event.get()
-        self.done = escape_in_events(events)
+        self.joystick.set_events(events)
+        # self.done = escape_in_events(events)
         if self.done:
             return
 
@@ -55,17 +57,18 @@ class GameLoop:
         self.clock.tick(cctx.FPS)
 
     def ensure_controller_connected(self):
-        while pygame.joystick.get_count() == 0:
-            pygame.joystick.quit()
-            pygame.joystick.init()
+        return
+        # while pygame.joystick.get_count() == 0:
+        #     pygame.joystick.quit()
+        #     pygame.joystick.init()
 
-            render_centered_text(
-                self.screen,
-                CONNECT_CONTROLLER_WARNING,
-                COLORS.WHITE)
+        #     render_centered_text(
+        #         self.screen,
+        #         CONNECT_CONTROLLER_WARNING,
+        #         COLORS.WHITE)
 
-            pygame.display.flip()
-            self.clock.tick(cctx.FPS)
+        #     pygame.display.flip()
+        #     self.clock.tick(cctx.FPS)
 
     def evaluate_theatre(self):
         if self.theatre.run_mode == RUN_MODES.RESTART:

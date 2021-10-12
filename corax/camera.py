@@ -3,6 +3,7 @@ import math
 import corax.context as cctx
 from corax.euclide import Rect
 from corax.mathutils import clamp
+from corax.screen import screen_relative_y
 
 
 class Camera():
@@ -31,6 +32,7 @@ class Camera():
     def relative_pixel_position(self, pixel_position, deph=0):
         offset_x = math.ceil((pixel_position[0] - self.pixel_position[0]))
         offset_y = math.ceil((pixel_position[1] - self.pixel_position[1]))
+        offset_y = screen_relative_y(offset_y)
         return [offset_x + (offset_x * deph), offset_y]
 
     @property
@@ -108,3 +110,4 @@ class Scrolling():
         offset = clamp(offset, -self.max_speed, self.max_speed)
         result = (clamp(self.camera.pixel_center[0] - offset, left, right))
         self.camera.set_center([result, self.camera.pixel_center[1]])
+

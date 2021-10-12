@@ -39,6 +39,7 @@ def initialize(args):
     ROOT = args[1]
     DEBUG = "--debug" in args or "-d" in args
     MUTE = "--mute" in args or "-m" in args
+    _fast_fps = "--speedup" in args or "-s" in args
 
     ANIMATION_FOLDER = os.path.realpath(os.path.join(ROOT, "animations"))
     GAME_FILE = os.path.realpath(os.path.join(ROOT, "main.json"))
@@ -55,6 +56,8 @@ def initialize(args):
     BLOCK_SIZE = game_data["preferences"]["block_size"]
     CAMERA_SPEED = game_data["preferences"]["camera_speed"]
     FPS = game_data["preferences"]["fps"]
+    if _fast_fps:
+        FPS *= 2
     KEY_COLOR = game_data["preferences"]["key_color"]
     RESOLUTION = game_data["preferences"]["resolution"]
 

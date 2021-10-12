@@ -1,9 +1,12 @@
 {
     "default_move": "death_by_arrow_front",
-    "evaluation_order": ["death_by_arrow_front", "death_by_arrow_back", "death_by_arrow_front_sword", "death_by_arrow_back_sword"],
-    "layers": {"body": "whitecrowparrot_death.png"},
+    "evaluation_order": ["death_by_arrow_front", "death_by_arrow_back", "death_by_arrow_front_sword", "death_by_arrow_back_sword", "stranguled", "stranguled_last_frame"],
+    "filename": "whitecrowparrot_death_2.png",
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
+    "layers": {
+            "body": "whitecrowparrot_death_2.png"
+        },
     "moves": {
             "death_by_arrow_back": {
                     "center": [70, 155],
@@ -71,6 +74,40 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 37,
+                    "triggers":  null
+                },
+            "stranguled": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [6, 4, 2, 2, 2, 2, 2, 2, 2, 2],
+                    "hitboxes":  null,
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "stranguled_last_frame",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 87,
+                    "triggers":  null
+                },
+            "stranguled_last_frame": {
+                    "center": [0, 0],
+                    "conditions": {},
+                    "frames_centers":  null,
+                    "frames_per_image": [5],
+                    "hitboxes":  null,
+                    "hold":  false,
+                    "inputs": [],
+                    "loop_on":  null,
+                    "next_move": "stranguled_last_frame",
+                    "next_move_bufferable":  false,
+                    "post_events": {},
+                    "pre_events": {},
+                    "release_frame": -1,
+                    "start_at_image": 96,
                     "triggers":  null
                 }
         }

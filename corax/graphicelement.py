@@ -7,16 +7,17 @@ from corax.pygameutils import load_image, render_image
 
 
 class SetStaticElement():
-    def __init__(self, image, pixel_position=None, deph=0):
-        self.name = None
+    def __init__(self, name, image, pixel_position=None, deph=0):
+        self.name = name
         self.pixel_position = pixel_position or [0, 0]
         self.image = image
         self.deph = deph
+        self.visible = True
 
     @staticmethod
-    def from_filename(filename, pixel_position=None, key_color=None, deph=0):
+    def from_filename(filename, name, pixel_position=None, key_color=None, deph=0):
         image = load_image(filename, key_color)
-        return SetStaticElement(image, pixel_position, deph)
+        return SetStaticElement(name, image, pixel_position, deph)
 
     def render(self, screen, deph, camera):
         deph = deph + self.deph
@@ -35,6 +36,7 @@ class SetAnimatedElement():
         self.coordinate = coordinate
         self.deph = deph
         self.alpha = alpha
+        self.visible = True
 
     @staticmethod
     def from_filename(name, filename, pixel_position, deph, alpha):

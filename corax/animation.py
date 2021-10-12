@@ -58,6 +58,8 @@ class Animation():
     - pre_event: dict of events has to be executed before the animation starts
     """
     def __init__(self, name, images, data, size, flip=False):
+        if not images:
+            raise ValueError(f"No image providen to build animation {name}")
         self.name = name
         self.release_frame = data.get("release_frame", -1)
         self.pre_events = data["pre_events"]
@@ -148,9 +150,18 @@ class SpriteSheet():
 
     def build_animation(self, move, flip, layer_names=None):
         assert layer_names
+        assert self.sequences
         sequences = self.sequences_mirror if flip else self.sequences
+        existing_layers =  [str(k) for k in sequences.keys()]
         sequences = [sequences[layer] for layer in layer_names if sequences.get(layer)]
-        data = self.data["moves"][move]
+        if not sequences:
+            print(layer_names, existing_layers)
+            raise Exception(f"No image found for {self.name}, {move}")
+        try:
+            data = self.data["moves"][move]
+        except KeyError:
+            keys = ", ".join(str(k) for k in self.data["moves"].keys())
+            raise KeyError(f"{keys} doesn't contains {move}")
         size = self.data["frame_size"]
         return Animation(move, sequences, data, size, flip)
 
@@ -164,13 +175,27 @@ def build_triggers_list(data):
     The function will returns:
     [None, None, None, None, "boum", None, "step_foot", None]
     """
-    length = len(
-        [None for i, d in enumerate(data["frames_per_image"])
-        for _ in range(d)])
-    if data["triggers"] is None:
-        return [None for _ in range(length)]
-    triggers = {t[0]: t[1] for t in data["triggers"]}
-    return [triggers[i] if i in triggers else None for i in range(length)]
+    if not data["triggers"]:
+        return [None for d in (data["frames_per_image"]) for _ in range(d)]
+
+    triggers_data = {t[0]: t[1] for t in data["triggers"]}
+    result = []
+    for i, d in enumerate(data["frames_per_image"]):
+        for _ in range(d):
+            trigger = triggers_data.get(i)
+            result.append(trigger)
+            if trigger:
+                del triggers_data[i]
+    return result
+
+
+    # length = len(
+    #     [None for i, d in enumerate(data["frames_per_image"])
+    #     for _ in range(d)])
+    # if data["triggers"] is None:
+    #     return [None for _ in range(length)]
+    # triggers = {t[0]: t[1] for t in data["triggers"]}
+    # return [triggers.get(i) for i in range(length)]
 
 
 def build_images_list(datas, images):

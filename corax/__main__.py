@@ -40,6 +40,7 @@ flags available:
                       | This is not mandatory, but keeping the splash screen
                       | enable with distributed version of software would be
                       | appreciated.
+    --speedup      -s | Run the game twice faster
 
 ===============================================================================
 
@@ -116,7 +117,7 @@ if "--debug" in sys.argv or "-d" in sys.argv:
 
 import corax.context as cctx
 from corax.gameloop import GameLoop
-from corax.pygameutils import setup_display
+from corax.screen import setup_display
 # Initializr the constante based on the passed application argument and loads
 # the main.json file.
 game_data = cctx.initialize(sys.argv)
@@ -136,6 +137,7 @@ if "--skip_splash" not in sys.argv and "-ss" not in sys.argv:
     for _ in splash:
         pygame.display.flip()
         clock.tick(SPLASH_FPS)
+
 
 gameloop = GameLoop(game_data, screen)
 while not gameloop.done:

@@ -1,9 +1,10 @@
 import krita
+import time
 import math
-from PyQt5 import QtGui, QtCore
+from PyQt5 import QtGui, QtCore, QtWidgets
 
 
-OUTPUT_PATH = r"D:\Works\code\GitHub\theWhiteCrowParrot\corax\ressources/title.png"
+OUTPUT_PATH = r"D:\Works\code\GitHub\theWhiteCrowParrot\whitecrowparrot\animations\test.png"
 SRGB_PROFILE = "sRGB-elle-V2-srgbtrc.icc"
 
 
@@ -80,12 +81,17 @@ def export(filename):
         if node.hasKeyframeAtTime(i):
             document.setCurrentTime(i)
             images.append(node_to_qimage(node, width, height))
+            time.sleep(0.1)
     column_lenght = math.ceil(math.sqrt(frame_count))
     canvas_size = get_canvas_size(frame_count, column_lenght, width, height)
     canvas = QtGui.QImage(canvas_size, QtGui.QImage.Format_ARGB32)
     fill_canvas(canvas, images, column_lenght, width, height)
     canvas.save(filename, "PNG")
     print(get_node_frames_duration(node, range_out=document.animationLength()))
+    return canvas
 
 
-export(OUTPUT_PATH)
+canvas = export(OUTPUT_PATH)
+label = QtWidgets.QLabel()
+label.setPixmap(QtGui.QPixmap.fromImage(canvas))
+label.show()
