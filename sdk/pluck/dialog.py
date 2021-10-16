@@ -1,7 +1,9 @@
-from PyQt5 import QtWidgets
+from PyQt5 import QtWidgets, QtCore
+from pluck.parsing import list_all_existing_triggers
 
 
 class GameKicker(QtWidgets.QDialog):
+
     def __init__(self, parent=None):
         super().__init__(parent=parent)
         self.setWindowTitle("Launch the game")
@@ -41,3 +43,62 @@ class GameKicker(QtWidgets.QDialog):
         if self.fast_fps.isChecked():
             arguments.append("--speedup")
         return arguments
+
+
+class TriggerDialog(QtWidgets.QDialog):
+    def __init__(self, parent=None):
+
+        super().__init__(parent)
+        self.triggers = QtWidgets.QComboBox()
+        self.triggers.addItems(list_all_existing_triggers())
+        self.triggers.setEditable(True)
+        self.ok = QtWidgets.QPushButton("Ok")
+        self.ok.released.connect(self.accept)
+        self.cancel = QtWidgets.QPushButton("Cancel")
+        self.cancel.released.connect(self.reject)
+
+        self.layout_btn = QtWidgets.QHBoxLayout()
+        self.layout_btn.addWidget(self.ok)
+        self.layout_btn.addWidget(self.cancel)
+
+        self.layout = QtWidgets.QVBoxLayout(self)
+        self.layout.addWidget(self.triggers)
+        self.layout.addLayout(self.layout_btn)
+
+    @property
+    def trigger(self):
+        return self.triggers.currentText()
+
+
+class CreateZoneDialog(QtWidgets.QDialog):
+
+    def __init__(self, zone=None, parent=None):
+        super().__init__(parent=parent)
+        zone = zone or []
+        self.zone = zone
+        self.result = None
+        text = "zone selected: {}".format(", ".join(str(z) for z in zone))
+        self.label = QtWidgets.QLabel(text)
+        self.label.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
+
+        self.create_sound = QtWidgets.QPushButton("Create Sound")
+        self.create_sound.released.connect(self._call_create_sound)
+        self.create_zone = QtWidgets.QPushButton("Create Zone")
+        self.create_zone.released.connect(self._call_create_zone)
+
+        self.layout_btn = QtWidgets.QHBoxLayout()
+        self.layout_btn.addWidget(self.create_sound)
+        self.layout_btn.addWidget(self.create_zone)
+
+        self.layout = QtWidgets.QVBoxLayout(self)
+        self.layout.addWidget(self.label)
+        self.layout.addLayout(self.layout_btn)
+
+    def _call_create_sound(self):
+        self.result = "sound"
+        self.accept()
+
+    def _call_create_zone(self):
+        self.result = "zone"
+        self.accept()
+

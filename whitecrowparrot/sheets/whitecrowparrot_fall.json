@@ -20,7 +20,7 @@
                     "next_move": "idle",
                     "next_move_bufferable":  false,
                     "post_events": {
-                            "switch_to": "gamejam/whitecrowparrot_exploration.json",
+                            "switch_to": "whitecrowparrot_exploration.json",
                             "block_offset": [3, 10]
                         },
                     "pre_events": {},

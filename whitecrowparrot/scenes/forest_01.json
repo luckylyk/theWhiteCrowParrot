@@ -7,6 +7,15 @@
     "target_offset": [190, 0],
     "sounds": [
         {
+            "name": "saqueboute",
+            "type": "music",
+            "file": "musics/saqueboute.ogg",
+            "channel": 5,
+            "falloff":  null,
+            "listener": "whitecrow",
+            "zone":  null
+        },
+        {
             "name": "ambiance_nature_outisde",
             "type": "ambiance",
             "file": "ambiances/nature1.ogg",
@@ -22,16 +31,7 @@
             "channel": 5,
             "falloff": 150,
             "listener": "whitecrow",
-            "zone": [1430, -150, 4000, 420]
-        },
-        {
-            "name": "saqueboute",
-            "type": "music",
-            "file": "musics/saqueboute.ogg",
-            "channel": 5,
-            "falloff":  null,
-            "listener": "whitecrow",
-            "zone":  null
+            "zone": [1430, -150, 8000, 420]
         },
         {
             "name": "grass_step",
@@ -42,7 +42,7 @@
             "files": ["effects/grass_step_01.ogg", "effects/grass_step_02.ogg", "effects/grass_step_03.ogg", "effects/grass_step_04.ogg", "effects/grass_step_05.ogg", "effects/grass_step_06.ogg", "effects/grass_step_07.ogg"],
             "order": "shuffle",
             "trigger": "step_whitecrow",
-            "zone": [-150, -150, 4500, 420]
+            "zone": [-150, -150, 8000, 420]
         },
         {
             "name": "gravel_step",
@@ -53,7 +53,7 @@
             "files": ["effects/gravel_step_01.ogg", "effects/gravel_step_02.ogg", "effects/gravel_step_03.ogg"],
             "order": "shuffle",
             "trigger": "step_whitecrow",
-            "zone": [-150, -150, 4500, 420]
+            "zone": [-150, -150, 8000, 420]
         },
         {
             "name": "sword_whoosh",
@@ -63,7 +63,7 @@
             "emitter": "whitecrow",
             "falloff": 150,
             "trigger": "whoosh_whitecrow",
-            "zone": [-150, -150, 1580, 420]
+            "zone": [-150, -150, 8000, 420]
         },
         {
             "name": "shoot_arrow",
@@ -83,7 +83,7 @@
             "emitter": "whitecrow",
             "falloff": 150,
             "trigger": "whish_whitecrow",
-            "zone": [-150, -150, 1580, 420]
+            "zone": [-150, -150, 8000, 420]
         },
         {
             "name": "swordin",
@@ -93,7 +93,7 @@
             "emitter": "whitecrow",
             "falloff": 150,
             "trigger": "swordin_whitecrow",
-            "zone": [-150, -150, 1580, 420]
+            "zone": [-150, -150, 8000, 420]
         },
         {
             "name": "run_skid",
@@ -103,7 +103,7 @@
             "emitter": "whitecrow",
             "falloff": 150,
             "trigger": "run_skid",
-            "zone": [-150, -150, 4000, 420]
+            "zone": [-150, -150, 8000, 420]
         }
     ],
     "zones": [
@@ -738,6 +738,16 @@
             "type": "set_static",
             "file": "forest_01/right_foreground_cave_entry.png",
             "position": [4602, 70],
+            "deph": 0.0
+        },
+        {
+            "name": "crowd",
+            "type": "set_static",
+            "file": "forest_01/crowd.png",
+            "position": [
+                4418,
+                109
+            ],
             "deph": 0.0
         },
         {

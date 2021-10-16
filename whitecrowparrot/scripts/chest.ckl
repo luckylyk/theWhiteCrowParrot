@@ -4,8 +4,8 @@
 // Don't be scared, it's extremely easy to use. The language rely on indent of
 // four spaces. It is composed of scripts which are evaluated by the Zones
 // where it is attached. For instance, a zone named "chest_interaction" has is
-// defined as "affected by whitecrow_gamejam", the script will be evaluated when the
-// zone contains the center of "whitecrow_gamejam".
+// defined as "affected by whitecrow", the script will be evaluated when the
+// zone contains the center of "whitecrow".
 // The syntax is pretty simple, zero indent is the script declaration level.
 // Firt indent level is the condition to execute the followings jobs and the
 // second indent level is the job queue.
@@ -22,37 +22,37 @@
 
 
 script get_ready
-    player.whitecrow_gamejam.flip is false
+    player.whitecrow.flip is false
     gamepad.keys.pressed has RIGHT
     theatre.globals.chest_moved is false
-    player.whitecrow_gamejam.sheet is exploration
-    player.whitecrow_gamejam.animation in (idle, walk_off)
-        player.whitecrow_gamejam set chest
-        player.whitecrow_gamejam play get_ready
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation in (idle, walk_off)
+        player.whitecrow set chest
+        player.whitecrow play get_ready
 
 
 script give_up
     gamepad.keys.pressed has LEFT
-    player.whitecrow_gamejam.sheet is chest
-    player.whitecrow_gamejam.animation is is_ready
-        player.whitecrow_gamejam play give_up
+    player.whitecrow.sheet is chest
+    player.whitecrow.animation is is_ready
+        player.whitecrow play give_up
 
 
 script try_to_push
     gamepad.keys.pressed has RIGHT
-    player.whitecrow_gamejam.sheet is chest
-    player.whitecrow_gamejam.animation is is_ready
+    player.whitecrow.sheet is chest
+    player.whitecrow.animation is is_ready
     theatre.globals.chest_empty is false
-        player.whitecrow_gamejam play try_to_push
+        player.whitecrow play try_to_push
 
 
 script push_and_die
     gamepad.keys.pressed has RIGHT
-    player.whitecrow_gamejam.sheet is chest
-    player.whitecrow_gamejam.animation is is_ready
+    player.whitecrow.sheet is chest
+    player.whitecrow.animation is is_ready
     theatre.globals.chest_empty is true
     theatre.globals.chest_open is true
-        nolock player.whitecrow_gamejam play push_and_die
+        nolock player.whitecrow play push_and_die
         wait 6
         nolock prop.chest play move_and_close
         nolock prop.armor play nudged
@@ -64,63 +64,63 @@ script push_and_die
 
 script push_successfully
     gamepad.keys.pressed has RIGHT
-    player.whitecrow_gamejam.sheet is chest
-    player.whitecrow_gamejam.animation is is_ready
+    player.whitecrow.sheet is chest
+    player.whitecrow.animation is is_ready
     theatre.globals.chest_empty is true
     theatre.globals.chest_open is false
     theatre.globals.chest_moved is false
         theatre.globals.chest_moved set true
-        nolock player.whitecrow_gamejam play push_succes
+        nolock player.whitecrow play push_succes
         wait 4
         prop.chest play push_succes
         wait 50
-        player.whitecrow_gamejam play return
-        player.whitecrow_gamejam play walk_a
-        player.whitecrow_gamejam play walk_off
-        player.whitecrow_gamejam play return
+        player.whitecrow play return
+        player.whitecrow play walk_a
+        player.whitecrow play walk_off
+        player.whitecrow play return
         wait 10
-        player.whitecrow_gamejam play crouch_down_slow
+        player.whitecrow play crouch_down_slow
         nolock prop.hatch play hidden
         nolock prop.hatch2 play opening
-        player.whitecrow_gamejam set chest
-        player.whitecrow_gamejam play hatch
+        player.whitecrow set chest
+        player.whitecrow play hatch
         zone.right_limit shift (39, 0, 80, 27)
 
 
 script jump_down
-    player.whitecrow_gamejam.flip is false
+    player.whitecrow.flip is false
     gamepad.keys.pressed has RIGHT
     theatre.globals.chest_moved is true
-        player.whitecrow_gamejam.sheet set chest
-        player.whitecrow_gamejam play jump_down
+        player.whitecrow.sheet set chest
+        player.whitecrow play jump_down
         theatre.scene set hole
         theatre.globals.has_sword set false
-        player.whitecrow_gamejam.layer hide sword
-        player.whitecrow_gamejam.sheet set fall
+        player.whitecrow.layer hide sword
+        player.whitecrow.sheet set fall
         wait 15
-        player.whitecrow_gamejam play fall
+        player.whitecrow play fall
 
 
 script try_to_open
     gamepad.keys.pressed has X
-    player.whitecrow_gamejam.sheet is chest
-    player.whitecrow_gamejam.animation is is_ready
+    player.whitecrow.sheet is chest
+    player.whitecrow.animation is is_ready
     theatre.globals.chest_locked is true
-        nolock player.whitecrow_gamejam play try_to_open
+        nolock player.whitecrow play try_to_open
         wait 30
         nolock prop.chest play fail_to_open
         prop.chest_locker play up_down
 
 
 script try_to_open_from_idle
-    player.whitecrow_gamejam.flip is false
+    player.whitecrow.flip is false
     gamepad.keys.pressed has X
-    player.whitecrow_gamejam.sheet is exploration
-    player.whitecrow_gamejam.animation is idle
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
     theatre.globals.chest_locked is true
-        player.whitecrow_gamejam set chest
-        player.whitecrow_gamejam play get_ready
-        nolock player.whitecrow_gamejam play try_to_open
+        player.whitecrow set chest
+        player.whitecrow play get_ready
+        nolock player.whitecrow play try_to_open
         wait 30
         nolock prop.chest play fail_to_open
         prop.chest_locker play up_down
@@ -128,37 +128,37 @@ script try_to_open_from_idle
 
 script open
     gamepad.keys.pressed has X
-    player.whitecrow_gamejam.sheet is chest
-    player.whitecrow_gamejam.animation is is_ready
+    player.whitecrow.sheet is chest
+    player.whitecrow.animation is is_ready
     theatre.globals.chest_locked is false
     theatre.globals.chest_moved is false
     theatre.globals.chest_open is false
-        nolock player.whitecrow_gamejam play open_succes
+        nolock player.whitecrow play open_succes
         wait 4
         prop.chest play succes_to_open
         theatre.globals.chest_open set true
 
 
 script open_from_idle
-    player.whitecrow_gamejam.flip is false
+    player.whitecrow.flip is false
     gamepad.keys.pressed has X
-    player.whitecrow_gamejam.sheet is exploration
-    player.whitecrow_gamejam.animation is idle
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
     theatre.globals.chest_locked is false
     theatre.globals.chest_moved is false
     theatre.globals.chest_open is false
-        player.whitecrow_gamejam set chest
-        player.whitecrow_gamejam play get_ready
-        nolock player.whitecrow_gamejam play open_succes
+        player.whitecrow set chest
+        player.whitecrow play get_ready
+        nolock player.whitecrow play open_succes
         wait 4
         prop.chest play succes_to_open
         theatre.globals.chest_open set true
 
 
 script unlock_low
-    player.whitecrow_gamejam.flip is false
-    player.whitecrow_gamejam.sheet is sword
-    player.whitecrow_gamejam.animation is low_hit_shoot
+    player.whitecrow.flip is false
+    player.whitecrow.sheet is sword
+    player.whitecrow.animation is low_hit_shoot
     theatre.globals.chest_locked is true
         wait 1
         nolock prop.chest_locker play explode
@@ -167,9 +167,9 @@ script unlock_low
 
 
 script unlock_high
-    player.whitecrow_gamejam.flip is false
-    player.whitecrow_gamejam.sheet is sword
-    player.whitecrow_gamejam.animation is high_hit_shoot
+    player.whitecrow.flip is false
+    player.whitecrow.sheet is sword
+    player.whitecrow.animation is high_hit_shoot
     theatre.globals.chest_locked is true
         nolock prop.chest_locker play explode
         wait 1
@@ -178,9 +178,9 @@ script unlock_high
 
 
 script unlock_crouch
-    player.whitecrow_gamejam.flip is false
-    player.whitecrow_gamejam.sheet is sword
-    player.whitecrow_gamejam.animation is crouch_hit_shoot
+    player.whitecrow.flip is false
+    player.whitecrow.sheet is sword
+    player.whitecrow.animation is crouch_hit_shoot
     theatre.globals.chest_locked is true
         nolock prop.chest_locker play explode
         wait 1
@@ -190,15 +190,15 @@ script unlock_crouch
 
 script empty_it_from_idle
     gamepad.keys.pressed has X
-    player.whitecrow_gamejam.flip is false
-    player.whitecrow_gamejam.sheet is exploration
-    player.whitecrow_gamejam.animation is idle
+    player.whitecrow.flip is false
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
     theatre.globals.chest_locked is false
     theatre.globals.chest_open is true
     theatre.globals.chest_empty is false
         theatre.globals.chest_empty set true
-        player.whitecrow_gamejam set chest
-        nolock player.whitecrow_gamejam play empty_it
+        player.whitecrow set chest
+        nolock player.whitecrow play empty_it
         wait 24
         prop.chest_props play empty_it
         wait 12
@@ -207,16 +207,16 @@ script empty_it_from_idle
 
 script empty_it_from_ready
     gamepad.keys.pressed has X
-    player.whitecrow_gamejam.sheet is chest
-    player.whitecrow_gamejam.animation is is_ready
+    player.whitecrow.sheet is chest
+    player.whitecrow.animation is is_ready
     theatre.globals.chest_locked is false
     theatre.globals.chest_open is true
     theatre.globals.chest_empty is false
         theatre.globals.chest_empty set true
-        player.whitecrow_gamejam play give_up
+        player.whitecrow play give_up
         wait 1 // skip 1 frame to let post animation event happen
-        player.whitecrow_gamejam set chest
-        nolock player.whitecrow_gamejam play empty_it
+        player.whitecrow set chest
+        nolock player.whitecrow play empty_it
         wait 24
         prop.chest_props play empty_it
         wait 12
@@ -225,28 +225,28 @@ script empty_it_from_ready
 
 script close_from_idle
     gamepad.keys.pressed has X
-    player.whitecrow_gamejam.flip is false
-    player.whitecrow_gamejam.sheet is exploration
-    player.whitecrow_gamejam.animation is idle
+    player.whitecrow.flip is false
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
     theatre.globals.chest_open is true
     theatre.globals.chest_empty is true
         theatre.globals.chest_open set false
-        player.whitecrow_gamejam.sheet set chest
-        nolock player.whitecrow_gamejam play close
+        player.whitecrow.sheet set chest
+        nolock player.whitecrow play close
         wait 15
         prop.chest play close
 
 
 script close_from_ready
     gamepad.keys.pressed has X
-    player.whitecrow_gamejam.sheet is chest
-    player.whitecrow_gamejam.animation is is_ready
+    player.whitecrow.sheet is chest
+    player.whitecrow.animation is is_ready
     theatre.globals.chest_open is true
     theatre.globals.chest_empty is true
         theatre.globals.chest_open set false
-        player.whitecrow_gamejam play give_up
+        player.whitecrow play give_up
         wait 1 // skip 1 frame to let post animation event happen
-        player.whitecrow_gamejam.sheet set chest
-        nolock player.whitecrow_gamejam play close
+        player.whitecrow.sheet set chest
+        nolock player.whitecrow play close
         wait 15
         prop.chest play close

@@ -6,6 +6,8 @@ import corax.context as cctx
 from pluck.paint import PaintContext, render_grid, render_cursor, render_handler
 from pluck.highlighter import CoraxHighlighter, RULES
 from pluck.data import data_sanity_check, tree_sanity_check, data_to_plain_text
+from pluck.dialog import CreateZoneDialog
+from pluck.sound import CreateSoundDialog
 from pluck.tree import tree_to_plaintext, get_scene, list_sounds, list_layers, list_zones, get_scene, create_scene_outliner_tree
 from pluck.qtutils import get_image
 from pluck.outliner import OutlinerTreeModel, OutlinerView
@@ -43,6 +45,8 @@ class SceneEditor(QtWidgets.QWidget):
         self.gamecontext = gamecontext
 
         self.scenewidget = SceneWidget(self.tree, gamecontext, self.paintcontext)
+        self.scenewidget.requestCreateSound.connect(self.create_sound)
+        self.scenewidget.handledRequest.connect(self.handle_scene_widget)
         self.scroll = QtWidgets.QScrollArea()
         self.scroll.horizontalScrollBar().setSliderPosition(50)
         self.scroll.verticalScrollBar().setSliderPosition(50)
@@ -109,6 +113,18 @@ class SceneEditor(QtWidgets.QWidget):
         self.layout.addWidget(self.hsplitter2)
         self.json_editor.setPlainText(tree_to_plaintext(self.tree))
         document.contentsChanged.connect(self.contents_changed)
+        self.setMouseTracking(True)
+
+    def keyPressEvent(self, event):
+        if event.key() == QtCore.Qt.Key_Space:
+            self.scenewidget.is_exploring = True
+            QtWidgets.QApplication.setOverrideCursor(QtCore.Qt.OpenHandCursor)
+
+    def keyReleaseEvent(self, event):
+        if event.key() == QtCore.Qt.Key_Space:
+            if self.scenewidget.is_exploring is True:
+                QtWidgets.QApplication.restoreOverrideCursor()
+            self.scenewidget.is_exploring = False
 
     def update_data(self, *useless_signal_args):
         self.outliner.setEnabled(True)
@@ -171,6 +187,12 @@ class SceneEditor(QtWidgets.QWidget):
         self.scenewidget.recompute_size()
         self.scenewidget.repaint()
 
+    def handle_scene_widget(self, x, y):
+        x = self.scroll.horizontalScrollBar().sliderPosition() - x
+        self.scroll.horizontalScrollBar().setSliderPosition(x)
+        y = self.scroll.verticalScrollBar().sliderPosition() - y
+        self.scroll.verticalScrollBar().setSliderPosition(y)
+
     def contents_changed(self):
         if self.is_modified or self.block_modified_signal is True:
             return
@@ -183,6 +205,10 @@ class SceneEditor(QtWidgets.QWidget):
         with open(filename, "w") as f:
             f.write(str(self.json_editor.toPlainText()))
         self.is_modified = False
+
+    def create_sound(self, zone):
+        dialog = CreateSoundDialog(zone)
+        dialog.exec_()
 
     def update_graphics(self, *useless_signal_args):
         self.scenewidget.repaint()
@@ -208,6 +234,9 @@ class SceneEditor(QtWidgets.QWidget):
 
 
 class SceneWidget(QtWidgets.QWidget):
+    requestCreateSound = QtCore.pyqtSignal(tuple)
+    handledRequest = QtCore.pyqtSignal(int, int)
+
     def __init__(self, tree, coraxcontext, paintcontext, parent=None):
         super().__init__(parent=parent)
         self.paintcontext = paintcontext
@@ -215,12 +244,14 @@ class SceneWidget(QtWidgets.QWidget):
         self.coraxcontext = coraxcontext
         self.recompute_size()
         self.setMouseTracking(True)
+        self.mouse_position_stored = None
         self.block_position = None
         self.block_position_backed_up = None
         self.is_handeling = False
+        self.is_exploring = False
 
     def mousePressEvent(self, event):
-        if not self.block_position:
+        if self.is_exploring or not self.block_position:
             return
         x, y = self.block_position
         zone = get_scene(self.tree).data["boundary"]
@@ -240,18 +271,24 @@ class SceneWidget(QtWidgets.QWidget):
         y = min([self.block_position[1], self.block_position_backed_up[1]])
         x2 = max([self.block_position[0], self.block_position_backed_up[0]])
         y2 = max([self.block_position[1], self.block_position_backed_up[1]])
-        mesagebox = QtWidgets.QMessageBox(
-            QtWidgets.QMessageBox.NoIcon,
-            "Zone selected:",
-            ZONE_TEMPLATE.format([int(n) for n in [x, y, x2 + 1, y2 + 1]]),
-            QtWidgets.QMessageBox.Ok)
-        mesagebox.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
-        mesagebox.exec_()
+        zone = x, y, x2, y2
+        dialog = CreateZoneDialog(zone)
+        result = dialog.exec_()
+        if result == QtWidgets.QDialog.Accepted:
+            if dialog.result == "sound":
+                self.requestCreateSound.emit(zone)
+            else:
+                print("create a zone")
         self.repaint()
 
     def mouseMoveEvent(self, event):
         x, y = event.pos().x(), event.pos().y()
         self.block_position = self.paintcontext.block_position(x, y)
+        if self.is_exploring and self.mouse_position_stored:
+            vectorx = x - self.mouse_position_stored[0]
+            vectory = y - self.mouse_position_stored[1]
+            self.handledRequest.emit(vectorx, vectory)
+        self.mouse_position_stored = x, y
         self.repaint()
 
     def recompute_size(self):

@@ -4,8 +4,8 @@
 // Don't be scared, it's extremely easy to use. The language rely on indent of
 // four spaces. It is composed of scripts which are evaluated by the Zones
 // where it is attached. For instance, a zone named "chest_interaction" has is
-// defined as "affected by whitecrow_gamejam", the script will be evaluated when the
-// zone contains the center of "whitecrow_gamejam".
+// defined as "affected by whitecrow", the script will be evaluated when the
+// zone contains the center of "whitecrow".
 // The syntax is pretty simple, zero indent is the script declaration level.
 // Firt indent level is the condition to execute the followings jobs and the
 // second indent level is the job queue.
@@ -22,26 +22,26 @@
 
 
 script prepare_to_push_the_cart
-    player.whitecrow_gamejam.sheet is exploration
-    player.whitecrow_gamejam.animation is idle
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
     prop.cart_bg.animation is idle
-        player.whitecrow_gamejam reach (53, -3) by (return, walk_a, footsie)
-        player.whitecrow_gamejam aim LEFT by return
-        player.whitecrow_gamejam.sheet set exploration_2
-        player.whitecrow_gamejam play prepare_to_push
+        player.whitecrow reach (53, -3) by (return, walk_a, footsie)
+        player.whitecrow aim LEFT by return
+        player.whitecrow.sheet set exploration_2
+        player.whitecrow play prepare_to_push
 
 
 script push_cart_with_direction
     gamepad.keys.pressed has LEFT
-    player.whitecrow_gamejam.sheet is exploration_2
-    player.whitecrow_gamejam.animation is ready_to_push
+    player.whitecrow.sheet is exploration_2
+    player.whitecrow.animation is ready_to_push
         force mine.push_cart
 
 
 script push_cart_with_X
     gamepad.keys.pressed has X
-    player.whitecrow_gamejam.sheet is exploration_2
-    player.whitecrow_gamejam.animation is ready_to_push
+    player.whitecrow.sheet is exploration_2
+    player.whitecrow.animation is ready_to_push
         force mine.push_cart
 
 
@@ -51,7 +51,7 @@ script push_cart
         nolock prop.cart_fg play descent
         hide element.foreground_mask
         wait 5
-        nolock player.whitecrow_gamejam play push_cart
+        nolock player.whitecrow play push_cart
         wait 10
         nolock prop.cart_fg play hidden
         prop.blackknight play hit
@@ -59,21 +59,21 @@ script push_cart
 
 script descending_for_snusnu
     gamepad.keys.pressed has LEFT
-    player.whitecrow_gamejam.flip is true
+    player.whitecrow.flip is true
     theatre.globals.wearing_blackhelmet is false
     prop.blackknight.animation in (idle, hidden, entry, hidden_startup)
-        player.whitecrow_gamejam move (29, -3)
-        player.whitecrow_gamejam.sheet set exploration_2
-        player.whitecrow_gamejam play walk_down_start
-        player.whitecrow_gamejam play walk_down_a
-        player.whitecrow_gamejam play walk_down_b
-        player.whitecrow_gamejam play walk_down_a
-        player.whitecrow_gamejam play walk_down_b
-        player.whitecrow_gamejam play walk_down_a
-        player.whitecrow_gamejam move (3, 8)
-        player.whitecrow_gamejam.sheet set death
+        player.whitecrow move (29, -3)
+        player.whitecrow.sheet set exploration_2
+        player.whitecrow play walk_down_start
+        player.whitecrow play walk_down_a
+        player.whitecrow play walk_down_b
+        player.whitecrow play walk_down_a
+        player.whitecrow play walk_down_b
+        player.whitecrow play walk_down_a
+        player.whitecrow move (3, 8)
+        player.whitecrow.sheet set death
         nolock prop.blackknight play hidden
-        nolock player.whitecrow_gamejam play stranguled
+        nolock player.whitecrow play stranguled
         wait 15
         fadeout 35
         restart
@@ -81,88 +81,88 @@ script descending_for_snusnu
 
 script descending_for_scavenging
     gamepad.keys.pressed has LEFT
-    player.whitecrow_gamejam.flip is true
+    player.whitecrow.flip is true
     prop.blackknight.animation in (hit, ko)
-        player.whitecrow_gamejam move (29, -3)
-        player.whitecrow_gamejam aim LEFT by return
-        player.whitecrow_gamejam.sheet set exploration_2
-        player.whitecrow_gamejam play walk_down_start
-        player.whitecrow_gamejam play walk_down_a
-        player.whitecrow_gamejam play walk_down_b
-        player.whitecrow_gamejam play walk_down_a
-        player.whitecrow_gamejam play walk_down_b
-        player.whitecrow_gamejam play walk_down_a
-        player.whitecrow_gamejam.sheet set exploration_2
-        nolock player.whitecrow_gamejam play ready_to_get_the_mask
-        player.whitecrow_gamejam move (2, 9)
+        player.whitecrow move (29, -3)
+        player.whitecrow aim LEFT by return
+        player.whitecrow.sheet set exploration_2
+        player.whitecrow play walk_down_start
+        player.whitecrow play walk_down_a
+        player.whitecrow play walk_down_b
+        player.whitecrow play walk_down_a
+        player.whitecrow play walk_down_b
+        player.whitecrow play walk_down_a
+        player.whitecrow.sheet set exploration_2
+        nolock player.whitecrow play ready_to_get_the_mask
+        player.whitecrow move (2, 9)
 
 
 script climb_normal
-    player.whitecrow_gamejam.sheet is exploration
-    player.whitecrow_gamejam.flip is false
+    player.whitecrow.sheet is exploration
+    player.whitecrow.flip is false
     gamepad.keys.pressed has RIGHT
-        player.whitecrow_gamejam.sheet set exploration_2
-        player.whitecrow_gamejam play walk_up_start
-        player.whitecrow_gamejam play walk_up_a
-        player.whitecrow_gamejam play walk_up_b
-        player.whitecrow_gamejam play walk_up_a
-        player.whitecrow_gamejam play walk_up_b
-        player.whitecrow_gamejam play walk_up_off
+        player.whitecrow.sheet set exploration_2
+        player.whitecrow play walk_up_start
+        player.whitecrow play walk_up_a
+        player.whitecrow play walk_up_b
+        player.whitecrow play walk_up_a
+        player.whitecrow play walk_up_b
+        player.whitecrow play walk_up_off
 
 
 script climb_without_getting_the_mask
     gamepad.keys.pressed has RIGHT
     theatre.globals.wearing_blackhelmet is false
-    player.whitecrow_gamejam.sheet is exploration_2
-        player.whitecrow_gamejam.sheet set exploration
-        player.whitecrow_gamejam move (5, 7)
-        player.whitecrow_gamejam aim RIGHT by return
-        player.whitecrow_gamejam.sheet set exploration_2
-        player.whitecrow_gamejam play walk_up_a
-        player.whitecrow_gamejam play walk_up_b
-        player.whitecrow_gamejam play walk_up_a
-        player.whitecrow_gamejam play walk_up_b
-        player.whitecrow_gamejam play walk_up_off
+    player.whitecrow.sheet is exploration_2
+        player.whitecrow.sheet set exploration
+        player.whitecrow move (5, 7)
+        player.whitecrow aim RIGHT by return
+        player.whitecrow.sheet set exploration_2
+        player.whitecrow play walk_up_a
+        player.whitecrow play walk_up_b
+        player.whitecrow play walk_up_a
+        player.whitecrow play walk_up_b
+        player.whitecrow play walk_up_off
 
 
 script climb_with_the_mask
     gamepad.keys.pressed has RIGHT
-    player.whitecrow_gamejam.animation is mask_is_get
+    player.whitecrow.animation is mask_is_get
     theatre.globals.wearing_blackhelmet is true
-        player.whitecrow_gamejam.sheet set exploration
-        player.whitecrow_gamejam move (5, 7)
-        player.whitecrow_gamejam aim RIGHT by return
-        player.whitecrow_gamejam.sheet set exploration_2
-        player.whitecrow_gamejam play walk_up_a
-        player.whitecrow_gamejam play walk_up_b
-        player.whitecrow_gamejam play walk_up_a
-        player.whitecrow_gamejam play walk_up_b
-        player.whitecrow_gamejam play walk_up_off
+        player.whitecrow.sheet set exploration
+        player.whitecrow move (5, 7)
+        player.whitecrow aim RIGHT by return
+        player.whitecrow.sheet set exploration_2
+        player.whitecrow play walk_up_a
+        player.whitecrow play walk_up_b
+        player.whitecrow play walk_up_a
+        player.whitecrow play walk_up_b
+        player.whitecrow play walk_up_off
 
 
 script getting_the_mask
     gamepad.keys.pressed has X
         nolock prop.blackknight play release_mask
-        player.whitecrow_gamejam play get_the_mask
-        player.whitecrow_gamejam.layer show blackhelmet
-        player.whitecrow_gamejam.layer hide head
+        player.whitecrow play get_the_mask
+        player.whitecrow.layer show blackhelmet
+        player.whitecrow.layer hide head
         theatre.globals.wearing_blackhelmet set true
 
 
 script leave_hole_standed_up
-    player.whitecrow_gamejam.animation in (idle, walk_a, walk_b, walk_off, run_a, run_b, run_start, run_off)
-        pin player.whitecrow_gamejam
-        flush player.whitecrow_gamejam
-        player.whitecrow_gamejam play crouch_down_slow
+    player.whitecrow.animation in (idle, walk_a, walk_b, walk_off, run_a, run_b, run_start, run_off)
+        pin player.whitecrow
+        flush player.whitecrow
+        player.whitecrow play crouch_down_slow
         force mine.leave_hole
 
 
 script leave_hole
-    player.whitecrow_gamejam.animation in (crouch_down, crouched_over)
-        player.whitecrow_gamejam play crouched_over_walk
+    player.whitecrow.animation in (crouch_down, crouched_over)
+        player.whitecrow play crouched_over_walk
         nolock fadeout 30
-        player.whitecrow_gamejam play crouched_over_walk
-        player.whitecrow_gamejam play crouched_over_walk
+        player.whitecrow play crouched_over_walk
+        player.whitecrow play crouched_over_walk
         theatre.scene set mine
         force mine.cut_scene
 
@@ -170,15 +170,15 @@ script leave_hole
 script cut_scene
     always
         fadein 15
-        flush player.whitecrow_gamejam
+        flush player.whitecrow
         nolock prop.cut_scene play cut_scene
         nolock prop.lie_down_miner_fg play hidden
         wait 200
-        player.whitecrow_gamejam play crouched_over_walk
-        player.whitecrow_gamejam play crouched_over_walk
-        player.whitecrow_gamejam play crouched_over_walk
-        player.whitecrow_gamejam play crouched_over_walk
-        player.whitecrow_gamejam play stand_up_slow
+        player.whitecrow play crouched_over_walk
+        player.whitecrow play crouched_over_walk
+        player.whitecrow play crouched_over_walk
+        player.whitecrow play crouched_over_walk
+        player.whitecrow play stand_up_slow
         nolock prop.blackknight_strangulation play idle
         nolock prop.lie_down_miner_bg play hidden
         nolock prop.lie_down_miner_fg play idle
@@ -187,18 +187,18 @@ script cut_scene
 
 script denunciation
     theatre.globals.lie_down_miner_is_dead is false
-    player.whitecrow_gamejam.sheet is exploration
-    player.whitecrow_gamejam.animation in (idle, footsie, walk_a, walk_b run_b, run_a, run_off, walk_off)
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation in (idle, footsie, walk_a, walk_b run_b, run_a, run_off, walk_off)
         theatre.globals.lie_down_miner_is_dead set true
         prop.lie_down_miner_fg play denunciation
         nolock prop.blackknight_strangulation play walk_out
-        player.whitecrow_gamejam reach (22, 7) by (return, walk_a, footsie)
-        player.whitecrow_gamejam aim RIGHT by return
-        player.whitecrow_gamejam play idle
+        player.whitecrow reach (22, 7) by (return, walk_a, footsie)
+        player.whitecrow aim RIGHT by return
+        player.whitecrow play idle
         wait 30
-        player.whitecrow_gamejam.sheet set death
+        player.whitecrow.sheet set death
         nolock prop.blackknight_strangulation play hidden
-        nolock player.whitecrow_gamejam play stranguled
+        nolock player.whitecrow play stranguled
         wait 15
         fadeout 35
         restart
@@ -206,15 +206,15 @@ script denunciation
 
 script dead_by_snusnu
     prop.blackknight.animation is idle
-    player.whitecrow_gamejam.sheet is exploration
-        player.whitecrow_gamejam reach (11, 9) by (return, walk_a, footsie)
-        player.whitecrow_gamejam aim LEFT by return
+    player.whitecrow.sheet is exploration
+        player.whitecrow reach (11, 9) by (return, walk_a, footsie)
+        player.whitecrow aim LEFT by return
         wait 1
-        pin player.whitecrow_gamejam
-        flush player.whitecrow_gamejam
+        pin player.whitecrow
+        flush player.whitecrow
         nolock prop.blackknight.animation play hidden
-        player.whitecrow_gamejam.sheet set death
-        nolock player.whitecrow_gamejam play stranguled
+        player.whitecrow.sheet set death
+        nolock player.whitecrow play stranguled
         wait 15
         fadeout 35
         restart
@@ -222,8 +222,8 @@ script dead_by_snusnu
 
 script strangulation
     theatre.globals.lie_down_miner_is_dead is false
-    player.whitecrow_gamejam.sheet is exploration
-    player.whitecrow_gamejam.animation in (crouched_over, crouch_down, crouched_over_walk)
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation in (crouched_over, crouch_down, crouched_over_walk)
         theatre.globals.lie_down_miner_is_dead set true
         prop.blackknight_strangulation play strangulation
         prop.lie_down_miner_fg play strangulation
@@ -236,23 +236,23 @@ script miner_face_his_faith
 
 script go_to_exit
     always
-        player.whitecrow_gamejam.sheet set exploration_2
-        player.whitecrow_gamejam play leave_climb
+        player.whitecrow.sheet set exploration_2
+        player.whitecrow play leave_climb
         theatre.scene set exit
         force mine.intro_exit
 
 
 script intro_exit
     always
-        player.whitecrow_gamejam play enter_from_left
-        player.whitecrow_gamejam.sheet set exploration
+        player.whitecrow play enter_from_left
+        player.whitecrow.sheet set exploration
         nolock prop.blackknight play hidden_startup
 
 
 script go_to_ending
     always
-        flush player.whitecrow_gamejam
+        flush player.whitecrow
         theatre.scene set ending
-        player.whitecrow_gamejam play walk_a
-        player.whitecrow_gamejam play walk_b
-        player.whitecrow_gamejam play walk_off
+        player.whitecrow play walk_a
+        player.whitecrow play walk_b
+        player.whitecrow play walk_off

@@ -1,6 +1,7 @@
 {
     "default_move": "idle",
     "evaluation_order": ["idle", "appears"],
+    "filename": "whitecrowparrot_appearing.png",
     "frame_size": [220, 160],
     "key_color": [0, 255, 0],
     "layers": {
@@ -24,7 +25,7 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 1,
-                    "triggers":  null
+                    "triggers": [[34, "step_whitecrow"], [39, "step_whitecrow"], [45, "step_whitecrow"], [48, "step_whitecrow"]]
                 },
             "idle": {
                     "center": [70, 155],

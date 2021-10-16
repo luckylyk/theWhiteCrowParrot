@@ -189,15 +189,6 @@ def build_triggers_list(data):
     return result
 
 
-    # length = len(
-    #     [None for i, d in enumerate(data["frames_per_image"])
-    #     for _ in range(d)])
-    # if data["triggers"] is None:
-    #     return [None for _ in range(length)]
-    # triggers = {t[0]: t[1] for t in data["triggers"]}
-    # return [triggers.get(i) for i in range(length)]
-
-
 def build_images_list(datas, images):
     """
     Build of images from the spreadsheet image list based on a animation datas.

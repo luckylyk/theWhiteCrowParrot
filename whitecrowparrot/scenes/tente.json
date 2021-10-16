@@ -6,6 +6,7 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
+
         {
             "name": "saqueboute",
             "type": "music",
@@ -14,6 +15,26 @@
             "falloff":  null,
             "listener": "whitecrow",
             "zone":  null
+        },
+        {
+            "name": "ambiance_nature_outisde",
+            "type": "ambiance",
+            "file": "ambiances/tente.ogg",
+            "channel": 5,
+            "falloff": 150,
+            "listener": "whitecrow",
+            "zone": [-150, -150, 1580, 420]
+        },
+        {
+            "name": "grass_step",
+            "type": "sfx_sound_collection",
+            "channel": 5,
+            "emitter": "whitecrow",
+            "falloff": 150,
+            "files": ["effects/grass_step_01.ogg", "effects/grass_step_02.ogg", "effects/grass_step_03.ogg", "effects/grass_step_04.ogg", "effects/grass_step_05.ogg", "effects/grass_step_06.ogg", "effects/grass_step_07.ogg"],
+            "order": "shuffle",
+            "trigger": "step_whitecrow",
+            "zone": [-150, -150, 8000, 420]
         },
         {
             "name": "chest_squeak_open",
@@ -106,6 +127,13 @@
             "affect": ["whitecrow"],
             "scripts": ["chest.get_ready", "chest.try_to_open", "chest.try_to_open_from_idle", "chest.try_to_push", "chest.give_up", "chest.unlock_high", "chest.open", "chest.open_from_idle", "chest.empty_it_from_ready", "chest.close_from_ready", "chest.close_from_idle", "chest.empty_it_from_idle", "chest.push_successfully", "chest.push_and_die"],
             "zone": [40, 20, 50, 26]
+        },
+        {
+            "name": "jump",
+            "type": "interaction",
+            "scripts": ["chest.jump_down"],
+            "affect": ["whitecrow"],
+            "zone": [37, 20, 39, 26]
         },
         {
             "name": "unlock_the_chest",

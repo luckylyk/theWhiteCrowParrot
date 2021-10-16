@@ -135,8 +135,11 @@ class SfxSound():
 
     @does_not_execute_on_muted
     def play(self):
-        position = self.emitter.pixel_center
-        ratio = self.zone.falloff_ratio(position, self.falloff)
+        if self.emitter and self.zone:
+            position = self.emitter.pixel_center
+            ratio = self.zone.falloff_ratio(position, self.falloff)
+        else:
+            ratio = 100
         self.sound.set_volume(ratio)
         self.sound.play()
 
@@ -146,6 +149,10 @@ class SfxSound():
 
 
 class AudioStreamer():
+    """
+    This is the main class managing the sounds in memory, link them to they
+    trigger and mix them togheter.
+    """
     def __init__(self):
         self.sounds = []
         self.ambiances = []
@@ -195,6 +202,13 @@ class AudioStreamer():
 
 
 def build_sound_scene(data, scene, loaded_sounds, existing_ambiances):
+    """
+    This load the sound at scene switch.
+    Sounds are heavy to keep in memory and lond to load. We can't keep them
+    loaded in a persistant way. We analyse what sound object have to be kept
+    from a scene to another, unload the unecessary anymore and load the not
+    already loaded.
+    """
     ambiances = []
     sounds = []
     for sound_data in data:

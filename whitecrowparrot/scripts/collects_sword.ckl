@@ -4,8 +4,8 @@
 // Don't be scared, it's extremely easy to use. The language rely on indent of
 // four spaces. It is composed of scripts which are evaluated by the Zones
 // where it is attached. For instance, a zone named "chest_interaction" has is
-// defined as "affected by whitecrow_gamejam", the script will be evaluated when the
-// zone contains the center of "whitecrow_gamejam".
+// defined as "affected by whitecrow", the script will be evaluated when the
+// zone contains the center of "whitecrow".
 // The syntax is pretty simple, zero indent is the script declaration level.
 // Firt indent level is the condition to execute the followings jobs and the
 // second indent level is the job queue.
@@ -22,54 +22,54 @@
 
 
 script collects_sword_get_ready
-    player.whitecrow_gamejam.sheet is exploration
-    player.whitecrow_gamejam.animation is idle
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
     prop.sword_holder.animation is attached
-    player.whitecrow_gamejam.flip is false
-        player.whitecrow_gamejam.sheet set collects_sword
-        player.whitecrow_gamejam play get_ready
+    player.whitecrow.flip is false
+        player.whitecrow.sheet set collects_sword
+        player.whitecrow play get_ready
 
 
 script collects_sword_leave_ready_left
-    player.whitecrow_gamejam.sheet is collects_sword
-    player.whitecrow_gamejam.animation is is_ready
+    player.whitecrow.sheet is collects_sword
+    player.whitecrow.animation is is_ready
     gamepad.keys.pressed has LEFT
-        player.whitecrow_gamejam.sheet set exploration
-        player.whitecrow_gamejam play return
-        player.whitecrow_gamejam play walk_a
+        player.whitecrow.sheet set exploration
+        player.whitecrow play return
+        player.whitecrow play walk_a
 
 
 script collects_sword_leave_ready_right
-    player.whitecrow_gamejam.sheet is collects_sword
-    player.whitecrow_gamejam.animation is is_ready
+    player.whitecrow.sheet is collects_sword
+    player.whitecrow.animation is is_ready
     gamepad.keys.pressed has RIGHT
-        player.whitecrow_gamejam.sheet set exploration
-        player.whitecrow_gamejam.sheet play walk_a
+        player.whitecrow.sheet set exploration
+        player.whitecrow.sheet play walk_a
 
 
 script collects_sword
     gamepad.keys.pressed has X
-    player.whitecrow_gamejam.sheet is collects_sword
-    player.whitecrow_gamejam.animation is is_ready
+    player.whitecrow.sheet is collects_sword
+    player.whitecrow.animation is is_ready
         theatre.globals.has_sword set true
-        nolock player.whitecrow_gamejam play collects
-        player.whitecrow_gamejam.layer show sword
+        nolock player.whitecrow play collects
+        player.whitecrow.layer show sword
         prop.sword_holder play detached
 
 
 script footsie_for_sword_collect
     prop.sword_holder.animation is attached
-    player.whitecrow_gamejam.flip is false
-    player.whitecrow_gamejam.animation is idle
-        player.whitecrow_gamejam play footsie
+    player.whitecrow.flip is false
+    player.whitecrow.animation is idle
+        player.whitecrow play footsie
 
 
 script collects_sword_from_around
     gamepad.keys.pressed has X
     prop.sword_holder.animation is attached
-    player.whitecrow_gamejam.animation is idle
-        player.whitecrow_gamejam reach (348, 10) by (return, walk_a, footsie)
-        player.whitecrow_gamejam aim RIGHT by return
-        player.whitecrow_gamejam.sheet set collects_sword
-        player.whitecrow_gamejam play get_ready
+    player.whitecrow.animation is idle
+        player.whitecrow reach (348, 10) by (return, walk_a, footsie)
+        player.whitecrow aim RIGHT by return
+        player.whitecrow.sheet set collects_sword
+        player.whitecrow play get_ready
         force collects_sword.collects_sword

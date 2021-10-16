@@ -22,6 +22,7 @@ class GameLoop:
         # Theatre is the main controller class. It drive the story, build and
         # load the scenes.
         self.theatre = Theatre(copy.deepcopy(self.data))
+        self.checkpoint = None
         self.ensure_controller_connected()
         self.joystick = Joystick()
         self.menu = Menu(data["menu"])

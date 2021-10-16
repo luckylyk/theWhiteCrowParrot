@@ -1,7 +1,7 @@
 {
     "title": "The White Crow Parrot",
     "start_scene": "forest",
-    "start_scrolling_target": "whitecrow_gamejam",
+    "start_scrolling_target": "whitecrow",
     "globals": {
         "chest_moved": false,
         "chest_open": false,
@@ -22,31 +22,31 @@
     "scenes": [
         {
             "name": "forest",
-            "file": "gamejam/forest_01.json"
+            "file": "forest_01.json"
         },
         {
             "name": "mine",
-            "file": "gamejam/mine_01.json"
+            "file": "mine_01.json"
         },
         {
             "name": "hole",
-            "file": "gamejam/hole.json"
+            "file": "hole.json"
         },
         {
             "name": "exit",
-            "file": "gamejam/exit.json"
+            "file": "exit.json"
         },
         {
             "name": "tente",
-            "file": "gamejam/tente.json"
+            "file": "tente.json"
         },
         {
             "name": "ending",
-            "file": "gamejam/ending.json"
+            "file": "ending.json"
         },
         {
             "name": "credits",
-            "file": "gamejam/credits.json"
+            "file": "credits.json"
         }
     ],
     "menu": {

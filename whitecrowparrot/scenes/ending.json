@@ -12,14 +12,14 @@
             "file": "ambiances/nature1.ogg",
             "channel": 5,
             "falloff": 150,
-            "listener": "whitecrow_gamejam",
+            "listener": "whitecrow",
             "zone": [-150, -150, 1580, 420]
         },
         {
             "name": "grass_step",
             "type": "sfx_sound_collection",
             "channel": 5,
-            "emitter": "whitecrow_gamejam",
+            "emitter": "whitecrow",
             "falloff": 150,
             "files": ["effects/grass_step_01.ogg", "effects/grass_step_02.ogg", "effects/grass_step_03.ogg", "effects/grass_step_04.ogg", "effects/grass_step_05.ogg", "effects/grass_step_06.ogg", "effects/grass_step_07.ogg"],
             "order": "shuffle",
@@ -30,7 +30,7 @@
             "name": "gravel_step",
             "type": "sfx_sound_collection",
             "channel": 4,
-            "emitter": "whitecrow_gamejam",
+            "emitter": "whitecrow",
             "falloff": 150,
             "files": ["effects/gravel_step_01.ogg", "effects/gravel_step_02.ogg", "effects/gravel_step_03.ogg"],
             "order": "shuffle",
@@ -42,34 +42,34 @@
         {
             "name": "stop right",
             "type": "no_go",
-            "affect": ["whitecrow_gamejam"],
+            "affect": ["whitecrow"],
             "zone": [115, 23, 123, 25]
         },
         {
             "name": "shoot",
             "type": "interaction",
-            "affect": ["whitecrow_gamejam"],
+            "affect": ["whitecrow"],
             "scripts": ["arbaletist.shoot_1", "arbaletist.shoot_2", "arbaletist.shoot_3", "arbaletist.shoot_4"],
             "zone": [24, 23, 48, 26]
         },
         {
             "name": "aim",
             "type": "interaction",
-            "affect": ["whitecrow_gamejam"],
+            "affect": ["whitecrow"],
             "scripts": ["arbaletist.discard_aiming"],
             "zone": [15, 23, 24, 26]
         },
         {
             "name": "leave_left",
             "type": "interaction",
-            "affect": ["whitecrow_gamejam"],
+            "affect": ["whitecrow"],
             "scripts": ["forest.go_to_exit_mine"],
             "zone": [0, 23, 4, 26]
         },
         {
             "name": "congrat",
             "type": "interaction",
-            "affect": ["whitecrow_gamejam"],
+            "affect": ["whitecrow"],
             "scripts": ["forest.go_to_credits"],
             "zone": [112, 23, 120, 25]
         }
@@ -179,7 +179,7 @@
             "deph": 0.0
         },
         {
-            "name": "whitecrow_gamejam",
+            "name": "whitecrow",
             "type": "player",
             "block_position": [0, 8],
             "flip":  false

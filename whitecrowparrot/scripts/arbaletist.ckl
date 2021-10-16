@@ -4,8 +4,8 @@
 // Don't be scared, it's extremely easy to use. The language rely on indent of
 // four spaces. It is composed of scripts which are evaluated by the Zones
 // where it is attached. For instance, a zone named "chest_interaction" has is
-// defined as "affected by whitecrow_gamejam", the script will be evaluated when the
-// zone contains the center of "whitecrow_gamejam".
+// defined as "affected by whitecrow", the script will be evaluated when the
+// zone contains the center of "whitecrow".
 // The syntax is pretty simple, zero indent is the script declaration level.
 // Firt indent level is the condition to execute the followings jobs and the
 // second indent level is the job queue.
@@ -35,14 +35,14 @@ script discard_aiming
 
 script shoot_1
     theatre.globals.wearing_blackhelmet is false
-    player.whitecrow_gamejam.sheet is sword
-    player.whitecrow_gamejam.flip is false
+    player.whitecrow.sheet is sword
+    player.whitecrow.flip is false
         nolock prop.arbaletist play shoot
         wait 7
-        pin player.whitecrow_gamejam
-        flush player.whitecrow_gamejam
-        player.whitecrow_gamejam.sheet set death
-        player.whitecrow_gamejam play death_by_arrow_back_sword
+        pin player.whitecrow
+        flush player.whitecrow
+        player.whitecrow.sheet set death
+        player.whitecrow play death_by_arrow_back_sword
         fadeout 30
         restart
         fadein 5
@@ -50,41 +50,41 @@ script shoot_1
 
 script shoot_2
     theatre.globals.wearing_blackhelmet is false
-    player.whitecrow_gamejam.sheet is sword
-    player.whitecrow_gamejam.flip is true
+    player.whitecrow.sheet is sword
+    player.whitecrow.flip is true
         nolock prop.arbaletist play shoot
         wait 7
-        pin player.whitecrow_gamejam
-        flush player.whitecrow_gamejam
-        player.whitecrow_gamejam.sheet set death
-        player.whitecrow_gamejam play death_by_arrow_front_sword
+        pin player.whitecrow
+        flush player.whitecrow
+        player.whitecrow.sheet set death
+        player.whitecrow play death_by_arrow_front_sword
         fadeout 30
         restart
 
 
 script shoot_3
     theatre.globals.wearing_blackhelmet is false
-    player.whitecrow_gamejam.sheet is exploration
-    player.whitecrow_gamejam.flip is true
+    player.whitecrow.sheet is exploration
+    player.whitecrow.flip is true
         nolock prop.arbaletist play shoot
         wait 7
-        pin player.whitecrow_gamejam
-        flush player.whitecrow_gamejam
-        player.whitecrow_gamejam.sheet set death
-        player.whitecrow_gamejam play death_by_arrow_back
+        pin player.whitecrow
+        flush player.whitecrow
+        player.whitecrow.sheet set death
+        player.whitecrow play death_by_arrow_back
         fadeout 30
         restart
 
 
 script shoot_4
     theatre.globals.wearing_blackhelmet is false
-    player.whitecrow_gamejam.sheet is exploration
-    player.whitecrow_gamejam.flip is false
+    player.whitecrow.sheet is exploration
+    player.whitecrow.flip is false
         nolock prop.arbaletist play shoot
         wait 7
-        pin player.whitecrow_gamejam
-        flush player.whitecrow_gamejam
-        player.whitecrow_gamejam.sheet set death
-        player.whitecrow_gamejam play death_by_arrow_front
+        pin player.whitecrow
+        flush player.whitecrow
+        player.whitecrow.sheet set death
+        player.whitecrow play death_by_arrow_front
         fadeout 30
         restart

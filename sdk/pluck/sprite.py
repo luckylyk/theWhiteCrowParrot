@@ -15,7 +15,9 @@ from pluck.paint import render_grid, render_image, PaintContext, render_hitbox
 from pluck.slider import Slider
 from pluck.qtutils import sub_rects, spritesheet_to_images, build_spritesheet_image, get_icon
 from pluck.data import data_to_plain_text, data_sanity_check, DEFAULT_MOVE
+from pluck.dialog import TriggerDialog
 from pluck.highlighter import get_plaint_text_editor
+from sdk.pluck.parsing import list_all_existing_hitboxes
 
 
 class AnimationDataEditor(QtWidgets.QWidget):
@@ -24,7 +26,7 @@ class AnimationDataEditor(QtWidgets.QWidget):
     def __init__(self, data, parent=None):
         super().__init__(parent=parent)
 
-        filenames = [v for _, v in data["layers"].items()]
+        filenames = [v for _, v in data["layers"].items()][0:1]
         filenames = [os.path.join(cctx.ANIMATION_FOLDER, fn) for fn in filenames]
         image = build_spritesheet_image(filenames)
 
@@ -70,14 +72,15 @@ class AnimationDataEditor(QtWidgets.QWidget):
         hitboxes = build_hitboxes_sequence(move_data, size, flip=False)
         pc = PaintContext()
         pc.extra_zone = 0
-        self.hitbox_reader = HitboxReader(
+        self.sprite_reader = SpriteReader(
             data["frame_size"], (0, 255, 0), images, centers,
             hitboxes, paintcontext=pc)
-        self.hitbox_reader.hitboxCreated.connect(self.create_hitbox)
-        self.hitbox_reader.hitboxRemoved.connect(self.delete_hitbox)
-        self.hitbox_reader.blockErased.connect(self.erase_block)
-        self.hitbox_reader.blockPainted.connect(self.paint_block)
-        self.hitbox_reader.clearHitbox.connect(self.clear_hitbox)
+        self.sprite_reader.hitboxCreated.connect(self.create_hitbox)
+        self.sprite_reader.hitboxRemoved.connect(self.delete_hitbox)
+        self.sprite_reader.blockErased.connect(self.erase_block)
+        self.sprite_reader.blockPainted.connect(self.paint_block)
+        self.sprite_reader.clearHitbox.connect(self.clear_hitbox)
+        self.sprite_reader.addTriggerRequested.connect(self.add_trigger)
 
         self.result, self.result_highliter = get_plaint_text_editor("json")
         self.result.setReadOnly(True)
@@ -102,7 +105,7 @@ class AnimationDataEditor(QtWidgets.QWidget):
         self.left_splitter.addWidget(self.move_widget)
         self.right_splitter = QtWidgets.QSplitter(QtCore.Qt.Vertical)
         self.right_splitter.addWidget(self.spritesheet_scroll_area)
-        self.right_splitter.addWidget(self.hitbox_reader)
+        self.right_splitter.addWidget(self.sprite_reader)
 
         self.splitter = QtWidgets.QSplitter(QtCore.Qt.Horizontal)
         self.splitter.addWidget(self.left_splitter)
@@ -122,7 +125,7 @@ class AnimationDataEditor(QtWidgets.QWidget):
         centers = build_centers_list(move_data, self.data["frame_size"], flip=False)
         size = to_block_position(self.data["frame_size"])
         hitboxes = build_hitboxes_sequence(move_data, size, flip=False)
-        self.hitbox_reader.set_data(images, centers, hitboxes)
+        self.sprite_reader.set_data(images, centers, hitboxes)
         self.spritesheet_view.hightlight_move(self.move)
         self.block_modified_signal = True
         self.move_editor.setPlainText(data_to_plain_text(move_data))
@@ -158,8 +161,8 @@ class AnimationDataEditor(QtWidgets.QWidget):
 
     def clear_hitbox(self, name):
         move_data = self.data["moves"][self.move]
-        if self.hitbox_reader.edit_current_frame():
-            index = map_frame_index(self.hitbox_reader.slider.value, move_data)
+        if self.sprite_reader.edit_current_frame():
+            index = map_frame_index(self.sprite_reader.slider.value, move_data)
             hitbox = move_data["hitboxes"][name][index]
             hitbox.clear()
         else:
@@ -176,8 +179,8 @@ class AnimationDataEditor(QtWidgets.QWidget):
 
     def paint_block(self, name, x, y):
         move_data = self.data["moves"][self.move]
-        if self.hitbox_reader.edit_current_frame():
-            index = map_frame_index(self.hitbox_reader.slider.value, move_data)
+        if self.sprite_reader.edit_current_frame():
+            index = map_frame_index(self.sprite_reader.slider.value, move_data)
             hitboxes = [move_data["hitboxes"][name][index]]
         else:
             hitboxes = move_data["hitboxes"][name]
@@ -192,8 +195,8 @@ class AnimationDataEditor(QtWidgets.QWidget):
 
     def erase_block(self, name, x, y):
         move_data = self.data["moves"][self.move]
-        if self.hitbox_reader.edit_current_frame():
-            index = map_frame_index(self.hitbox_reader.slider.value, move_data)
+        if self.sprite_reader.edit_current_frame():
+            index = map_frame_index(self.sprite_reader.slider.value, move_data)
             hitboxes = [move_data["hitboxes"][name][index]]
         else:
             hitboxes = move_data["hitboxes"][name]
@@ -208,8 +211,34 @@ class AnimationDataEditor(QtWidgets.QWidget):
         move_data = self.data["moves"][self.move]
         size = to_block_position(self.data["frame_size"])
         hitboxes = build_hitboxes_sequence(move_data, size, flip=False)
-        self.hitbox_reader.set_hitboxes(hitboxes)
+        self.sprite_reader.set_hitboxes(hitboxes)
         self.spritesheet_view.hightlight_move(self.move)
+        self.result.setPlainText(data_to_plain_text(self.data))
+        self.move_editor.setPlainText(data_to_plain_text(move_data))
+
+    def add_trigger(self):
+        dialog = TriggerDialog()
+        result = dialog.exec_()
+        if result != QtWidgets.QDialog.Accepted:
+            return
+        move_data = self.data["moves"][self.move]
+        index = map_frame_index(self.sprite_reader.slider.value, move_data)
+        trigger = [index, dialog.trigger]
+        # If it is the first trigger set on the move.
+        if not move_data["triggers"]:
+            move_data["triggers"] = [trigger]
+            self.result.setPlainText(data_to_plain_text(self.data))
+            self.move_editor.setPlainText(data_to_plain_text(move_data))
+            return
+        # Skip if already existing.
+        for existing_trigger in move_data["triggers"]:
+            conditions = (
+                trigger[0] == existing_trigger[0] and
+                trigger[1] and existing_trigger[1])
+            if conditions:
+                return
+        move_data["triggers"].append(trigger)
+        move_data["triggers"] = sorted(move_data["triggers"], key=lambda x: x[0])
         self.result.setPlainText(data_to_plain_text(self.data))
         self.move_editor.setPlainText(data_to_plain_text(move_data))
 
@@ -322,12 +351,13 @@ class SpriteSheetView(QtWidgets.QWidget):
             print(traceback.format_exc())
 
 
-class HitboxReader(QtWidgets.QWidget):
+class SpriteReader(QtWidgets.QWidget):
     hitboxCreated = QtCore.pyqtSignal(str)
     hitboxRemoved = QtCore.pyqtSignal(str)
     blockPainted = QtCore.pyqtSignal(str, int, int)
     blockErased = QtCore.pyqtSignal(str, int, int)
     clearHitbox = QtCore.pyqtSignal(str)
+    addTriggerRequested = QtCore.pyqtSignal()
 
     def __init__(
             self,
@@ -341,11 +371,12 @@ class HitboxReader(QtWidgets.QWidget):
         super().__init__(parent)
         self.hitboxes = hitboxes
 
-        self.toolbar = HitboxToolbar(hitboxes.keys())
+        self.toolbar = SpriteToolbar(hitboxes.keys())
         self.toolbar.hitboxCreated.connect(self.hitboxCreated.emit)
         self.toolbar.hitboxRemoved.connect(self.hitboxRemoved.emit)
         self.toolbar.hitboxChanged.connect(self.change_hitbox)
         self.toolbar.clearHitbox.connect(self.clearHitbox.emit)
+        self.toolbar.addTriggerRequested.connect(self.addTriggerRequested.emit)
 
         hitboxes = hitboxes[list(hitboxes.keys())[0]] if hitboxes.keys() else []
         self.animation_image_viewer = AnimationImageViewer(
@@ -506,11 +537,12 @@ class AnimationImageViewer(QtWidgets.QWidget):
             paintcontext=self.paintcontext)
 
 
-class HitboxToolbar(QtWidgets.QToolBar):
+class SpriteToolbar(QtWidgets.QToolBar):
     hitboxCreated = QtCore.pyqtSignal(str)
     hitboxRemoved = QtCore.pyqtSignal(str)
     hitboxChanged = QtCore.pyqtSignal(str)
     clearHitbox = QtCore.pyqtSignal(str)
+    addTriggerRequested = QtCore.pyqtSignal()
 
     def __init__(self, hitbox_names, parent=None):
         super().__init__(parent)
@@ -547,6 +579,9 @@ class HitboxToolbar(QtWidgets.QToolBar):
         self.rmv = QtWidgets.QAction("-", self)
         self.rmv.triggered.connect(self.remove_requested)
 
+        self.add_trigger = QtWidgets.QAction(get_icon("trigger.png"), "", self)
+        self.add_trigger.triggered.connect(self.addTriggerRequested.emit)
+
         self.addAction(self.pointer)
         self.addAction(self.brush)
         self.addAction(self.erase)
@@ -558,6 +593,8 @@ class HitboxToolbar(QtWidgets.QToolBar):
         self.addWidget(self.hitbox_names)
         self.addAction(self.add)
         self.addAction(self.rmv)
+        self.addSeparator()
+        self.addAction(self.add_trigger)
 
     def set_hitbox_names(self, names):
         self.blockSignals(True)
@@ -582,10 +619,20 @@ class HitboxToolbar(QtWidgets.QToolBar):
         self.clearHitbox.emit(self.hitbox_names.currentText())
 
     def add_requested(self):
-        message = "Enter a hitbox name"
-        name, _ = QtWidgets.QInputDialog.getText(self, "Create hitbox", message)
-        if not name:
+        dialog = QtWidgets.QInputDialog(self)
+        dialog.setWindowTitle("Create hitbox")
+        dialog.setLabelText("Enter a hitbox name")
+        dialog.setTextValue("")
+        le = dialog.findChild(QtWidgets.QLineEdit)
+        words = list_all_existing_hitboxes()
+        completer = QtWidgets.QCompleter(words, le)
+        le.setCompleter(completer)
+        result = dialog.exec_()
+        name = dialog.textValue()
+
+        if result != QtWidgets.QDialog.Accepted or not name:
             return
+
         count = range(self.hitbox_names.count())
         names = [self.hitbox_names.itemText(i) for i in count]
         if name in names: # Name already exists
@@ -603,7 +650,6 @@ class HitboxToolbar(QtWidgets.QToolBar):
         count = range(self.hitbox_names.count())
         names = [self.hitbox_names.itemText(i) for i in count]
         self.hitbox_names.removeItem(names.index(name))
-
 
 
 class Options(QtWidgets.QWidget):

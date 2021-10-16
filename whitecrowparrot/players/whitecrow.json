@@ -3,15 +3,19 @@
     "default_sheet": "introduction",
     "layers": {
         "body": true,
-        "sword": false
+        "sword": false,
+        "head": true,
+        "blackhelmet": false
     },
     "sheets": {
         "exploration": "whitecrowparrot_exploration.json",
+        "exploration_2": "whitecrowparrot_exploration_2.json",
         "introduction": "whitecrowparrot_appearing.json",
         "chest": "whitecrowparrot_chest.json",
         "death": "whitecrowparrot_death.json",
         "sword": "whitecrowparrot_sword.json",
-        "collects_sword": "whitecrowparrot_collects_sword.json"
+        "collects_sword": "whitecrowparrot_collects_sword.json",
+        "fall": "whitecrowparrot_fall.json"
     },
     "hitboxes_color": {
         "leggs": [255, 50, 75],

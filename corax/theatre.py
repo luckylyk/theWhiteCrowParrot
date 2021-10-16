@@ -15,7 +15,7 @@ from corax.seeker import find_start_scrolling_target
 from corax.sounds import AudioStreamer
 
 
-def load_scene_data(data, name, theatre):
+def load_scene_data(data, name):
     """
     This function find the given scene name in the data and build a Scene
     object.
@@ -25,6 +25,7 @@ def load_scene_data(data, name, theatre):
             file_ = os.path.join(cctx.SCENE_FOLDER, scene["file"])
             with open(file_, "r") as f:
                 return json.load(f)
+    raise ValueError(f'Scene "{name}" not found in the game data')
 
 
 class Theatre:
@@ -100,7 +101,7 @@ class Theatre:
         # writte a streaming system which pre-load neighbour scenes in a
         # parallel thread and keep in memory as long as the game is suceptible
         # to request it. Let's see if it is possible !
-        scene_data = load_scene_data(self.data, scene_name, self)
+        scene_data = load_scene_data(self.data, scene_name)
         self.scene = self.get_scene(scene_name, scene_data)
         self.scene.scrolling.target = self.scrolling_target
         self.script_names_by_zone = {z: z.script_names for z in self.scene.zones}
@@ -129,6 +130,9 @@ class Theatre:
         self.audio_streamer.set_scene(scene_data["sounds"], self.scene)
 
     def evaluate(self, joystick, screen):
+        if not self.scene:
+            raise ValueError("No scene set")
+
         if self.freeze > 0:
             self.freeze -= 1
         elif self.run_mode == RUN_MODES.NORMAL:
@@ -193,6 +197,9 @@ class Theatre:
         self.audio_streamer.resume()
 
     def render(self, screen):
+        if not self.scene:
+            raise RuntimeError("Can't render a theatre with no scene runnging")
+
         self.scene.render(screen)
         draw_letterbox(screen)
 

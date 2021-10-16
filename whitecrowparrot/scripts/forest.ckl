@@ -4,8 +4,8 @@
 // Don't be scared, it's extremely easy to use. The language rely on indent of
 // four spaces. It is composed of scripts which are evaluated by the Zones
 // where it is attached. For instance, a zone named "chest_interaction" has is
-// defined as "affected by whitecrow_gamejam", the script will be evaluated when the
-// zone contains the center of "whitecrow_gamejam".
+// defined as "affected by whitecrow", the script will be evaluated when the
+// zone contains the center of "whitecrow".
 // The syntax is pretty simple, zero indent is the script declaration level.
 // Firt indent level is the condition to execute the followings jobs and the
 // second indent level is the job queue.
@@ -24,49 +24,49 @@
 script go_to_tente_with_sword
     gamepad.keys.pressed has UP
     theatre.scene.name is forest
-    player.whitecrow_gamejam.sheet is sword
-    player.whitecrow_gamejam.animation is idle
-        player.whitecrow_gamejam play tidy_up_sword
+    player.whitecrow.sheet is sword
+    player.whitecrow.animation is idle
+        player.whitecrow play tidy_up_sword
         force forest.go_to_tente
 
 
 script go_to_tente
     gamepad.keys.pressed has UP
     theatre.scene.name is forest
-    player.whitecrow_gamejam.sheet is exploration
-    player.whitecrow_gamejam.animation is idle
-        player.whitecrow_gamejam reach (272, 10) by (return, walk_a, footsie)
-        player.whitecrow_gamejam aim RIGHT by return
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+        player.whitecrow reach (272, 10) by (return, walk_a, footsie)
+        player.whitecrow aim RIGHT by return
         nolock fadeout 6
-        player.whitecrow_gamejam play through_door
+        player.whitecrow play through_door
         theatre.scene set tente
         nolock fadein 6
-        player.whitecrow_gamejam move (13, 8)
-        player.whitecrow_gamejam play walk_b
-        player.whitecrow_gamejam play walk_a
-        player.whitecrow_gamejam play walk_off
-        player.whitecrow_gamejam play idle
+        player.whitecrow move (13, 8)
+        player.whitecrow play walk_b
+        player.whitecrow play walk_a
+        player.whitecrow play walk_off
+        player.whitecrow play idle
 
 
 script go_to_forest
     always
         fadeout 6
         theatre.scene set forest
-        player.whitecrow_gamejam move (272, 10)
+        player.whitecrow move (272, 10)
         theatre.camera move (2600, 134)
-        flush player.whitecrow_gamejam
+        flush player.whitecrow
         nolock fadein 6
 
 
 script go_to_exit_mine
     always
-        flush player.whitecrow_gamejam
+        flush player.whitecrow
         theatre.scene set exit
-        flush player.whitecrow_gamejam
-        player.whitecrow_gamejam move (67, -3)
-        player.whitecrow_gamejam aim LEFT by return
-        player.whitecrow_gamejam play walk_a
-        player.whitecrow_gamejam play walk_b
+        flush player.whitecrow
+        player.whitecrow move (67, -3)
+        player.whitecrow aim LEFT by return
+        player.whitecrow play walk_a
+        player.whitecrow play walk_b
 
 
 script go_to_credits
