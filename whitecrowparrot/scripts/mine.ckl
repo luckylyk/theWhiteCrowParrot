@@ -76,6 +76,7 @@ script descending_for_snusnu
         nolock player.whitecrow play stranguled
         wait 15
         fadeout 35
+        wait 1
         restart
 
 
@@ -201,6 +202,7 @@ script denunciation
         nolock player.whitecrow play stranguled
         wait 15
         fadeout 35
+        wait 1
         restart
 
 
@@ -217,6 +219,7 @@ script dead_by_snusnu
         nolock player.whitecrow play stranguled
         wait 15
         fadeout 35
+        wait 1
         restart
 
 

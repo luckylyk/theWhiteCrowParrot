@@ -8,7 +8,7 @@ from PyQt5 import QtCore, QtWidgets, QtGui
 import corax.context as cctx
 from corax.animation import (
     build_centers_list, build_images_list, build_hitboxes_sequence,
-    map_frame_index)
+    animation_index_to_data_index, data_index_to_animation_index)
 from corax.coordinate import to_block_position
 
 from pluck.paint import render_grid, render_image, PaintContext, render_hitbox
@@ -125,7 +125,9 @@ class AnimationDataEditor(QtWidgets.QWidget):
         centers = build_centers_list(move_data, self.data["frame_size"], flip=False)
         size = to_block_position(self.data["frame_size"])
         hitboxes = build_hitboxes_sequence(move_data, size, flip=False)
-        self.sprite_reader.set_data(images, centers, hitboxes)
+        triggers = [t[0] for t in (move_data["triggers"] or [])]
+        triggers = [data_index_to_animation_index(t, move_data) for t in triggers]
+        self.sprite_reader.set_data(images, centers, hitboxes, triggers)
         self.spritesheet_view.hightlight_move(self.move)
         self.block_modified_signal = True
         self.move_editor.setPlainText(data_to_plain_text(move_data))
@@ -162,7 +164,7 @@ class AnimationDataEditor(QtWidgets.QWidget):
     def clear_hitbox(self, name):
         move_data = self.data["moves"][self.move]
         if self.sprite_reader.edit_current_frame():
-            index = map_frame_index(self.sprite_reader.slider.value, move_data)
+            index = animation_index_to_data_index(self.sprite_reader.slider.value, move_data)
             hitbox = move_data["hitboxes"][name][index]
             hitbox.clear()
         else:
@@ -180,7 +182,7 @@ class AnimationDataEditor(QtWidgets.QWidget):
     def paint_block(self, name, x, y):
         move_data = self.data["moves"][self.move]
         if self.sprite_reader.edit_current_frame():
-            index = map_frame_index(self.sprite_reader.slider.value, move_data)
+            index = animation_index_to_data_index(self.sprite_reader.slider.value, move_data)
             hitboxes = [move_data["hitboxes"][name][index]]
         else:
             hitboxes = move_data["hitboxes"][name]
@@ -196,7 +198,7 @@ class AnimationDataEditor(QtWidgets.QWidget):
     def erase_block(self, name, x, y):
         move_data = self.data["moves"][self.move]
         if self.sprite_reader.edit_current_frame():
-            index = map_frame_index(self.sprite_reader.slider.value, move_data)
+            index = animation_index_to_data_index(self.sprite_reader.slider.value, move_data)
             hitboxes = [move_data["hitboxes"][name][index]]
         else:
             hitboxes = move_data["hitboxes"][name]
@@ -222,7 +224,7 @@ class AnimationDataEditor(QtWidgets.QWidget):
         if result != QtWidgets.QDialog.Accepted:
             return
         move_data = self.data["moves"][self.move]
-        index = map_frame_index(self.sprite_reader.slider.value, move_data)
+        index = animation_index_to_data_index(self.sprite_reader.slider.value, move_data)
         trigger = [index, dialog.trigger]
         # If it is the first trigger set on the move.
         if not move_data["triggers"]:
@@ -241,6 +243,9 @@ class AnimationDataEditor(QtWidgets.QWidget):
         move_data["triggers"] = sorted(move_data["triggers"], key=lambda x: x[0])
         self.result.setPlainText(data_to_plain_text(self.data))
         self.move_editor.setPlainText(data_to_plain_text(move_data))
+        triggers = [t[0] for t in (move_data["triggers"] or [])]
+        triggers = [data_index_to_animation_index(t, move_data) for t in triggers]
+        self.sprite_reader.slider.marks = triggers
 
     def create_animation(self):
         dialog = QtWidgets.QInputDialog(self)
@@ -388,7 +393,8 @@ class SpriteReader(QtWidgets.QWidget):
         self.slider = Slider()
         self.slider.minimum = 0
         self.slider.maximum = len(images) - 1
-        self.slider.maximum_settable_value = len(images) - 1
+        self.slider.marks = []
+
         self.slider.valueChanged.connect(self.animation_image_viewer.set_index)
 
         self.layout = QtWidgets.QVBoxLayout(self)
@@ -397,7 +403,7 @@ class SpriteReader(QtWidgets.QWidget):
         self.layout.addWidget(self.animation_scroll_area)
         self.layout.addWidget(self.slider)
 
-    def set_data(self, images, centers, hitboxes):
+    def set_data(self, images, centers, hitboxes, marks):
         self.hitboxes = hitboxes
         self.animation_image_viewer.index = 0
         self.animation_image_viewer.images = images
@@ -408,6 +414,7 @@ class SpriteReader(QtWidgets.QWidget):
         self.slider.value = 0
         self.slider.maximum_settable_value = len(images)
         self.slider.maximum = len(images)
+        self.slider.marks = marks
         self.repaint()
 
     def set_hitboxes(self, hitboxes):

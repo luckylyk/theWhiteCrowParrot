@@ -257,10 +257,52 @@ def build_hitboxes_sequence(data, size, flip):
         for name, hitbox in (data.get("hitboxes", {}) or {}).items()}
 
 
-def map_frame_index(index, data):
+def animation_index_to_data_index(index, data):
+    """
+    Animation index is the index of a frame in 30 fps. Each frame is one index.
+    Data index is the corresponding index in the frame data sheet. Only unique
+    drawn frame are stored. But each frame can have different duration.
+    This convert the animation index to the data one.
+    Example:
+    Data indexes:
+    0           1     2                 3                 4  ..
+    Animation indexes:
+    0  -  1  -  2  -  3  -  4  -  5  -  6  -  7  -  8  -  9  ...
+    in data indexes, frame 0 has a 2 frames duration, 1 has 1 and 2 has 3.
+    Return examples:
+         index = 5 -> 2
+         index = 7 -> 3
+         index = 1 -> 0
+    """
     loop = 0
     for i, d in enumerate(data["frames_per_image"]):
         for _ in range(d):
             if index == loop:
                 return i
             loop += 1
+
+
+def data_index_to_animation_index(index, data):
+    """
+    This is the reverse remap than animation_index_to_data_index()
+    This convert the data index to the animation one.
+    Example:
+    Data indexes:
+    0           1     2                 3                 4  ...
+    Animation indexes:
+    0  -  1  -  2  -  3  -  4  -  5  -  6  -  7  -  8  -  9  ...
+    in data indexes, frame 0 has a 2 frames duration, 1 has 1 and 2 has 3.
+    Return examples:
+         index = 1 -> 2
+         index = 3 -> 6
+         index = 8 -> 3
+    """
+    loop = 0
+    for i, d in enumerate(data["frames_per_image"]):
+        for _ in range(d):
+            if index == i:
+                return loop
+            loop += 1
+    frames = str(data["frames_per_image"])
+    msg = f"Index math not found for {index} to {frames}"
+    raise ValueError(msg)

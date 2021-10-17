@@ -44,6 +44,7 @@ script shoot_1
         player.whitecrow.sheet set death
         player.whitecrow play death_by_arrow_back_sword
         fadeout 30
+        wait 1
         restart
         fadein 5
 
@@ -59,6 +60,7 @@ script shoot_2
         player.whitecrow.sheet set death
         player.whitecrow play death_by_arrow_front_sword
         fadeout 30
+        wait 1
         restart
 
 
@@ -73,6 +75,7 @@ script shoot_3
         player.whitecrow.sheet set death
         player.whitecrow play death_by_arrow_back
         fadeout 30
+        wait 1
         restart
 
 
@@ -87,4 +90,5 @@ script shoot_4
         player.whitecrow.sheet set death
         player.whitecrow play death_by_arrow_front
         fadeout 30
+        wait 1
         restart

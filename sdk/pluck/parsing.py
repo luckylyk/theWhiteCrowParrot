@@ -47,8 +47,9 @@ def list_all_existing_hitboxes():
 
 
 def list_all_existing_sounds(types=None):
-    return [
+    return sorted([
         sound
         for data in parse_json_files(cctx.SCENE_FOLDER)
         for sound in data["sounds"]
-        if sound["type"] in (types or SOUND_TYPES)]
+        if sound["type"] in (types or SOUND_TYPES)],
+        key=lambda x: x["name"])

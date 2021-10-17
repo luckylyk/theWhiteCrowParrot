@@ -54,13 +54,52 @@ class FileField(QtWidgets.QWidget):
 
 
 class FilesField(QtWidgets.QWidget):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.list = QtWidgets.QListWidget()
+        mode = QtWidgets.QAbstractItemView.ExtendedSelection
+        self.list.setSelectionMode(mode)
+        self.browse = QtWidgets.QPushButton(get_icon("folder.png"), "")
+        self.browse.released.connect(self.import_sounds)
+        self.delete = QtWidgets.QPushButton("X")
+        self.delete.released.connect(self.remove_selection)
+
+        self.layout_btn = QtWidgets.QHBoxLayout()
+        self.layout_btn.setContentsMargins(0, 0, 0, 0)
+        self.layout_btn.addStretch(1)
+        self.layout_btn.addWidget(self.browse)
+        self.layout_btn.addWidget(self.delete)
+
+        self.layout = QtWidgets.QVBoxLayout(self)
+        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.layout.addWidget(self.list)
+        self.layout.addLayout(self.layout_btn)
+
     @property
     def value(self):
-        return ['']
+        return [self.list.item(i).text() for i in range(self.list.count())]
 
     @value.setter
     def value(self, value):
-        pass
+        self.list.clear()
+        self.list.addItems(value)
+
+    def import_sounds(self):
+        paths = QtWidgets.QFileDialog.getOpenFileNames(
+            self, "Open sound", cctx.SOUNDS_FOLDER, "Sounds (*.wav *.ogg )")[0]
+        if not paths:
+            return
+        for path in paths:
+            if os.path.normpath(cctx.SOUNDS_FOLDER) not in os.path.normpath(path):
+                continue
+            self.list.addItem(strip_sound_root(path))
+
+    def remove_selection(self):
+        items = self.list.selectedItems()
+        if not items:
+            return
+        for item in items:
+            self.list.takeItem(self.list.row(item))
 
 
 class ZoneField(QtWidgets.QWidget):

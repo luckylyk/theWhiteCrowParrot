@@ -7,6 +7,7 @@ SLIDER_COLORS = {
     "backgroundcolor.filled": "#777777",
     "backgroundcolor.empty": "#334455",
     "framelinecolor": "#FFCC33",
+    "markercolor": "red",
     "frameplayrangecolor": "#AA8800"}
 
 
@@ -21,6 +22,7 @@ class Slider(QtWidgets.QWidget):
         self._value = None
         self._mouse_lb_is_pressed = False
         self.value_line = None
+        self.marks = []
 
     @property
     def minimum(self):
@@ -55,10 +57,21 @@ class Slider(QtWidgets.QWidget):
         self.repaint()
         self.valueChanged.emit(value)
 
+    @property
+    def marks(self):
+        return self._marks
+
+    @marks.setter
+    def marks(self, marks):
+        self._marks = marks
+        self.compute_shapes()
+        self.repaint()
+
     def compute_shapes(self):
         if None in [self.minimum, self.maximum]:
             return
         self.value_line = get_value_line(self, self.value)
+        self.mark_lines = get_mark_lines(self, self.marks)
 
     def mousePressEvent(self, event):
         if self._value is None:
@@ -120,6 +133,15 @@ def drawslider(painter, slider, colors=None):
     painter.setBrush(brush)
     painter.setPen(pen)
     painter.drawRect(slider.rect())
+    # draw marks
+    for mark_line in slider.mark_lines:
+        pen.setWidth(10)
+        linecolor = QtGui.QColor(colors['markercolor'])
+        pen.setColor(linecolor)
+        brush.setColor(transparent)
+        painter.setBrush(brush)
+        painter.setPen(pen)
+        painter.drawLine(mark_line)
     # draw current
     if slider.value_line:
         pen.setWidth(10)
@@ -147,6 +169,10 @@ def get_value_line(slider, value):
     minimum = QtCore.QPoint(left, rect.top())
     maximum = QtCore.QPoint(left, rect.bottom())
     return QtCore.QLine(minimum, maximum)
+
+
+def get_mark_lines(slider, marks):
+    return [get_value_line(slider, mark) for mark in marks]
 
 
 def get_value_from_point(slider, point):

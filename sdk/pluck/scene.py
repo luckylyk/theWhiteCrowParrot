@@ -221,6 +221,7 @@ class SceneEditor(QtWidgets.QWidget):
         self.outliner.expandAll()
         self.scenewidget.recompute_size()
         self.scenewidget.repaint()
+        self.contents_changed()
 
     def update_graphics(self, *useless_signal_args):
         self.scenewidget.repaint()

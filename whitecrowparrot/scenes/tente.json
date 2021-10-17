@@ -7,15 +7,6 @@
     "target_offset": [75, 0],
     "sounds": [
         {
-            "name": "saqueboute",
-            "type": "music",
-            "file": "musics/saqueboute.ogg",
-            "channel": 5,
-            "falloff":  null,
-            "listener": "whitecrow",
-            "zone":  null
-        },
-        {
             "name": "ambiance_nature_outisde",
             "type": "ambiance",
             "file": "ambiances/tente.ogg",
@@ -115,6 +106,76 @@
             "order": "shuffle",
             "trigger": "step_whitecrow",
             "zone": [380, 190, 460, 260]
+        },
+        {
+            "name": "thow_shoes_1",
+            "type": "sfx_sound",
+            "file": "effects/throw_shoes_01.ogg",
+            "channel": 5,
+            "emitter": "chest_props",
+            "falloff": 0,
+            "trigger": "throw_shoe_a",
+            "zone": [0, 0, 790, 260]
+        },
+        {
+            "name": "thow_shoes_2",
+            "type": "sfx_sound",
+            "file": "effects/throw_shoes_02.ogg",
+            "channel": 8,
+            "emitter": "chest_props",
+            "falloff": 0,
+            "trigger": "throw_shoe_b",
+            "zone": [0, 0, 790, 260]
+        },
+        {
+            "name": "thow_shoes_3",
+            "type": "sfx_sound",
+            "file": "effects/throw_shoes_02.ogg",
+            "channel": 7,
+            "emitter": "chest_props",
+            "falloff": 0,
+            "trigger": "throw_shoe_c",
+            "zone": [0, 0, 790, 260]
+        },
+        {
+            "name": "axe_throwing",
+            "type": "sfx_sound",
+            "file": "effects/axe_throwing.ogg",
+            "channel": 6,
+            "emitter": "chest_props",
+            "falloff": 0,
+            "trigger": "axe_throwing",
+            "zone": [0, 0, 790, 260]
+        },
+        {
+            "name": "cloth_throwing",
+            "type": "sfx_sound",
+            "file": "effects/cloth_throwing.ogg",
+            "channel": 4,
+            "emitter": "chest_props",
+            "falloff": 0,
+            "trigger": "throw_cloth",
+            "zone": [0, 0, 790, 260]
+        },
+        {
+            "name": "cloth_falling",
+            "type": "sfx_sound",
+            "file": "effects/cloth_falling.ogg",
+            "channel": 5,
+            "emitter": "chest_props",
+            "falloff": 0,
+            "trigger": "cloth_falling",
+            "zone": [0, 0, 790, 260]
+        },
+        {
+            "name": "helmet_bing",
+            "type": "sfx_sound",
+            "file": "effects/metal_bing.ogg",
+            "channel": 7,
+            "emitter": "chest_props",
+            "falloff": 0,
+            "trigger": "bing",
+            "zone": [0, 0, 790, 260]
         }
     ],
     "zones": [

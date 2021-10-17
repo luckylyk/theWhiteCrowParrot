@@ -58,7 +58,9 @@ script push_and_die
         nolock prop.armor play nudged
         wait 1
         prop.flail play fall
-        wait 100
+        wait 50
+        fadeout 75
+        wait 1
         restart
 
 

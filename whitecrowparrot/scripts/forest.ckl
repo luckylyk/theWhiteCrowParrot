@@ -37,7 +37,7 @@ script go_to_tente
     player.whitecrow.animation is idle
         player.whitecrow reach (272, 10) by (return, walk_a, footsie)
         player.whitecrow aim RIGHT by return
-        nolock fadeout 6
+        nolock fadeout 10
         player.whitecrow play through_door
         theatre.scene set tente
         nolock fadein 6
@@ -51,6 +51,7 @@ script go_to_tente
 script go_to_forest
     always
         fadeout 6
+        wait 1
         theatre.scene set forest
         player.whitecrow move (272, 10)
         theatre.camera move (2600, 134)
