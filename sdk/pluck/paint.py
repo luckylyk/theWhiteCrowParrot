@@ -1,11 +1,11 @@
-from corax.coordinate import to_pixel_position
-import os
+
 from functools import partial
 
 from PyQt5 import QtGui, QtCore
 import corax.context as cctx
+from corax.coordinate import to_pixel_position
 
-from pluck.qtutils import ICON_FOLDER, get_image
+from pluck.qtutils import get_image
 from pluck.geometry import grow_rect, get_position, pixel_position
 from pluck.data import GRAPHIC_TYPES, SOUND_TYPES, ZONE_TYPES
 
@@ -200,10 +200,13 @@ def render_sound(painter, sound_data, image, paintcontext):
     if sound_data["zone"] is None:
         return
     rect = QtCore.QRectF()
-    rect.setLeft(paintcontext.relatives(sound_data["zone"][0]))
-    rect.setTop(paintcontext.relatives(sound_data["zone"][1]))
-    rect.setRight(paintcontext.relatives(sound_data["zone"][2]))
-    rect.setBottom(paintcontext.relatives(sound_data["zone"][3]))
+    zone = sound_data["zone"]
+    if zone[0] > zone[2] or zone[1] > zone[3]:
+        return
+    rect.setLeft(paintcontext.relatives(zone[0]))
+    rect.setTop(paintcontext.relatives(zone[1]))
+    rect.setRight(paintcontext.relatives(zone[2]))
+    rect.setBottom(paintcontext.relatives(zone[3]))
     paintcontext.offset_rect(rect)
 
     brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 0))

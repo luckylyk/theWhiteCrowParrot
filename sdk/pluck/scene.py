@@ -208,7 +208,19 @@ class SceneEditor(QtWidgets.QWidget):
 
     def create_sound(self, zone):
         dialog = CreateSoundDialog(zone)
-        dialog.exec_()
+        result = dialog.exec_()
+        if result != QtWidgets.QDialog.Accepted:
+            return
+        dialog.result
+        data = json.loads(tree_to_plaintext(self.tree))
+        data["sounds"].append(dialog.result)
+        tree = create_scene_outliner_tree(data)
+        self.tree = tree
+        self.scenewidget.tree = tree
+        self.model.set_tree(tree)
+        self.outliner.expandAll()
+        self.scenewidget.recompute_size()
+        self.scenewidget.repaint()
 
     def update_graphics(self, *useless_signal_args):
         self.scenewidget.repaint()

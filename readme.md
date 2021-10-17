@@ -1,6 +1,6 @@
 # the White Crow Parrot
 ###### author : Lionel Brouyère
-Open Source action adventure point and click game (in developpment for a while)
+Open Source action adventure point and click game (in development for a while)
 ![](https://i.ibb.co/WBpXBsJ/Capture.png)
 ![](https://i.ibb.co/sF8jD6z/Capture2.png)
 ![](https://i.ibb.co/fDDpXGj/Capture3.png)

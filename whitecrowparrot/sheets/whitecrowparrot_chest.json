@@ -25,7 +25,7 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 72,
-                    "triggers":  null
+                    "triggers": [[5, "step_whitecrow"]]
                 },
             "dead": {
                     "center": [70, 155],
@@ -61,7 +61,7 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 182,
-                    "triggers":  null
+                    "triggers": [[4, "step_whitecrow"], [11, "step_whitecrow"], [38, "step_whitecrow"], [58, "step_whitecrow"]]
                 },
             "get_ready": {
                     "center": [70, 155],
@@ -78,7 +78,7 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 1,
-                    "triggers":  null
+                    "triggers": [[3, "step_whitecrow"]]
                 },
             "give_up": {
                     "center": [70, 155],
@@ -97,7 +97,7 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 15,
-                    "triggers":  null
+                    "triggers": [[11, "step_whitecrow"]]
                 },
             "hatch": {
                     "center": [70, 155],
@@ -116,7 +116,7 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 252,
-                    "triggers":  null
+                    "triggers": [[5, "chest_open"]]
                 },
             "idle": {
                     "center": [70, 155],
@@ -186,7 +186,7 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 56,
-                    "triggers":  null
+                    "triggers": [[10, "step_whitecrow"]]
                 },
             "push_and_die": {
                     "center": [70, 155],
@@ -203,7 +203,7 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 146,
-                    "triggers": [[0, "chest_breaks"]]
+                    "triggers": [[0, "chest_breaks"], [8, "step_whitecrow"]]
                 },
             "push_succes": {
                     "center": [70, 155],
@@ -223,7 +223,7 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 121,
-                    "triggers":  null
+                    "triggers": [[8, "step_whitecrow"], [11, "step_whitecrow"], [16, "step_whitecrow"], [19, "step_whitecrow"], [22, "step_whitecrow"]]
                 },
             "try_to_open": {
                     "center": [70, 155],
@@ -242,7 +242,7 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 29,
-                    "triggers":  null
+                    "triggers": [[20, "step_whitecrow"]]
                 },
             "try_to_push": {
                     "center": [70, 155],
@@ -261,7 +261,7 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 84,
-                    "triggers":  null
+                    "triggers": [[8, "step_whitecrow"], [12, "step_whitecrow"], [16, "step_whitecrow"], [21, "step_whitecrow"], [29, "step_whitecrow"], [31, "step_whitecrow"]]
                 }
         }
 }

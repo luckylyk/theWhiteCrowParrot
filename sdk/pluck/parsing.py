@@ -1,8 +1,11 @@
-import glob
+
 import json
 from pathlib import Path
+
 import corax.context as cctx
 from corax.core import NODE_TYPES
+
+from pluck.data import SOUND_TYPES
 
 
 INTERACTOR_TYPES = (
@@ -41,3 +44,11 @@ def list_all_existing_hitboxes():
         for data in parse_json_files(cctx.SHEET_FOLDER)
         for move in data["moves"].values()
         for value in (move.get("hitboxes") or {}).keys()}))
+
+
+def list_all_existing_sounds(types=None):
+    return [
+        sound
+        for data in parse_json_files(cctx.SCENE_FOLDER)
+        for sound in data["sounds"]
+        if sound["type"] in (types or SOUND_TYPES)]

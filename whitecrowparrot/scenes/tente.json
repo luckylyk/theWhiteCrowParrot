@@ -6,7 +6,6 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-
         {
             "name": "saqueboute",
             "type": "music",
@@ -30,11 +29,11 @@
             "type": "sfx_sound_collection",
             "channel": 5,
             "emitter": "whitecrow",
-            "falloff": 150,
+            "falloff": 0,
             "files": ["effects/grass_step_01.ogg", "effects/grass_step_02.ogg", "effects/grass_step_03.ogg", "effects/grass_step_04.ogg", "effects/grass_step_05.ogg", "effects/grass_step_06.ogg", "effects/grass_step_07.ogg"],
             "order": "shuffle",
             "trigger": "step_whitecrow",
-            "zone": [-150, -150, 8000, 420]
+            "zone": [-150, -150, 380, 280]
         },
         {
             "name": "chest_squeak_open",
@@ -105,6 +104,17 @@
             "falloff": 150,
             "trigger": "run_skid",
             "zone": [-150, -150, 4000, 420]
+        },
+        {
+            "name": "woodstep",
+            "type": "sfx_sound_collection",
+            "channel": 4,
+            "emitter": "whitecrow",
+            "falloff": 0,
+            "files": ["effects/step_wood_01.ogg", "effects/step_wood_02.ogg", "effects/step_wood_03.ogg", "effects/step_wood_04.ogg"],
+            "order": "shuffle",
+            "trigger": "step_whitecrow",
+            "zone": [380, 190, 460, 260]
         }
     ],
     "zones": [
@@ -131,8 +141,8 @@
         {
             "name": "jump",
             "type": "interaction",
-            "scripts": ["chest.jump_down"],
             "affect": ["whitecrow"],
+            "scripts": ["chest.jump_down"],
             "zone": [37, 20, 39, 26]
         },
         {

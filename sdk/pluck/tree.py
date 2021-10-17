@@ -14,14 +14,14 @@ class CNode():
         self._data = data
         self.renderer = get_renderer(data)
         self.visible = True
-        if parent is not None:
+        if self._parent is not None:
             self._parent.children.append(self)
 
     @property
     def has_to_be_rendered(self):
         if self.visible is False:
             return False
-        return all(p.visible for p in self.parents())
+        return all(p.visible for p in self.parents() if p)
 
     @property
     def data(self):

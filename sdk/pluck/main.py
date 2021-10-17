@@ -13,13 +13,9 @@ from pluck.highlighter import get_plaint_text_editor
 from pluck.scene import SceneEditor
 from pluck.qtutils import wait_cursor, get_icon, set_shortcut
 from pluck.dialog import GameKicker
-from pluck.parsing import list_all_existing_hitboxes
 
 SUPPORTED_FILETYPES = "sheets", "scenes", "scripts"
 WINDOW_TITLE = "Pluck"
-
-for hb in list_all_existing_hitboxes():
-    print(hb)
 
 
 def detect_filetype(filename):
