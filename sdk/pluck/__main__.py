@@ -1,7 +1,6 @@
 # generate environment
 import os
 import sys
-import json
 
 HERE = os.path.dirname(os.path.realpath(__file__))
 MAIN_FOLDER = os.path.join(HERE, "..", "..")

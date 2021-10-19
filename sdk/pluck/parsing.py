@@ -1,11 +1,13 @@
-
+import os
 import json
 from pathlib import Path
 
 import corax.context as cctx
 from corax.core import NODE_TYPES
+import corax.crackle.io
 
 from pluck.data import SOUND_TYPES
+from sdk.pluck.data import ZONE_TYPES
 
 
 INTERACTOR_TYPES = (
@@ -31,11 +33,17 @@ def list_all_existing_interactors():
 
 
 def list_all_existing_triggers():
-    return sorted(list({
+    sheet_triggers = {
         trigger
         for data in parse_json_files(cctx.SHEET_FOLDER)
         for value in data["moves"].values()
-        for _, trigger in value.get("triggers") or []}))
+        for _, trigger in value.get("triggers") or []}
+    scene_triggers = {
+        sound["trigger"]
+        for data in parse_json_files(cctx.SCENE_FOLDER)
+        for sound in data["sounds"]
+        if sound.get("trigger")}
+    return sorted(list(sheet_triggers | scene_triggers))
 
 
 def list_all_existing_hitboxes():
@@ -53,3 +61,21 @@ def list_all_existing_sounds(types=None):
         for sound in data["sounds"]
         if sound["type"] in (types or SOUND_TYPES)],
         key=lambda x: x["name"])
+
+
+def list_all_existing_zones(zone_type=None):
+    return sorted([
+        zone
+        for data in parse_json_files(cctx.SCENE_FOLDER)
+        for zone in data["zones"]
+        if zone["type"] in (zone_type or ZONE_TYPES)],
+        key=lambda x: x["name"])
+
+
+def list_all_existing_script_names():
+    scripts = []
+    for filename in os.listdir(cctx.SCRIPT_FOLDER):
+        filepath = os.path.join(cctx.SCRIPT_FOLDER, filename)
+        namespace = ".".join(filename.split(".")[:-1])
+        scripts.extend(corax.crackle.io.parse_crackle_file(filepath, namespace))
+    return sorted(list({script.name for script in scripts}))

@@ -6,31 +6,12 @@ import corax.context as cctx
 from pluck.paint import PaintContext, render_grid, render_cursor, render_handler
 from pluck.highlighter import CoraxHighlighter, RULES
 from pluck.data import data_sanity_check, tree_sanity_check, data_to_plain_text
-from pluck.dialog import CreateZoneDialog
+from pluck.dialog import CreateOnSceneDialog
 from pluck.sound import CreateSoundDialog
 from pluck.tree import tree_to_plaintext, get_scene, list_sounds, list_layers, list_zones, get_scene, create_scene_outliner_tree
 from pluck.qtutils import get_image
 from pluck.outliner import OutlinerTreeModel, OutlinerView
-
-
-ZONE_TEMPLATE = """
-zone selected: {0}
-
-        {{
-            "name": "unnamed",
-            "type": "no_go",
-            "affect": null,
-            "zone": {0}
-        }}
-
-        {{
-            "name": "unnamed",
-            "type": "interaction",
-            "scripts": null,
-            "affect": null,
-            "zone": {0}
-        }}
-"""
+from pluck.zone import CreateZoneDialog
 
 
 class SceneEditor(QtWidgets.QWidget):
@@ -45,7 +26,7 @@ class SceneEditor(QtWidgets.QWidget):
         self.gamecontext = gamecontext
 
         self.scenewidget = SceneWidget(self.tree, gamecontext, self.paintcontext)
-        self.scenewidget.requestCreateSound.connect(self.create_sound)
+        self.scenewidget.requestCreateZonalElement.connect(self.create_zonal)
         self.scenewidget.handledRequest.connect(self.handle_scene_widget)
         self.scroll = QtWidgets.QScrollArea()
         self.scroll.horizontalScrollBar().setSliderPosition(50)
@@ -180,12 +161,7 @@ class SceneEditor(QtWidgets.QWidget):
 
         self.data_traceback2.setText("")
         self.data_traceback2.setStyleSheet("")
-        self.tree = tree
-        self.scenewidget.tree = tree
-        self.model.set_tree(tree)
-        self.outliner.expandAll()
-        self.scenewidget.recompute_size()
-        self.scenewidget.repaint()
+        self.update_tree(tree)
 
     def handle_scene_widget(self, x, y):
         x = self.scroll.horizontalScrollBar().sliderPosition() - x
@@ -206,22 +182,27 @@ class SceneEditor(QtWidgets.QWidget):
             f.write(str(self.json_editor.toPlainText()))
         self.is_modified = False
 
-    def create_sound(self, zone):
-        dialog = CreateSoundDialog(zone)
+    def create_zonal(self, zone, type_):
+        if type_ == "sounds":
+            dialog = CreateSoundDialog(zone)
+        else:
+            dialog = CreateZoneDialog(zone)
         result = dialog.exec_()
         if result != QtWidgets.QDialog.Accepted:
             return
-        dialog.result
         data = json.loads(tree_to_plaintext(self.tree))
-        data["sounds"].append(dialog.result)
+        data[type_].append(dialog.result)
         tree = create_scene_outliner_tree(data)
+        self.update_tree(tree)
+        self.contents_changed()
+
+    def update_tree(self, tree):
         self.tree = tree
         self.scenewidget.tree = tree
         self.model.set_tree(tree)
         self.outliner.expandAll()
         self.scenewidget.recompute_size()
         self.scenewidget.repaint()
-        self.contents_changed()
 
     def update_graphics(self, *useless_signal_args):
         self.scenewidget.repaint()
@@ -247,7 +228,7 @@ class SceneEditor(QtWidgets.QWidget):
 
 
 class SceneWidget(QtWidgets.QWidget):
-    requestCreateSound = QtCore.pyqtSignal(tuple)
+    requestCreateZonalElement = QtCore.pyqtSignal(tuple, str)
     handledRequest = QtCore.pyqtSignal(int, int)
 
     def __init__(self, tree, coraxcontext, paintcontext, parent=None):
@@ -285,13 +266,10 @@ class SceneWidget(QtWidgets.QWidget):
         x2 = max([self.block_position[0], self.block_position_backed_up[0]])
         y2 = max([self.block_position[1], self.block_position_backed_up[1]])
         zone = x, y, x2, y2
-        dialog = CreateZoneDialog(zone)
+        dialog = CreateOnSceneDialog(zone)
         result = dialog.exec_()
         if result == QtWidgets.QDialog.Accepted:
-            if dialog.result == "sound":
-                self.requestCreateSound.emit(zone)
-            else:
-                print("create a zone")
+            self.requestCreateZonalElement.emit(zone, dialog.result)
         self.repaint()
 
     def mouseMoveEvent(self, event):
@@ -329,7 +307,6 @@ class SceneWidget(QtWidgets.QWidget):
             raise
 
     def paint(self, painter):
-        scene_data = self.tree.children[0].data
         self.tree.children[0].render(painter, self.paintcontext)
         nodes = [
             n for l in list_layers(self.tree)

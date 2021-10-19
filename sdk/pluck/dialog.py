@@ -1,5 +1,6 @@
 from PyQt5 import QtWidgets, QtCore
 from pluck.parsing import list_all_existing_triggers
+from pluck.qtutils import get_icon
 
 
 class GameKicker(QtWidgets.QDialog):
@@ -70,7 +71,7 @@ class TriggerDialog(QtWidgets.QDialog):
         return self.triggers.currentText()
 
 
-class CreateZoneDialog(QtWidgets.QDialog):
+class CreateOnSceneDialog(QtWidgets.QDialog):
 
     def __init__(self, zone=None, parent=None):
         super().__init__(parent=parent)
@@ -95,10 +96,10 @@ class CreateZoneDialog(QtWidgets.QDialog):
         self.layout.addLayout(self.layout_btn)
 
     def _call_create_sound(self):
-        self.result = "sound"
+        self.result = "sounds"
         self.accept()
 
     def _call_create_zone(self):
-        self.result = "zone"
+        self.result = "zones"
         self.accept()
 

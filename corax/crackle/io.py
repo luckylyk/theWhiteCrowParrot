@@ -20,6 +20,8 @@ def load_scripts(theatre):
         filepath = os.path.join(cctx.SCRIPT_FOLDER, filename)
         namespace = ".".join(filename.split(".")[:-1])
         scripts.extend(parse_crackle_file(filepath, namespace))
+    # OUCH, afterward, that bi-directionnal connection create a mess and could
+    # lead to impossible debug. That should get a better design.
     for script in scripts:
         script.theatre = theatre
     return scripts
@@ -56,8 +58,7 @@ def parse_crackle_file(filepath, namespace):
                     raise SyntaxError(f"file {filepath} > line {i} > invalid indent > {msg}")
                 script.conditions.append(line.strip(" "))
             else:
-                msg = "unrecongnized indent"
-                raise SyntaxError(f"line {i} > unknown > {msg}")
+                raise SyntaxError(f'line {i} > unknown > unrecongnized indent')
         scripts.append(script)
     return scripts
 

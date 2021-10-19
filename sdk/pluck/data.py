@@ -1,8 +1,19 @@
+
+import os
 import json
 from corax.core import NODE_TYPES
 
 
 KEY_ORDER = "name", "type", "file", "position"
+ROOT_SUBFOLDERS =(
+    "animations",
+    "players",
+    "scripts",
+    "scenes",
+    "sets",
+    "sheets",
+    "sounds")
+
 DONT_SORT_KEYS = "post_events", "pre_events"
 EXCLUDED_PROPERTIES = "sounds", "areas", "elements", "zones"
 GRAPHIC_TYPES = NODE_TYPES.SET_ANIMATED, NODE_TYPES.SET_STATIC, NODE_TYPES.PLAYER
@@ -167,6 +178,11 @@ DATA_TEMPLATES = {
         "zone": (int, int, int, int)
     }
 }
+
+
+def create_project(root):
+    for folder in ROOT_SUBFOLDERS:
+        os.mkdir(os.path.join(root, folder))
 
 
 def tree_sanity_check(tree):
