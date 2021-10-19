@@ -176,6 +176,15 @@
             "falloff": 0,
             "trigger": "bing",
             "zone": [0, 0, 790, 260]
+        },
+        {
+            "name": "saqueboute",
+            "type": "music",
+            "file": "musics/saqueboute.ogg",
+            "channel": 5,
+            "falloff": 0,
+            "listener": "whitecrow",
+            "zone": [0, 0, 790, 260]
         }
     ],
     "zones": [

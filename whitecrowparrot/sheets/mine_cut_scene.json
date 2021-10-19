@@ -9,7 +9,7 @@
         },
     "moves": {
             "cut_scene": {
-                    "center": [0, 0],
+                    "center": [150, 200],
                     "conditions": {},
                     "frames_centers":  null,
                     "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2],
@@ -23,7 +23,7 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 1,
-                    "triggers": [[3, "fanfare"],[38, "unfold1"], [88, "neck_snap"], [103, "whoosh"], [110, "bodyfall"], [120, "unfold2"]]
+                    "triggers": [[3, "fanfare"], [38, "unfold1"], [82, "neck_snap"], [103, "whoosh"], [110, "bodyfall"], [118, "step_whitecrow"], [120, "unfold2"], [124, "step_whitecrow"], [129, "step_whitecrow"], [133, "step_whitecrow"], [142, "step_whitecrow"]]
                 },
             "in": {
                     "center": [0, 0],

@@ -1,10 +1,12 @@
 {
     "default_move": "get_ready",
     "evaluation_order": ["get_ready", "is_ready", "give_up", "collects"],
-    "layers": {
-        "body": "whitecrowparrot_collects_sword.png"},
+    "filename": "whitecrowparrot_collects_sword.png",
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
+    "layers": {
+            "body": "whitecrowparrot_collects_sword.png"
+        },
     "moves": {
             "collects": {
                     "center": [70, 155],
@@ -23,7 +25,7 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 14,
-                    "triggers":  null
+                    "triggers": [[3, "step_whitecrow"], [8, "cloth_falling"], [26, "extract_sword"], [29, "step_whitecrow"], [33, "step_whitecrow"], [48, "step_whitecrow"]]
                 },
             "get_ready": {
                     "center": [70, 155],

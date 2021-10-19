@@ -61,7 +61,7 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 182,
-                    "triggers": [[4, "step_whitecrow"], [11, "step_whitecrow"], [38, "step_whitecrow"], [58, "step_whitecrow"]]
+                    "triggers": [[4, "step_whitecrow"], [11, "step_whitecrow"], [38, "step_whitecrow"], [48, "cloth_falling"], [58, "step_whitecrow"], [61, "backpack_drop"]]
                 },
             "get_ready": {
                     "center": [70, 155],
@@ -203,7 +203,7 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 146,
-                    "triggers": [[0, "chest_breaks"], [8, "step_whitecrow"]]
+                    "triggers": [[0, "chest_breaks"], [7, "step_whitecrow"], [8, "step_whitecrow"], [11, "step_whitecrow"], [17, "step_whitecrow"], [18, "step_whitecrow"], [23, "step_whitecrow"], [25, "step_whitecrow"], [26, "step_whitecrow"]]
                 },
             "push_succes": {
                     "center": [70, 155],

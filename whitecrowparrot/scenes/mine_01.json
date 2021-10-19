@@ -6,7 +6,6 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-
         {
             "name": "cave_mood",
             "type": "ambiance",
@@ -50,7 +49,7 @@
         {
             "name": "fanfare",
             "type": "sfx_sound",
-            "file": "effects/fanfare.ogg",
+            "file": "musics/benedicamus_domino.ogg",
             "channel": 5,
             "emitter": "cut_scene",
             "falloff": 150,

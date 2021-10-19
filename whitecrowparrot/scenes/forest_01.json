@@ -104,6 +104,26 @@
             "falloff": 150,
             "trigger": "run_skid",
             "zone": [-150, -150, 8000, 420]
+        },
+        {
+            "name": "extract_sword",
+            "type": "sfx_sound",
+            "file": "effects/extract_sword.ogg",
+            "channel": 5,
+            "emitter": "whitecrow",
+            "falloff": 0,
+            "trigger": "extract_sword",
+            "zone": [3480, 150, 3650, 260]
+        },
+        {
+            "name": "cloth_falling",
+            "type": "sfx_sound",
+            "file": "effects/cloth_falling.ogg",
+            "channel": 0,
+            "emitter": "whitecrow",
+            "falloff": 0,
+            "trigger": "cloth_falling",
+            "zone": [3480, 150, 3650, 260]
         }
     ],
     "zones": [
@@ -744,10 +764,7 @@
             "name": "crowd",
             "type": "set_static",
             "file": "forest_01/crowd.png",
-            "position": [
-                4418,
-                109
-            ],
+            "position": [4418, 109],
             "deph": 0.0
         },
         {

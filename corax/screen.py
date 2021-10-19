@@ -39,6 +39,7 @@ def setup_display(args):
     screen = pygame.display.set_mode(cctx.RESOLUTION, screen_mode_flags)
     initialize_screen_variables(screen)
     pygame.display.set_caption(cctx.TITLE)
+    pygame.mouse.set_visible(False)
     return screen
 
 
