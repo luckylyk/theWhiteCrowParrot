@@ -1,5 +1,7 @@
 import os
-import json
+
+from corax.override import load_json
+
 
 ROOT = None
 DEBUG = False
@@ -21,25 +23,24 @@ SCRIPT_FOLDER = None
 SET_FOLDER = None
 SHEET_FOLDER = None
 SOUNDS_FOLDER = None
+OVERRIDE_FILE = None
 
 
-def initialize(args):
+def initialize(arguments):
     """
     This function initialize the engine. This function MUST be called when the
     engine is imported. Nothing works if it is not initialised in a game
     context.
-    :args must receive the applications attribute
-        args[1] = root of the game file structure.
-        --debug, --mute are arguments valids.
+    argumenrts: argparse.Namespace
     """
     global ROOT, DATA_FOLDER, ANIMATION_FOLDER, SET_FOLDER, SHEET_FOLDER, \
     SCRIPT_FOLDER, SCENE_FOLDER, SOUNDS_FOLDER, GAME_FILE, RESOLUTION, FPS, \
-    CAMERA_SPEED, BLOCK_SIZE, KEY_COLOR, DEBUG, MUTE, PLAYER_FOLDER, TITLE
+    CAMERA_SPEED, BLOCK_SIZE, KEY_COLOR, DEBUG, MUTE, PLAYER_FOLDER, TITLE, \
+    OVERRIDE_FILE
 
-    ROOT = args[1]
-    DEBUG = "--debug" in args or "-d" in args
-    MUTE = "--mute" in args or "-m" in args
-    _fast_fps = "--speedup" in args or "-s" in args
+    ROOT = arguments.game_root
+    DEBUG = arguments.debug
+    MUTE = arguments.mute
 
     ANIMATION_FOLDER = os.path.realpath(os.path.join(ROOT, "animations"))
     GAME_FILE = os.path.realpath(os.path.join(ROOT, "main.json"))
@@ -49,15 +50,13 @@ def initialize(args):
     SET_FOLDER = os.path.realpath(os.path.join(ROOT, "sets"))
     SHEET_FOLDER = os.path.realpath(os.path.join(ROOT, "sheets"))
     SOUNDS_FOLDER = os.path.realpath(os.path.join(ROOT, "sounds"))
+    OVERRIDE_FILE = arguments.overrides
 
-    with open(os.path.join(ROOT, GAME_FILE), "r") as f:
-        game_data = json.load(f)
+    game_data = load_json(os.path.join(ROOT, GAME_FILE))
     TITLE = game_data["title"]
     BLOCK_SIZE = game_data["preferences"]["block_size"]
     CAMERA_SPEED = game_data["preferences"]["camera_speed"]
-    FPS = game_data["preferences"]["fps"]
-    if _fast_fps:
-        FPS *= 2
+    FPS = game_data["preferences"]["fps"] * (2 if arguments.speedup else 1)
     KEY_COLOR = game_data["preferences"]["key_color"]
     RESOLUTION = game_data["preferences"]["resolution"]
 

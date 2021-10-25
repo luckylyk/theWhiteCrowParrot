@@ -30,11 +30,11 @@ def initialize_screen_variables(screen):
     LOW_LETTERBOX = 0, bottom_letterbox_top, cctx.RESOLUTION[0], LETTERBOX_OFFSET + 1
 
 
-def setup_display(args):
+def setup_display(scaled=True, fullscreen=True):
     screen_mode_flags = 0
-    if "--scaled" in args or "-s" in args:
+    if scaled:
         screen_mode_flags |= pygame.SCALED
-    if "--fullscreen" in args or "-f" in args:
+    if fullscreen:
         screen_mode_flags |= pygame.FULLSCREEN
     screen = pygame.display.set_mode(cctx.RESOLUTION, screen_mode_flags)
     initialize_screen_variables(screen)

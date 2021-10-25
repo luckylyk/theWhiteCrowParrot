@@ -105,12 +105,43 @@ if len(sys.argv) == 1:
         "Corax Engine cannot be launched without arguments."
         "Use --help flag to see more details.")
 
+
 if "--help" in sys.argv or "-h" in sys.argv:
     print(__doc__)
     exit()
 
+"""
+    --debug        -d | Run game in debug mode. Add some verbose and render the
+                      | infos HUD.
+    --fullscreen   -f | Launch the game in fullscreen mode.
+    --help         -h | Show the help. If that flag is set, the engine will not
+                      | initialize any game.
+    --mute         -m | Disable all sounds.
+    --overrides    -o | Path to an override json file. For debug purpose, this
+                      | is usefull for to change the start spot of the game
+                      | without editing the game data.
+    --scaled -s       | Scaled pixels
+    --skip_splash -ss | Skip Corax Splash screen. This is for debug purpose.
+                      | This is not mandatory, but keeping the splash screen
+                      | enable with distributed version of software would be
+                      | appreciated.
+    --speedup     -sp | Run the game twice faster
+"""
 
-if "--debug" in sys.argv or "-d" in sys.argv:
+import argparse
+parser = argparse.ArgumentParser()
+parser.add_argument("game_root", type=str)
+parser.add_argument("-d", "--debug", action='store_true')
+parser.add_argument("-f", "--fullscreen", action='store_true')
+parser.add_argument("-m", "--mute", action='store_true')
+parser.add_argument("-o", "--overrides", type=str)
+parser.add_argument("-s", "--scaled", action='store_true')
+parser.add_argument("-ss", "--skip_splash", action='store_true')
+parser.add_argument("-sp", "--speedup", action='store_true')
+arguments = parser.parse_args()
+
+
+if arguments.debug:
     import logging
     logging.getLogger().setLevel(logging.DEBUG)
 
@@ -120,17 +151,17 @@ from corax.gameloop import GameLoop
 from corax.screen import setup_display
 # Initializr the constante based on the passed application argument and loads
 # the main.json file.
-game_data = cctx.initialize(sys.argv)
+game_data = cctx.initialize(arguments)
 # PyGame2 initialize needed modules
 import pygame
 pygame.joystick.init()
 pygame.mixer.init()
 pygame.font.init()
-screen = setup_display(sys.argv)
+screen = setup_display(scaled=arguments.scaled, fullscreen=arguments.fullscreen)
 
 
 # This execute the Corax Engine splash screen.
-if "--skip_splash" not in sys.argv and "-ss" not in sys.argv:
+if arguments.skip_splash:
     from corax.splash import splash_screen, SPLASH_FPS
     splash = splash_screen(screen)
     clock = pygame.time.Clock()

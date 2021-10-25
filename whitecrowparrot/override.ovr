@@ -1,0 +1,4 @@
+main.json["globals"]["chest_moved"] = true
+main.json["fade_in_duration"] = 40
+main.json["start_scene"] = "hole"
+players/whitecrow.json["default_sheet"] = "fall"

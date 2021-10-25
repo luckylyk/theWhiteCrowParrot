@@ -1,5 +1,4 @@
 
-import json
 import logging
 import os
 
@@ -8,6 +7,7 @@ from corax.animation import SpriteSheet
 from corax.coordinate import flip_position
 from corax.core import EVENTS
 from corax.mathutils import sum_num_arrays
+from corax.override import load_json
 from corax.sequence import (
     is_moves_sequence_valid, is_layers_authorized, is_move_cross_zone)
 
@@ -164,8 +164,7 @@ class AnimationController():
         self.layers = layers or self.layers
         filepath = os.path.join(cctx.SHEET_FOLDER, filename)
         self.spritesheet = SpriteSheet.from_filename(filename, filepath)
-        with open(filepath, 'r') as f:
-            self.data = json.load(f)
+        self.data = load_json(filepath)
 
     def set_next_move(self):
         """

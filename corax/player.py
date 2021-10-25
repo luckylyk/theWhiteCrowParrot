@@ -1,4 +1,4 @@
-import json
+
 import os
 import logging
 
@@ -8,6 +8,7 @@ from corax.controller import AnimationController
 from corax.coordinate import Coordinate, to_block_position
 from corax.euclide import points_to_vector
 from corax.mathutils import sum_num_arrays
+from corax.override import load_json
 from corax.pygameutils import render_image
 from corax.sequence import (
     filter_moves_by_inputs, filter_unholdable_moves,
@@ -153,8 +154,7 @@ def build_player_animation_controller(data, coordinate):
     """
     filename = data["sheets"][data["default_sheet"]]
     data_path = os.path.join(cctx.SHEET_FOLDER, filename)
-    with open(data_path, "r") as f:
-        sheet_data = json.load(f)
+    sheet_data = load_json(data_path)
     spritesheet = SpriteSheet.from_filename(filename, data_path)
     layers = [str(key) for key in data["layers"] if data["layers"][key]]
     return AnimationController(sheet_data, spritesheet, coordinate, layers)
@@ -168,8 +168,7 @@ def load_players():
     filenames = [os.path.join(cctx.PLAYER_FOLDER, f) for f in player_files]
     players = []
     for filename in filenames:
-        with open(filename, "r") as f:
-            data = json.load(f)
+        data = load_json(filename)
         player = Player(data)
         players.append(player)
     return players

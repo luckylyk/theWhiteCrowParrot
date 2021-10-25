@@ -5,9 +5,10 @@ A sprite sheet is an image containing multiples frame off a sprites. Those
 images are multiple animations. The sprites sheet data are a json containing
 all frame informations necessary to create an animation object.
 """
-import json
+
 from corax.coordinate import map_pixel_position, to_block_size
 from corax.mathutils import sum_num_arrays
+from corax.override import load_json
 from corax.pygameutils import load_images, image_mirror
 
 
@@ -139,8 +140,7 @@ class SpriteSheet():
 
     @staticmethod
     def from_filename(name, filename):
-        with open(filename) as f:
-            data = json.load(f)
+        data = load_json(filename)
         frame_size = data["frame_size"]
         key_color = data["key_color"]
         sequences = {

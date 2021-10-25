@@ -8,6 +8,7 @@ from corax.core import RUN_MODES, NODE_TYPES
 from corax.crackle.io import load_scripts
 from corax.iterators import iter_on_jobs, fade
 from corax.gamepad import InputBuffer
+from corax.override import load_json
 from corax.player import load_players
 from corax.pygameutils import draw_letterbox, render_background
 from corax.scene import build_scene
@@ -23,8 +24,7 @@ def load_scene_data(data, name):
     for scene in data["scenes"]:
         if scene["name"] == name:
             file_ = os.path.join(cctx.SCENE_FOLDER, scene["file"])
-            with open(file_, "r") as f:
-                return json.load(f)
+            return load_json(file_)
     raise ValueError(f'Scene "{name}" not found in the game data')
 
 

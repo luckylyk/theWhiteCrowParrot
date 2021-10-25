@@ -11,7 +11,20 @@ sys.path.append(SDK_FOLDER)
 # initialize project
 import corax.context as cctx
 GAMEDATA_FOLDER = os.path.join(MAIN_FOLDER, "whitecrowparrot")
-GAME_DATA = cctx.initialize(["", GAMEDATA_FOLDER])
+
+
+class MockArguments:
+    """
+    The Corax Engine uses an argparse object to initialize. This is a argparse
+    mocker to be able to initialize the engine for sdk uses.
+    """
+    game_root = GAMEDATA_FOLDER
+    debug = False
+    mute = True
+    speedup = False
+
+
+GAME_DATA = cctx.initialize(MockArguments)
 
 
 if __name__ == "__main__":
