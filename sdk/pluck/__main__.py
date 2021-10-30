@@ -22,6 +22,7 @@ class MockArguments:
     debug = False
     mute = True
     speedup = False
+    overrides = None
 
 
 GAME_DATA = cctx.initialize(MockArguments)
