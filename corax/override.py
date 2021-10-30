@@ -16,7 +16,10 @@ import re
 
 import corax.context as cctx
 
-OVERRIDE_MSG = "Override set value {2} for keys {1} in file {0}"
+OVERRIDE_MSG = "Override set value {2} for keys {1} in file {0}."
+SYNTAX_ERROR_MSG = (
+    '"{}" => Override does not correspond to expected syntax: '
+    '"filename[key1][key2][...] = value" expected.')
 overrides_data = None
 
 KEY_PATTERN = re.compile(r"(?<=\[).+?(?=\])")
@@ -38,16 +41,27 @@ def type_value(value):
 
 
 def extract_line_infos(line):
-    filename = FILENAME_PATTERN.findall(line)[0]
-    keys = [type_value(k) for k in KEY_PATTERN.findall(line)]
-    value = type_value(RESULT_PATTERN.findall(line)[0])
+    """
+    Extract data from the line, using the corresponding regex patterns.
+    """
+    try:
+        filename = FILENAME_PATTERN.findall(line)[0]
+        keys = [type_value(k) for k in KEY_PATTERN.findall(line)]
+        value = type_value(RESULT_PATTERN.findall(line)[0])
+    except Exception:
+        raise SyntaxError(SYNTAX_ERROR_MSG.format(line))
     return filename, keys, value
 
 
 def parse_override_file(path):
+    """
+    Transform the override file in a python friendly dictionnarie.
+    """
     result = {}
     with open(path, 'r') as f:
         for line in f:
+            if not line.strip(" ") or line.strip(" ").startswith("//"):
+                continue
             filename, keys, value = extract_line_infos(line)
             result.setdefault(filename, [])
             result[filename].append([keys, value])

@@ -29,18 +29,22 @@
 To initialize the engine with game data, use in your terminal comand syntax:
 python {$CoraxEngineRoot} {$GameDataRoot} [flags]
 flags available:
+
     --debug        -d | Run game in debug mode. Add some verbose and render the
                       | infos HUD.
     --fullscreen   -f | Launch the game in fullscreen mode.
     --help         -h | Show the help. If that flag is set, the engine will not
                       | initialize any game.
     --mute         -m | Disable all sounds.
+    --overrides    -o | Path to an override json file. For debug purpose, this
+                      | is usefull for to change the start spot of the game
+                      | without editing the game data.
     --scaled -s       | Scaled pixels
     --skip_splash -ss | Skip Corax Splash screen. This is for debug purpose.
                       | This is not mandatory, but keeping the splash screen
                       | enable with distributed version of software would be
                       | appreciated.
-    --speedup      -s | Run the game twice faster
+    --speedup     -sp | Run the game twice faster
 
 ===============================================================================
 
@@ -110,23 +114,6 @@ if "--help" in sys.argv or "-h" in sys.argv:
     print(__doc__)
     exit()
 
-"""
-    --debug        -d | Run game in debug mode. Add some verbose and render the
-                      | infos HUD.
-    --fullscreen   -f | Launch the game in fullscreen mode.
-    --help         -h | Show the help. If that flag is set, the engine will not
-                      | initialize any game.
-    --mute         -m | Disable all sounds.
-    --overrides    -o | Path to an override json file. For debug purpose, this
-                      | is usefull for to change the start spot of the game
-                      | without editing the game data.
-    --scaled -s       | Scaled pixels
-    --skip_splash -ss | Skip Corax Splash screen. This is for debug purpose.
-                      | This is not mandatory, but keeping the splash screen
-                      | enable with distributed version of software would be
-                      | appreciated.
-    --speedup     -sp | Run the game twice faster
-"""
 
 import argparse
 parser = argparse.ArgumentParser()
@@ -149,9 +136,10 @@ if arguments.debug:
 import corax.context as cctx
 from corax.gameloop import GameLoop
 from corax.screen import setup_display
-# Initializr the constante based on the passed application argument and loads
+# Initialize the engine constants based on the application arguments and loads
 # the main.json file.
 game_data = cctx.initialize(arguments)
+
 # PyGame2 initialize needed modules
 import pygame
 pygame.joystick.init()
@@ -159,16 +147,14 @@ pygame.mixer.init()
 pygame.font.init()
 screen = setup_display(scaled=arguments.scaled, fullscreen=arguments.fullscreen)
 
-
 # This execute the Corax Engine splash screen.
-if arguments.skip_splash:
+if not arguments.skip_splash:
     from corax.splash import splash_screen, SPLASH_FPS
     splash = splash_screen(screen)
     clock = pygame.time.Clock()
     for _ in splash:
         pygame.display.flip()
         clock.tick(SPLASH_FPS)
-
 
 gameloop = GameLoop(game_data, screen)
 while not gameloop.done:

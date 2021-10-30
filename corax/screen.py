@@ -13,7 +13,7 @@ LOW_LETTERBOX = None
 def initialize_screen_variables(screen):
     if not cctx.RESOLUTION:
         raise RuntimeError(
-            "Screen size can't be initialized if before corax."
+            "Screen size can't be initialized before corax context."
             "Run corax.context.initialize() function first")
     global LETTERBOX_OFFSET, HIGH_LETTERBOX, LOW_LETTERBOX, USE_LETTERBOX,\
         SCREEN
