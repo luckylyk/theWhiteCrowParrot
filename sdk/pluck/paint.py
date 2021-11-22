@@ -1,7 +1,7 @@
 
 from functools import partial
 
-from PyQt5 import QtGui, QtCore
+from PySide6 import QtGui, QtCore
 import corax.context as cctx
 from corax.coordinate import to_pixel_position
 
@@ -10,9 +10,11 @@ from pluck.geometry import grow_rect, get_position, pixel_position
 from pluck.data import GRAPHIC_TYPES, SOUND_TYPES, ZONE_TYPES
 
 
+
 class PaintContext():
     def __init__(self):
         self.zoom = 1
+        self.center = [0, 0]
         self._extra_zone = 200
         self.grid_color = "grey"
         self.grid_alpha = .2
@@ -31,10 +33,23 @@ class PaintContext():
     def relatives(self, value):
         return value * self.zoom
 
+    def absolute(self, value):
+        return value / self.zoom
+
+    def absolute_point(self, point):
+        return QtCore.QPointF(
+            self.absolute(point.x() - self.center[0]),
+            self.absolute(point.y() - self.center[1]))
+
+    def relative_point(self, point):
+        return QtCore.QPointF(
+            self.relatives(point.x()) + self.center[0],
+            self.relatives(point.y()) + self.center[1])
+
     def relatives_rect(self, rect):
         return QtCore.QRectF(
-            rect.left() * self.zoom,
-            rect.top() * self.zoom,
+            (rect.left() * self.zoom) + self.center[0],
+            (rect.top() * self.zoom) + self.center[1],
             rect.width() * self.zoom,
             rect.height() * self.zoom)
 
@@ -43,17 +58,6 @@ class PaintContext():
         rect.setTop(rect.top() + self.extra_zone)
         rect.setRight(rect.right() + self.extra_zone)
         rect.setBottom(rect.bottom() + self.extra_zone)
-
-    def block_position(self, x, y):
-        x -= self.extra_zone
-        y -= self.extra_zone
-        x //= (cctx.BLOCK_SIZE * self.zoom)
-        y //= (cctx.BLOCK_SIZE * self.zoom)
-        return x, y
-
-    def zone_contains_block_position(self, zone, x, y):
-        l, t, r, b = [n // cctx.BLOCK_SIZE for n in zone]
-        return l <= x <= r and t <= y <= b
 
     @property
     def extra_zone(self):
@@ -68,13 +72,62 @@ class PaintContext():
         y += self.extra_zone
         return x, y
 
-    def zoomin(self):
+    def zoomin(self, vector=None):
         self.zoom += self.zoom / 10
         self.zoom = min(self.zoom, 5)
 
     def zoomout(self):
         self.zoom -= self.zoom / 10
         self.zoom = max(self.zoom, .1)
+
+    def reset(self):
+        self.center = [0, 0]
+        self.zoom = 1
+
+
+def render_center(painter, center, offset, paintcontext):
+    pen_width = paintcontext.relatives(1)
+    painter.setBrush(QtGui.QBrush(QtCore.Qt.transparent))
+    pen = QtGui.QPen(QtCore.Qt.blue)
+    pen.setWidthF(pen_width)
+    painter.setPen(pen)
+    center_x = paintcontext.relatives(center[0])
+    center_y = paintcontext.relatives(center[1])
+    point = QtCore.QPointF(center_x, center_y)
+    width = paintcontext.relatives(2)
+    painter.drawEllipse(point, width, width)
+
+    if not offset:
+        return
+
+    pen = QtGui.QPen(QtCore.Qt.yellow)
+    pen.setWidthF(pen_width)
+    painter.setPen(pen)
+    offset_x = paintcontext.relatives(offset[0]) + center_x
+    offset_y = paintcontext.relatives(offset[1]) + center_y
+    point = QtCore.QPointF(offset_x, offset_y)
+    width = paintcontext.relatives(3)
+    painter.drawEllipse(point, width, width)
+
+    pen = QtGui.QPen(QtCore.Qt.red)
+    pen.setWidthF(pen_width)
+    pen.setStyle(QtCore.Qt.DashLine)
+    painter.setPen(pen)
+    painter.drawLine(center_x, center_y, offset_x, offset_y)
+
+
+def render_trigger(painter, name, rect, paintcontext):
+    color = QtGui.QColor(paintcontext.cursor_text_color)
+    painter.setPen(QtGui.QPen(color))
+    painter.setBrush(QtGui.QBrush(color))
+    option = QtGui.QTextOption()
+    flags = QtCore.Qt.AlignTop | QtCore.Qt.AlignLeft
+    option.setAlignment(flags)
+    font = QtGui.QFont()
+    font.setBold(True)
+    font.setPixelSize(15)
+    painter.setFont(font)
+    painter.drawText(rect, flags, name)
 
 
 def render_handler(painter, block_in, block_out, paintcontext):
@@ -192,22 +245,13 @@ def render_image(painter, image, x, y, paintcontext):
     w = paintcontext.relatives(image.size().width())
     h = paintcontext.relatives(image.size().height())
     rect = QtCore.QRectF(x, y, w, h)
-    paintcontext.offset_rect(rect)
+    rect = paintcontext.relatives_rect(rect)
     painter.drawImage(rect, image)
 
 
-def render_sound(painter, sound_data, image, paintcontext):
+def render_sound(painter, sound_data, rect, image, paintcontext):
     if sound_data["zone"] is None:
         return
-    rect = QtCore.QRectF()
-    zone = sound_data["zone"]
-    if zone[0] > zone[2] or zone[1] > zone[3]:
-        return
-    rect.setLeft(paintcontext.relatives(zone[0]))
-    rect.setTop(paintcontext.relatives(zone[1]))
-    rect.setRight(paintcontext.relatives(zone[2]))
-    rect.setBottom(paintcontext.relatives(zone[3]))
-    paintcontext.offset_rect(rect)
 
     brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 0))
     pen = QtGui.QPen(QtGui.QColor(paintcontext.sound_zone_color))
@@ -242,7 +286,8 @@ def render_grid(painter, rect, block_size, paintcontext=None):
     grid_color.setAlphaF(paintcontext.grid_alpha)
     pen = QtGui.QPen(grid_color)
     painter.setPen(pen)
-    x, y = l, t
+    x = block_size + (paintcontext.center[0] % block_size)
+    y = block_size + (paintcontext.center[1] % block_size)
     while x < r:
         painter.drawLine(x, t, x, b)
         x += block_size
