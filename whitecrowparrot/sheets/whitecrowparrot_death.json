@@ -1,6 +1,7 @@
 {
     "default_move": "death_by_arrow_front",
     "evaluation_order": ["death_by_arrow_front", "death_by_arrow_back", "death_by_arrow_front_sword", "death_by_arrow_back_sword", "stranguled", "stranguled_last_frame"],
+    "filename": "whitecrowparrot_death.png",
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
     "layers": {
@@ -11,7 +12,7 @@
                     "center": [70, 155],
                     "conditions": {},
                     "frames_centers":  null,
-                    "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+                    "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1],
                     "hitboxes": {},
                     "hold":  true,
                     "inputs": [],
@@ -21,14 +22,14 @@
                     "post_events": {},
                     "pre_events": {},
                     "release_frame": -1,
-                    "start_at_image": 71,
+                    "start_at_image": 102,
                     "triggers":  null
                 },
             "death_by_arrow_back_sword": {
                     "center": [70, 155],
                     "conditions": {},
                     "frames_centers":  null,
-                    "frames_per_image": [2, 2, 2, 2, 2, 3, 2, 1, 1, 2, 3, 3, 2, 1, 1, 2, 2, 2, 1, 2, 3, 1, 1, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 3, 5],
+                    "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 1, 5],
                     "hitboxes": {},
                     "hold":  true,
                     "inputs": [],
@@ -38,14 +39,14 @@
                     "post_events": {},
                     "pre_events": {},
                     "release_frame": -1,
-                    "start_at_image": 1,
-                    "triggers":  null
+                    "start_at_image": 0,
+                    "triggers": [[20, "whitecrow_body_fall"], [45, "whitecrow_impaled"]]
                 },
             "death_by_arrow_front": {
                     "center": [70, 155],
                     "conditions": {},
                     "frames_centers":  null,
-                    "frames_per_image": [2, 2, 2, 2, 3, 2, 2, 1, 2, 4, 2, 2, 2, 2, 13, 5, 3, 1, 1, 3],
+                    "frames_per_image": [2, 2, 2, 2, 3, 2, 2, 1, 2, 4, 2, 2, 2, 2, 13, 5, 3, 1, 1, 3, 1],
                     "hitboxes": {},
                     "hold":  true,
                     "inputs": [],
@@ -55,14 +56,14 @@
                     "post_events": {},
                     "pre_events": {},
                     "release_frame": -1,
-                    "start_at_image": 50,
+                    "start_at_image": 81,
                     "triggers":  null
                 },
             "death_by_arrow_front_sword": {
                     "center": [70, 155],
                     "conditions": {},
                     "frames_centers":  null,
-                    "frames_per_image": [3, 2, 2, 2, 1, 1, 2, 2, 2, 1, 2, 1],
+                    "frames_per_image": [3, 2, 2, 2, 1, 1, 2, 2, 2, 1, 2, 1, 1],
                     "hitboxes": {},
                     "hold":  true,
                     "inputs": [],
@@ -72,7 +73,7 @@
                     "post_events": {},
                     "pre_events": {},
                     "release_frame": -1,
-                    "start_at_image": 37,
+                    "start_at_image": 68,
                     "triggers":  null
                 },
             "stranguled": {
@@ -89,7 +90,7 @@
                     "post_events": {},
                     "pre_events": {},
                     "release_frame": -1,
-                    "start_at_image": 87,
+                    "start_at_image": 119,
                     "triggers":  null
                 },
             "stranguled_last_frame": {
@@ -106,7 +107,7 @@
                     "post_events": {},
                     "pre_events": {},
                     "release_frame": -1,
-                    "start_at_image": 96,
+                    "start_at_image": 128,
                     "triggers":  null
                 }
         }

@@ -1,7 +1,7 @@
 import krita
 import math
 import os
-from PyQt5 import QtGui, QtCore
+from PySide6 import QtGui, QtCore
 
 
 OUTPUT_PATH = r"D:\Works\2d\gamjam\spritesheet"

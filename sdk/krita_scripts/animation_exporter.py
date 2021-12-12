@@ -1,7 +1,7 @@
 import krita
 import time
 import math
-from PyQt5 import QtGui, QtCore, QtWidgets
+from PySide6 import QtGui, QtCore, QtWidgets
 
 
 OUTPUT_PATH = r"D:\Works\code\GitHub\theWhiteCrowParrot\whitecrowparrot\animations\test.png"

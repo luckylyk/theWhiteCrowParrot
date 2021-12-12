@@ -1,40 +1,56 @@
 
-from functools import partial
 
 from PySide6 import QtGui, QtCore
+
 import corax.context as cctx
-from corax.coordinate import to_pixel_position
-
-from pluck.qtutils import get_image
-from pluck.geometry import grow_rect, get_position, pixel_position
-from pluck.data import GRAPHIC_TYPES, SOUND_TYPES, ZONE_TYPES
-
+from corax.coordinate import to_pixel_position, to_block_position
+from pluck.geometry import grow_rect, pixel_position
 
 
 class PaintContext():
+    background_color = "grey"
+    cursor_background_alpha = 0.2
+    cursor_background_color = "white"
+    cursor_text_color = "white"
+    frame_number_color = "red"
+    grid_color = "grey"
+    grid_alpha = .2
+    grid_border_color = "black"
+    hard_boundary_color = "black"
+    hard_boundary_width = 2
+    selection_color = "blue"
+    sound_fade_off = "red"
+    sound_zone_color = "blue"
+    status_bar_height = 30
+    status_bar_pos_width = 200
+    status_bar_text_color = "black"
+    status_bar_text_padding = 5
+    status_bar_text_size = 15
+    status_bar_color = "grey"
+    soft_boundary_color = "grey"
+    soft_boundary_width = 1
+    thumbnail_max_size = 200
+    zone_border_width = 2
+    zone_alpha = 0.2
+    zone_border_color = "white"
+    zone_background_color = "white"
+
     def __init__(self):
+        self._extra_zone = 200
         self.zoom = 1
         self.center = [0, 0]
-        self._extra_zone = 200
-        self.grid_color = "grey"
-        self.grid_alpha = .2
-        self.grid_border_color = "black"
-        self.sound_zone_color = "blue"
-        self.sound_fade_off = "red"
-        self.background_color = "grey"
-        self.zone_border_color = "white"
-        self.zone_background_color = "white"
-        self.cursor_background_color = "white"
-        self.frame_number_color = "red"
-        self.cursor_text_color = "white"
-        self.cursor_background_alpha = 0.2
-        self.zone_alpha = 0.2
 
     def relatives(self, value):
         return value * self.zoom
 
     def absolute(self, value):
         return value / self.zoom
+
+    def absolute_rect(self, rect):
+        top_left = self.absolute_point(rect.topLeft())
+        width = self.absolute(rect.width())
+        height = self.absolute(rect.height())
+        return QtCore.QRectF(top_left.x(), top_left.y(), width, height)
 
     def absolute_point(self, point):
         return QtCore.QPointF(
@@ -83,6 +99,47 @@ class PaintContext():
     def reset(self):
         self.center = [0, 0]
         self.zoom = 1
+
+
+def render_background(painter, data, paintcontext):
+    painter.setPen(QtGui.QPen(QtCore.Qt.transparent))
+    color = QtGui.QColor(*data['background_color'])
+    painter.setBrush(QtGui.QBrush(color))
+    rect = QtCore.QRect()
+    rect.setLeft(data['boundary'][0])
+    rect.setTop(data['boundary'][1])
+    rect.setRight(data['boundary'][2])
+    rect.setBottom(data['boundary'][3])
+    rect = paintcontext.relatives_rect(rect)
+    painter.drawRect(rect)
+
+
+def render_boundaries(painter, data, paintcontext):
+    rect = QtCore.QRect()
+    rect.setLeft(data['boundary'][0])
+    rect.setTop(data['boundary'][1])
+    rect.setRight(data['boundary'][2])
+    rect.setBottom(data['boundary'][3])
+    rect = paintcontext.relatives_rect(rect)
+    rect = grow_rect(rect, paintcontext.hard_boundary_width / 2)
+    pen = QtGui.QPen(QtGui.QColor(paintcontext.hard_boundary_color))
+    pen.setWidth(paintcontext.hard_boundary_width)
+    painter.setPen(pen)
+    painter.setBrush(QtCore.Qt.transparent)
+    painter.drawRect(rect)
+
+    pen = QtGui.QPen(QtGui.QColor(paintcontext.soft_boundary_color))
+    pen.setWidth(paintcontext.soft_boundary_width)
+    pen.setStyle(QtCore.Qt.DashLine)
+    painter.setPen(pen)
+    for boundary in data['soft_boundaries']:
+        rect = QtCore.QRect()
+        rect.setLeft(boundary[0])
+        rect.setTop(boundary[1])
+        rect.setRight(boundary[2])
+        rect.setBottom(boundary[3])
+        rect = paintcontext.relatives_rect(rect)
+        painter.drawRect(rect)
 
 
 def render_center(painter, center, offset, paintcontext):
@@ -148,17 +205,13 @@ def render_handler(painter, block_in, block_out, paintcontext):
 
 
 def render_zone(painter, zone_data, image, paintcontext):
-    x, y = pixel_position(zone_data["zone"][:2])
-    z, a = pixel_position(zone_data["zone"][2:])
-    l = paintcontext.relatives(x)
-    t = paintcontext.relatives(y)
-    r = paintcontext.relatives(z)
-    b = paintcontext.relatives(a)
-    rect = QtCore.QRectF(l, t, r-l, b-t)
-    paintcontext.offset_rect(rect)
+    l, t = pixel_position(zone_data["zone"][:2])
+    r, b = pixel_position(zone_data["zone"][2:])
+    rect = paintcontext.relatives_rect(QtCore.QRectF(l, t, r-l, b-t))
+    rect = grow_rect(rect, paintcontext.zone_border_width / 2)
 
     pen = QtGui.QPen(QtGui.QColor(paintcontext.zone_border_color))
-    pen.setWidth(3)
+    pen.setWidth(paintcontext.zone_border_width)
     color = QtGui.QColor(paintcontext.zone_background_color)
     color.setAlphaF(paintcontext.zone_alpha)
     brush = QtGui.QBrush(color)
@@ -186,9 +239,7 @@ def render_cursor(painter, block_position, paintcontext):
     color = QtGui.QColor(paintcontext.cursor_text_color)
     painter.setPen(QtGui.QPen(color))
     painter.setBrush(QtGui.QBrush(color))
-    option = QtGui.QTextOption()
     flags = QtCore.Qt.AlignTop | QtCore.Qt.AlignLeft
-    option.setAlignment(flags)
     font = QtGui.QFont()
     font.setBold(True)
     font.setPixelSize(15)
@@ -198,54 +249,12 @@ def render_cursor(painter, block_position, paintcontext):
     painter.drawText(QtCore.QRectF(x + 10, y + 10, 200, 200), flags, text)
 
 
-def get_renderer(element):
-    if element is None:
-        return
-    elif element["type"] == "scene":
-        return partial(
-            render_background,
-            rect=element["boundary"],
-            color=element["background_color"])
-    elif element["type"] in SOUND_TYPES:
-        image = get_image(element)
-        return partial(render_sound, sound_data=element, image=image)
-    elif element["type"] in ZONE_TYPES:
-        image = get_image(element)
-        return partial(render_zone, zone_data=element, image=image)
-    elif element["type"] in GRAPHIC_TYPES:
-        image = get_image(element)
-        x, y = get_position(element)
-        return partial(render_image, image=image, x=x, y=y)
-
-
-def render_background(painter, rect, color, paintcontext):
-    x = paintcontext.relatives(rect[0])
-    y = paintcontext.relatives(rect[1])
-    w = paintcontext.relatives(rect[0] + rect[2])
-    h = paintcontext.relatives(rect[1] + rect[3])
-    rect = QtCore.QRectF(x, y, w, h)
-    paintcontext.offset_rect(rect)
-
-    pen = QtGui.QPen(QtGui.QColor(0, 0, 0, 0))
-    brush = QtGui.QBrush(QtGui.QColor(paintcontext.background_color))
-    painter.setPen(pen)
-    painter.setBrush(brush)
-    painter.drawRect(grow_rect(rect, paintcontext.extra_zone))
-    brush = QtGui.QBrush(QtGui.QColor(*color))
-    painter.setBrush(brush)
-    painter.drawRect(rect)
-
-    brush = QtGui.QBrush(QtGui.QColor(0, 0, 0, 0))
-    painter.setBrush(brush)
-
-
 def render_image(painter, image, x, y, paintcontext):
     x = paintcontext.relatives(x)
     y = paintcontext.relatives(y)
     w = paintcontext.relatives(image.size().width())
     h = paintcontext.relatives(image.size().height())
     rect = QtCore.QRectF(x, y, w, h)
-    rect = paintcontext.relatives_rect(rect)
     painter.drawImage(rect, image)
 
 
@@ -313,3 +322,58 @@ def render_hitbox(painter, hitbox, color, paintcontext):
         size = paintcontext.relatives(cctx.BLOCK_SIZE)
         rect = QtCore.QRectF(x, y, size, size)
         painter.drawRect(rect)
+
+
+def render_selection_square(painter, selection_square, paintcontext=None):
+    rect = selection_square.rect
+    if not rect:
+        return
+    paintcontext = paintcontext or PaintContext()
+    rect = paintcontext.relatives_rect(rect)
+    bordercolor = QtGui.QColor(paintcontext.selection_color)
+    backgroundcolor = QtGui.QColor(paintcontext.selection_color)
+    backgroundcolor.setAlpha(85)
+    painter.setPen(QtGui.QPen(bordercolor))
+    painter.setBrush(QtGui.QBrush(backgroundcolor))
+    painter.drawRect(rect)
+
+
+def render_node_border(painter, data, selected, highlighted, paintcontext):
+    paintcontext = paintcontext or PaintContext()
+    l, t, r, b = data['zone']
+    rect = QtCore.QRectF(l, t, r-l, b-t)
+    rect = paintcontext.relatives_rect(rect)
+    if selected:
+        color = QtGui.QColor("white")
+    elif highlighted:
+        color = QtGui.QColor("yellow")
+    else:
+        color = QtCore.Qt.transparent
+    pen = QtGui.QPen(color)
+    brush = QtGui.QBrush(QtCore.Qt.transparent)
+    painter.setPen(pen)
+    painter.setBrush(brush)
+    painter.drawRect(rect)
+
+
+def render_scenewidget_status_bar(
+        painter, rects, position, highlighted, paintcontext):
+    painter.setPen(QtGui.QPen(QtCore.Qt.transparent))
+    painter.setBrush(QtGui.QBrush(QtGui.QColor(paintcontext.status_bar_color)))
+    painter.drawRect(rects['bar'])
+
+    painter.setPen(QtGui.QPen(paintcontext.status_bar_text_color))
+    font = QtGui.QFont()
+    font.setPixelSize(paintcontext.status_bar_text_size)
+    painter.setFont(font)
+    flags =  QtCore.Qt.AlignLeft | QtCore.Qt.AlignVCenter
+
+    pos = paintcontext.absolute_point(position)
+    text = f'pixel position: ({int(pos.x()):05d} - {int(pos.y()):05d})'
+    painter.drawText(rects['pixel_coord'], flags, text)
+
+    x, y = to_block_position((pos.x(), pos.y()))
+    text = f'block position: ({int(x):04d} - {int(y):04d})'
+    painter.drawText(rects['block_coord'], flags, text)
+
+    painter.drawText(rects['highlighted'], flags, highlighted)

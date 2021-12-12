@@ -1,6 +1,5 @@
 from pluck.data import extract_scene_properties, data_to_plain_text
-from pluck.qtutils import get_icon, ICON_MATCH, get_image
-from pluck.paint import get_renderer
+from pluck.qtutils import get_icon, ICON_MATCH
 
 from corax.core import NODE_TYPES
 
@@ -12,8 +11,9 @@ class CNode():
         self._parent = parent
         self.children = []
         self._data = data
-        self.renderer = get_renderer(data)
         self.visible = True
+        self.selected = False
+        self.highlighted = False
         if self._parent is not None:
             self._parent.children.append(self)
 
@@ -30,7 +30,6 @@ class CNode():
     @data.setter
     def data(self, data):
         self._data = data
-        self.renderer = get_renderer(data)
 
     @property
     def type(self):
@@ -68,16 +67,35 @@ class CNode():
         if self._parent is not None:
             return self._parent.children.index(self)
 
+    def nested_rows(self):
+        parent = self
+        rows = [self.row()]
+        names = [self.name]
+        while parent:=parent.parent():
+            rows.append(parent.row() or 0)
+            names.append(parent.name)
+        rows.reverse()
+        return rows
+
     def flat(self):
         childs = self.children[:]
         for child in self.children:
             childs.extend(child.flat())
         return childs
 
-    def render(self, painter, paintcontext):
-        if self.renderer is None:
-            return
-        self.renderer(painter=painter, paintcontext=paintcontext)
+    def repr(self, indent=0):
+        result = ' ' * indent + '->' + (self.name or "") + "\n"
+        for child in self.children:
+            result += child.repr(indent=indent + 2)
+        return result
+
+    def __repr__(self):
+        return self.repr()
+
+
+def clear_tree_selection(tree):
+    for node in tree.flat():
+        node.selected = False
 
 
 def create_scene_outliner_tree(scene_data):

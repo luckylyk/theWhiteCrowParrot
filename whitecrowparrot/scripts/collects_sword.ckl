@@ -14,11 +14,14 @@
 // declaration: (script)
 // conditional and time related adverbs/function: (always, freeze, nolock,
 //                                                 wait)
-// comparators: (has, in, is)
-// functions: (aim, fadein, fadeout, flush, force, freeze, move, pin, play,
-//             reach, restart, run, set, shift, wait)
-// corax known objects: (animation, gamepad, globals, hitbox, key, sheet,
-//                       name, player, pressed, scene, theatre, zone, flip)
+// comparators: (has, in, is, by)
+// functions: (aim, checkpoint, clear, fadein, fadeout, flush, force, freeze,
+//             hide, move, pin, play, reach, restart, run, show, set, shift,
+//             wait)
+// corax known objects: (animation, flip, gamepad, globals, hitbox, key,
+//                       name, player, pressed, scene, sheet, theatre, zone)
+// built-in values: (false, true)
+
 
 
 script collects_sword_get_ready

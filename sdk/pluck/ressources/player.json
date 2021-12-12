@@ -1,0 +1,11 @@
+{
+    "name": "player1",
+    "default_sheet": null,
+    "layers": {
+        "body": true
+    },
+    "sheets": {
+    },
+    "hitboxes_color": {
+    }
+}

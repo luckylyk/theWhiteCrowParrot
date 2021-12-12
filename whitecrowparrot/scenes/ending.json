@@ -36,6 +36,36 @@
             "order": "shuffle",
             "trigger": "step_whitecrow",
             "zone": [-150, -150, 8000, 420]
+        },
+        {
+            "name": "shoot_arrow",
+            "type": "sfx_sound",
+            "file": "effects/shoot_arrow.ogg",
+            "channel": 5,
+            "emitter": "arbaletist",
+            "falloff": 0,
+            "trigger": "shoot_arrow",
+            "zone": [0, 0, 490, 260]
+        },
+        {
+            "name": "sword_impact",
+            "type": "sfx_sound",
+            "file": "effects/sword_impact.ogg",
+            "channel": 5,
+            "emitter": "whitecrow",
+            "falloff": 0,
+            "trigger": "whitecrow_impaled",
+            "zone": [0, 0, 490, 270]
+        },
+        {
+            "name": "body_fall",
+            "type": "sfx_sound",
+            "file": "effects/body_fall_04.ogg",
+            "channel": 5,
+            "emitter": "whitecrow",
+            "falloff": 0,
+            "trigger": "whitecrow_body_fall",
+            "zone": [0, 0, 490, 280]
         }
     ],
     "zones": [

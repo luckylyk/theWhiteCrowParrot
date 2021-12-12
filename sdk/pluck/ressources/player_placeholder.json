@@ -1,0 +1,6 @@
+{
+    "name": "player1",
+    "type": "player",
+    "block_position": [0, 0],
+    "flip": false
+}

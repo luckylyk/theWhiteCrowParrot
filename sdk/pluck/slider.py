@@ -1,4 +1,4 @@
-from PyQt5 import QtGui, QtCore, QtWidgets
+from PySide6 import QtGui, QtCore, QtWidgets
 
 
 SLIDER_HEIGHT = 22
@@ -12,16 +12,17 @@ SLIDER_COLORS = {
 
 
 class Slider(QtWidgets.QWidget):
-    valueChanged = QtCore.pyqtSignal(int)
+    valueChanged = QtCore.Signal(int)
 
     def __init__(self, parent=None):
         super().__init__(parent)
         self.setFixedHeight(SLIDER_HEIGHT)
-        self._minimum = None
+        self._minimum = 0
+        self._value = 0
         self._maximum = None
-        self._value = None
         self._mouse_lb_is_pressed = False
         self.value_line = None
+        self.mark_lines = []
         self.marks = []
 
     @property
@@ -31,6 +32,8 @@ class Slider(QtWidgets.QWidget):
     @minimum.setter
     def minimum(self, value):
         self._minimum = value
+        if self._value < value:
+            self._value = value
         self.compute_shapes()
         self.repaint()
 
@@ -41,6 +44,8 @@ class Slider(QtWidgets.QWidget):
     @maximum.setter
     def maximum(self, value):
         self._maximum = value
+        if self._maximum < value:
+            self._value = value
         self.compute_shapes()
         self.repaint()
 
@@ -78,7 +83,7 @@ class Slider(QtWidgets.QWidget):
             return
         if event.button() == QtCore.Qt.LeftButton:
             self._mouse_lb_is_pressed = True
-        self.set_value_from_point(event.pos())
+        self.set_value_from_point(event.position().toPoint())
 
     def resizeEvent(self, _):
         self.compute_shapes()
@@ -88,7 +93,7 @@ class Slider(QtWidgets.QWidget):
         if self._value is None:
             return
         if self._mouse_lb_is_pressed is True:
-            self.set_value_from_point(event.pos())
+            self.set_value_from_point(event.position().toPoint())
 
     def mouseReleaseEvent(self, _):
         self._mouse_lb_is_pressed = False

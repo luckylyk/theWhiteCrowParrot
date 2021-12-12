@@ -1,0 +1,8 @@
+{
+    "name": "animation",
+    "type": "set_animated",
+    "file": "",
+    "position": [0, 0],
+    "alpha": 255,
+    "deph": 0.0
+}

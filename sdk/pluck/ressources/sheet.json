@@ -1,0 +1,26 @@
+{
+    "default_move": "idle",
+    "evaluation_order": ["idle"],
+    "layers": {},
+    "frame_size": [100, 100],
+    "key_color": [0, 255, 0],
+    "moves": {
+        "idle": {
+            "start_at_image": 0,
+            "center": [0, 0],
+            "frames_per_image": [1],
+            "triggers": null,
+            "frames_centers": null,
+            "release_frame": -1,
+            "next_move": "idle",
+            "next_move_bufferable": null,
+            "hold": false,
+            "loop_on": null,
+            "conditions": {},
+            "inputs": [],
+            "pre_events": {},
+            "post_events": {},
+            "hitboxes": null
+        }
+    }
+}

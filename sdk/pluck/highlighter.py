@@ -1,4 +1,4 @@
-from PyQt5 import QtGui, QtCore, QtWidgets
+from PySide6 import QtGui, QtCore, QtWidgets
 
 ACTION_KEYWORDS = ["run", "play", "set", "reach", "move"]
 
@@ -99,17 +99,23 @@ class CoraxHighlighter(QtGui.QSyntaxHighlighter):
                 color=data['color'],
                 bold=data['bold'],
                 italic=data['italic'])
-            rule = QtCore.QRegExp(data['exp']), text_format
+            rule = QtCore.QRegularExpression(data['exp']), text_format
             self.rules.append(rule)
 
     def highlightBlock(self, text):
         for pattern, format_ in self.rules:
-            expression = QtCore.QRegExp(pattern)
-            index = expression.indexIn(text)
-            while index >= 0:
-                length = expression.matchedLength()
+            expression = QtCore.QRegularExpression(pattern)
+            iterator = expression.globalMatch(text)
+            while iterator.hasNext():
+                match = iterator.next()
+                index = match.capturedStart()
+                length = match.capturedLength()
                 self.setFormat(index, length, format_)
-                index = expression.indexIn(text, index + length)
+            # index = expression.indexIn(text)
+            # while index >= 0:
+            #     length = expression.matchedLength()
+            #     self.setFormat(index, length, format_)
+            #     index = expression.indexIn(text, index + length)
 
 
 def get_plaint_text_editor(rule="crackle"):
@@ -178,4 +184,4 @@ script go_to_forest // commentary test
 
 
     app.setStyleSheet(stylesheet)
-    app.exec_()
+    app.exec()

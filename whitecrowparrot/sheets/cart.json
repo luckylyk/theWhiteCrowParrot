@@ -23,7 +23,7 @@
                     "pre_events": {},
                     "release_frame": -1,
                     "start_at_image": 1,
-                    "triggers": [[0, "cart"], [57, "chest_breaks"]]
+                    "triggers": [[0, "cart"], [35, "chest_breaks"]]
                 },
             "end": {
                     "center": [0, 0],

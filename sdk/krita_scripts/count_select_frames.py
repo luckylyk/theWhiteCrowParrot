@@ -1,6 +1,4 @@
 import krita
-import math
-from PyQt5 import QtGui, QtCore
 
 
 def get_node_frames_duration(node, range_in=0, range_out=10):

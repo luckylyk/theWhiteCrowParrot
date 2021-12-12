@@ -1,55 +1,17 @@
-import os
-from PyQt5 import QtWidgets, QtGui
+
+from PySide6 import QtWidgets
 
 import corax.context as cctx
-from corax.core import LOOP_TYPES
 
 from pluck.data import DATA_TEMPLATES, SOUND_TYPES
 from pluck.field import (
-    OptionField, FileField, FilesField, ZoneField, StrField, TriggerField,
-    IntField, InteractorField, ComboField)
+    OptionField, ZoneField, StrField, TriggerField,
+    IntField, InteractorField, ComboField, SoundFileField, SoundFilesField,
+    OrderField)
 from pluck.parsing import list_all_existing_sounds
 
 
 WINDOW_TITLE = "Create sound for scene"
-
-
-def ensure_linux_path(path):
-    return path.replace("\\", "/")
-
-
-def strip_sound_root(path):
-    root = os.path.normpath(cctx.SOUNDS_FOLDER)
-    path = os.path.normpath(path)
-    return ensure_linux_path(path[len(root):].strip("\\/"))
-
-
-class SoundFileField(FileField):
-
-    def import_sound(self):
-        path = QtWidgets.QFileDialog.getOpenFileName(
-            self, "Open sound", cctx.SOUNDS_FOLDER, "Sounds (*.wav *.ogg )")[0]
-        if not path:
-            return
-        if os.path.normpath(cctx.SOUNDS_FOLDER) not in os.path.normpath(path):
-            return
-        self.lineedit.setText(strip_sound_root(path))
-
-
-class SoundFilesField(FilesField):
-    def import_sounds(self):
-        paths = QtWidgets.QFileDialog.getOpenFileNames(
-            self, "Open sound", cctx.SOUNDS_FOLDER, "Sounds (*.wav *.ogg )")[0]
-        if not paths:
-            return
-        for path in paths:
-            if os.path.normpath(cctx.SOUNDS_FOLDER) not in os.path.normpath(path):
-                continue
-            self.list.addItem(strip_sound_root(path))
-
-
-class OrderField(ComboField):
-    ITEMS = LOOP_TYPES.CYCLE, LOOP_TYPES.SHUFFLE
 
 
 class TypeField(ComboField):

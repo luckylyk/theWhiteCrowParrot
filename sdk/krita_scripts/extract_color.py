@@ -1,5 +1,5 @@
 import krita
-from PyQt5 import QtCore
+from PySide6 import QtCore
 
 
 COLORS_TO_EXTRACT = [
@@ -53,7 +53,7 @@ if node.hasKeyframeAtTime(document.currentTime()):
 
 
 import krita
-from PyQt5 import QtCore
+from PySide6 import QtCore
 import time
 
 

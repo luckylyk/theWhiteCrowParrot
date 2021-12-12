@@ -6,8 +6,7 @@ import corax.context as cctx
 from corax.core import NODE_TYPES
 import corax.crackle.io
 
-from pluck.data import SOUND_TYPES
-from sdk.pluck.data import ZONE_TYPES
+from pluck.data import SOUND_TYPES, ZONE_TYPES
 
 
 INTERACTOR_TYPES = (
@@ -61,6 +60,33 @@ def list_all_existing_sounds(types=None):
         for sound in data["sounds"]
         if sound["type"] in (types or SOUND_TYPES)],
         key=lambda x: x["name"])
+
+
+def list_all_existing_triggers_sounds():
+    triggers_sounds = []
+    sfx_sounds = list_all_existing_sounds([NODE_TYPES.SFX])
+    for sfx_sound in sfx_sounds:
+        trigger = sfx_sound.get("trigger")
+        if not trigger:
+            continue
+        filename = os.path.join(cctx.SOUNDS_FOLDER, sfx_sound["file"])
+        triggers_sounds.append((trigger, filename))
+
+    sfx_collections = list_all_existing_sounds([NODE_TYPES.SFX_COLLECTION])
+    for sfx_collection in sfx_collections:
+        trigger = sfx_collection.get("trigger")
+        if not trigger:
+            continue
+        for file_ in sfx_collection.get("files"):
+            filename = os.path.join(cctx.SOUNDS_FOLDER, file_)
+            triggers_sounds.append((trigger, filename))
+
+    result = []
+    for trigger_sound in triggers_sounds:
+        if trigger_sound in result:
+            continue
+        result.append(trigger_sound)
+    return result
 
 
 def list_all_existing_zones(zone_type=None):

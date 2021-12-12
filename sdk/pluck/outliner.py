@@ -1,4 +1,4 @@
-from PyQt5 import QtWidgets, QtCore
+from PySide6 import QtWidgets, QtCore
 
 
 class OutlinerView(QtWidgets.QTreeView):
@@ -63,7 +63,7 @@ class OutlinerTreeModel(QtCore.QAbstractItemModel):
             return QtCore.QModelIndex()
         return self.createIndex(parent.row(), 0, parent)
 
-    def index(self, row, column, parent):
+    def index(self, row, column, parent=QtCore.QModelIndex()):
         parent = self.getNode(parent)
         child = parent.child(row)
         if not child:

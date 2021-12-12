@@ -1,6 +1,13 @@
-from PyQt5 import QtWidgets, QtCore
-from pluck.parsing import list_all_existing_triggers
-from pluck.qtutils import get_icon
+from itertools import cycle
+from functools import partial
+import os
+from PySide6 import QtWidgets, QtCore
+import pygame
+import corax.context as cctx
+from corax.animation import animation_index_to_data_index
+from pluck.parsing import (
+    list_all_existing_triggers, list_all_existing_triggers_sounds)
+from pluck.color import ColorWheel
 
 
 class GameKicker(QtWidgets.QDialog):
@@ -47,9 +54,10 @@ class GameKicker(QtWidgets.QDialog):
 
 
 class TriggerDialog(QtWidgets.QDialog):
-    def __init__(self, parent=None):
 
+    def __init__(self, parent=None):
         super().__init__(parent)
+        self.setWindowTitle("Select trigger")
         self.triggers = QtWidgets.QComboBox()
         self.triggers.addItems(list_all_existing_triggers())
         self.triggers.setEditable(True)
@@ -83,23 +91,145 @@ class CreateOnSceneDialog(QtWidgets.QDialog):
         self.label.setTextInteractionFlags(QtCore.Qt.TextSelectableByMouse)
 
         self.create_sound = QtWidgets.QPushButton("Create Sound")
-        self.create_sound.released.connect(self._call_create_sound)
+        self.create_sound.released.connect(partial(self._call_create, "sounds"))
         self.create_zone = QtWidgets.QPushButton("Create Zone")
-        self.create_zone.released.connect(self._call_create_zone)
+        self.create_zone.released.connect(partial(self._call_create, "zones"))
+        self.create_soft_boundary = QtWidgets.QPushButton("Add soft boundary")
+        method = partial(self._call_create, "soft_boundaries")
+        self.create_soft_boundary.released.connect(method)
 
-        self.layout_btn = QtWidgets.QHBoxLayout()
-        self.layout_btn.addWidget(self.create_sound)
-        self.layout_btn.addWidget(self.create_zone)
+        self.layout_btn = QtWidgets.QGridLayout()
+        self.layout_btn.addWidget(self.create_sound, 0, 0)
+        self.layout_btn.addWidget(self.create_zone, 0, 1)
+        self.layout_btn.addWidget(self.create_soft_boundary, 1, 0, 1, 2)
 
         self.layout = QtWidgets.QVBoxLayout(self)
         self.layout.addWidget(self.label)
         self.layout.addLayout(self.layout_btn)
 
-    def _call_create_sound(self):
-        self.result = "sounds"
+    def _call_create(self, type_):
+        self.result = type_
         self.accept()
 
-    def _call_create_zone(self):
-        self.result = "zones"
-        self.accept()
 
+class CreateRessourceFileDialog(QtWidgets.QDialog):
+    def __init__(self, filename, name=None, parent=None):
+        super().__init__(parent)
+        self.has_name = bool(name)
+        if name:
+            self._name = QtWidgets.QLineEdit(name)
+        self._filename = QtWidgets.QLineEdit(filename)
+
+        self.ok = QtWidgets.QPushButton("Ok")
+        self.ok.released.connect(self.accept)
+        self.cancel = QtWidgets.QPushButton("Cancel")
+        self.cancel.released.connect(self.reject)
+
+        self.form = QtWidgets.QFormLayout()
+        if self.has_name:
+            self.form.addRow("Name", self._name)
+        self.form.addRow("Filename", self._filename)
+
+        self.layout_btn = QtWidgets.QHBoxLayout()
+        self.layout_btn.addWidget(self.ok)
+        self.layout_btn.addWidget(self.cancel)
+
+        self.layout = QtWidgets.QVBoxLayout(self)
+        self.layout.addLayout(self.form)
+        self.layout.addLayout(self.layout_btn)
+
+    @property
+    def name(self):
+        if not self.has_name:
+            return ""
+        return self._name.text()
+
+    @property
+    def filename(self):
+        return self._filename.text()
+
+
+class LineTestDialog(QtWidgets.QDialog):
+
+    def __init__(self, data, images, animation_viewer, parent=None):
+        super().__init__(parent)
+        pygame.mixer.init()
+        self.setWindowTitle("Linetest")
+
+        self.data = data
+        self.animation_viewer = animation_viewer
+        self.list = QtWidgets.QListWidget()
+        self.images = images
+        self.items = []
+        self.index = cycle(range(sum(data['frames_per_image'])))
+        self.prev_index = None
+
+        triggers = [t[1] for t in data['triggers'] or []]
+        for trigger, filename in list_all_existing_triggers_sounds():
+            if trigger not in triggers:
+                continue
+            sound = pygame.mixer.Sound(filename)
+            filename = os.path.basename(filename)
+            item = QtWidgets.QListWidgetItem(f'{trigger} - {filename}')
+            item.trigger = trigger
+            item.sound = sound
+            item.setFlags(item.flags() | QtCore.Qt.ItemIsUserCheckable)
+            item.setCheckState(QtCore.Qt.Unchecked)
+            self.list.addItem(item)
+            self.items.append(item)
+
+        self.layout = QtWidgets.QHBoxLayout(self)
+        self.layout.addWidget(self.animation_viewer)
+        self.layout.addWidget(self.list)
+
+        self.timer = QtCore.QBasicTimer()
+        self.timer.start(round(1000 / cctx.FPS), QtCore.Qt.PreciseTimer, self)
+
+    def timerEvent(self, event):
+        index = next(self.index)
+        index = animation_index_to_data_index(index, self.data) or 0
+        image = self.images[index + self.data['start_at_image']]
+        self.animation_viewer.image = image
+
+        for i, trigger in self.data['triggers'] or []:
+            if i == index:
+                self.animation_viewer.trigger = trigger
+                break
+        else:
+            self.animation_viewer.trigger = None
+
+        offsets = self.data['frames_centers']
+        self.animation_viewer.offset = offsets[index] if offsets else None
+        self.animation_viewer.hitbox = None
+        self.animation_viewer.repaint()
+
+        if self.prev_index == index:
+            return
+
+        self.prev_index = index
+        for t, sound in self.triggers_sound_checked():
+            if self.animation_viewer.trigger == t:
+                print(self.animation_viewer.trigger)
+                sound.play()
+
+    def triggers_sound_checked(self):
+        return [
+            (it.trigger, it.sound) for it in self.items
+            if it.checkState() == QtCore.Qt.Checked]
+
+
+class ColorDialog(QtWidgets.QDialog):
+    def __init__(self, color, parent=None):
+        super().__init__(parent=parent)
+        self.setWindowTitle("Select Color")
+        self.color_wheel = ColorWheel()
+        self.color_wheel.set_rgb255(*color)
+        self.ok = QtWidgets.QPushButton("Ok")
+        self.ok.released.connect(self.accept)
+        self.layout = QtWidgets.QVBoxLayout(self)
+        self.layout.addWidget(self.color_wheel)
+        self.layout.addWidget(self.ok)
+
+    @property
+    def rgb(self):
+        return self.color_wheel.rgb255()

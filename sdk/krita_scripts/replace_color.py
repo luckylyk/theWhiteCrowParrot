@@ -1,5 +1,5 @@
 import krita
-from PyQt5 import QtCore
+from PySide6 import QtCore
 
 
 COLORS_TO_ERASE = [

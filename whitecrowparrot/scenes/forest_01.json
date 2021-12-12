@@ -124,6 +124,26 @@
             "falloff": 0,
             "trigger": "cloth_falling",
             "zone": [3480, 150, 3650, 260]
+        },
+        {
+            "name": "body_fall",
+            "type": "sfx_sound",
+            "file": "effects/body_fall_04.ogg",
+            "channel": 5,
+            "emitter": "whitecrow",
+            "falloff": 0,
+            "trigger": "whitecrow_body_fall",
+            "zone": [3840, 0, 4250, 270]
+        },
+        {
+            "name": "sword_impact",
+            "type": "sfx_sound",
+            "file": "effects/sword_impact.ogg",
+            "channel": 5,
+            "emitter": "whitecrow",
+            "falloff": 0,
+            "trigger": "whitecrow_impaled",
+            "zone": [3840, 0, 4250, 270]
         }
     ],
     "zones": [

@@ -1,9 +1,11 @@
 
 import os
 import json
+import numpy as np
 
-from PyQt5 import QtGui, QtCore, QtWidgets
+from PIL import Image, ImageQt
 
+from PySide6 import QtGui, QtCore, QtWidgets
 from corax.core import NODE_TYPES
 import corax.context as cctx
 from corax.iterators import itertable
@@ -11,7 +13,6 @@ from pluck.data import SOUND_TYPES, ZONE_TYPES
 
 
 HERE = os.path.dirname(os.path.realpath(__file__))
-MAIN_FOLDER = os.path.join(HERE, "..", "..")
 ICON_FOLDER = os.path.join(HERE, "icons")
 
 ICON_MATCH = {
@@ -43,7 +44,7 @@ def wait_cursor(func):
 
 
 def set_shortcut(keysequence, parent, method):
-    shortcut = QtWidgets.QShortcut(QtGui.QKeySequence(keysequence), parent)
+    shortcut = QtGui.QShortcut(QtGui.QKeySequence(keysequence), parent)
     shortcut.activated.connect(method)
 
 
@@ -82,9 +83,7 @@ def get_image(element):
 def create_image(element):
     if element["type"] == NODE_TYPES.SET_STATIC:
         path = os.path.join(cctx.SET_FOLDER, element["file"])
-        image = QtGui.QImage(path)
-        size = image.size().width(), image.size().height()
-        return merge_images([image], size)
+        return remove_key_color(path)
 
     elif element["type"] != NODE_TYPES.SET_ANIMATED:
         raise ValueError(element["type"] + " is not supported")
@@ -98,44 +97,41 @@ def create_image(element):
     filenames = [v for _, v in movedata["layers"].items()]
     paths = [os.path.join(cctx.ANIMATION_FOLDER, fn) for fn in filenames]
     size = movedata["frame_size"]
-    images = [QtGui.QImage(path) for path in paths]
-    return merge_images(images, size)
+    image = build_spritesheet_image(paths)
+    return spritesheet_to_images(image, size)[0]
 
 
-def merge_images(images, size):
-    # horrible fucking awfull scandalous ressource killing loop used
-    # because that basic "setAlphaChannel" method isn't available
-    # in PyQt5 ): ): ): ): ): ): ):
-    format_ = QtGui.QImage.Format_ARGB32_Premultiplied
-    result = QtGui.QImage(images[0].size(), format_)
-    green = key_color()
-    transparent = QtGui.QColor(0, 0, 0, 0)
-    for i, j in itertable(*size):
-        if all(image.pixelColor(i, j).rgb() == green for image in images):
-            result.setPixelColor(i, j, transparent)
-            continue
-        for image in images:
-            if image.pixelColor(i, j) != green:
-                result.setPixelColor(i, j, image.pixelColor(i, j))
-    return result
-
-
-def get_spritesheet_image_from_index(filename, index):
-    path = os.path.join(cctx.SHEET_FOLDER, filename)
-    with open(path, "r") as f:
-        data = json.load(f)
-    filename = os.path.join(cctx.ANIMATION_FOLDER, data["filename"])
-    return spritesheet_to_images(filename, data["frame_size"])[index]
+def remove_key_color(filename):
+    orig_color = tuple(cctx.KEY_COLOR + [255])
+    replacement_color = (0, 0, 0, 0)
+    image = Image.open(filename).convert('RGBA')
+    data = np.array(image)
+    data[(data == orig_color).all(axis = -1)] = replacement_color
+    return ImageQt.ImageQt(Image.fromarray(data, mode='RGBA'))
 
 
 def build_spritesheet_image(filenames):
-    images = [QtGui.QImage(filename) for filename in filenames]
-    size = images[0].size().width(), images[0].size().height()
-    return merge_images(images, size)
+    if not filenames:
+        return
+    orig_color = tuple(cctx.KEY_COLOR + [255])
+    replacement_color = (0, 0, 0, 0)
+    images = []
+    for filename in filenames:
+        image = Image.open(filename).convert('RGBA')
+        data = np.array(image)
+        data[(data == orig_color).all(axis = -1)] = replacement_color
+        images.append(Image.fromarray(data, mode='RGBA'))
+
+    background, *images = images
+    for image in images:
+        background.paste(image, (0, 0, image.size[0], image.size[1]), image)
+
+    return ImageQt.ImageQt(background)
 
 
-def spritesheet_to_images(filenames, frame_size):
-    sheet = build_spritesheet_image(filenames)
+def spritesheet_to_images(sheet, frame_size):
+    if not sheet:
+        return []
     width, height = frame_size
     row = sheet.height() / height
     col = sheet.width() / width

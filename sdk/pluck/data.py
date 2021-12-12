@@ -14,6 +14,7 @@ ROOT_SUBFOLDERS =(
     "sheets",
     "sounds")
 
+
 DONT_SORT_KEYS = "post_events", "pre_events"
 EXCLUDED_PROPERTIES = "sounds", "areas", "elements", "zones"
 GRAPHIC_TYPES = NODE_TYPES.SET_ANIMATED, NODE_TYPES.SET_STATIC, NODE_TYPES.PLAYER
@@ -24,6 +25,7 @@ SOUND_TYPES = (
     NODE_TYPES.AMBIANCE,
     NODE_TYPES.MUSIC,
     NODE_TYPES.SFX_COLLECTION)
+
 
 DEFAULT_MOVE = {
     "start_at_image": 0,
@@ -42,9 +44,23 @@ DEFAULT_MOVE = {
     "post_events": {},
     "hitboxes": None}
 
+
 DATA_TEMPLATES = {
+    "game_settings": {
+        "title": str,
+        "start_scene": str,
+        "start_scrolling_target": str,
+        "fade_in_duration": int
+    },
+    "game_preferences": {
+        "resolution": (int, int),
+        "fps": int,
+        "block_size": 10,
+        "key_color": (int, int, int),
+        "camera_speed": int
+    },
     "spritesheet": {
-        "filename": str,
+        "layers": None,
         "key_color": (int, int, int),
         "frame_size": (int, int),
         "default_move": str,
@@ -185,60 +201,6 @@ def create_project(root):
         os.mkdir(os.path.join(root, folder))
 
 
-def tree_sanity_check(tree):
-    nodes = tree.flat()
-    for node in nodes:
-        if node.data is None:
-            continue
-        data_sanity_check(node.data)
-
-
-def data_sanity_check(data, type_=None):
-    assert isinstance(data, dict), "data as to be a dict"
-    type_ = type_ or data.get("type")
-    assert type_ in DATA_TEMPLATES, f"{type_} is not a valid node type"
-    template = DATA_TEMPLATES[type_]
-    for key in template.keys():
-        assert key in data.keys(), f"Missing parameter: {key}"
-    for key in data.keys():
-        assert key in template.keys(), f"Invalid parameter: {key}"
-    for key, value in data.items():
-        if value is None:
-            continue
-        type_required = template[key]
-        if type_required is None:
-            continue
-        test_type_required(key, value, type_required)
-
-
-def test_type_required(key, value, type_required):
-    conditions = (
-        type_required in [int, float, str, None] and
-        not isinstance(value, type_required))
-    assert not conditions, f"'{key}' must be a {str(type_required)} value, but is {type(key)}"
-
-    if isinstance(type_required, (list, tuple)):
-        assert len(value) == len(type_required), f"'{key}' types must match {type_required}"
-        try:
-            for v, t in zip(value, type_required):
-                assert isinstance(v, t), f"'{value}' types must match {type_required}, but get {type(v)}"
-        except:
-            msg = f"'{value}' types must match {type_required}"
-            raise TypeError(msg)
-
-    elif isinstance(type_required, dict):
-        for k, v in value.items():
-            if v is None:
-                continue
-            t = type_required[k]
-            test_type_required(k, v, t)
-
-    elif isinstance(type_required, set):
-        for v in value:
-            for t in type_required:
-                test_type_required(key, v, t)
-
-
 def extract_scene_properties(scene_data):
     return {
         k: v for k, v in scene_data.items()
@@ -254,12 +216,17 @@ def sort_keys(elements):
     return copy + sorted(elements)
 
 
+def plain_text_to_data(plain_text):
+    return json.loads(plain_text)
+
+
 def data_to_plain_text(data, indent=0, sorted_keys=True):
     if sorted_keys:
         keys = sort_keys([str(key) for key in data.keys()])
     else:
         keys = [str(key) for key in data.keys()]
     lines = []
+
     for key in keys:
         value = data[key]
         if isinstance(value, str):
@@ -275,10 +242,7 @@ def data_to_plain_text(data, indent=0, sorted_keys=True):
         elif isinstance(value, dict):
             value = data_to_plain_text(
                 value, indent=indent+2, sorted_keys=key not in DONT_SORT_KEYS)
+
         lines.append(f"    \"{key}\": {value}".replace("'", '"'))
     spacer = "    " * indent
     return f"{{\n{spacer}" + f",\n{spacer}".join(lines) + f"\n{spacer}}}"
-
-
-def plain_text_to_data(plain_text):
-    return json.loads(plain_text)

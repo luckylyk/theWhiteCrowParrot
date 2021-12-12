@@ -1,5 +1,4 @@
-from PyQt5 import QtGui, QtWidgets, QtCore
-import sys
+from PySide6 import QtGui, QtWidgets, QtCore
 import PIL.Image
 import math
 import os
