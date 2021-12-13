@@ -362,7 +362,7 @@ class FloatField(QtWidgets.QLineEdit):
         self.setText(str(value))
 
 
-class InteractorField(StrField):
+class InteractorField(StrArrayField):
 
     def __init__(self, parent=None):
         super().__init__(parent)

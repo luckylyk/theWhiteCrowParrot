@@ -87,8 +87,10 @@ class Theatre:
         self.set_scene(data["start_scene"])
         self.run_mode = RUN_MODES.NORMAL
         self.script_iterator = None
-        self.transition = fade(data["fade_in_duration"], maximum=255, reverse=True)
-        self.alpha = 0
+        duration = data["fade_in_duration"]
+        trans = fade(duration, maximum=255, reverse=True) if duration else None
+        self.transition = trans
+        self.alpha = 0 if self.transition else 255
 
     def get_scene(self, scene_name, scene_data):
         return self.loaded_scenes.get(scene_name) or self.loaded_scenes.setdefault(

@@ -7,6 +7,7 @@ import corax.context as cctx
 from corax.animation import animation_index_to_data_index
 from pluck.parsing import (
     list_all_existing_triggers, list_all_existing_triggers_sounds)
+from pluck.preference import save_preference, get_preference
 from pluck.color import ColorWheel
 
 
@@ -16,16 +17,23 @@ class GameKicker(QtWidgets.QDialog):
         super().__init__(parent=parent)
         self.setWindowTitle("Launch the game")
         self.debug_mode = QtWidgets.QCheckBox("Debug render mode")
+        self.debug_mode.setChecked(get_preference("debug_mode", False))
         self.mute = QtWidgets.QCheckBox("Muted")
+        self.mute.setChecked(get_preference("muted", False))
         self.fullscreen = QtWidgets.QCheckBox("Fullscreen")
-        self.fullscreen.setChecked(True)
+        self.fullscreen.setChecked(get_preference("fullscreen", True))
         self.scaled = QtWidgets.QCheckBox("Scaled render")
+        self.scaled.setChecked(get_preference("scaled", False))
         self.skip_splash = QtWidgets.QCheckBox("Skip splash screen")
-        self.skip_splash.setChecked(True)
+        self.skip_splash.setChecked(get_preference("skip_splash", True))
         self.fast_fps = QtWidgets.QCheckBox("Double Speed")
+        self.fast_fps.setChecked(get_preference("fast_fps", False))
+        self.overrides = QtWidgets.QLineEdit()
+        self.overrides.setText(get_preference("overrides", ""))
 
         self.kick = QtWidgets.QPushButton("Kick")
         self.kick.released.connect(self.accept)
+        self.kick.released.connect(self.save_preferences)
 
         self.layout = QtWidgets.QVBoxLayout(self)
         self.layout.addWidget(self.debug_mode)
@@ -34,7 +42,17 @@ class GameKicker(QtWidgets.QDialog):
         self.layout.addWidget(self.scaled)
         self.layout.addWidget(self.skip_splash)
         self.layout.addWidget(self.fast_fps)
+        self.layout.addWidget(self.overrides)
         self.layout.addWidget(self.kick)
+
+    def save_preferences(self):
+        save_preference("debug_mode", self.debug_mode.isChecked())
+        save_preference("muted", self.mute.isChecked())
+        save_preference("fullscreen", self.fullscreen.isChecked())
+        save_preference("scaled", self.scaled.isChecked())
+        save_preference("skip_splash", self.skip_splash.isChecked())
+        save_preference("fast_fps", self.fast_fps.isChecked())
+        save_preference("overrides", self.overrides.text())
 
     def arguments(self):
         arguments = []
@@ -50,6 +68,10 @@ class GameKicker(QtWidgets.QDialog):
             arguments.append("--skip_splash")
         if self.fast_fps.isChecked():
             arguments.append("--speedup")
+        if self.overrides.text():
+            path = os.path.join(cctx.ROOT, self.overrides.text())
+            arguments.append("--overrides")
+            arguments.append(path)
         return arguments
 
 
