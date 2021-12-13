@@ -1,0 +1,32 @@
+{
+    "name": "walk_test",
+    "type": "scene",
+    "background_color": [0, 0, 0],
+    "boundary": [0, 0, 800, 268],
+    "soft_boundaries": [],
+    "target_offset": [75, 0],
+    "sounds": [
+
+    ],
+    "zones": [
+        {
+            "name": "right_limit",
+            "type": "no_go",
+            "affect": ["whitecrow"],
+            "zone": [61, 18, 80, 27]
+        }
+    ],
+    "elements": [
+        {
+            "name": "background",
+            "type": "layer",
+            "deph": 0.0
+        },
+        {
+            "name": "whitecrow",
+            "type": "player",
+            "block_position": [14, 10],
+            "flip":  false
+        }
+    ]
+}

@@ -1,0 +1,3 @@
+main.json["start_scene"] = "walk_test"
+main.json["fade_in_duration"] = 0
+players/whitecrow.json["default_sheet"] = "exploration"
