@@ -15,7 +15,10 @@
             "background_alpha": 190,
             "background_color": [0, 0, 0],
             "column_width": 80,
-            "content": [{"text": "Continue", "event": "resume"}, {"text": "Restart", "event": "restart"}, {"text": "Exit", "event": "exit"}],
+            "content": [
+                {"text": "Continue", "event": "resume"},
+                {"text": "Restart", "event": "restart"},
+                {"text": "Exit", "event": "exit"}],
             "current_text_color": [255, 255, 0],
             "left": 35,
             "overlap": 3,

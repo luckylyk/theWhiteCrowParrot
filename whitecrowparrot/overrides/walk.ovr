@@ -1,3 +1,13 @@
 main.json["start_scene"] = "walk_test"
 main.json["fade_in_duration"] = 0
 players/whitecrow.json["default_sheet"] = "exploration"
+
+del players/whitecrow.json["sheets"]["exploration_2"]
+del players/whitecrow.json["sheets"]["introduction"]
+del players/whitecrow.json["sheets"]["chest"]
+del players/whitecrow.json["sheets"]["death"]
+del players/whitecrow.json["sheets"]["sword"]
+del players/whitecrow.json["sheets"]["collects_sword"]
+del players/whitecrow.json["sheets"]["fall"]
+
+add players/whitecrow.json["layers"]["samere"] = true
