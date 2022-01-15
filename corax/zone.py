@@ -12,7 +12,7 @@ from corax.pygameutils import render_rect
 
 class Zone():
     """
-    The NoGo object is a corax node of the "zone" categorie. It is coordinate
+    Zode of the "zone" categorie. It is coordinate
     where the "affected" character are not allowed to go.
     """
     def __init__(self, data):
@@ -36,6 +36,18 @@ class Zone():
 
     def set_rect(self, rect):
         self.data["zone"] = rect
+
+    @property
+    def relationship(self):
+        return self.data["relationship"]
+
+    @property
+    def target(self):
+        return self.data["target"]
+
+    @property
+    def subject(self):
+        return self.data["subject"]
 
     @property
     def l(self):

@@ -279,7 +279,10 @@ class AnimationEditor(QtWidgets.QWidget):
         if not self.data:
             return
         index = animation_index_to_data_index(index, self.data) or 0
-        image = self.images[index + self.data['start_at_image']]
+        if self.images:
+            image = self.images[index + self.data['start_at_image']]
+        else:
+            image = None
         self.animation_viewer.image = image
         offsets = self.data['frames_centers']
         self.animation_viewer.offset = offsets[index] if offsets else None

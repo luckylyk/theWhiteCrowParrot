@@ -29,7 +29,7 @@ def get_current_commands(joystick):
         "X": joystick.get_button(2) == 1,
         "Y": joystick.get_button(3) == 1,
         "L1": joystick.get_button(4) == 1,
-        "L2": joystick.get_axis(2) > .5,
+        "L2": joystick.get_axis(4) > .5,
         "R1": joystick.get_button(5) == 1,
         "R2": joystick.get_axis(5) > .5,
         "select": joystick.get_button(6) == 1,
@@ -40,8 +40,8 @@ def get_current_commands(joystick):
         "DOWN": joystick.get_hat(0)[1] == -1 or joystick.get_axis(1) > .5,
         "LEFT": joystick.get_hat(0)[0] == -1 or joystick.get_axis(0) < -.5,
         "RIGHT": joystick.get_hat(0)[0] == 1 or joystick.get_axis(0) > .5,
-        "RS_LEFT": joystick.get_axis(3) < -.5,
-        "RS_RIGHT": joystick.get_axis(3) > .5}
+        "RS_LEFT": joystick.get_axis(2) < -.5,
+        "RS_RIGHT": joystick.get_axis(2) > .5}
 
 
 REVERSE_MAPPING = {

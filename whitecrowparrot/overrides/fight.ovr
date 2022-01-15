@@ -1,0 +1,3 @@
+main.json["start_scene"] = "hill"
+characters/whitecrow.json["default_sheet"] = "exploration"
+characters/whitecrow.json["layers"]["sword"] = true

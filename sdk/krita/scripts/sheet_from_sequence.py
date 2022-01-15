@@ -3,6 +3,7 @@ import PIL.Image
 import math
 import os
 
+
 def fill_canvas(canvas, images, column_lenght, frame_width, frame_height):
     painter = QtGui.QPainter(canvas)
     row, column = 0, 0
@@ -13,6 +14,7 @@ def fill_canvas(canvas, images, column_lenght, frame_width, frame_height):
             column = 0
             row += 1
 
+
 def get_canvas_size(frame_count, column_lenght, frame_width, frame_height):
     row, column = 1, 0
     for _ in range(frame_count):
@@ -22,8 +24,9 @@ def get_canvas_size(frame_count, column_lenght, frame_width, frame_height):
             row += 1
     return QtCore.QSize(frame_width * column_lenght, frame_height * row)
 
+
 # app = QtWidgets.QApplication(sys.argv)
-PATH = r"C:\Users\lio\Desktop\fight\export_2_body"
+PATH = r"C:\Users\lio\Desktop\zini\zut"
 OUTPUT = r"D:\Works\code\GitHub\theWhiteCrowParrot\whitecrowparrot\animations\test_2.png"
 images = [os.path.join(PATH, f) for f in os.listdir(PATH)]
 width, height = PIL.Image.open(images[0]).size

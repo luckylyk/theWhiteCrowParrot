@@ -22,8 +22,10 @@ ICON_MATCH = {
     NODE_TYPES.AMBIANCE: "ambiance.png",
     NODE_TYPES.NO_GO: "no_go.png",
     NODE_TYPES.INTERACTION: "interaction.png",
+    NODE_TYPES.RELATIONSHIP: "interaction.png",
     NODE_TYPES.LAYER: "layer.png",
     NODE_TYPES.PLAYER: "player.png",
+    NODE_TYPES.NPC: "player.png",
     NODE_TYPES.SET_STATIC: "set.png",
     NODE_TYPES.SET_ANIMATED: "set.png",
     NODE_TYPES.PARTICLES: "particles.png"
@@ -62,7 +64,12 @@ def get_image(element):
     if element is None:
         return
     filename = None
-    if element["type"] in list(SOUND_TYPES) + list(ZONE_TYPES) + [NODE_TYPES.PLAYER]:
+    types = (
+        list(SOUND_TYPES) +
+        list(ZONE_TYPES) +
+        [NODE_TYPES.PLAYER,
+        NODE_TYPES.NPC])
+    if element["type"] in types:
         filename = os.path.join(ICON_FOLDER, ICON_MATCH[element["type"]])
         if images.get(filename) is None:
             images[filename] = QtGui.QImage(filename)

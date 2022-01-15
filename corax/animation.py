@@ -156,7 +156,9 @@ class SpriteSheet():
         sequences = [sequences[layer] for layer in layer_names if sequences.get(layer)]
         if not sequences:
             print(layer_names, existing_layers)
-            raise Exception(f"No image found for {self.name}, {move}")
+            msg = f"No image found for {self.name}, {move}. "
+            msg += "May no valid layer for the current sheet is found."
+            raise Exception(msg)
         try:
             data = self.data["moves"][move]
         except KeyError:

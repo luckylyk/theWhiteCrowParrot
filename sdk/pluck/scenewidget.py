@@ -361,10 +361,13 @@ class SelectionSquare():
         self.rect.setBottomRight(cursor)
         nodes = [
             n for l in list_layers(self.tree)
-            for n in l.flat() if l.has_to_be_rendered]
+            for n in l.flat() if n.has_to_be_rendered]
         rect = self.paintcontext.absolute_rect(self.rect)
         for node in nodes:
             nrect = get_node_rect(node, self.paintcontext)
+            print(node, nrect)
+            if not nrect:
+                continue
             node.highlighted = rect.intersects(nrect)
 
     def release(self):

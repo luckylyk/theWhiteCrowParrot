@@ -127,6 +127,7 @@ class PluckMainWindow(QtWidgets.QMainWindow):
 
     def save_current_tab(self):
         widget = self.tab.currentWidget()
+        print("save", widget.is_modified)
         if not widget.is_modified:
             return
         widget.save(widget.filename)

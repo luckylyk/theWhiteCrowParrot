@@ -1,11 +1,9 @@
-
 """
 Module to give some tool to handle and convert 2d coordinates data
 """
 
-
-import math
 import corax.context as cctx
+from corax.euclide import distance2d
 
 
 class Coordinate():
@@ -13,16 +11,23 @@ class Coordinate():
     This object represent the coordinate system used for each localised element
     in the scene.
     """
+
     def __init__(
-            self, flip=False,
+            self,
+            flip=False,
             block_position=None,
             pixel_offset=None,
             center=None):
-        self.flip = False
+
+        self.flip = flip
         self.pixel_offset = pixel_offset or [0, 0]
         self.block_position = block_position or [0, 0]
         self.center_offset = center or [0, 0]
         self.deph = 0
+
+    def block_center_distance(self, cordinate):
+        pixel_distance = distance2d(self.pixel_center, cordinate.pixel_center)
+        return pixel_distance // cctx.BLOCK_SIZE
 
     @property
     def pixel_position(self):

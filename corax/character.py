@@ -1,4 +1,3 @@
-
 import os
 import logging
 
@@ -15,16 +14,16 @@ from corax.sequence import (
     build_sequence_to_destination)
 
 
-class PlayerSlot():
+class CharacterSlot():
     """
-    This class is a reference to the player at the scene lever.
+    This class is a reference to the character at the scene lever.
     Player is living at the theatre level and the object status is kept through
-    the scene switch. But to locate the player in the scene (layer lever and
+    the scene switch. But to locate the character in the scene (layer lever and
     appearing spots) we need this reference object.
     The link between Player and his PlayerSlot is done after the theatre build
-    a new scene using the names. A player must hold the same name than his slot
-    to be linked.
-    The argument positions is a dict containing the player popping spot as
+    a new scene using the names. A character must hold the same name than his
+    slot to be linked.
+    The argument positions is a dict containing the character popping spot as
     block position. The key of that dictionnary is the name of the spot, which
     can use in crackle to define the character position.
     """
@@ -32,27 +31,26 @@ class PlayerSlot():
         self.name = name
         self.block_position = block_position
         self.flip = flip
-        self.player = None
+        self.character = None
         self.visible = True
 
     def render(self, screen, deph, camera):
-        self.player.render(screen, deph, camera)
+        self.character.render(screen, deph, camera)
 
     def evaluate(self):
-        self.player.animation_controller.evaluate()
+        self.character.evaluate()
 
     @property
     def coordinate(self):
-        return self.player.coordinate
+        return self.character.coordinate
 
 
-class Player():
+class Character():
     def __init__(self, data):
         self.data = data
-        self.name = data["name"]
-        self.layers = data["layers"]
         self.coordinate = Coordinate()
-        self.animation_controller = build_player_animation_controller(data, self.coordinate)
+        self.animation_controller = build_character_animation_controller(
+            data, self.coordinate)
 
     def set_no_go_zones(self, zones):
         self.animation_controller.no_go_zones = zones
@@ -107,16 +105,28 @@ class Player():
 
     @property
     def pixel_center(self):
-        if None in [self.animation.pixel_center, self.coordinate.pixel_position]:
+        pos = [self.animation.pixel_center, self.coordinate.pixel_position]
+        if None in pos:
             return
-        return sum_num_arrays(
-            self.animation.pixel_center, self.coordinate.pixel_position)
+        return sum_num_arrays(*pos)
 
     @property
     def sheet_name(self):
         for name, filename in self.data["sheets"].items():
             if filename == self.animation_controller.spritesheet.name:
                 return name
+
+    @property
+    def name(self):
+        return self.data["name"]
+
+    @property
+    def layers(self):
+        return self.data["layers"]
+
+    @property
+    def type(self):
+        return self.data["type"]
 
     @property
     def trigger(self):
@@ -147,10 +157,10 @@ class Player():
         return self.coordinate.flip
 
 
-def build_player_animation_controller(data, coordinate):
+def build_character_animation_controller(data, coordinate):
     """
-    Build Animation Controller from player data. It creates the startup
-    SpriteSheet from the default sheet define in the player's data.
+    Build Animation Controller from character data. It creates the startup
+    SpriteSheet from the default sheet define in the character's data.
     """
     filename = data["sheets"][data["default_sheet"]]
     data_path = os.path.join(cctx.SHEET_FOLDER, filename)
@@ -160,15 +170,10 @@ def build_player_animation_controller(data, coordinate):
     return AnimationController(sheet_data, spritesheet, coordinate, layers)
 
 
-def load_players():
+def load_characters():
     """
     Load player found from the game player folder.
     """
-    player_files = os.listdir(cctx.PLAYER_FOLDER)
-    filenames = [os.path.join(cctx.PLAYER_FOLDER, f) for f in player_files]
-    players = []
-    for filename in filenames:
-        data = load_json(filename)
-        player = Player(data)
-        players.append(player)
-    return players
+    return [
+        Character(load_json(os.path.join(cctx.CHARACTER_FOLDER, filename)))
+        for filename in os.listdir(cctx.CHARACTER_FOLDER)]

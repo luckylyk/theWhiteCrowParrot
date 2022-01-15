@@ -1,5 +1,3 @@
-import json
-
 from corax.animation import SpriteSheet
 from corax.controller import AnimationController
 from corax.coordinate import Coordinate

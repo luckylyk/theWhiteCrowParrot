@@ -80,6 +80,13 @@ FIELDS = {
         "scripts": StrArrayField,
         "zone": ZoneField
         },
+    "relationship": {
+        "name": StrField,
+        "subject": InteractorField,
+        "target": InteractorField,
+        "relationship": FileField,
+        "zone": ZoneField
+        },
     "layer": {
         "name": StrField,
         "deph": FloatField
@@ -123,6 +130,11 @@ FIELDS = {
         "deph": FloatField
         },
     "player": {
+        "name": StrField,
+        "block_position": IntVectorField,
+        "flip": BoolField
+    },
+    "npc": {
         "name": StrField,
         "block_position": IntVectorField,
         "flip": BoolField

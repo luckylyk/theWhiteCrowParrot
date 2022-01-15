@@ -1,5 +1,6 @@
 {
     "name": "whitecrow",
+    "type": "player",
     "default_sheet": "introduction",
     "layers": {
         "body": true,

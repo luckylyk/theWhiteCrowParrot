@@ -6,10 +6,10 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-
+        
     ],
     "zones": [
-
+        
     ],
     "elements": [
         {
@@ -21,10 +21,7 @@
             "name": "Gameby",
             "type": "set_static",
             "file": "credits/game_by.png",
-            "position": [
-                309,
-                103
-            ],
+            "position": [309, 103],
             "deph": 0.0
         }
     ]

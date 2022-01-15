@@ -25,6 +25,7 @@ flags available:
 The root folder structure must be sctrict:
 ---> root
  |---> animations
+ |---> characters
  |---> moves
  |---> scenes
  |---> scripts
@@ -40,6 +41,10 @@ Contains the game spritesheet as PNG. A sprite sheet is a
 collection of frames save as table. The size of each frame is strict. It can be
 defined for each sprite sheet but it is constant for the all sprite sheet.
 The engine will automatically split animation using the frame data assigned.
+
+    -- characters --
+Contains the characters configuration files. Basically a character is a
+spritesheet assembly.
 
     -- moves --
 Contains the spritesheet data which is basically: inputs management, event

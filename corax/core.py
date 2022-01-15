@@ -3,23 +3,39 @@ This modules contains all constants used in the game file data
 """
 
 
+class AIM_RELATIONSHIP_TYPES:
+    FACING = "facing"
+    BACK_TO_BACK = "back_to_back"
+    SUBJECT_FROM_BEHIND = "subject_from_behind"
+    TARGET_FROM_BEHIND = "target_from_behind"
+
+
+class CHARACTER_TYPES:
+    PLAYER = "player"
+    NPC = "npc"
+
+
 class COLORS:
     WHITE = (255, 255, 255)
     BLACK = (0, 0, 0)
     GREEN = (0, 255, 0)
 
 
-class RUN_MODES:
-    SCRIPT = "script"
-    NORMAL = "normal"
-    PAUSE = "pause"
-    RESTART = "restart"
+class EVENTS:
+    FLIP = "flip"
+    BLOCK_OFFSET = "block_offset"
+    SWITCH_TO = "switch_to"
 
 
 class GAMELOOP_ACTIONS:
     RESUME = "resume"
     RESTART = "restart"
     EXIT = "exit"
+
+
+class LOOP_TYPES:
+    CYCLE = "cycle"
+    SHUFFLE = "shuffle"
 
 
 class MENU_MODES:
@@ -33,27 +49,10 @@ class MENU_EVENTS:
     QUIT = "quit"
 
 
-class EVENTS:
-    FLIP = "flip"
-    BLOCK_OFFSET = "block_offset"
-    SWITCH_TO = "switch_to"
-
-
-class LOOP_TYPES:
-    CYCLE = "cycle"
-    SHUFFLE = "shuffle"
-
-
-class SHAPE_TYPES:
-    SQUARE = "square"
-    ELLIPSE = "ellipse"
-    IMAGE = "image"
-    ANIMATION = "animation"
-
-
 class NODE_TYPES:
     # graphics elements
     PLAYER = "player"
+    NPC = "npc"
     SET_STATIC = "set_static"
     SET_ANIMATED = "set_animated"
     LAYER = "layer"
@@ -66,3 +65,17 @@ class NODE_TYPES:
     # zones
     NO_GO = "no_go"
     INTERACTION = "interaction"
+    RELATIONSHIP = "relationship"
+
+class RUN_MODES:
+    SCRIPT = "script"
+    NORMAL = "normal"
+    PAUSE = "pause"
+    RESTART = "restart"
+
+
+class SHAPE_TYPES:
+    SQUARE = "square"
+    ELLIPSE = "ellipse"
+    IMAGE = "image"
+    ANIMATION = "animation"

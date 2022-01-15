@@ -1,0 +1,94 @@
+{
+    "name": "Scene 01",
+    "type": "scene",
+    "background_color": [173, 177, 189],
+    "boundary": [0, 0, 1600, 268],
+    "soft_boundaries": [],
+    "target_offset": [300, 0],
+    "sounds": [
+
+    ],
+    "zones": [
+        {
+            "name": "right_limit",
+            "type": "no_go",
+            "affect": ["whitecrow"],
+            "zone": [144, 14, 160, 27]
+        },
+        {
+            "name": "left_limit",
+            "type": "no_go",
+            "affect": ["whitecrow"],
+            "zone": [0, 13, 11, 27]
+        },
+        {
+            "name": "sinoc_vs_whitecrow",
+            "type": "relationship",
+            "relationship": "sinoc.json",
+            "subject": ["sinoc"],
+            "target": ["whitecrow"],
+            "zone": [11, 0, 143, 27]
+        }
+    ],
+    "elements": [
+        {
+            "name": "background",
+            "type": "layer",
+            "deph": 0.0
+        },
+        {
+            "name": "bg",
+            "type": "set_static",
+            "file": "hill/bg.png",
+            "position": [11, 0],
+            "deph": -0.1
+        },
+        {
+            "name": "montain",
+            "type": "set_static",
+            "file": "hill/montain.png",
+            "position": [4, 159],
+            "deph": -0.075
+        },
+        {
+            "name": "ground",
+            "type": "set_static",
+            "file": "hill/ground.png",
+            "position": [94, 1],
+            "deph": 0.0
+        },
+        {
+            "name": "sinoc",
+            "type": "npc",
+            "block_position": [35, 10],
+            "flip": false
+        },
+        {
+            "name": "whitecrow",
+            "type": "player",
+            "block_position": [120, 9],
+            "flip": true
+        },
+        {
+            "name": "fg_bush_2",
+            "type": "set_static",
+            "file": "hill/fg_bush_2.png",
+            "position": [1305, 140],
+            "deph": 0.22
+        },
+        {
+            "name": "fg_bush",
+            "type": "set_static",
+            "file": "hill/fg_bush.png",
+            "position": [1050, 225],
+            "deph": 0.1
+        },
+        {
+            "name": "fg_tree",
+            "type": "set_static",
+            "file": "hill/fg_tree.png",
+            "position": [824, 0],
+            "deph": 0.2
+        }
+    ]
+}

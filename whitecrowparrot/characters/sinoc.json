@@ -1,0 +1,8 @@
+{
+    "name": "sinoc",
+    "type": "npc",
+    "default_sheet": "fight",
+    "layers": {"body": true},
+    "sheets": {"fight": "sinoc.json"},
+    "hitboxes_color": {}
+}

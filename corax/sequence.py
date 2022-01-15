@@ -97,7 +97,6 @@ def is_move_cross_zone(
         centers = build_centers_list(sheet_data, image_size, flip)
         block_positions.extend(predict_block_positions(
             centers=centers,
-            image_size=image_size,
             block_position=block_position,
             flip=flip,
             pre_offset=pre_offset,
@@ -116,7 +115,6 @@ def is_move_cross_zone(
 
 def predict_block_positions(
         centers,
-        image_size,
         block_position,
         flip,
         pre_offset=None,

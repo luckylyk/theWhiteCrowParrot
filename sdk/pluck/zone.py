@@ -1,7 +1,8 @@
 from PySide6 import QtWidgets
 from pluck.data import DATA_TEMPLATES
 from pluck.field import (
-    ZoneField, StrField, InteractorField, OptionField, TypeField, ScriptsField)
+    ZoneField, StrField, InteractorField, OptionField, TypeField, ScriptsField,
+    FileField)
 from pluck.parsing import list_all_existing_zones
 
 
@@ -12,6 +13,9 @@ WIDGET_BY_TYPE = {
     "type": TypeField,
     "name": StrField,
     "affect": InteractorField,
+    "subject": InteractorField,
+    "target": InteractorField,
+    "relationship": FileField,
     "scripts": ScriptsField,
     "zone": ZoneField
 }

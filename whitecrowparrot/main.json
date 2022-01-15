@@ -10,31 +10,7 @@
             "rabbit_triggered":  false,
             "wearing_blackhelmet":  false
         },
-    "menu": {
-            "acceleration": 1.5,
-            "background_alpha": 190,
-            "background_color": [0, 0, 0],
-            "column_width": 80,
-            "content": [
-                {"text": "Continue", "event": "resume"},
-                {"text": "Restart", "event": "restart"},
-                {"text": "Exit", "event": "exit"}],
-            "current_text_color": [255, 255, 0],
-            "left": 35,
-            "overlap": 3,
-            "row_height": 25,
-            "size": 22,
-            "sounds": {
-                    "enter": "menu/enter.ogg",
-                    "next": "menu/next.ogg",
-                    "press": "menu/press.ogg",
-                    "previous": "menu/previous.ogg",
-                    "quit": "menu/quit.ogg"
-                },
-            "speed": 3,
-            "text_color": [255, 255, 255],
-            "top": 135
-        },
+    "menu": "main.json",
     "preferences": {
             "block_size": 10,
             "camera_speed": 500,
@@ -49,6 +25,7 @@
         {"name": "exit", "file": "exit.json"},
         {"name": "tente", "file": "tente.json"},
         {"name": "ending", "file": "ending.json"},
+        {"name": "hill", "file": "hill.json"},
         {"name": "walk_test", "file": "walk_test.json"},
         {"name": "credits", "file": "credits.json"}],
     "start_scene": "forest",

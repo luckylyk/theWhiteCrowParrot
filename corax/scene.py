@@ -1,6 +1,4 @@
 import os
-import json
-from functools import partial
 
 import corax.context as cctx
 from corax.camera import Camera, Scrolling
@@ -9,7 +7,7 @@ from corax.debugrender import render_player_debug
 from corax.euclide import Rect
 from corax.graphicelement import SetStaticElement, SetAnimatedElement
 from corax.particles import ParticlesSystem, build_emitter
-from corax.player import PlayerSlot
+from corax.character import CharacterSlot
 from corax.zone import Zone
 
 
@@ -25,6 +23,7 @@ class Scene():
         self.background_color = background_color
         self.scrolling = scrolling
         self.player_slots = []
+        self.npc_slots = []
         self.layers = []
         self.animated_sets = []
         self.evaluables = []
@@ -52,10 +51,10 @@ class Scene():
             zone.render(screen, self.camera)
         if cctx.DEBUG:
             for slot in self.player_slots:
-                if slot.player is None:
+                if slot.character is None:
                     continue
                 render_player_debug(
-                    player=slot.player,
+                    player=slot.character,
                     deph=layer.deph,
                     screen=screen,
                     camera=self.camera)
@@ -85,8 +84,8 @@ def build_set_static_element(data):
         deph=data["deph"])
 
 
-def build_player_slot(data):
-    return PlayerSlot(
+def build_character_slot(data):
+    return CharacterSlot(
         name=data["name"],
         block_position=data["block_position"],
         flip=data["flip"])
@@ -127,7 +126,7 @@ def build_particles_system(data):
         emitter=emitter)
 
 
-def build_scene(name, data, theatre):
+def build_scene(name, data):
     assert_first_is_layer(data)
     camera = Camera()
     scrolling = build_scrolling(camera, data)
@@ -143,7 +142,11 @@ def build_scene(name, data, theatre):
 
 def build_scene_zones(scene, data):
     for zone_data in data["zones"]:
-        if zone_data.get("type") in (NODE_TYPES.NO_GO, NODE_TYPES.INTERACTION):
+        types = (
+            NODE_TYPES.NO_GO,
+            NODE_TYPES.INTERACTION,
+            NODE_TYPES.RELATIONSHIP)
+        if zone_data.get("type") in types:
             zone = Zone(zone_data)
             scene.zones.append(zone)
 
@@ -154,19 +157,33 @@ def build_scene_layers(scene, data):
         if element.get("type") == NODE_TYPES.LAYER:
             layer = Layer(element["name"], element["deph"], [])
             scene.layers.append(layer)
-        elif element.get("type") == NODE_TYPES.SET_STATIC:
+            continue
+
+        if not layer:
+            continue
+
+        if element.get("type") == NODE_TYPES.SET_STATIC:
             static = build_set_static_element(element)
             layer.append(static)
+
         elif element.get("type") == NODE_TYPES.SET_ANIMATED:
             animated = build_set_animated_element(element)
             layer.append(animated)
             scene.evaluables.append(animated)
             scene.animated_sets.append(animated)
+
         elif element.get("type") == NODE_TYPES.PLAYER:
-            slot = build_player_slot(element)
+            slot = build_character_slot(element)
             layer.append(slot)
             scene.player_slots.append(slot)
             scene.evaluables.append(slot)
+
+        elif element.get("type") == NODE_TYPES.NPC:
+            slot = build_character_slot(element)
+            layer.append(slot)
+            scene.npc_slots.append(slot)
+            scene.evaluables.append(slot)
+
         elif element.get("type") == NODE_TYPES.PARTICLES:
             particles = build_particles_system(element)
             scene.evaluables.append(particles)

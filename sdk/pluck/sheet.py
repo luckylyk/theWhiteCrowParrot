@@ -1,3 +1,4 @@
+import json
 import os
 import traceback
 
@@ -11,6 +12,7 @@ from pluck.move import MoveDataEditor
 from pluck.paint import PaintContext, render_image
 from pluck.qtutils import sub_rects, build_spritesheet_image, spritesheet_to_images
 from pluck.sanity import is_valid_animation_path
+from sdk.pluck.data import data_to_plain_text
 
 
 SHEET_OPTIOS_FIELDS = {
@@ -69,6 +71,13 @@ class SheetEditor(QtWidgets.QWidget):
         self.set_layers(self.options.filenames)
         self.set_move(self.move)
 
+    def save(self, filename):
+        if not self.is_modified:
+            return
+        with open(filename, "w") as f:
+            f.write(data_to_plain_text(self.data))
+        self.is_modified = False
+
     def set_move(self, move):
         if not self.data:
             return
@@ -80,12 +89,14 @@ class SheetEditor(QtWidgets.QWidget):
     def remove_moves(self, move_names):
         for move_name in move_names:
             del self.data['moves'][move_name]
+        self.is_modified = True
         self.modified.emit()
 
     def create_move(self, move_name):
         self.data.update(self.options.values)
         self.data['moves'][move_name] = DEFAULT_MOVE.copy()
         self.set_move(move_name)
+        self.is_modified = True
         self.modified.emit()
 
     def move_edited(self):
@@ -93,6 +104,7 @@ class SheetEditor(QtWidgets.QWidget):
             return
         self.data['moves'][self.move] = self.moveeditor.values
         self.spritesheet.hightlight_move(self.move)
+        self.is_modified = True
         self.modified.emit()
 
     def options_edited(self, option):
@@ -102,6 +114,7 @@ class SheetEditor(QtWidgets.QWidget):
         if option == 'frame_size':
             self.set_layers(self.options.filenames)
             self.spritesheet.hightlight_move(self.move)
+        self.is_modified = True
         self.modified.emit()
 
     def set_layers(self, filenames):
@@ -278,9 +291,9 @@ class SheetOptions(QtWidgets.QWidget):
         indexes = self.move_selector.selectedIndexes()
         if not indexes:
             return
-        names = [self.move_selector.item(i).text() for i in indexes]
+        names = [self.move_selector.item(i.row()).text() for i in indexes]
         for index in indexes:
-            self.move_selector.takeItem(index)
+            self.move_selector.takeItem(index.row())
         self.movesRemoved.emit(names)
 
     def change_move(self):

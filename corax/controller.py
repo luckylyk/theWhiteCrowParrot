@@ -52,7 +52,8 @@ class AnimationController():
         self.coordinate = coordinate
         self.data = data
         self.no_go_zones = []
-        self.layers = layers or [str(key) for key in spritesheet.data["layers"].keys()]
+        self.layers = layers or [
+            str(key) for key in spritesheet.data["layers"].keys()]
         self.moves_buffer = []
         self.sequence = []
         self.spritesheet = spritesheet

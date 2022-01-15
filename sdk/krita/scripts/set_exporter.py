@@ -12,8 +12,8 @@ import json
 
 SRGB_PROFILE = "sRGB-elle-V2-srgbtrc.icc"
 FOLDER = r"C:\Users\lio\Desktop\walk\test"
-LEVEL_FOLDER = "exit"
-LEVEL_FILE = "exit.json"
+LEVEL_FOLDER = "hill"
+LEVEL_FILE = "hill.json"
 DEFAULT_DATA = {
     "name": None,
     "type": "set_static",

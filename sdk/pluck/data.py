@@ -19,7 +19,7 @@ DONT_SORT_KEYS = "post_events", "pre_events"
 EXCLUDED_PROPERTIES = "sounds", "areas", "elements", "zones"
 GRAPHIC_TYPES = NODE_TYPES.SET_ANIMATED, NODE_TYPES.SET_STATIC, NODE_TYPES.PLAYER
 SET_TYPES = NODE_TYPES.SET_ANIMATED, NODE_TYPES.SET_STATIC
-ZONE_TYPES = NODE_TYPES.NO_GO, NODE_TYPES.INTERACTION
+ZONE_TYPES = NODE_TYPES.NO_GO, NODE_TYPES.INTERACTION, NODE_TYPES.RELATIONSHIP
 SOUND_TYPES = (
     NODE_TYPES.SFX,
     NODE_TYPES.AMBIANCE,
@@ -98,6 +98,14 @@ DATA_TEMPLATES = {
         "affect": {str},
         "zone": (int, int, int, int),
     },
+    "relationship": {
+        "type": str,
+        "name": str,
+        "subject": str,
+        "target": str,
+        "relationship": str,
+        "zone": (int, int, int, int),
+    },
     "interaction": {
         "type": str,
         "name": str,
@@ -170,6 +178,12 @@ DATA_TEMPLATES = {
         "block_position": (int, int),
         "flip": bool
     },
+    "npc": {
+        "name": str,
+        "type": str,
+        "block_position": (int, int),
+        "flip": bool
+    },
     "particles_system": {
         "name": str,
         "alpha": int,
@@ -232,16 +246,16 @@ def data_to_plain_text(data, indent=0, sorted_keys=True):
         if isinstance(value, str):
             value = f"\"{value}\""
         elif value is None:
-            value = " null"
+            value = "null"
         elif value is True:
-            value = " true"
+            value = "true"
         elif value is False:
-            value = " false"
+            value = "false"
         elif value == {}:
             value = "{}"
         elif isinstance(value, dict):
             value = data_to_plain_text(
-                value, indent=indent+2, sorted_keys=key not in DONT_SORT_KEYS)
+                value, indent=indent+1, sorted_keys=key not in DONT_SORT_KEYS)
 
         lines.append(f"    \"{key}\": {value}".replace("'", '"'))
     spacer = "    " * indent

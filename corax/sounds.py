@@ -23,6 +23,7 @@ def does_not_execute_on_muted(func):
 
 
 class Ambiance():
+
     def __init__(self, filename, falloff, sound=None, zone=None, listener=None):
         self.filename = filename
         self.sound = sound or load_sound(filename)
@@ -36,7 +37,6 @@ class Ambiance():
     def play(self):
         self.sound.play(-1)
         self.is_playing = True
-
 
     @does_not_execute_on_muted
     def pause(self):
@@ -54,7 +54,7 @@ class Ambiance():
 
     @does_not_execute_on_muted
     def evaluate(self):
-        if self.zone is None:
+        if self.zone is None or self.listener is None:
             if self.is_playing is False:
                 self.play()
             return
@@ -67,7 +67,7 @@ class Ambiance():
             self.stop()
             return
         ratio = self.zone.falloff_ratio(position, self.falloff)
-        self.sound.set_volume(ratio)
+        self.sound.set_volume(ratio or 0)
 
     def __eq__(self, sound):
         message = "Ambiance only support comparison with str and Ambiance()"
@@ -78,6 +78,7 @@ class Ambiance():
 
 
 class SfxSoundCollection():
+
     def __init__(
             self,
             name,
@@ -103,10 +104,12 @@ class SfxSoundCollection():
 
     @does_not_execute_on_muted
     def play(self):
+        if not all((self.emitter, self.zone)):
+            return
         position = self.emitter.pixel_center
         ratio = self.zone.falloff_ratio(position, self.falloff)
         sound = next(self.iterator)
-        sound.set_volume(ratio)
+        sound.set_volume(ratio or 0)
         sound.play()
 
     @does_not_execute_on_muted
@@ -116,6 +119,7 @@ class SfxSoundCollection():
 
 
 class SfxSound():
+
     def __init__(
             self,
             name,
@@ -153,6 +157,7 @@ class AudioStreamer():
     This is the main class managing the sounds in memory, link them to they
     trigger and mix them togheter.
     """
+
     def __init__(self):
         self.sounds = []
         self.ambiances = []

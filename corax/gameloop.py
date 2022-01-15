@@ -1,11 +1,13 @@
 
 import copy
+import os
 import pygame
 
 import corax.context as cctx
 from corax.core import RUN_MODES, MENU_EVENTS, GAMELOOP_ACTIONS, COLORS
 from corax.theatre import Theatre
 from corax.menu import Menu
+from corax.override import load_json
 from corax.pygameutils import render_centered_text, escape_in_events, draw_letterbox
 
 
@@ -24,7 +26,8 @@ class GameLoop:
         self.checkpoint = None
         self.ensure_controller_connected()
         self.joystick = pygame.joystick.Joystick(0)
-        self.menu = Menu(data["menu"])
+        filename = os.path.join(cctx.MENU_FOLDER, data["menu"])
+        self.menu = Menu(load_json(filename))
 
     def __next__(self):
         self.ensure_controller_connected()
