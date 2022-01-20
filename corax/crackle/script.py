@@ -10,9 +10,10 @@ class CrackleScript:
         self.actions = []
         self.checkers = []
 
-    def __str__(self):
-        lines = self.conditions + self.actions
-        return f"script {self.name}\n" + "\n".join(lines)
+    def __repr__(self):
+        conditions = "  " +  "\n  ".join(self.conditions)
+        actions = "    " +  "\n    ".join(self.actions)
+        return f"script {self.name}\n{conditions}\n{actions}\n\n"
 
     def build(self, theatre):
         self.checkers = [
@@ -28,3 +29,15 @@ class CrackleScript:
         logging.debug(message)
         return all(checks)
 
+
+class CrackleEvent:
+    def __init__(self, name):
+        self.name = name
+        self.actions = []
+
+    def __repr__(self):
+        actions = "  " +  "\n  ".join(self.actions)
+        return f"event {self.name}\n{actions}\n\n"
+
+    def jobs(self, theatre):
+        return [create_job(line, theatre) for line in self.actions]

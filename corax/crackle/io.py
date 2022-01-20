@@ -7,7 +7,10 @@ event and story script.
 
 import os
 import corax.context as cctx
-from corax.crackle.script import CrackleScript
+from corax.crackle.script import CrackleEvent, CrackleScript
+
+
+FUNCTION_TYPES = "script", "event"
 
 
 def load_scripts(theatre):
@@ -32,35 +35,86 @@ def parse_crackle_file(filepath, namespace):
     Parse a crackle file and convert it to CrackleScript object
     """
     scripts = []
-    indent_level = 0
-    with open(filepath) as f:
-        script = None
-        for i, line in enumerate(f):
-            line = remove_commentaries(line)
-            line = line.rstrip(" \n")
-            if line.strip(" ") == "":
-                pass
+    events = []
+    i = 0
+    line = ""
+    with open(filepath, "r") as f:
+        while True:
+            if line is None:
+                break
+            if not line:
+                line = next_line(f)
+                i += 1
             elif line.startswith("script"):
-                if script is not None:
-                    scripts.append(script)
                 name = f"{namespace}.{extract_script_name(line)}"
-                script = CrackleScript(name)
-                indent_level = 1
-            elif script is None:
-                msg = "file must start by a script definition"
-                raise SyntaxError(f"line {i} > invalid stucture > {msg}")
-            elif line.startswith("        "):
-                script.actions.append(line.strip(" "))
-                indent_level = 2
-            elif line.startswith("    "):
-                if indent_level == 2:
-                    msg = "conditions must be set before actions"
-                    raise SyntaxError(f"file {filepath} > line {i} > invalid indent > {msg}")
-                script.conditions.append(line.strip(" "))
+                script, i, line = build_script(f, i, name)
+                scripts.append(script)
+            elif line.startswith("event"):
+                name = f"{namespace}.{extract_script_name(line)}"
+                event, i, line = build_event(f, i, name)
+                events.append(event)
             else:
-                raise SyntaxError(f'line {i} > unknown > unrecongnized indent')
-        scripts.append(script)
-    return scripts
+                msg = f"line {i} > Unrecognized line > {namespace}"
+                raise SyntaxError(msg)
+    return scripts, events
+
+
+def build_event(f, i, name):
+    event = CrackleEvent(name)
+    while True:
+        try:
+            line = next_line(f)
+            i += 1
+            if not line:
+                continue
+        except StopIteration:
+            return event, i, None
+
+        if line.split(" ")[0] in FUNCTION_TYPES:
+            return event, i, line
+
+        elif line.startswith("     ") or not line.startswith("    "):
+            msg = (
+                "each event action has to start with one "
+                "indent level (4 spaces)")
+            raise SyntaxError(f"line {i} > invalid indent > {msg}")
+
+        event.actions.append(line.strip(" "))
+
+
+def build_script(f, i, name):
+    script = CrackleScript(name)
+    indent_level = 1
+    while True:
+        try:
+            line = next_line(f)
+            i += 1
+            if not line:
+                continue
+        except StopIteration:
+            return script, i, None
+
+        if line.startswith("        "):
+            script.actions.append(line.strip(" "))
+            indent_level = 2
+
+        elif line.startswith("    "):
+            if indent_level == 2:
+                msg = "conditions must be set before actions"
+                raise SyntaxError(f"line {i} > invalid indent > {msg}")
+            script.conditions.append(line.strip(" "))
+
+        elif line.split(" ")[0] in FUNCTION_TYPES:
+            return script, i, line
+
+        else:
+            raise SyntaxError(f'line {i} > unknown > unrecongnized indent')
+
+
+def next_line(f):
+    line = next(f)
+    line = remove_commentaries(line)
+    return line.rstrip(" \n")
 
 
 def remove_commentaries(line):

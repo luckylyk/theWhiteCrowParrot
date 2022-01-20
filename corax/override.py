@@ -12,7 +12,6 @@ from functools import reduce
 import json
 import logging
 from operator import getitem
-import operator
 import os
 import re
 
@@ -67,7 +66,7 @@ def extract_line_infos(line):
         else:
             value = type_value(RESULT_PATTERN.findall(line)[0])
     except Exception as e:
-        print(str(e))
+        print(e)
         raise SyntaxError(SYNTAX_ERROR_MSG.format(line))
     return operator, filename, keys, value
 

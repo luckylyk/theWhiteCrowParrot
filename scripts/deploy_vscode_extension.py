@@ -13,3 +13,4 @@ shutil.copytree(corax_extension_path, vscode_extention_path)
 
 os.chdir(os.path.join(os.path.dirname(__file__), '..'))
 os.system("code .")
+print("done")
