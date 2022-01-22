@@ -128,8 +128,9 @@ class MoveDataEditor(QtWidgets.QWidget):
         del self.data["hitboxes"][name]
         self.edited.emit()
 
-    def clear_hitbox_frame(self, name):
-        if not self.data:
+    def clear_hitbox_frame(self):
+        name = self.animation_editor.hitbox_name
+        if not self.data or not name:
             return
 
         if self.animation_editor.toolbar.range_mode == 'single':
@@ -517,7 +518,7 @@ class AnimationToolbar(QtWidgets.QToolBar):
     addTriggerRequested = QtCore.Signal()
     removeTriggerRequested = QtCore.Signal()
     lineTestRequested = QtCore.Signal()
-    clearHitbox = QtCore.Signal(str)
+    clearHitbox = QtCore.Signal()
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -600,4 +601,4 @@ class AnimationToolbar(QtWidgets.QToolBar):
         return self.unique.isChecked()
 
     def clear_requested(self):
-        self.clearHitbox.emit(self.hitbox_names.currentText())
+        self.clearHitbox.emit()
