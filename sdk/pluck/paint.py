@@ -52,6 +52,9 @@ class PaintContext():
         height = self.absolute(rect.height())
         return QtCore.QRectF(top_left.x(), top_left.y(), width, height)
 
+    def block_position(self, x, y):
+        return to_block_position((x, y))
+
     def absolute_point(self, point):
         return QtCore.QPointF(
             self.absolute(point.x() - self.center[0]),

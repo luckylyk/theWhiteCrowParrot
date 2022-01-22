@@ -186,7 +186,8 @@ class SceneEditor(QtWidgets.QWidget):
         self.selection_model.selectionChanged.connect(method)
 
         self.node_editor = NodeEditor()
-        self.node_editor.fieldEdited.connect(self.field_value_changed)
+        self.node_editor.edited.connect(self.field_value_changed)
+        # self.node_editor.edited.connect(self.field_value_edited)
 
         self.tree_widget = QtWidgets.QWidget()
         self.tree_layout = QtWidgets.QVBoxLayout(self.tree_widget)
@@ -277,6 +278,7 @@ class SceneEditor(QtWidgets.QWidget):
         if self.is_modified or self.block_modified_signal is True:
             return
         self.is_modified = True
+        print(self)
         self.modified.emit()
 
     def save(self, filename):
@@ -339,15 +341,13 @@ class SceneEditor(QtWidgets.QWidget):
             return
         return self.model.getNode(indexes[0])
 
-    def field_value_changed(self, name):
+    def field_value_changed(self, *_):
         if not (node:=self.node_editor.node):
             return
         node.data.update(self.node_editor.values)
         self.scenewidget.repaint()
-        self.blockSignals(True)
         self.json_editor.setPlainText(tree_to_plaintext(self.tree))
         self.scenewidget.data = self.tree.children[0].data
-        self.blockSignals(False)
         self.contents_changed()
 
     def selected_from_outliner(self, selection, _):

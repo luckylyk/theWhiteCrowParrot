@@ -97,10 +97,10 @@ class MoveDataEditor(QtWidgets.QWidget):
     def mouse_edit(self, pixel_position, block_position):
         match self.animation_editor.toolbar.mode:
             case "paint":
-                hitbox_name = self.animation_editor.toolbar.hitbox_name
+                hitbox_name = self.animation_editor.hitbox_name
                 self.paint_block(hitbox_name, *block_position)
             case "erase":
-                hitbox_name = self.animation_editor.toolbar.hitbox_name
+                hitbox_name = self.animation_editor.hitbox_name
                 self.erase_block(hitbox_name, *block_position)
             case "center":
                 self.edit_center(*pixel_position)
@@ -108,8 +108,16 @@ class MoveDataEditor(QtWidgets.QWidget):
                 self.edit_offset(*pixel_position)
 
     def create_hitbox(self, name):
-        if not self.data or name in self.data["hitboxes"]:
+        conditions = (
+            self.data is None or
+            name in (self.data["hitboxes"] or {}))
+
+        if conditions:
             return
+
+        if self.data["hitboxes"] is None:
+            self.data["hitboxes"] = {}
+
         frames = len(self.data["frames_per_image"])
         self.data["hitboxes"][name] = [[] for _ in range(frames)]
         self.edited.emit()
@@ -373,7 +381,7 @@ class AnimationViewer(QtWidgets.QWidget):
             self.emit_mouse_clicked(event.position())
 
     def emit_mouse_clicked(self, position):
-        if not self.rect().contains(position):
+        if not self.rect().contains(position.toPoint()):
             return
         pix_x = self.paintcontext.absolute(position.x())
         pix_y = self.paintcontext.absolute(position.y())

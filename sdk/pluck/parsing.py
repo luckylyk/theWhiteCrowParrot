@@ -104,5 +104,5 @@ def list_all_existing_script_names():
     for filename in os.listdir(cctx.SCRIPT_FOLDER):
         filepath = os.path.join(cctx.SCRIPT_FOLDER, filename)
         namespace = ".".join(filename.split(".")[:-1])
-        scripts.extend(corax.crackle.io.parse_crackle_file(filepath, namespace))
+        scripts.extend(corax.crackle.io.parse_crackle_file(filepath, namespace)[0])
     return sorted(list({script.name for script in scripts}))
