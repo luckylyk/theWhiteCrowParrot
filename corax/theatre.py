@@ -5,14 +5,14 @@ import logging
 import corax.context as cctx
 from corax.core import CHARACTER_TYPES, RUN_MODES, NODE_TYPES
 from corax.character import load_characters
-from corax.crackle.io import load_scripts
+from corax.crackle.io import load_crackle_objects
 from corax.iterators import iter_on_jobs, fade, choose
 from corax.gamepad import InputBuffer
 from corax.override import load_json
 from corax.pygameutils import draw_letterbox, render_background
-from corax.relationship import build_moves_probabilities
+from corax.relationship import build_moves_probabilities, load_relationships
 from corax.scene import build_scene
-from corax.seeker import find_start_scrolling_target
+from corax.seeker import find_relationship, find_start_scrolling_target, find
 from corax.sounds import AudioStreamer
 
 
@@ -84,9 +84,10 @@ class Theatre:
         self.characters = chars
         self.players = [c for c in chars if c.type == CHARACTER_TYPES.PLAYER]
         self.npcs = [c for c in chars if c.type == CHARACTER_TYPES.NPC]
+        self.relationships = load_relationships()
 
         self.scrolling_target = find_start_scrolling_target(chars, data)
-        self.scripts = load_scripts(self)
+        self.scripts, self.events = load_crackle_objects()
         self.current_scripts = []
         self.freeze = 0
         self.set_scene(data["start_scene"])
@@ -190,19 +191,15 @@ class Theatre:
                 player.input_updated(self.input_buffer)
 
     def evaluate_relationship(self, zone):
-        subject = None
-        target = None
-        for character in self.characters:
-            if character.name in zone.subject:
-                subject = character
-            if character.name in zone.target:
-                target = character
+        subject = find(self.characters, zone.subject[0])
+        target = find(self.characters, zone.target[0])
         if None in (subject, target):
-            print(subject, target)
             return
-
-        path = os.path.join(cctx.RELATIONSHIP_FOLDER, zone.relationship)
-        rules = load_json(path)
+        relationship = find_relationship(self.relationships, zone.relationship)
+        if not relationship:
+            return
+        rules = relationship["rules"]
+        contacts = relationship["events"]
         probabilities = build_moves_probabilities(rules, subject, target)
         if not probabilities:
             return

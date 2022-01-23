@@ -2,7 +2,21 @@
 This module is about how a animation sheet behave automatically.
 It's a kind of IA.
 """
+import json
+import os
+import corax.context as cctx
 from corax.core import AIM_RELATIONSHIP_TYPES
+from corax.override import load_json
+
+
+def load_relationships():
+    return [
+        load_json(os.path.join(cctx.RELATIONSHIP_FOLDER, filename))
+        for filename in os.listdir(cctx.RELATIONSHIP_FOLDER)]
+
+
+def contact(events, subject, target):
+    pass
 
 
 def build_moves_probabilities(rules, subject, target):

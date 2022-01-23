@@ -13,21 +13,20 @@ from corax.crackle.script import CrackleEvent, CrackleScript
 FUNCTION_TYPES = "script", "event"
 
 
-def load_scripts(theatre):
+def load_crackle_objects():
     """
     Load all scripts located in the folder <root>/scripts
     It parse the crackle files and build CrackleScript objects from.
     """
     scripts = []
+    events = []
     for filename in os.listdir(cctx.SCRIPT_FOLDER):
         filepath = os.path.join(cctx.SCRIPT_FOLDER, filename)
         namespace = ".".join(filename.split(".")[:-1])
-        scripts.extend(parse_crackle_file(filepath, namespace))
-    # OUCH, afterward, that bi-directionnal connection create a mess and could
-    # lead to impossible debug. That should get a better design.
-    for script in scripts:
-        script.theatre = theatre
-    return scripts
+        s, e = parse_crackle_file(filepath, namespace)
+        scripts.extend(s)
+        events.extend(e)
+    return scripts, events
 
 
 def parse_crackle_file(filepath, namespace):

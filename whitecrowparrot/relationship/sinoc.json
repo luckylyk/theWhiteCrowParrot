@@ -1,62 +1,72 @@
-[
-    {
-        "directions": ["facing", "backing", "target_shows_back", "subject_shows_back"],
-        "block_distance_range": [26, 60],
-        "subject_animations": ["idle"],
-        "target_animations": ["idle"],
-        "priority": 5,
-        "moves": {
-            "run": 10
+{
+    "name": "sinoc_vs_whitecrow",
+    "rules": [
+        {
+            "directions": ["facing", "backing", "target_shows_back", "subject_shows_back"],
+            "block_distance_range": [26, 60],
+            "subject_animations": ["idle"],
+            "target_animations": ["idle"],
+            "priority": 5,
+            "moves": {
+                "run": 10
+            }
+        },
+        {
+            "directions": ["facing", "target_shows_back"],
+            "block_distance_range": [12, 26],
+            "subject_animations": ["idle"],
+            "target_animations": ["idle"],
+            "priority": 5,
+            "moves": {
+                "step": 10,
+                "prep_hit": 0
+            }
+        },
+        {
+            "directions": ["facing"],
+            "block_distance_range": [0, 12],
+            "subject_animations": ["idle"],
+            "target_animations": [
+                "jump", "low_block", "crouch_hit_shoot", "return",
+                "crouch_down", "crouch_up", "step_forward", "back_dash",
+                "step_backward", "high_block_retrieve",
+                "low_hit_shoot", "low_block_retrieve", "stroke_shoot",
+                "crouch_hit_retrieve", "high_hit_retrieve", "stroke_retrieve",
+                "tidy_up_sword", "idle"],
+            "priority": 5,
+            "moves": {
+                "run": 0,
+                "prep_hit": 15
+            }
+        },
+        {
+            "directions": ["facing"],
+            "block_distance_range": [0, 15],
+            "subject_animations": ["idle"],
+            "target_animations": ["high_hit_shoot"],
+            "priority": 100,
+            "moves": {
+                "high_parade": 15,
+                "prep_hit": 0
+            }
+        },
+        {
+            "directions": ["facing"],
+            "block_distance_range": [0, 15],
+            "subject_animations": ["idle"],
+            "target_animations": ["low_hit_shoot"],
+            "priority": 100,
+            "moves": {
+                "low_parade": 15,
+                "prep_hit": 0
+            }
         }
-    },
-    {
-        "directions": ["facing", "target_shows_back"],
-        "block_distance_range": [12, 26],
-        "subject_animations": ["idle"],
-        "target_animations": ["idle"],
-        "priority": 5,
-        "moves": {
-            "step": 10,
-            "prep_hit": 0
+    ],
+    "events": [
+        {
+            "subject_hitbox": "weak_shield",
+            "target_hitbox": "sword_hit",
+            "event": "sinoc.sinoc_pushed_back"
         }
-    },
-    {
-        "directions": ["facing"],
-        "block_distance_range": [0, 12],
-        "subject_animations": ["idle"],
-        "target_animations": [
-            "jump", "low_block", "crouch_hit_shoot", "return",
-            "crouch_down", "crouch_up", "step_forward", "back_dash",
-            "step_backward", "high_block_retrieve",
-            "low_hit_shoot", "low_block_retrieve", "stroke_shoot",
-            "crouch_hit_retrieve", "high_hit_retrieve", "stroke_retrieve",
-            "tidy_up_sword", "idle"],
-        "priority": 5,
-        "moves": {
-            "run": 0,
-            "prep_hit": 15
-        }
-    },
-    {
-        "directions": ["facing"],
-        "block_distance_range": [0, 15],
-        "subject_animations": ["idle"],
-        "target_animations": ["high_hit_shoot"],
-        "priority": 100,
-        "moves": {
-            "high_parade": 15,
-            "prep_hit": 0
-        }
-    },
-    {
-        "directions": ["facing"],
-        "block_distance_range": [0, 15],
-        "subject_animations": ["idle"],
-        "target_animations": ["low_hit_shoot"],
-        "priority": 100,
-        "moves": {
-            "low_parade": 15,
-            "prep_hit": 0
-        }
-    }
-]
+    ]
+}

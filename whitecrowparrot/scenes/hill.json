@@ -1,12 +1,12 @@
 {
-    "name": "Scene 01",
+    "name": "Scene 02",
     "type": "scene",
     "background_color": [173, 177, 189],
-    "boundary": [0, 0, 1600, 268],
-    "soft_boundaries": [],
+    "boundary": [80, 0, 1680, 268],
+    "soft_boundaries": [[0, 0, 800, 268]],
     "target_offset": [300, 0],
     "sounds": [
-
+        
     ],
     "zones": [
         {
@@ -24,7 +24,7 @@
         {
             "name": "sinoc_vs_whitecrow",
             "type": "relationship",
-            "relationship": "sinoc.json",
+            "relationship": "sinoc_vs_whitecrow",
             "subject": ["sinoc"],
             "target": ["whitecrow"],
             "zone": [11, 0, 143, 27]
@@ -67,7 +67,7 @@
             "name": "whitecrow",
             "type": "player",
             "block_position": [120, 9],
-            "flip": true
+            "flip": false
         },
         {
             "name": "fg_bush_2",

@@ -1,17 +1,2 @@
-event whitecrow_deadly_hit
-    player.whitecrow.sheet set dead
-    player.whitecrow play dead_by_snusnu
-
-event triplodalo
-    play.whitecrow move (150, 150)
-
-
-script instead
-    player.whitecrow.animation is dead_by_snusnu
-        restart
-
-
-event fadeondie
-    fadeout 15
-    wait 15
-    restart
+event sinoc_pushed_back
+    npc.sinoc play plushed_back

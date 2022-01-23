@@ -50,7 +50,7 @@ class Scene():
         for zone in self.zones:
             zone.render(screen, self.camera)
         if cctx.DEBUG:
-            for slot in self.player_slots:
+            for slot in self.player_slots + self.npc_slots:
                 if slot.character is None:
                     continue
                 render_player_debug(

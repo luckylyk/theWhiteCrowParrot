@@ -1,34 +1,48 @@
+"""
+This module contains helpers to filter and find element inside the game
+data structure.
+"""
+
+
+def find(array, name):
+    for item in array:
+        if item.name == name:
+            return item
 
 def find_player(theatre, name):
-    for player in theatre.players:
-        if player.name == name:
-            return player
-    raise ValueError(f"Player '{name}' not found")
+    player = find(theatre.players, name)
+    if not player:
+        raise ValueError(f"Player '{name}' not found")
+    return player
 
 
 def find_start_scrolling_target(players, data):
-    name = data["start_scrolling_target"]
-    for player in players:
-        if player.name == name:
-            return player.coordinate
-    raise ValueError(f"Target '{name}' not found")
+    target = find(players, name:=data["start_scrolling_target"])
+    if not target:
+        raise ValueError(f"Target '{name}' not found")
+    return target
 
 
 def find_element(scene, name):
-    for element in scene.elements:
-        if element.name == name:
-            return element
-    raise ValueError(f"Element '{name}' not found in {scene.name}\n{[e.name for e in scene.elements]}")
+    element = find(scene.elements, name)
+    if not element:
+        elts = [e.name for e in scene.elements]
+        raise ValueError(f"Element '{name}' not found in {scene.name}\n{elts}")
+    return element
 
 
 def find_animated_set(scene, name):
-    for element in scene.animated_sets:
-        if element.name == name:
-            return element
-    raise ValueError(f"Animated set '{name}' not found in {scene.name}")
+    element = find(scene.elements, name)
+    if not element:
+        raise ValueError(f"Animated set '{name}' not found in {scene.name}")
+    return element
 
 
 def find_zone(scene, name):
-    for zone in scene.zones:
-        if zone.name == name:
-            return zone
+    return find(scene.zones, name)
+
+
+def find_relationship(relationships, name):
+    for relationship in relationships:
+        if relationship["name"] == name:
+            return relationship
