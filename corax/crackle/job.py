@@ -12,7 +12,8 @@ from functools import partial
 
 from corax.core import EVENTS, RUN_MODES
 from corax.iterators import fade
-from corax.seeker import find_animated_set, find_element, find_player, find_zone
+from corax.seeker import (
+    find_animated_set, find_element, find_zone, find_character)
 
 from corax.crackle.parser import (
     object_attribute, string_to_int_list, object_type, object_name)
@@ -30,6 +31,8 @@ def create_job(line, theatre):
     else:
         subject, function, arguments = split_with_subject(line)
         result = create_job_with_subject(subject, function, arguments, theatre)
+    if result is None:
+        raise ValueError(f'Impossible to build job from: {line}')
     if not nolock:
         return result
     return partial(nolock_job, result)
@@ -77,41 +80,42 @@ def create_job_with_subject(subject, function, arguments, theatre):
             if subject_name == "camera":
                 position = string_to_int_list(arguments)
                 return partial(job_move_camera, theatre, position)
-    elif subject_type == "player":
-        return create_player_job(theatre, subject_name, function, arguments)
+    elif subject_type in ("player", "npc"):
+        return create_character_job(theatre, subject_name, function, arguments)
     elif subject_type == "prop":
         if function == "play":
             animation = arguments
             prop = find_animated_set(theatre.scene, subject_name)
-            return partial(job_play_animation, prop, animation, type_="prop")
+            return partial(job_play_animation, prop, animation)
     elif subject_type == "zone":
         zone = find_zone(theatre.scene, subject_name)
         rect = string_to_int_list(arguments)
         return partial(job_shift_zone, zone, rect)
 
 
-def create_player_job(theatre, player_name, function, arguments):
-    player = find_player(theatre, player_name)
-    if function == "play":
-        anim = arguments
-        return partial(job_play_animation, player, anim, type_="player")
-    elif function == "show":
-        layer = arguments
-        return partial(job_switch_layer, player, True, layer)
-    elif function == "hide":
-        layer = arguments
-        return partial(job_switch_layer, player, False, layer)
-    elif function == "move":
-        position = string_to_int_list(arguments)
-        return partial(job_move_player, player, position)
-    elif function == "reach":
-        pos, animations = extract_reach_arguments(arguments)
-        return partial(job_reach, player, pos, animations)
-    elif function == "aim":
-        direction, move = arguments.split(" by ")
-        return partial(job_aim, player, move, direction)
-    elif function == "set":
-        return partial(job_set_sheet, player, arguments)
+def create_character_job(theatre, character_name, function, arguments):
+    character = find_character(theatre, character_name)
+    match function:
+        case "play":
+            anim = arguments
+            return partial(job_play_animation, character, anim)
+        case "show":
+            layer = arguments
+            return partial(job_switch_layer, character, True, layer)
+        case "hide":
+            layer = arguments
+            return partial(job_switch_layer, character, False, layer)
+        case "move":
+            position = string_to_int_list(arguments)
+            return partial(job_move_player, character, position)
+        case "reach":
+            pos, animations = extract_reach_arguments(arguments)
+            return partial(job_reach, character, pos, animations)
+        case "aim":
+            direction, move = arguments.split(" by ")
+            return partial(job_aim, character, move, direction)
+        case "set":
+            return partial(job_set_sheet, character, arguments)
 
 
 def nolock_job(job):
@@ -158,9 +162,9 @@ def job_force_script(theatre, script_name):
     return 50
 
 
-def job_flush_animation(theatre, player_name):
-    player = find_player(theatre, player_name)
-    player.animation_controller.flush()
+def job_flush_animation(theatre, character_name):
+    character = find_character(theatre, character_name)
+    character.animation_controller.flush()
     return 0
 
 
@@ -169,18 +173,18 @@ def job_move_camera(theatre, pixel_position):
     return 0
 
 
-def job_move_player(player, block_position):
-    player.coordinate.block_position = block_position
+def job_move_player(character, block_position):
+    character.coordinate.block_position = block_position
     return 0
 
 
-def job_pin_play(theatre, player_name):
-    player = find_player(theatre, player_name)
-    player.pin()
+def job_pin_play(theatre, character_name):
+    character = find_character(theatre, character_name)
+    character.pin()
     return 0
 
 
-def job_play_animation(animable, animation_name, type_="player"):
+def job_play_animation(animable, animation_name):
     animable.animation_controller.set_move(animation_name)
     return animable.animation_controller.animation.length
 

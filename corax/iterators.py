@@ -16,7 +16,7 @@ def iter_on_jobs(jobs, actions=None):
         except Exception:
             print(traceback.format_exc())
             error = actions[i] + ": failed" if actions else ""
-            raise ValueError(error)
+            raise ValueError(error + ": " + str(job))
         while frame_count > 0:
             yield
             frame_count -= 1

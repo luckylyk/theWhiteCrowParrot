@@ -62,7 +62,7 @@
             }
         }
     ],
-    "events": [
+    "collisions": [
         {
             "subject_hitmap": "weak_shield",
             "target_hitmap": "sword_hit",

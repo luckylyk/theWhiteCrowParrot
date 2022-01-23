@@ -9,11 +9,19 @@ def find(array, name):
         if item.name == name:
             return item
 
+
 def find_player(theatre, name):
     player = find(theatre.players, name)
     if not player:
         raise ValueError(f"Player '{name}' not found")
     return player
+
+
+def find_character(theatre, name):
+    character = find(theatre.characters, name)
+    if not character:
+        raise ValueError(f"Character '{name}' not found")
+    return character
 
 
 def find_start_scrolling_target(players, data):

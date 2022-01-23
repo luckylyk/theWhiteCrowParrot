@@ -15,8 +15,12 @@ def load_relationships():
         for filename in os.listdir(cctx.RELATIONSHIP_FOLDER)]
 
 
-def contact(events, subject, target):
-    pass
+def detect_collision(collisions, subject, target):
+    for collision in collisions:
+        hitmap1 = (subject.hitmaps or {}).get(collision["subject_hitmap"], [])
+        hitmap2 = (target.hitmaps or {}).get(collision["target_hitmap"], [])
+        if any(block in hitmap1 for block in hitmap2):
+            return collision["event"]
 
 
 def build_moves_probabilities(rules, subject, target):

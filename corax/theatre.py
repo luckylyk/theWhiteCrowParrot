@@ -10,7 +10,8 @@ from corax.iterators import iter_on_jobs, fade, choose
 from corax.gamepad import InputBuffer
 from corax.override import load_json
 from corax.pygameutils import draw_letterbox, render_background
-from corax.relationship import build_moves_probabilities, load_relationships
+from corax.relationship import (
+    build_moves_probabilities, load_relationships, detect_collision)
 from corax.scene import build_scene
 from corax.seeker import find_relationship, find_start_scrolling_target, find
 from corax.sounds import AudioStreamer
@@ -87,12 +88,14 @@ class Theatre:
         self.relationships = load_relationships()
 
         self.scrolling_target = find_start_scrolling_target(chars, data)
-        self.scripts, self.events = load_crackle_objects()
+        self.scripts, events = load_crackle_objects()
+        self.events = {e.name: e for e in events}
         self.current_scripts = []
         self.freeze = 0
         self.set_scene(data["start_scene"])
         self.run_mode = RUN_MODES.NORMAL
         self.script_iterator = None
+        self.event_iterators = {}
         duration = data["fade_in_duration"]
         trans = fade(duration, maximum=255, reverse=True) if duration else None
         self.transition = trans
@@ -191,6 +194,7 @@ class Theatre:
                 player.input_updated(self.input_buffer)
 
     def evaluate_relationship(self, zone):
+        # Detect assosiated relationship
         subject = find(self.characters, zone.subject[0])
         target = find(self.characters, zone.target[0])
         if None in (subject, target):
@@ -198,13 +202,30 @@ class Theatre:
         relationship = find_relationship(self.relationships, zone.relationship)
         if not relationship:
             return
+        # Check collision event
+        event = detect_collision(relationship["collisions"], subject, target)
+        if event and (event not in self.event_iterators):
+            crackle_event = self.events[event]
+            jobs = crackle_event.jobs(self)
+            actions = crackle_event.actions
+            self.event_iterators[event] = iter_on_jobs(jobs, actions=actions)
+        self.evaluate_events()
+
         rules = relationship["rules"]
-        contacts = relationship["events"]
         probabilities = build_moves_probabilities(rules, subject, target)
         if not probabilities:
             return
         move = choose(probabilities)
         subject.animation_controller.propose_moves([move])
+
+    def evaluate_events(self):
+        if not self.event_iterators:
+            return
+        for name, iterator in tuple(self.event_iterators.items()):
+            try:
+                next(iterator)
+            except StopIteration:
+                del self.event_iterators[name]
 
     def evaluate_interactions(self, zone):
         if not (script_names:=zone.script_names):
