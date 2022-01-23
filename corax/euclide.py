@@ -83,20 +83,20 @@ def collision_rect_rect(r1, r2):
         any(r2.contains(c) for c in r1.corners))
 
 
-def collision_hitbox_hitbox(hitbox1, hitbox2):
+def collision_hitmap_hitmap(hitmap1, hitmap2):
     """
     Hitbox is a list of block coordinates: [(0, 5), (1, 5), (2, 5)]
-    If in the two given hitboxes, two blocks are similare, then it collide.
+    If in the two given hitmaps, two blocks are similare, then it collide.
     """
-    for block1 in hitbox1:
-        for block2 in hitbox2:
+    for block1 in hitmap1:
+        for block2 in hitmap2:
             if block1[0] == block2[0] and block1[1] == block2[1]:
                 return True
     return False
 
 
-def offset_hitbox(hitbox, offset):
-    return [sum_num_arrays(block, offset) for block in hitbox]
+def offset_hitmap(hitmap, offset):
+    return [sum_num_arrays(block, offset) for block in hitmap]
 
 
 class Rect():

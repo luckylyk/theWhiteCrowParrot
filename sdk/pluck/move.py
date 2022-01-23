@@ -9,10 +9,10 @@ from pluck.dialog import TriggerDialog, LineTestDialog
 from pluck.field import (
     BoolField, IntVectorField, StrField, IntArrayField, IntField, DictField,
     StrArrayField, FieldPanel)
-from pluck.parsing import list_all_existing_hitboxes
+from pluck.parsing import list_all_existing_hitmaps
 from pluck.qtutils import get_icon
 from pluck.paint import (
-    render_image, render_grid, render_trigger, render_hitbox, render_center,
+    render_image, render_grid, render_trigger, render_hitmap, render_center,
     PaintContext)
 from pluck.slider import Slider
 
@@ -46,9 +46,9 @@ class MoveDataEditor(QtWidgets.QWidget):
         self.options.setFixedWidth(350)
         self.animation_editor = AnimationEditor()
         self.animation_editor.animation_viewer.mouseEdit.connect(self.mouse_edit)
-        self.animation_editor.hbtoolbar.hitboxCreated.connect(self.create_hitbox)
-        self.animation_editor.hbtoolbar.hitboxRemoved.connect(self.delete_hitbox)
-        self.animation_editor.toolbar.clearHitbox.connect(self.clear_hitbox_frame)
+        self.animation_editor.hbtoolbar.hitmapCreated.connect(self.create_hitmap)
+        self.animation_editor.hbtoolbar.hitmapRemoved.connect(self.delete_hitmap)
+        self.animation_editor.toolbar.clearHitbox.connect(self.clear_hitmap_frame)
         self.animation_editor.toolbar.addTriggerRequested.connect(self.add_trigger)
         self.animation_editor.toolbar.removeTriggerRequested.connect(self.remove_trigger)
 
@@ -71,8 +71,8 @@ class MoveDataEditor(QtWidgets.QWidget):
         self.options.values = values
         self.data = values
         self.animation_editor.set_data_images(data=values)
-        name = list(values['hitboxes'].keys())[0] if values['hitboxes'] else None
-        self.animation_editor.change_hitbox(name)
+        name = list(values['hitmaps'].keys())[0] if values['hitmaps'] else None
+        self.animation_editor.change_hitmap(name)
         self.repaint()
 
     def option_set(self, option):
@@ -82,9 +82,9 @@ class MoveDataEditor(QtWidgets.QWidget):
             durations = self.options.values[option]
             self.data['frames_centers'] = match_arrays_length(
                 self.data['frames_centers'], durations, default=[0, 0])
-            for hitbox_name in self.data['hitboxes']:
-                self.data['hitboxes'][hitbox_name] = match_arrays_length(
-                    self.data['hitboxes'][hitbox_name], durations, default=[])
+            for hitmap_name in self.data['hitmaps']:
+                self.data['hitmaps'][hitmap_name] = match_arrays_length(
+                    self.data['hitmaps'][hitmap_name], durations, default=[])
 
         self.data.update({option: self.options.values[option]})
         self.edited.emit()
@@ -97,77 +97,77 @@ class MoveDataEditor(QtWidgets.QWidget):
     def mouse_edit(self, pixel_position, block_position):
         match self.animation_editor.toolbar.mode:
             case "paint":
-                hitbox_name = self.animation_editor.hitbox_name
-                self.paint_block(hitbox_name, *block_position)
+                hitmap_name = self.animation_editor.hitmap_name
+                self.paint_block(hitmap_name, *block_position)
             case "erase":
-                hitbox_name = self.animation_editor.hitbox_name
-                self.erase_block(hitbox_name, *block_position)
+                hitmap_name = self.animation_editor.hitmap_name
+                self.erase_block(hitmap_name, *block_position)
             case "center":
                 self.edit_center(*pixel_position)
             case "offset":
                 self.edit_offset(*pixel_position)
 
-    def create_hitbox(self, name):
+    def create_hitmap(self, name):
         conditions = (
             self.data is None or
-            name in (self.data["hitboxes"] or {}))
+            name in (self.data["hitmaps"] or {}))
 
         if conditions:
             return
 
-        if self.data["hitboxes"] is None:
-            self.data["hitboxes"] = {}
+        if self.data["hitmaps"] is None:
+            self.data["hitmaps"] = {}
 
         frames = len(self.data["frames_per_image"])
-        self.data["hitboxes"][name] = [[] for _ in range(frames)]
+        self.data["hitmaps"][name] = [[] for _ in range(frames)]
         self.edited.emit()
 
-    def delete_hitbox(self, name):
-        if not self.data or name not in self.data["hitboxes"]:
+    def delete_hitmap(self, name):
+        if not self.data or name not in self.data["hitmaps"]:
             return
-        del self.data["hitboxes"][name]
+        del self.data["hitmaps"][name]
         self.edited.emit()
 
-    def clear_hitbox_frame(self):
-        name = self.animation_editor.hitbox_name
+    def clear_hitmap_frame(self):
+        name = self.animation_editor.hitmap_name
         if not self.data or not name:
             return
 
         if self.animation_editor.toolbar.range_mode == 'single':
             index = self.animation_editor.data_index
-            hitbox = self.data["hitboxes"][name][index]
-            hitbox.clear()
+            hitmap = self.data["hitmaps"][name][index]
+            hitmap.clear()
         else:
-            for hitbox in self.data["hitboxes"][name]:
-                hitbox.clear()
+            for hitmap in self.data["hitmaps"][name]:
+                hitmap.clear()
         self.edited.emit()
 
-    def hitboxes_to_edit(self, name):
+    def hitmaps_to_edit(self, name):
         if self.animation_editor.toolbar.range_mode != 'single':
-            return [self.data["hitboxes"].get(name)]
+            return [self.data["hitmaps"].get(name)]
         index = self.animation_editor.data_index
-        return [self.data["hitboxes"][name][index]]
+        return [self.data["hitmaps"][name][index]]
 
     def paint_block(self, name, x, y):
         if not self.data or not name:
             return
-        for hitbox in self.hitboxes_to_edit(name):
-            # Skip if block already in the hitbox
-            for block in hitbox:
+        for hitmap in self.hitmaps_to_edit(name):
+            # Skip if block already in the hitmap
+            for block in hitmap:
                 if block[0] == x and block[1] == y:
                     break
             else:
-                hitbox.append([x, y])
+                hitmap.append([x, y])
         self.animation_editor.set_data_images(data=self.data)
         self.edited.emit()
 
     def erase_block(self, name, x, y):
         if not self.data or not name:
             return
-        for hitbox in self.hitboxes_to_edit(name):
-            for block in hitbox:
+        for hitmap in self.hitmaps_to_edit(name):
+            for block in hitmap:
                 if block[0] == x and block[1] == y:
-                    hitbox.remove(block)
+                    hitmap.remove(block)
         self.animation_editor.set_data_images(data=self.data)
         self.edited.emit()
 
@@ -241,13 +241,13 @@ class AnimationEditor(QtWidgets.QWidget):
         super().__init__(parent)
         self.data = {}
         self.images = []
-        self.hitbox_name = ""
+        self.hitmap_name = ""
 
         self.toolbar = AnimationToolbar()
         self.toolbar.lineTestRequested.connect(self.show_linetest)
 
         self.hbtoolbar = HitboxToolbar()
-        self.hbtoolbar.hitboxChanged.connect(self.change_hitbox)
+        self.hbtoolbar.hitmapChanged.connect(self.change_hitmap)
 
         self.animation_viewer = AnimationViewer()
         self.animation_scroll_area = QtWidgets.QScrollArea()
@@ -275,8 +275,8 @@ class AnimationEditor(QtWidgets.QWidget):
             self.slider.marks = [
                 data_index_to_animation_index(i, data)
                 for i, _ in data['triggers'] or []]
-            names = data['hitboxes'].keys() if data['hitboxes'] else None
-            self.hbtoolbar.set_hitbox_names(names)
+            names = data['hitmaps'].keys() if data['hitmaps'] else None
+            self.hbtoolbar.set_hitmap_names(names)
         self.set_index(self.slider.value)
 
     @property
@@ -296,15 +296,15 @@ class AnimationEditor(QtWidgets.QWidget):
         offsets = self.data['frames_centers']
         self.animation_viewer.offset = offsets[index] if offsets else None
         self.animation_viewer.trigger = self.trigger_for_index(index)
-        self.animation_viewer.hitbox = self.hitbox(self.hitbox_name, index)
+        self.animation_viewer.hitmap = self.hitmap(self.hitmap_name, index)
         self.animation_viewer.recompute_size()
         self.animation_viewer.repaint()
 
-    def hitbox(self, name, index):
-        hitboxes = self.data["hitboxes"]
-        if not hitboxes:
+    def hitmap(self, name, index):
+        hitmaps = self.data["hitmaps"]
+        if not hitmaps:
             return
-        sequence = hitboxes.get(name)
+        sequence = hitmaps.get(name)
         if not sequence:
             return
         return sequence[index]
@@ -319,15 +319,15 @@ class AnimationEditor(QtWidgets.QWidget):
     def edit_current_frame(self):
         return self.toolbar.edit_current_frame()
 
-    def change_hitbox(self, name):
+    def change_hitmap(self, name):
         if name is None:
-            self.animation_viewer.hitbox = None
+            self.animation_viewer.hitmap = None
             self.animation_viewer.repaint()
             return
 
-        self.hitbox_name = name
+        self.hitmap_name = name
         index = animation_index_to_data_index(self.slider.value, self.data)
-        self.animation_viewer.hitbox = self.hitbox(name, index)
+        self.animation_viewer.hitmap = self.hitmap(name, index)
         self.animation_viewer.repaint()
 
     def show_linetest(self):
@@ -343,12 +343,12 @@ class AnimationViewer(QtWidgets.QWidget):
         self.paintcontext = PaintContext()
         self.paintcontext.extra_zone = 0
         self.is_clicked = False
-        self.render_options = ['grid', 'center', 'hitbox', 'trigger']
+        self.render_options = ['grid', 'center', 'hitmap', 'trigger']
 
         self._image = None
         self.center = (0, 0)
         self.offset = (0, 0)
-        self.hitbox = None
+        self.hitmap = None
         self.trigger = None
         self.backgound_color = cctx.KEY_COLOR
         self.size = None
@@ -434,11 +434,11 @@ class AnimationViewer(QtWidgets.QWidget):
                 self.offset,
                 paintcontext=self.paintcontext)
 
-        if 'hitbox' in self.render_options and self.hitbox:
+        if 'hitmap' in self.render_options and self.hitmap:
             color = 255, 255, 255
-            render_hitbox(
+            render_hitmap(
                 painter,
-                hitbox=self.hitbox,
+                hitmap=self.hitmap,
                 color=color,
                 paintcontext=self.paintcontext)
 
@@ -447,39 +447,39 @@ class AnimationViewer(QtWidgets.QWidget):
 
 
 class HitboxToolbar(QtWidgets.QToolBar):
-    hitboxCreated = QtCore.Signal(str)
-    hitboxRemoved = QtCore.Signal(str)
-    hitboxChanged = QtCore.Signal(str)
+    hitmapCreated = QtCore.Signal(str)
+    hitmapRemoved = QtCore.Signal(str)
+    hitmapChanged = QtCore.Signal(str)
 
     def __init__(self, parent=None):
         super().__init__(parent)
 
-        self.hitbox_names = QtWidgets.QComboBox()
-        self.hitbox_names.currentTextChanged.connect(self.change_hitbox)
-        self.hitbox_names.setFixedWidth(200)
+        self.hitmap_names = QtWidgets.QComboBox()
+        self.hitmap_names.currentTextChanged.connect(self.change_hitmap)
+        self.hitmap_names.setFixedWidth(200)
         self.add = QtGui.QAction("+", self)
         self.add.triggered.connect(self.add_requested)
         self.rmv = QtGui.QAction("-", self)
         self.rmv.triggered.connect(self.remove_requested)
         self.addWidget(QtWidgets.QLabel('Hitboxes:'))
-        self.addWidget(self.hitbox_names)
+        self.addWidget(self.hitmap_names)
         self.addAction(self.add)
         self.addAction(self.rmv)
 
-    def set_hitbox_names(self, names):
+    def set_hitmap_names(self, names):
         self.blockSignals(True)
-        self.hitbox_names.clear()
+        self.hitmap_names.clear()
         if names:
-            self.hitbox_names.addItems(names)
+            self.hitmap_names.addItems(names)
         self.blockSignals(False)
 
     def add_requested(self):
         dialog = QtWidgets.QInputDialog(self)
-        dialog.setWindowTitle("Create hitbox")
-        dialog.setLabelText("Enter a hitbox name")
+        dialog.setWindowTitle("Create hitmap")
+        dialog.setLabelText("Enter a hitmap name")
         dialog.setTextValue("")
         le = dialog.findChild(QtWidgets.QLineEdit)
-        words = list_all_existing_hitboxes()
+        words = list_all_existing_hitmaps()
         completer = QtWidgets.QCompleter(words, le)
         le.setCompleter(completer)
         result = dialog.exec()
@@ -488,30 +488,30 @@ class HitboxToolbar(QtWidgets.QToolBar):
         if result != QtWidgets.QDialog.Accepted or not name:
             return
 
-        count = range(self.hitbox_names.count())
-        names = [self.hitbox_names.itemText(i) for i in count]
+        count = range(self.hitmap_names.count())
+        names = [self.hitmap_names.itemText(i) for i in count]
         if name in names: # Name already exists
-            self.hitbox_names.setCurrentText(name)
+            self.hitmap_names.setCurrentText(name)
             return
-        self.hitbox_names.addItem(name)
-        self.hitboxCreated.emit(name)
-        self.hitbox_names.setCurrentText(name)
+        self.hitmap_names.addItem(name)
+        self.hitmapCreated.emit(name)
+        self.hitmap_names.setCurrentText(name)
 
     def remove_requested(self):
-        name = self.hitbox_names.currentText()
+        name = self.hitmap_names.currentText()
         if not name:
             return
-        self.hitboxRemoved.emit(name)
-        count = range(self.hitbox_names.count())
-        names = [self.hitbox_names.itemText(i) for i in count]
-        self.hitbox_names.removeItem(names.index(name))
+        self.hitmapRemoved.emit(name)
+        count = range(self.hitmap_names.count())
+        names = [self.hitmap_names.itemText(i) for i in count]
+        self.hitmap_names.removeItem(names.index(name))
 
-    def change_hitbox(self, _):
-        self.hitboxChanged.emit(self.hitbox_name)
+    def change_hitmap(self, _):
+        self.hitmapChanged.emit(self.hitmap_name)
 
     @property
-    def hitbox_name(self):
-        return self.hitbox_names.currentText()
+    def hitmap_name(self):
+        return self.hitmap_names.currentText()
 
 
 class AnimationToolbar(QtWidgets.QToolBar):

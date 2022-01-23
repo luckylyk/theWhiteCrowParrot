@@ -18,7 +18,7 @@
 // functions: (aim, checkpoint, clear, fadein, fadeout, flush, force, freeze,
 //             hide, move, pin, play, reach, restart, run, show, set, shift,
 //             wait)
-// corax known objects: (animation, flip, gamepad, globals, hitbox, key,
+// corax known objects: (animation, flip, gamepad, globals, hitmap, key,
 //                       name, player, pressed, scene, sheet, theatre, zone)
 // built-in values: (false, true)
 

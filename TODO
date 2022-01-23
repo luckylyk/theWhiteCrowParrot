@@ -23,14 +23,14 @@ Corax/Crackle :
             implement 'aim' function in Corax
             implement 'aim' function for Crackle
             keep scene statuses when changing scene
-            hitboxes fancy edit in pluck
-            implement hitboxes system
+            hitmaps fancy edit in pluck
+            implement hitmaps system
             implement 'pin' function
             Add splash screen
 
         nested script = fix / redesign
         implement 'once' condition = delayed
-        implement hitboxes collision = delayed
+        implement hitmaps collision = delayed
 
     Bug:
         done:

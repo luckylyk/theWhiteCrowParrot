@@ -64,8 +64,8 @@
     ],
     "events": [
         {
-            "subject_hitbox": "weak_shield",
-            "target_hitbox": "sword_hit",
+            "subject_hitmap": "weak_shield",
+            "target_hitmap": "sword_hit",
             "event": "sinoc.sinoc_pushed_back"
         }
     ]

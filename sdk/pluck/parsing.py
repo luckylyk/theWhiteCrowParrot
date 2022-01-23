@@ -46,12 +46,12 @@ def list_all_existing_triggers():
     return sorted(list(sheet_triggers | scene_triggers))
 
 
-def list_all_existing_hitboxes():
+def list_all_existing_hitmaps():
     return sorted(list({
         str(value)
         for data in parse_json_files(cctx.SHEET_FOLDER)
         for move in data["moves"].values()
-        for value in (move.get("hitboxes") or {}).keys()}))
+        for value in (move.get("hitmaps") or {}).keys()}))
 
 
 def list_all_existing_sounds(types=None):

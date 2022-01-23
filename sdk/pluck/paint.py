@@ -315,12 +315,12 @@ def render_grid(painter, rect, block_size, paintcontext=None):
     painter.drawRect(rect)
 
 
-def render_hitbox(painter, hitbox, color, paintcontext):
+def render_hitmap(painter, hitmap, color, paintcontext):
     color = QtGui.QColor(*color)
     color.setAlphaF(0.25)
     painter.setBrush(QtGui.QBrush(color))
     painter.setPen(QtGui.QPen(QtGui.QColor(0, 0, 0, 0)))
-    for block in hitbox:
+    for block in hitmap:
         x, y = paintcontext.offset(*to_pixel_position(block))
         x = paintcontext.relatives(x)
         y = paintcontext.relatives(y)

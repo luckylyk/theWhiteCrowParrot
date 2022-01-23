@@ -137,12 +137,12 @@ class Character():
         return self.animation_controller.animation
 
     @property
-    def hitboxes(self):
-        return self.animation.hitboxes
+    def hitmaps(self):
+        return self.animation.hitmaps
 
     @property
-    def hitbox_colors(self):
-        return self.data["hitboxes_color"]
+    def hitmap_colors(self):
+        return self.data["hitmaps_color"]
 
     @property
     def pixel_position(self):

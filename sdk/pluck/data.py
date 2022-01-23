@@ -42,7 +42,7 @@ DEFAULT_MOVE = {
     "inputs": [],
     "pre_events": {},
     "post_events": {},
-    "hitboxes": None}
+    "hitmaps": None}
 
 
 DATA_TEMPLATES = {
@@ -82,7 +82,7 @@ DATA_TEMPLATES = {
         "inputs": {str},
         "pre_events": None,
         "post_events": None,
-        "hitboxes": None
+        "hitmaps": None
     },
     "scene": {
         "name": str,

@@ -33,7 +33,7 @@ class Animation():
             "conditions": dict,
             "pre_events": dict,
             "post_events": dict
-            "hitboxes": {str: [[(int, int), ...], [(int, int), ...], ...]}
+            "hitmaps": {str: [[(int, int), ...], [(int, int), ...], ...]}
         }
     this is the dictionnary key purpose:
     - start_frame: the first frame in the sprite sheet (unused by Animation())
@@ -73,7 +73,7 @@ class Animation():
         self.next_move = data["next_move"]
         self.loop_on = data["loop_on"]
         self.repeatable = data["loop_on"] is not None
-        self.hitboxes_sequence = build_hitboxes_sequence(data, size, flip)
+        self.hitmaps_sequence = build_hitmaps_sequence(data, size, flip)
         self.triggers = build_triggers_list(data)
 
     @property
@@ -115,10 +115,10 @@ class Animation():
         return [images[self.index] for images in self.sequences]
 
     @property
-    def hitboxes(self):
-        if self.index < 0 or self.hitboxes_sequence is None:
+    def hitmaps(self):
+        if self.index < 0 or self.hitmaps_sequence is None:
             return None
-        return {k: v[self.index] for k, v in self.hitboxes_sequence.items()}
+        return {k: v[self.index] for k, v in self.hitmaps_sequence.items()}
 
 
 class SpriteSheet():
@@ -246,17 +246,17 @@ def build_centers_list(data, size, flip):
     return centers
 
 
-def build_hitboxes_sequence(data, size, flip):
+def build_hitmaps_sequence(data, size, flip):
     """
     Build a list of hitbocks corresponding to the frame data and flipped if
     necessary."""
     size = to_block_size(size)
     return {
         name: [
-            [map_pixel_position(block, size, flip) for block in hitbox[i]]
+            [map_pixel_position(block, size, flip) for block in hitmap[i]]
             for i, d in enumerate(data["frames_per_image"])
             for _ in range(d)]
-        for name, hitbox in (data.get("hitboxes", {}) or {}).items()}
+        for name, hitmap in (data.get("hitmaps", {}) or {}).items()}
 
 
 def animation_index_to_data_index(index, data):

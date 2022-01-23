@@ -20,7 +20,7 @@
             "inputs": [],
             "pre_events": {},
             "post_events": {},
-            "hitboxes": null
+            "hitmaps": null
         }
     }
 }

@@ -222,7 +222,7 @@ class LineTestDialog(QtWidgets.QDialog):
 
         offsets = self.data['frames_centers']
         self.animation_viewer.offset = offsets[index] if offsets else None
-        self.animation_viewer.hitbox = None
+        self.animation_viewer.hitmap = None
         self.animation_viewer.repaint()
 
         if self.prev_index == index:

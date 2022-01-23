@@ -25,7 +25,7 @@ RULES = {
                 'italic': False
             },
             {
-                'exp': r'\b' + r'\b|\b'.join(["theatre", "scene", "gamepad", "name", "pressed", "animation", "hitbox", "key", "player", "zone", "sheet"]) + r'\b',
+                'exp': r'\b' + r'\b|\b'.join(["theatre", "scene", "gamepad", "name", "pressed", "animation", "hitmap", "key", "player", "zone", "sheet"]) + r'\b',
                 'color': '#88FFCC',
                 'bold': True,
                 'italic': False
@@ -142,7 +142,7 @@ script go_to_tente_with_sword
     theatre.scene.name is forest
     player.whitecrow.sheet is whitecrowparrot_sword.json
     player.whitecrow.animation is idle
- //   player.whitecrow.hitbox.foot cross zone.tente
+ //   player.whitecrow.hitmap.foot cross zone.tente
         player.whitecrow play tidy_up_sword
         run go_to_tente
 
@@ -155,7 +155,7 @@ script go_to_tente // commentary test
     player.whitecrow.animation is idle
  // commentary test
      // commentary test
- //   player.whitecrow.hitbox.foot in zone.tente //try this
+ //   player.whitecrow.hitmap.foot in zone.tente //try this
 //      player.whitecrow reach (52, 35) by (walk, footsie)
         player.whitecrow play through_door
         theatre.scene set tente

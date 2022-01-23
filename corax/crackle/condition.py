@@ -60,9 +60,9 @@ def create_player_subject_collector(subject, theatre):
         return lambda: player.animation_controller.coordinate.flip
     elif attribute == "sheet":
         return lambda: player.sheet_name
-    elif attribute.startswith("hitbox"):
+    elif attribute.startswith("hitmap"):
         name = attribute.split(".")[-1]
-        return lambda: player.animation.hitboxes[name]
+        return lambda: player.animation.hitmaps[name]
 
 
 def create_props_subject_collector(subject, theatre):

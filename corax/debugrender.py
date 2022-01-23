@@ -39,9 +39,9 @@ def render_player_debug(player, deph, screen, camera):
     text = f"    (sheet name: {player.sheet_name})"
     render_text(screen, (155, 255, 0), 0, screen_relative_y(75), text)
 
-    # Render hitboxes
-    for name, blocks in player.hitboxes.items():
-        color = player.hitbox_colors.get(name)
+    # Render hitmaps
+    for name, blocks in player.hitmaps.items():
+        color = player.hitmap_colors.get(name)
         if not color:
             continue
         for block in blocks:

@@ -18,7 +18,7 @@
         "collects_sword": "whitecrowparrot_collects_sword.json",
         "fall": "whitecrowparrot_fall.json"
     },
-    "hitboxes_color": {
+    "hitmaps_color": {
         "leggs": [255, 50, 75],
         "torso": [50, 75, 255],
         "head": [50, 255, 255],

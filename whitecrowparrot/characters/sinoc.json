@@ -4,7 +4,7 @@
     "default_sheet": "fight",
     "layers": {"body": true},
     "sheets": {"fight": "sinoc.json"},
-    "hitboxes_color": {
+    "hitmaps_color": {
         "strong_shield": [255, 50, 75],
         "weak_shield": [50, 75, 255],
         "mace_hit": [255, 255, 0],

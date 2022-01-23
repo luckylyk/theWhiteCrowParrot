@@ -15,7 +15,7 @@
                 "release_frame": -1,
                 "next_move": "base",
                 "next_move_bufferable": false,
-                "hitboxes": {},
+                "hitmaps": {},
                 "hold": false,
                 "loop_on": "base",
                 "conditions": {},
