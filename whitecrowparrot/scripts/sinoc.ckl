@@ -1,2 +1,54 @@
 event sinoc_pushed_back
+    freeze 2
     npc.sinoc play pushed_back
+
+
+event sinoc_click
+    flush npc.sinoc
+    nolock player.whitecrow play stroke_retrieve
+    nolock npc.sinoc play shave_my_balls
+    wait 1
+    freeze 3
+
+
+event sinoc_shoot_head
+    nolock player.whitecrow.sheet set death
+    player.whitecrow play death_by_mace
+
+
+event finish_him
+    npc.sinoc play finish
+    restart
+
+
+event block
+    freeze 2
+    nolock player.whitecrow play high_block_retrieve
+    flush npc.sinoc
+    npc.sinoc play high_blocked
+
+
+event sinoc_strong_pushed_back
+    nolock npc.sinoc play pushed_back_strong
+
+
+event sinoc_charge
+    nolock npc.sinoc play charge
+    player.whitecrow.sheet set fight
+    player.whitecrow play collision
+    player.whitecrow play belly_shoot
+    player.whitecrow.sheet set sword
+    player.whitecrow play idle
+
+
+event belly_shoot
+    player.whitecrow.sheet set fight
+    player.whitecrow play belly_shoot
+    player.whitecrow.sheet set sword
+    player.whitecrow play idle
+
+
+event slap
+    player.whitecrow.sheet set fight
+    player.whitecrow play head_slap
+    player.whitecrow.sheet set sword

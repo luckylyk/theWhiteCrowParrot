@@ -115,9 +115,9 @@ class Theatre:
         scene_data = load_scene_data(self.data, scene_name)
         self.scene = self.get_scene(scene_name, scene_data)
         self.scene.scrolling.target = self.scrolling_target
-        self.audio_streamer.set_scene(scene_data["sounds"], self.scene)
         self.init_scene_scripts()
         self.init_scene_characters()
+        self.audio_streamer.set_scene(scene_data["sounds"], self.scene)
 
     def init_scene_scripts(self):
         script_names = [n for z in self.scene.zones for n in z.script_names]
@@ -157,7 +157,7 @@ class Theatre:
             return
 
         self.scene.evaluate()
-        triggerable = self.players + self.scene.animated_sets
+        triggerable = self.scene.animated_sets + self.characters
         self.audio_streamer.evaluate()
         self.audio_streamer.shoot([t.trigger for t in triggerable])
         self.render(screen)
@@ -195,8 +195,8 @@ class Theatre:
 
     def evaluate_relationship(self, zone):
         # Detect assosiated relationship
-        subject = find(self.characters, zone.subject[0])
-        target = find(self.characters, zone.target[0])
+        subject = find(self.characters, zone.subject)
+        target = find(self.characters, zone.target)
         if None in (subject, target):
             return
         relationship = find_relationship(self.relationships, zone.relationship)

@@ -6,7 +6,126 @@
     "soft_boundaries": [[0, 0, 800, 268]],
     "target_offset": [300, 0],
     "sounds": [
-        
+        {
+            "name": "fight",
+            "type": "music",
+            "file": "musics/fight.ogg",
+            "channel": 5,
+            "falloff": 0,
+            "listener": "whitecrow",
+            "zone": [-300, -320, 2070, 580]
+        },
+        {
+            "name": "grass_step",
+            "type": "sfx_sound_collection",
+            "channel": 5,
+            "emitter": "whitecrow",
+            "falloff": 150,
+            "files": ["effects/grass_step_01.ogg", "effects/grass_step_02.ogg", "effects/grass_step_03.ogg", "effects/grass_step_04.ogg", "effects/grass_step_05.ogg", "effects/grass_step_06.ogg", "effects/grass_step_07.ogg"],
+            "order": "shuffle",
+            "trigger": "step_whitecrow",
+            "zone": [-300, -320, 2070, 580]
+        },
+        {
+            "name": "swordin",
+            "type": "sfx_sound",
+            "file": "effects/swordin.ogg",
+            "channel": 5,
+            "emitter": "whitecrow",
+            "falloff": 150,
+            "trigger": "swordin_whitecrow",
+            "zone": [-300, -320, 2070, 570]
+        },
+        {
+            "name": "sword_whish",
+            "type": "sfx_sound",
+            "file": "effects/whish.wav",
+            "channel": 5,
+            "emitter": "whitecrow",
+            "falloff": 150,
+            "trigger": "whish_whitecrow",
+            "zone": [-290, -310, 2070, 580]
+        },
+        {
+            "name": "sword_whoosh",
+            "type": "sfx_sound",
+            "file": "effects/whoosh.wav",
+            "channel": 5,
+            "emitter": "whitecrow",
+            "falloff": 150,
+            "trigger": "whoosh_whitecrow",
+            "zone": [-270, -310, 2060, 580]
+        },
+        {
+            "name": "gravel_step",
+            "type": "sfx_sound_collection",
+            "channel": 4,
+            "emitter": "whitecrow",
+            "falloff": 150,
+            "files": ["effects/gravel_step_01.ogg", "effects/gravel_step_02.ogg", "effects/gravel_step_03.ogg"],
+            "order": "shuffle",
+            "trigger": "step_whitecrow",
+            "zone": [-290, -300, 2060, 580]
+        },
+        {
+            "name": "sinoc_step",
+            "type": "sfx_sound",
+            "file": "effects/heavy_step_01.ogg",
+            "channel": 5,
+            "emitter": "sinoc",
+            "falloff": 0,
+            "trigger": "sinoc_step",
+            "zone": [-290, -320, 2060, 560]
+        },
+        {
+            "name": "ambiance_nature_outisde",
+            "type": "ambiance",
+            "file": "ambiances/nature1.ogg",
+            "channel": 5,
+            "falloff": 150,
+            "listener": "whitecrow",
+            "zone": [-270, -330, 2250, 580]
+        },
+        {
+            "name": "sinoc_strong_step",
+            "type": "sfx_sound",
+            "file": "effects/heavy_step_02.ogg",
+            "channel": 5,
+            "emitter": "sinoc",
+            "falloff": 0,
+            "trigger": "sinoc_strong_step",
+            "zone": [-300, -300, 2080, 580]
+        },
+        {
+            "name": "mace_vs_sword",
+            "type": "sfx_sound",
+            "file": "effects/sword_hit_01.ogg",
+            "channel": 5,
+            "emitter": "sinoc",
+            "falloff": 0,
+            "trigger": "mace_vs_sword",
+            "zone": [-270, -330, 2090, 580]
+        },
+        {
+            "name": "sword_shield",
+            "type": "sfx_sound",
+            "file": "effects/sword_hit_02.ogg",
+            "channel": 5,
+            "emitter": "sinoc",
+            "falloff": 0,
+            "trigger": "sword_shield",
+            "zone": [-290, -300, 2080, 580]
+        },
+        {
+            "name": "sword_shield_win",
+            "type": "sfx_sound",
+            "file": "effects/sword_hit_03.ogg",
+            "channel": 5,
+            "emitter": "sinoc",
+            "falloff": 0,
+            "trigger": "sword_shield_win",
+            "zone": [-290, -300, 2080, 580]
+        }
     ],
     "zones": [
         {
@@ -25,8 +144,8 @@
             "name": "sinoc_vs_whitecrow",
             "type": "relationship",
             "relationship": "sinoc_vs_whitecrow",
-            "subject": ["sinoc"],
-            "target": ["whitecrow"],
+            "subject": "sinoc",
+            "target": "whitecrow",
             "zone": [11, 0, 143, 27]
         }
     ],

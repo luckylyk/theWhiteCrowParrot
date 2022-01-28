@@ -1,0 +1,118 @@
+{
+    "name": "sinoc_vs_whitecrow",
+    "rules": [
+        {
+            "directions": ["facing", "backing", "target_shows_back", "subject_shows_back"],
+            "block_distance_range": [26, 60],
+            "subject_animations": ["idle"],
+            "target_animations": ["idle"],
+            "priority": 5,
+            "moves": {
+                "run": 10
+            }
+        },
+        {
+            "directions": ["facing", "target_shows_back"],
+            "block_distance_range": [12, 26],
+            "subject_animations": ["idle"],
+            "target_animations": ["idle"],
+            "priority": 5,
+            "moves": {
+                "step": 10,
+                "prep_hit": 0
+                }
+        },
+        {
+            "directions": ["facing"],
+            "block_distance_range": [0, 12],
+            "subject_animations": ["idle"],
+            "target_animations": [
+                "jump", "low_block", "crouch_hit_shoot", "return",
+                "crouch_down", "crouch_up", "step_forward", "back_dash",
+                "step_backward", "high_block_retrieve",
+                "low_hit_shoot", "low_block_retrieve", "stroke_shoot",
+                "crouch_hit_retrieve", "high_hit_retrieve", "stroke_retrieve",
+                "tidy_up_sword", "idle"],
+            "priority": 5,
+            "moves": {
+                "run": 0,
+                "prep_hit": 10,
+                "low_hit_ready": 10
+            }
+        },
+        {
+            "directions": ["facing"],
+            "block_distance_range": [0, 15],
+            "subject_animations": ["idle"],
+            "target_animations": ["high_hit_shoot"],
+            "priority": 100,
+            "moves": {
+                "high_parade": 15,
+                "prep_hit": 0
+            }
+        },
+        {
+            "directions": ["facing"],
+            "block_distance_range": [0, 15],
+            "subject_animations": ["idle"],
+            "target_animations": ["low_hit_shoot"],
+            "priority": 100,
+            "moves": {
+                "low_parade": 15,
+                "prep_hit": 0
+            }
+        }
+    ],
+    "collisions": [
+        {
+            "subject_hitmap": "weak_shield",
+            "target_hitmap": "hit_sword",
+            "event": "sinoc.sinoc_pushed_back"
+        },
+        {
+            "subject_hitmap": "mace_hit",
+            "target_hitmap": "head",
+            "event": "sinoc.sinoc_shoot_head"
+        },
+        {
+            "subject_hitmap": "strong_shield",
+            "target_hitmap": "hit_sword",
+            "event": "sinoc.sinoc_click"
+        },
+        {
+            "subject_hitmap": "strong_shield",
+            "target_hitmap": "torso",
+            "event": "sinoc.sinoc_charge"
+        },
+        {
+            "subject_hitmap": "feet",
+            "target_hitmap": "lie_down",
+            "event": "sinoc.finish_him"
+        },
+        {
+            "subject_hitmap": "mace_hit",
+            "target_hitmap": "block",
+            "event": "sinoc.block"
+        },
+        {
+            "subject_hitmap": "body",
+            "target_hitmap": "hit_sword",
+            "event": "sinoc.sinoc_strong_pushed_back"
+        },
+        {
+            "subject_hitmap": "slap",
+            "target_hitmap": "head",
+            "event": "sinoc.slap"
+        },
+        {
+            "subject_hitmap": "slap",
+            "target_hitmap": "block",
+            "event": "sinoc.slap"
+        },
+        {
+            "subject_hitmap": "body0000",
+            "target_hitmap": "slap",
+            "event": "sinoc.sinoc_strong_pushed_back"
+        }
+    ]
+}

@@ -2,9 +2,9 @@ import os
 import sys
 import json
 import pygame
-sys.path.append(os.path.join(os.path.dirname(__file__), "../.."))
+sys.path.append(os.path.join(os.path.dirname(__file__), "../../.."))
 
-sheet_folder = os.path.join(os.path.dirname(__file__), "../../whitecrowparrot/sheets")
+sheet_folder = os.path.join(os.path.dirname(__file__), "../../../whitecrowparrot/sheets")
 files = os.listdir(sheet_folder)
 sheets = [os.path.join(sheet_folder, f) for f in files if f.endswith(".json")]
 files = [f for f in os.listdir(sheet_folder) if f not in files]
@@ -13,7 +13,7 @@ for sheet in sheets:
     print(sheet)
 
 import corax.context as cctx
-game_folder = os.path.join(os.path.dirname(__file__), "../..", "whitecrowparrot")
+game_folder = os.path.join(os.path.dirname(__file__), "../../..", "whitecrowparrot")
 print (game_folder)
 
 

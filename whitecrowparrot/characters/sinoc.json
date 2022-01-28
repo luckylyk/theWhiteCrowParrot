@@ -8,6 +8,7 @@
         "strong_shield": [255, 50, 75],
         "weak_shield": [50, 75, 255],
         "mace_hit": [255, 255, 0],
+        "feet": [0, 0,0],
         "mace_push": [0, 255, 255]
     }
 }

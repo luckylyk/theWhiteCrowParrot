@@ -2,10 +2,10 @@
 This module is about how a animation sheet behave automatically.
 It's a kind of IA.
 """
-import json
 import os
 import corax.context as cctx
 from corax.core import AIM_RELATIONSHIP_TYPES
+from corax.hitmap import detect_hitmap_collision
 from corax.override import load_json
 
 
@@ -16,10 +16,14 @@ def load_relationships():
 
 
 def detect_collision(collisions, subject, target):
+    block_position1 = subject.coordinate.block_position
+    block_position2 = target.coordinate.block_position
     for collision in collisions:
         hitmap1 = (subject.hitmaps or {}).get(collision["subject_hitmap"], [])
         hitmap2 = (target.hitmaps or {}).get(collision["target_hitmap"], [])
-        if any(block in hitmap1 for block in hitmap2):
+        detection =  detect_hitmap_collision(
+            hitmap1, hitmap2, block_position1, block_position2, print_=collision["subject_hitmap"]=="feet")
+        if detection:
             return collision["event"]
 
 

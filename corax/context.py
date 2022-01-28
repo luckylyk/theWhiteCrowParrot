@@ -51,7 +51,7 @@ def initialize(arguments):
     CHARACTER_FOLDER = os.path.realpath(os.path.join(ROOT, "characters"))
     MENU_FOLDER = os.path.realpath(os.path.join(ROOT, "menus"))
     GAME_FILE = os.path.realpath(os.path.join(ROOT, "main.json"))
-    RELATIONSHIP_FOLDER = os.path.realpath(os.path.join(ROOT, "relationship"))
+    RELATIONSHIP_FOLDER = os.path.realpath(os.path.join(ROOT, "relationships"))
     SCRIPT_FOLDER = os.path.realpath(os.path.join(ROOT, "scripts"))
     SCENE_FOLDER = os.path.realpath(os.path.join(ROOT, "scenes"))
     SET_FOLDER = os.path.realpath(os.path.join(ROOT, "sets"))

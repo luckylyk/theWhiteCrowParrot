@@ -1,33 +1,24 @@
 {
     "fade_in_duration": 50,
     "globals": {
-            "chest_empty":  false,
-            "chest_locked":  true,
-            "chest_moved":  false,
-            "chest_open":  false,
-            "has_sword":  false,
-            "lie_down_miner_is_dead":  false,
-            "rabbit_triggered":  false,
-            "wearing_blackhelmet":  false
-        },
+        "chest_empty": false,
+        "chest_locked": true,
+        "chest_moved": false,
+        "chest_open": false,
+        "has_sword": false,
+        "lie_down_miner_is_dead": false,
+        "rabbit_triggered": false,
+        "wearing_blackhelmet": false
+    },
     "menu": "main.json",
     "preferences": {
-            "block_size": 10,
-            "camera_speed": 500,
-            "fps": 30,
-            "key_color": [0, 255, 0],
-            "resolution": [800, 268]
-        },
-    "scenes": [
-        {"name": "forest", "file": "forest_01.json"},
-        {"name": "mine", "file": "mine_01.json"},
-        {"name": "hole", "file": "hole.json"},
-        {"name": "exit", "file": "exit.json"},
-        {"name": "tente", "file": "tente.json"},
-        {"name": "ending", "file": "ending.json"},
-        {"name": "hill", "file": "hill.json"},
-        {"name": "walk_test", "file": "walk_test.json"},
-        {"name": "credits", "file": "credits.json"}],
+        "block_size": 10,
+        "camera_speed": 500,
+        "fps": 30,
+        "key_color": [0, 255, 0],
+        "resolution": [800, 268]
+    },
+    "scenes": [{"name": "forest", "file": "forest_01.json"}, {"name": "mine", "file": "mine_01.json"}, {"name": "hole", "file": "hole.json"}, {"name": "exit", "file": "exit.json"}, {"name": "tente", "file": "tente.json"}, {"name": "ending", "file": "ending.json"}, {"name": "hill", "file": "hill.json"}, {"name": "walk_test", "file": "walk_test.json"}, {"name": "credits", "file": "credits.json"}],
     "start_scene": "forest",
     "start_scrolling_target": "whitecrow",
     "title": "The White Crow Parrot"

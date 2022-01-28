@@ -100,4 +100,3 @@ if not arguments.skip_splash:
 gameloop = GameLoop(game_data, screen)
 while not gameloop.done:
     next(gameloop)
-

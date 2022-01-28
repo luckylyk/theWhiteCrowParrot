@@ -16,12 +16,15 @@
         "death": "whitecrowparrot_death.json",
         "sword": "whitecrowparrot_sword.json",
         "collects_sword": "whitecrowparrot_collects_sword.json",
+        "fight": "whitecrowparrot_fight.json",
         "fall": "whitecrowparrot_fall.json"
     },
     "hitmaps_color": {
         "leggs": [255, 50, 75],
         "torso": [50, 75, 255],
         "head": [50, 255, 255],
-        "hit_sword": [255, 255,0]
+        "hit_sword": [255, 255, 0],
+        "lie_down": [255, 255, 0],
+        "block": [0, 0, 255]
     }
 }

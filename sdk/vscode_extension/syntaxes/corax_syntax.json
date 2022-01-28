@@ -40,15 +40,19 @@
           "name": "keyword.mysample"
         },
         {
-          "match": "(\\bscript\\b|\\bevent\\b|\\balways\\b|\\bonce\\b|\\bnolock\\b|\\brestart\\b|\\bfreeze\\b|\\wait\\b)",
+          "match": "(\\balways\\b|\\bonce\\b|\\bnolock\\b|\\brestart\\b|\\bfreeze\\b|\\bwait\\b)",
           "name": "support.type.mysample"
+        },
+        {
+          "match": "(\\bscript\\b|\\bevent\\b)",
+          "name": "storage.type.function.python"
         },
         {
           "match": "(\\btrue\\b|\\bfalse\\b)",
           "name": "constant.language.mysample"
         },
         {
-          "match": "(\\btheatre\\b|\\bscene\\b|\\bprop\\b|\\bglobals\\b|\\blayer\\b|\\bgamepad\\b|\\bname\\b|\\bflip\\b|\\bpressed\\b|\\banimation\\b|\\bhitmap\\b|\\bkeys\\b|\\bplayer\\b|\\bzone\\b|\\bsheet\\b)",
+          "match": "(\\btheatre\\b|\\bscene\\b|\\bprop\\b|\\bglobals\\b|\\blayer\\b|\\bgamepad\\b|\\bname\\b|\\bflip\\b|\\bpressed\\b|\\banimation\\b|\\bhitmap\\b|\\bkeys\\b|\\bplayer\\b|\\bnpc\\b|\\bzone\\b|\\bsheet\\b)",
           "name": "variable.legacy.builtin.mysample"
         },
         {
