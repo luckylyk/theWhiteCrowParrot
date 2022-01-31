@@ -4,7 +4,8 @@ import logging
 import corax.context as cctx
 from corax.animation import SpriteSheet
 from corax.controller import AnimationController
-from corax.coordinate import Coordinate, to_block_position
+from corax.coordinate import Coordinate, to_block_position, flip_position
+from corax.core import EVENTS
 from corax.euclide import points_to_vector
 from corax.mathutils import sum_num_arrays
 from corax.override import load_json
@@ -96,12 +97,23 @@ class Character():
         return sequence
 
     def pin(self):
-        vector = points_to_vector(
-            self.animation.pixel_center,
-            self.animation.centers[0])
-        offset = to_block_position(vector)
+        """
+        Pin an object is usefull to move a character in a middle of an
+        animation. This is generally combined with a flush which set the
+        default animation of the current sheet, flushing the event supposed to
+        be triggered at animation end.
+        For instance, this is usefull to interupt a walk or run cycle.
+        """
+        point1 = self.animation.pixel_center
+        point2 = self.animation.centers[0]
+        pixel_vector = points_to_vector(point1, point2)
+        # In rare particulare cases where a pre offset is has been proceeded,
+        # this pre offset has to be substracted.
+        pre_offset = animation_pre_offset(self.animation, self.coordinate.flip)
+        offset = sum_num_arrays(to_block_position(pixel_vector), pre_offset)
         position = sum_num_arrays(self.coordinate.block_position, offset)
         self.coordinate.block_position = position
+        logging.debug(f"Pin {self.name}: vertor({offset})")
 
     @property
     def pixel_center(self):
@@ -177,3 +189,13 @@ def load_characters():
     return [
         Character(load_json(os.path.join(cctx.CHARACTER_FOLDER, filename)))
         for filename in os.listdir(cctx.CHARACTER_FOLDER)]
+
+
+def animation_pre_offset(animation, flip):
+    """
+    Get the pre offset (block offset set before it starts) off an animation.
+    """
+    for key, value in animation.pre_events.items():
+        if key == EVENTS.BLOCK_OFFSET:
+            return flip_position(value) if not flip else value
+    return (0, 0)

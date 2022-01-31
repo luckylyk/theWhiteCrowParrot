@@ -126,7 +126,7 @@ class AnimationController():
         if self.animation is not None:
             for event, value in self.animation.post_events.items():
                 self.apply_event(event, value)
-                msg = f"EVENT: {self.animation.name}, {event}, {value}"
+                msg = f"Event: {self.animation.name}, {event}, {value}"
                 logging.debug(msg)
 
         flip = self.coordinate.flip
@@ -135,7 +135,7 @@ class AnimationController():
 
         for event, value in self.animation.pre_events.items():
             self.apply_event(event, value)
-            msg = f"EVENT: {self.animation.name}, {event}, {value}"
+            msg = f"Event: {self.animation.name}, {event}, {value}"
             logging.debug(msg)
 
     def flush(self):
@@ -149,6 +149,7 @@ class AnimationController():
         move = self.data["default_move"]
         self.moves_buffer = []
         self.animation = self.spritesheet.build_animation(move, flip, layers)
+        logging.debug(f"Flush: {move}")
 
     def apply_event(self, event, value):
         if event == EVENTS.BLOCK_OFFSET:
@@ -156,6 +157,8 @@ class AnimationController():
             block_offset = flip_position(value) if flip else value
             self.coordinate.block_position[0] += block_offset[0]
             self.coordinate.block_position[1] += block_offset[1]
+            if self.animation.name == "back_dash":
+                print(event, value, self.coordinate.block_position)
         elif event == EVENTS.FLIP:
             self.coordinate.flip = not self.coordinate.flip
         elif event == EVENTS.SWITCH_TO:

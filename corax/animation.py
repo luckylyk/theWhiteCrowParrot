@@ -98,15 +98,11 @@ class Animation():
 
     @property
     def pixel_center(self):
-        if self.index < 0:
-            return None
-        return self.centers[self.index]
+        return None if self.index < 0 else self.centers[self.index]
 
     @property
     def trigger(self):
-        if self.index < 0:
-            return None
-        return self.triggers[self.index]
+        return None if self.index < 0 else self.triggers[self.index]
 
     @property
     def images(self):
@@ -151,11 +147,10 @@ class SpriteSheet():
     def build_animation(self, move, flip, layer_names=None):
         assert layer_names
         assert self.sequences
+
         sequences = self.sequences_mirror if flip else self.sequences
-        existing_layers =  [str(k) for k in sequences.keys()]
         sequences = [sequences[layer] for layer in layer_names if sequences.get(layer)]
         if not sequences:
-            print(layer_names, existing_layers)
             msg = f"No image found for {self.name}, {move}. "
             msg += "May no valid layer for the current sheet is found."
             raise Exception(msg)
@@ -251,12 +246,18 @@ def build_hitmaps_sequence(data, size, flip):
     Build a list of hitbocks corresponding to the frame data and flipped if
     necessary."""
     size = to_block_size(size)
-    return {
-        name: [
-            [map_pixel_position(block, size, flip) for block in hitmap[i]]
-            for i, d in enumerate(data["frames_per_image"])
-            for _ in range(d)]
-        for name, hitmap in (data.get("hitmaps", {}) or {}).items()}
+    try:
+        return {
+            name: [
+                [map_pixel_position(block, size, flip) for block in hitmap[i]]
+                for i, d in enumerate(data["frames_per_image"])
+                for _ in range(d)]
+            for name, hitmap in (data.get("hitmaps", {}) or {}).items()}
+    except IndexError as e:
+        import traceback
+        msg = traceback.format_exc()
+        raise IndexError("Wrong hitmap for " + str(data) + "\n" + msg)
+
 
 
 def animation_index_to_data_index(index, data):
