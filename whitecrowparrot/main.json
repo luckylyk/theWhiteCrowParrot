@@ -20,6 +20,6 @@
     },
     "scenes": [{"name": "forest", "file": "forest_01.json"}, {"name": "mine", "file": "mine_01.json"}, {"name": "hole", "file": "hole.json"}, {"name": "exit", "file": "exit.json"}, {"name": "tente", "file": "tente.json"}, {"name": "ending", "file": "ending.json"}, {"name": "hill", "file": "hill.json"}, {"name": "walk_test", "file": "walk_test.json"}, {"name": "credits", "file": "credits.json"}],
     "start_scene": "forest",
-    "start_scrolling_target": "whitecrow",
+    "start_scrolling_targets": ["whitecrow", "sinoc"],
     "title": "The White Crow Parrot"
 }

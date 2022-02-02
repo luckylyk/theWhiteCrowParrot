@@ -73,30 +73,11 @@ def get_rect_falloff_ratio(left, top, right, bottom, position, falloff):
 
 
 def collision_rect_rect(r1, r2):
-    if (r1.left < r2.left + r1.width and
-        r1.left + r2.width > r2.left and
-        r1.height < r2.height + r1.height and
-        r1.height + r1.top > r2.top):
-        return True
     return (
-        any(r1.contains(c) for c in r2.corners) or
-        any(r2.contains(c) for c in r1.corners))
-
-
-def collision_hitmap_hitmap(hitmap1, hitmap2):
-    """
-    Hitbox is a list of block coordinates: [(0, 5), (1, 5), (2, 5)]
-    If in the two given hitmaps, two blocks are similare, then it collide.
-    """
-    for block1 in hitmap1:
-        for block2 in hitmap2:
-            if block1[0] == block2[0] and block1[1] == block2[1]:
-                return True
-    return False
-
-
-def offset_hitmap(hitmap, offset):
-    return [sum_num_arrays(block, offset) for block in hitmap]
+        r1.right >= r2.left and
+        r1.left <= r2.right and
+        r1.bottom >= r2.top and
+        r1.top <= r2.bottom)
 
 
 class Rect():
@@ -175,7 +156,7 @@ class Rect():
             falloff)
 
     def __repr__(self):
-        return f"{self.left}, {self.top}, {self.right} ,{self.bottom}"
+        return f"Rect: {self.left}, {self.top}, {self.right} ,{self.bottom}"
 
     def collide_rect(self, rect):
         return collision_rect_rect(self, rect)

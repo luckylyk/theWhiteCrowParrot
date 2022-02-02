@@ -1,7 +1,7 @@
 {
     "title": "My game",
     "start_scene": null,
-    "start_scrolling_target": null,
+    "start_scrolling_targets": null,
     "globals": {
         "chest_moved": false,
         "chest_open": false,

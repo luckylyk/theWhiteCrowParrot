@@ -5,7 +5,7 @@ from corax.override import load_json
 from corax.pygameutils import load_image, render_image
 
 
-class SetStaticElement():
+class SetStaticElement:
     def __init__(self, name, image, pixel_position=None, deph=0):
         self.name = name
         self.pixel_position = pixel_position or [0, 0]
@@ -28,7 +28,7 @@ class SetStaticElement():
         return self.image.get_size()
 
 
-class SetAnimatedElement():
+class SetAnimatedElement:
     def __init__(self, name, animation_controller, coordinate, deph, alpha=255):
         self.name = name
         self.animation_controller = animation_controller

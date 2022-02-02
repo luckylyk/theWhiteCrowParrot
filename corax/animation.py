@@ -12,7 +12,7 @@ from corax.override import load_json
 from corax.pygameutils import load_images, image_mirror
 
 
-class Animation():
+class Animation:
     """
     Animation class is the visual representation of a sprite. It allow the
     engine to control the current image using some frame data providen during
@@ -117,7 +117,7 @@ class Animation():
         return {k: v[self.index] for k, v in self.hitmaps_sequence.items()}
 
 
-class SpriteSheet():
+class SpriteSheet:
     # NOTE: Keep an eye on this class. It contains only 3 functions which 2 are
     # constructors. At some point, if it appears that no other method is
     # necessary, I should considerate to replace it by a function.

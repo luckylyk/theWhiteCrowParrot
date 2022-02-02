@@ -43,22 +43,21 @@ class Camera():
 
 
 class Scrolling():
-    # NOTE: As long as the object variable are not supposed to be changed,
-    # this should be replaced by an iterator.
     """
     This object is the algorithm who move constrain the camera to a target and
     evaluate his position into the world space. The scrolling has to update the
     camera position at each frames though the Scrolling.evaluate() method.
+    @param List[corax.coordinate.Coordinate] targets:
     """
     def __init__(
             self,
             camera,
             hard_boundary,
-            target=None,
+            targets=None,
             soft_boundaries=None,
             target_offset=None):
 
-        self.target = target
+        self.targets = targets or []
         self.camera = camera
         self.hard_boundary = hard_boundary
         self.soft_boundaries = soft_boundaries or []
@@ -71,14 +70,19 @@ class Scrolling():
         self.current_area = None
 
     def evaluate(self):
-        if self.target is None:
+        if not self.targets:
             return
 
-        target_offset = self.target_offset[0]
-        if self.target.flip is True:
-            target_offset = -target_offset
-        # Define the target X that the scrolling will aim.
-        tx = self.target.pixel_center[0] + target_offset
+        elif len(self.targets) == 1:
+            target_offset = self.target_offset[0]
+            if self.targets[0].flip is True:
+                target_offset = -target_offset
+            # Define the target X that the scrolling will aim.
+            tx = self.targets[0].pixel_center[0] + target_offset
+
+        else:
+            tx = sum(t.pixel_center[0] for t in self.targets)
+            tx /= len(self.targets)
 
         # Limit the target to the border of the scene defined by hard boundary.
         left = self.hard_boundary.left + (cctx.RESOLUTION[0] / 2)
@@ -87,7 +91,7 @@ class Scrolling():
 
         # Limit the target to the current soft boundary if there is.
         for area in self.soft_boundaries:
-            if area.contains(self.target.pixel_center):
+            if area.contains(self.targets[0].pixel_center):
                 aleft = area.left + (cctx.RESOLUTION[0] / 2)
                 aright = area.right - (cctx.RESOLUTION[0] / 2)
                 tx = clamp(tx, aleft, aright)

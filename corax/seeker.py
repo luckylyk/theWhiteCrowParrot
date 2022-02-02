@@ -24,11 +24,12 @@ def find_character(theatre, name):
     return character
 
 
-def find_start_scrolling_target(players, data):
-    target = find(players, name:=data["start_scrolling_target"])
-    if not target:
-        raise ValueError(f"Target '{name}' not found")
-    return target
+def find_start_scrolling_targets(animables, data):
+    names = data["start_scrolling_targets"]
+    targets = [find(animables, name) for name in names]
+    if not targets:
+        raise ValueError(f"No targets found '{names}' not found")
+    return targets
 
 
 def find_element(scene, name):

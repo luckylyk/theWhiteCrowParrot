@@ -2,7 +2,7 @@ import pygame
 import corax.context as cctx
 
 
-class Joystick():
+class Joystick:
     """ Class to mock joystick using keyboard """
 
     def __init__(self):
@@ -19,7 +19,6 @@ class Joystick():
         pass
 
     def set_events(self, events):
-        # print (events)
         for event in events:
             if event.type not in [pygame.KEYDOWN, pygame.KEYUP]:
                 continue

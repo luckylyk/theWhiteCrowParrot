@@ -1,13 +1,14 @@
 
 from PySide6 import QtWidgets, QtCore
 from pluck.field import (
-    FieldPanel, StrField, IntField, ColorField, IntVectorComboField)
+    FieldPanel, StrField, IntField, ColorField, IntVectorComboField,
+    StrArrayField)
 
 
 GAME_SETTINGS_FIELDS = {
     "title": StrField,
     "start_scene": StrField,
-    "start_scrolling_target": StrField,
+    "start_scrolling_targets": StrArrayField,
     "fade_in_duration": IntField
 }
 

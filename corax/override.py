@@ -42,6 +42,10 @@ def type_value(value):
         return True
     elif value == "false":
         return False
+    elif value == "null":
+        return None
+    elif value == "[]":
+        return []
     elif int(value) == float(value):
         return int(value)
     return float(value)

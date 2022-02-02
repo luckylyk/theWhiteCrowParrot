@@ -157,8 +157,6 @@ class AnimationController():
             block_offset = flip_position(value) if flip else value
             self.coordinate.block_position[0] += block_offset[0]
             self.coordinate.block_position[1] += block_offset[1]
-            if self.animation.name == "back_dash":
-                print(event, value, self.coordinate.block_position)
         elif event == EVENTS.FLIP:
             self.coordinate.flip = not self.coordinate.flip
         elif event == EVENTS.SWITCH_TO:

@@ -11,6 +11,14 @@ event sinoc_click
     freeze 3
 
 
+event sinoc_click2
+    flush npc.sinoc
+    nolock player.whitecrow play stroke_retrieve
+    nolock npc.sinoc play shave_my_balls_extremly
+    wait 1
+    freeze 3
+
+
 event sinoc_shoot_head
     nolock player.whitecrow.sheet set death
     player.whitecrow play death_by_mace
@@ -19,6 +27,22 @@ event sinoc_shoot_head
 event finish_him
     npc.sinoc play finish
     restart
+
+
+event high_hit_from_low
+    npc.sinoc play high_hit_from_low
+
+
+event mace_push
+    player.whitecrow.sheet set fight
+    player.whitecrow play belly_shoot
+    player.whitecrow.sheet set sword
+    player.whitecrow play idle
+
+
+event high_parade
+    nolock player.whitecrow play stroke_retrieve
+    npc.sinoc play high_parade
 
 
 event block
@@ -52,3 +76,20 @@ event slap
     player.whitecrow.sheet set fight
     player.whitecrow play head_slap
     player.whitecrow.sheet set sword
+
+
+event sinoc_charge_back
+    pin player.whitecrow
+    flush player.whitecrow
+    nolock npc.sinoc play charge
+    player.whitecrow.sheet set fight
+    player.whitecrow play back_shoot
+    player.whitecrow.sheet set sword
+
+
+event hit_wall
+    pin player.whitecrow
+    flush player.whitecrow
+    player.whitecrow.sheet set fight
+    player.whitecrow play wall
+    restart

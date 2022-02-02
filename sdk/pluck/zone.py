@@ -4,6 +4,7 @@ from pluck.field import (
     ZoneField, StrField, InteractorField, OptionField, TypeField, ScriptsField,
     FileField)
 from pluck.parsing import list_all_existing_zones
+from sdk.pluck.field import StrArrayField
 
 
 WINDOW_TITLE = "Create Zone"
@@ -14,6 +15,8 @@ WIDGET_BY_TYPE = {
     "name": StrField,
     "affect": InteractorField,
     "subject": InteractorField,
+    "event": StrField,
+    "hitmaps": StrArrayField,
     "target": InteractorField,
     "relationship": FileField,
     "scripts": ScriptsField,

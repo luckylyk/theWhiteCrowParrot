@@ -19,7 +19,11 @@ DONT_SORT_KEYS = "post_events", "pre_events"
 EXCLUDED_PROPERTIES = "sounds", "areas", "elements", "zones"
 GRAPHIC_TYPES = NODE_TYPES.SET_ANIMATED, NODE_TYPES.SET_STATIC, NODE_TYPES.PLAYER
 SET_TYPES = NODE_TYPES.SET_ANIMATED, NODE_TYPES.SET_STATIC
-ZONE_TYPES = NODE_TYPES.NO_GO, NODE_TYPES.INTERACTION, NODE_TYPES.RELATIONSHIP
+ZONE_TYPES = (
+    NODE_TYPES.NO_GO,
+    NODE_TYPES.INTERACTION,
+    NODE_TYPES.RELATIONSHIP,
+    NODE_TYPES.COLLIDER)
 SOUND_TYPES = (
     NODE_TYPES.SFX,
     NODE_TYPES.AMBIANCE,
@@ -49,7 +53,7 @@ DATA_TEMPLATES = {
     "game_settings": {
         "title": str,
         "start_scene": str,
-        "start_scrolling_target": str,
+        "start_scrolling_targets": {str},
         "fade_in_duration": int
     },
     "game_preferences": {
@@ -96,6 +100,14 @@ DATA_TEMPLATES = {
         "type": str,
         "name": str,
         "affect": {str},
+        "zone": (int, int, int, int),
+    },
+    "collider": {
+        "type": str,
+        "name": str,
+        "affect": {str},
+        "hitmaps": {str},
+        "event": str,
         "zone": (int, int, int, int),
     },
     "relationship": {

@@ -82,7 +82,7 @@ class MoveDataEditor(QtWidgets.QWidget):
             durations = self.options.values[option]
             self.data['frames_centers'] = match_arrays_length(
                 self.data['frames_centers'], durations, default=[0, 0])
-            for hitmap_name in self.data['hitmaps']:
+            for hitmap_name in self.data['hitmaps'] or []:
                 self.data['hitmaps'][hitmap_name] = match_arrays_length(
                     self.data['hitmaps'][hitmap_name], durations, default=[])
 

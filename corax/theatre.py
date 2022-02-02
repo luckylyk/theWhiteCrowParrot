@@ -6,6 +6,7 @@ import corax.context as cctx
 from corax.core import CHARACTER_TYPES, RUN_MODES, NODE_TYPES
 from corax.character import load_characters
 from corax.crackle.io import load_crackle_objects
+from corax.hitmap import hitmap_collide_zone
 from corax.iterators import iter_on_jobs, fade, choose
 from corax.gamepad import InputBuffer
 from corax.override import load_json
@@ -13,7 +14,7 @@ from corax.pygameutils import draw_letterbox, render_background
 from corax.relationship import (
     build_moves_probabilities, load_relationships, detect_collision)
 from corax.scene import build_scene
-from corax.seeker import find_relationship, find_start_scrolling_target, find
+from corax.seeker import find_relationship, find_start_scrolling_targets, find
 from corax.sounds import AudioStreamer
 
 
@@ -87,7 +88,7 @@ class Theatre:
         self.npcs = [c for c in chars if c.type == CHARACTER_TYPES.NPC]
         self.relationships = load_relationships()
 
-        self.scrolling_target = find_start_scrolling_target(chars, data)
+        self.scrolling_targets = find_start_scrolling_targets(chars, data)
         self.scripts, events = load_crackle_objects()
         self.events = {e.name: e for e in events}
         self.current_scripts = []
@@ -114,7 +115,7 @@ class Theatre:
         # to request it. Let's see if it is possible !
         scene_data = load_scene_data(self.data, scene_name)
         self.scene = self.get_scene(scene_name, scene_data)
-        self.scene.scrolling.target = self.scrolling_target
+        self.scene.scrolling.targets = self.scrolling_targets
         self.init_scene_scripts()
         self.init_scene_characters()
         self.audio_streamer.set_scene(scene_data["sounds"], self.scene)
@@ -188,6 +189,9 @@ class Theatre:
                     self.evaluate_interactions(zone)
                 case NODE_TYPES.RELATIONSHIP:
                     self.evaluate_relationship(zone)
+                case NODE_TYPES.COLLIDER:
+                    self.evaluate_collision(zone)
+        self.evaluate_events()
 
         if keystate_changed is True and self.run_mode != RUN_MODES.SCRIPT:
             for player in self.players:
@@ -205,11 +209,7 @@ class Theatre:
         # Check collision event
         event = detect_collision(relationship["collisions"], subject, target)
         if event and (event not in self.event_iterators):
-            crackle_event = self.events[event]
-            jobs = crackle_event.jobs(self)
-            actions = crackle_event.actions
-            self.event_iterators[event] = iter_on_jobs(jobs, actions=actions)
-        self.evaluate_events()
+            self.queue_event(event)
 
         rules = relationship["rules"]
         probabilities = build_moves_probabilities(rules, subject, target)
@@ -227,21 +227,48 @@ class Theatre:
             except StopIteration:
                 del self.event_iterators[name]
 
+    def evaluate_collision(self, zone):
+        for character in self.characters:
+            conditions = (
+                character.name in zone.affect and
+                character.hitmaps and
+                list(hitmaps:=set(list(character.hitmaps)) & set(zone.hitmaps)))
+
+            if not conditions:
+                continue
+
+            for hitmap in hitmaps:
+                block_position = character.coordinate.block_position
+                hitmap = character.hitmaps[hitmap]
+                if hitmap_collide_zone(hitmap, zone, block_position):
+                    event = zone.event
+                    self.queue_event(event)
+                    return
+
     def evaluate_interactions(self, zone):
         if not (script_names:=zone.script_names):
             return
-        for player in self.players:
+
+        for character in self.characters:
             conditions = (
-                player.name not in zone.affect or
-                player.pixel_center is None or
-                not zone.contains(pixel_position=player.pixel_center))
+                character.name not in zone.affect or
+                character.pixel_center is None or
+                not zone.contains(pixel_position=character.pixel_center))
+
             if conditions:
                 continue
+
             for script_name in script_names:
                 for script in self.current_scripts:
                     if script.name == script_name and script.check():
                         logging.debug(f"SCRIPT: running {script_name}")
                         self.run_script(script)
+
+    def queue_event(self, event):
+        crackle_event = self.events[event]
+        jobs = crackle_event.jobs(self)
+        actions = crackle_event.actions
+        self.event_iterators[event] = iter_on_jobs(jobs, actions=actions)
 
     def run_script(self, script):
         jobs = script.jobs(self)
@@ -266,6 +293,6 @@ class Theatre:
                 self.alpha = next(self.transition)
             except StopIteration:
                 self.transition = None
-        transition_alpha = 255 - self.alpha
-        if transition_alpha:
+
+        if transition_alpha := 255 - self.alpha:
             render_background(screen, alpha=transition_alpha)

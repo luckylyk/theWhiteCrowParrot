@@ -10,7 +10,7 @@ from corax.coordinate import to_pixel_position, to_block_position
 from corax.pygameutils import render_rect
 
 
-class Zone():
+class Zone:
     """
     Zode of the "zone" categorie. It is coordinate
     where the "affected" character are not allowed to go.
@@ -83,8 +83,16 @@ class Zone():
         return self.l <= x <= self.r and self.t <= y <= self.b
 
     @property
+    def event(self):
+        return self.data.get("event")
+
+    @property
     def affect(self):
         return self.data["affect"] or []
+
+    @property
+    def hitmaps(self):
+        return self.data.get("hitmaps", [])
 
     def render(self, screen, camera):
         if cctx.DEBUG is False:

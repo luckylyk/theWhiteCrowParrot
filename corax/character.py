@@ -15,7 +15,7 @@ from corax.sequence import (
     build_sequence_to_destination)
 
 
-class CharacterSlot():
+class CharacterSlot:
     """
     This class is a reference to the character at the scene lever.
     Player is living at the theatre level and the object status is kept through
@@ -46,7 +46,7 @@ class CharacterSlot():
         return self.character.coordinate
 
 
-class Character():
+class Character:
     def __init__(self, data):
         self.data = data
         self.coordinate = Coordinate()

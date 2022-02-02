@@ -28,7 +28,8 @@ ICON_MATCH = {
     NODE_TYPES.NPC: "player.png",
     NODE_TYPES.SET_STATIC: "set.png",
     NODE_TYPES.SET_ANIMATED: "set.png",
-    NODE_TYPES.PARTICLES: "particles.png"
+    NODE_TYPES.PARTICLES: "particles.png",
+    NODE_TYPES.COLLIDER: "collision.png"
 }
 
 

@@ -66,6 +66,8 @@ class NODE_TYPES:
     NO_GO = "no_go"
     INTERACTION = "interaction"
     RELATIONSHIP = "relationship"
+    COLLIDER = "collider"
+
 
 class RUN_MODES:
     SCRIPT = "script"

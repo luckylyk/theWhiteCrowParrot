@@ -8,7 +8,8 @@ def get_node_frames_duration(node, range_in=0, range_out=10):
             durations.append(1)
             continue
         durations[-1] += 1
-    return [f * 2 for f in durations]
+    # return [f * 2 for f in durations]
+    return durations
 
 
 soft = krita.Krita.instance()

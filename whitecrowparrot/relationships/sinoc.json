@@ -2,24 +2,43 @@
     "name": "sinoc_vs_whitecrow",
     "rules": [
         {
-            "directions": ["facing", "backing", "target_shows_back", "subject_shows_back"],
+            "directions": ["facing", "backing", "target_from_behind", "subject_from_behind"],
             "block_distance_range": [26, 60],
             "subject_animations": ["idle"],
-            "target_animations": ["idle"],
+            "target_animations": null,
             "priority": 5,
             "moves": {
                 "run": 10
             }
         },
         {
-            "directions": ["facing", "target_shows_back"],
+            "directions": ["target_from_behind"],
+            "block_distance_range": [0, 10],
+            "subject_animations": ["idle"],
+            "target_animations": null,
+            "priority": 5,
+            "moves": {
+                "prep_hit": 10
+            }
+        },
+        {
+            "directions": ["target_from_behind"],
+            "block_distance_range": [10, 26],
+            "subject_animations": ["idle"],
+            "target_animations": null,
+            "priority": 5,
+            "moves": {
+                "step": 10
+            }
+        },
+        {
+            "directions": ["facing", "target_from_behind"],
             "block_distance_range": [12, 26],
             "subject_animations": ["idle"],
             "target_animations": ["idle"],
             "priority": 5,
             "moves": {
-                "step": 10,
-                "prep_hit": 0
+                "step": 10
                 }
         },
         {
@@ -28,15 +47,14 @@
             "subject_animations": ["idle"],
             "target_animations": [
                 "jump", "low_block", "crouch_hit_shoot", "return",
-                "crouch_down", "crouch_up", "step_forward", "back_dash",
+                "step_forward", "back_dash",
                 "step_backward", "high_block_retrieve",
                 "low_hit_shoot", "low_block_retrieve", "stroke_shoot",
                 "crouch_hit_retrieve", "high_hit_retrieve", "stroke_retrieve",
                 "tidy_up_sword", "idle"],
             "priority": 5,
             "moves": {
-                "run": 0,
-                "prep_hit": 10,
+                "prep_hit": 15,
                 "low_hit_ready": 10
             }
         },
@@ -47,8 +65,17 @@
             "target_animations": ["high_hit_shoot"],
             "priority": 100,
             "moves": {
-                "high_parade": 15,
-                "prep_hit": 0
+                "high_parade": 15
+            }
+        },
+        {
+            "directions": ["facing"],
+            "block_distance_range": null,
+            "subject_animations": ["low_hit_ready"],
+            "target_animations": ["crouch_down", "crouch_up"],
+            "priority": 100,
+            "moves": {
+                "high_hit_from_low": 15
             }
         },
         {
@@ -58,59 +85,104 @@
             "target_animations": ["low_hit_shoot"],
             "priority": 100,
             "moves": {
-                "low_parade": 15,
-                "prep_hit": 0
+                "low_parade": 15
             }
         }
     ],
     "collisions": [
         {
+            "directions": null,
             "subject_hitmap": "weak_shield",
             "target_hitmap": "hit_sword",
             "event": "sinoc.sinoc_pushed_back"
         },
         {
+            "directions": null,
+            "subject_hitmap": "shield_parade",
+            "target_hitmap": "hit_sword",
+            "event": "sinoc.high_parade"
+        },
+        {
+            "directions": null,
+            "subject_hitmap": "mace_push",
+            "target_hitmap": "torso",
+            "event": "sinoc.mace_push"
+        },
+        {
+            "directions": null,
             "subject_hitmap": "mace_hit",
             "target_hitmap": "head",
             "event": "sinoc.sinoc_shoot_head"
         },
         {
+            "directions": null,
+            "subject_hitmap": "strong_shield",
+            "target_hitmap": "stroke_tip",
+            "event": "sinoc.sinoc_click2"
+        },
+        {
+            "directions": null,
             "subject_hitmap": "strong_shield",
             "target_hitmap": "hit_sword",
             "event": "sinoc.sinoc_click"
         },
         {
+            "directions": ["facing"],
             "subject_hitmap": "strong_shield",
             "target_hitmap": "torso",
             "event": "sinoc.sinoc_charge"
         },
         {
+            "directions": ["facing"],
+            "subject_hitmap": "weak_shield",
+            "target_hitmap": "torso",
+            "event": "sinoc.sinoc_charge"
+        },
+        {
+            "directions": ["target_from_behind"],
+            "subject_hitmap": "strong_shield",
+            "target_hitmap": "torso",
+            "event": "sinoc.sinoc_charge_back"
+        },
+        {
+            "directions": ["target_from_behind"],
+            "subject_hitmap": "weak_shield",
+            "target_hitmap": "torso",
+            "event": "sinoc.sinoc_charge_back"
+        },
+        {
+            "directions": null,
             "subject_hitmap": "feet",
             "target_hitmap": "lie_down",
             "event": "sinoc.finish_him"
         },
         {
+            "directions": null,
             "subject_hitmap": "mace_hit",
             "target_hitmap": "block",
             "event": "sinoc.block"
         },
         {
+            "directions": null,
             "subject_hitmap": "body",
             "target_hitmap": "hit_sword",
             "event": "sinoc.sinoc_strong_pushed_back"
         },
         {
+            "directions": null,
             "subject_hitmap": "slap",
             "target_hitmap": "head",
             "event": "sinoc.slap"
         },
         {
+            "directions": null,
             "subject_hitmap": "slap",
             "target_hitmap": "block",
             "event": "sinoc.slap"
         },
         {
-            "subject_hitmap": "body0000",
+            "directions": null,
+            "subject_hitmap": "body",
             "target_hitmap": "slap",
             "event": "sinoc.sinoc_strong_pushed_back"
         }

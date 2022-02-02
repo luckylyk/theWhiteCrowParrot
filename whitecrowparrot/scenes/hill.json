@@ -147,6 +147,14 @@
             "subject": "sinoc",
             "target": "whitecrow",
             "zone": [11, 0, 143, 27]
+        },
+        {
+            "name": "hill_wall",
+            "type": "collider",
+            "affect": "whitecrow",
+            "event": "sinoc.hit_wall",
+            "hitmaps": ["torso"],
+            "zone": [144, 2, 170, 30]
         }
     ],
     "elements": [
@@ -192,7 +200,7 @@
             "name": "fg_bush_2",
             "type": "set_static",
             "file": "hill/fg_bush_2.png",
-            "position": [1305, 140],
+            "position": [1500, 140],
             "deph": 0.22
         },
         {

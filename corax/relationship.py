@@ -2,10 +2,11 @@
 This module is about how a animation sheet behave automatically.
 It's a kind of IA.
 """
+
 import os
 import corax.context as cctx
 from corax.core import AIM_RELATIONSHIP_TYPES
-from corax.hitmap import detect_hitmap_collision
+from corax.hitmap import detect_hitmaps_collision
 from corax.override import load_json
 
 
@@ -16,14 +17,16 @@ def load_relationships():
 
 
 def detect_collision(collisions, subject, target):
-    block_position1 = subject.coordinate.block_position
-    block_position2 = target.coordinate.block_position
+    position1 = subject.coordinate.block_position
+    position2 = target.coordinate.block_position
     for collision in collisions:
+        if collision['directions']:
+            aim = aim_relationships(subject.coordinate, target.coordinate)
+            if aim not in collision['directions']:
+                continue
         hitmap1 = (subject.hitmaps or {}).get(collision["subject_hitmap"], [])
         hitmap2 = (target.hitmaps or {}).get(collision["target_hitmap"], [])
-        detection =  detect_hitmap_collision(
-            hitmap1, hitmap2, block_position1, block_position2, print_=collision["subject_hitmap"]=="feet")
-        if detection:
+        if detect_hitmaps_collision(hitmap1, hitmap2, position1, position2):
             return collision["event"]
 
 
@@ -42,6 +45,7 @@ def build_moves_probabilities(rules, subject, target):
     rules = filter_rules_from_distance(rules, subject, target)
     rules = filter_aim_relationships(rules, subject, target)
     rules = filter_rules_from_animations(rules, subject, target)
+
     moves = {}
     for rule in rules:
         for move, value in rule['moves'].items():
@@ -50,13 +54,13 @@ def build_moves_probabilities(rules, subject, target):
     return moves
 
 
-def aim_relationships(coordinates1, coordinates2):
+def aim_relationships(coordinate1, coordinate2):
     """
     Look up at the position and the flip state of each coordinate and define
     the AIM_RELATIONSHIP_TYPES.
     """
-    before = coordinates1.block_position[0] <= coordinates2.block_position[0]
-    if coordinates1.flip == coordinates2.flip:
+    before = coordinate1.block_position[0] <= coordinate2.block_position[0]
+    if coordinate1.flip == coordinate2.flip:
         if before:
             return AIM_RELATIONSHIP_TYPES.TARGET_FROM_BEHIND
         return AIM_RELATIONSHIP_TYPES.SUBJECT_FROM_BEHIND
@@ -84,5 +88,12 @@ def filter_rules_from_distance(rules, subject, target):
 def filter_rules_from_animations(rules, subject, target):
     return [
         rule for rule in rules
-        if subject.animation.name in rule['subject_animations']
-        and target.animation.name in rule['target_animations']]
+        if animation_valid_for_rule(rule, subject, target)]
+
+
+def animation_valid_for_rule(rule, subject, target):
+    if (a:=rule['subject_animations']) and subject.animation.name not in a:
+        return False
+    if (a:=rule['target_animations']) and target.animation.name not in a:
+        return False
+    return True
