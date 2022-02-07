@@ -68,7 +68,6 @@ parser.add_argument("-ss", "--skip_splash", action='store_true')
 parser.add_argument("-sp", "--speedup", action='store_true')
 arguments = parser.parse_args()
 
-
 if arguments.debug:
     import logging
     logging.getLogger().setLevel(logging.DEBUG)

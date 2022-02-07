@@ -21,11 +21,11 @@ setup(
 import os
 import shutil
 
-command = '"corax/corax.exe" data --fullscreen'
+command = '"corax/corax.exe" data -o "overrides\\fight.ovr"'
 current = os.path.dirname(__file__)
 desktop = os.path.expanduser("~/Desktop")
 gameroot = os.path.join(desktop, "whitecrowparrot")
-src = os.path.join(current, "build/exe.win32-3.7")
+src = os.path.join(current, "build/exe.win-amd64-3.10")
 dst = os.path.join(gameroot, "corax")
 
 os.makedirs(gameroot)

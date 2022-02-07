@@ -41,7 +41,7 @@ def initialize(arguments):
     CAMERA_SPEED, BLOCK_SIZE, KEY_COLOR, DEBUG, MUTE, CHARACTER_FOLDER, TITLE, \
     OVERRIDE_FILE, RELATIONSHIP_FOLDER, MENU_FOLDER
 
-    ROOT = arguments.game_root
+    ROOT = os.path.abspath(arguments.game_root)
     OVERRIDE_FILE = arguments.overrides
 
     DEBUG = arguments.debug
