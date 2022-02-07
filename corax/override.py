@@ -109,13 +109,10 @@ def load_json(filename):
         overides_abspath = os.path.join(cctx.ROOT, cctx.OVERRIDE_FILE)
         with open(overides_abspath, 'r') as f:
             overrides_data = parse_override_file(overides_abspath)
-            import pprint
-            pprint.pprint(overrides_data)
 
     for file_, actions_data in overrides_data.items():
         key_path = os.path.join(cctx.ROOT, file_)
-        print(os.path.normpath(key_path), os.path.normpath(filename))
-        if os.path.normpath(key_path) != os.path.normpath(filename):
+        if os.path.normpath(key_path).lower() != os.path.normpath(filename).lower():
             continue
 
         for keys, value in actions_data.get('set', []):

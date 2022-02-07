@@ -94,6 +94,8 @@ event sinoc_strong_pushed_back
 
 event sinoc_charge
     nolock npc.sinoc play charge
+    pin player.whitecrow
+    flush player.whitecrow
     player.whitecrow.sheet set fight
     player.whitecrow play collision
     player.whitecrow play belly_shoot
