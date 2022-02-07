@@ -10,7 +10,7 @@ from pluck.field import (
     BoolField, IntVectorField, StrField, IntArrayField, IntField, DictField,
     StrArrayField, FieldPanel)
 from pluck.parsing import list_all_existing_hitmaps
-from pluck.qtutils import get_icon
+from pluck.qtutils import get_icon, set_shortcut
 from pluck.paint import (
     render_image, render_grid, render_trigger, render_hitmap, render_center,
     PaintContext)
@@ -41,6 +41,7 @@ class MoveDataEditor(QtWidgets.QWidget):
         self.data = None
         self.images = []
 
+
         self.options = FieldPanel(MOVE_OPTIONS_FIELDS)
         self.options.fieldEdited.connect(self.option_set)
         self.options.setFixedWidth(350)
@@ -51,6 +52,9 @@ class MoveDataEditor(QtWidgets.QWidget):
         self.animation_editor.toolbar.clearHitbox.connect(self.clear_hitmap_frame)
         self.animation_editor.toolbar.addTriggerRequested.connect(self.add_trigger)
         self.animation_editor.toolbar.removeTriggerRequested.connect(self.remove_trigger)
+
+        set_shortcut("Left", self, self.animation_editor.previous_frame)
+        set_shortcut("Right", self, self.animation_editor.next_frame)
 
         self.splitter = QtWidgets.QSplitter(QtCore.Qt.Horizontal)
         self.splitter.addWidget(self.animation_editor)
@@ -264,6 +268,12 @@ class AnimationEditor(QtWidgets.QWidget):
         self.layout.addWidget(self.hbtoolbar)
         self.layout.addWidget(self.animation_scroll_area)
         self.layout.addWidget(self.slider)
+
+    def previous_frame(self):
+        self.slider.value = self.slider.value - 1
+
+    def next_frame(self):
+        self.slider.value = self.slider.value + 1
 
     def set_data_images(self, data=None, images=None):
         if images is not None:

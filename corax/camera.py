@@ -61,6 +61,7 @@ class Scrolling():
         self.camera = camera
         self.hard_boundary = hard_boundary
         self.soft_boundaries = soft_boundaries or []
+        self.use_soft_boundaries = True
         self.target_offset = target_offset or [0, 0]
         self.buffer_x = []
         # those magic numbers have to be moved onto the game data
@@ -90,12 +91,9 @@ class Scrolling():
         tx = clamp(tx, left, right)
 
         # Limit the target to the current soft boundary if there is.
-        for area in self.soft_boundaries:
-            if area.contains(self.targets[0].pixel_center):
-                aleft = area.left + (cctx.RESOLUTION[0] / 2)
-                aright = area.right - (cctx.RESOLUTION[0] / 2)
-                tx = clamp(tx, aleft, aright)
-                break
+        if self.use_soft_boundaries:
+            tx = clamp_x_to_areas(
+                tx, self.targets[0].pixel_center, self.soft_boundaries)
 
         difference_cam_target = self.camera.pixel_center[0] - tx
         # Do not move the camera if the camera is close enough the target.
@@ -107,7 +105,7 @@ class Scrolling():
         offset = difference_cam_target / self.smooth_divisor
         # To avoid arch camera acceleration, the speed is defined but on
         # average of last speed recorded. That buffer lenght is defined by the
-        # smooth level
+        # smooth level.
         self.buffer_x = [offset] + self.buffer_x[:self.smooth_level]
         offset = (sum(self.buffer_x) / len(self.buffer_x))
         # Limit the camera speed to avoid too arch movements.
@@ -115,3 +113,11 @@ class Scrolling():
         result = (clamp(self.camera.pixel_center[0] - offset, left, right))
         self.camera.set_center([result, self.camera.pixel_center[1]])
 
+
+def clamp_x_to_areas(x, ref_position, areas):
+    for area in areas:
+        if area.contains(ref_position):
+            aleft = area.left + (cctx.RESOLUTION[0] / 2)
+            aright = area.right - (cctx.RESOLUTION[0] / 2)
+            return clamp(x, aleft, aright)
+    return x

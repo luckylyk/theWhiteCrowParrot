@@ -80,8 +80,17 @@ FIELDS = {
         "scripts": StrArrayField,
         "zone": ZoneField
         },
+    "collider": {
+        "name": StrField,
+        "affect": InteractorField,
+        "scripts": StrArrayField,
+        "zone": ZoneField,
+        "event": StrField,
+        "hitmaps": StrArrayField,
+        },
     "relationship": {
         "name": StrField,
+        "enable": BoolField,
         "subject": InteractorField,
         "target": InteractorField,
         "relationship": FileField,

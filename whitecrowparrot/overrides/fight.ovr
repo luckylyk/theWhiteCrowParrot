@@ -1,4 +1,4 @@
 main.json["start_scene"] = "hill"
 characters/whitecrow.json["default_sheet"] = "sword"
 characters/whitecrow.json["layers"]["sword"] = true
-scenes/hill.json["soft_boundaries"] = []
+//scenes/hill.json["soft_boundaries"] = []

@@ -11,17 +11,17 @@
 // second indent level is the job queue.
 //
 // List of available keywords:
-// declaration: (script)
+// declaration: (script, event)
 // conditional and time related adverbs/function: (always, freeze, nolock,
 //                                                 wait)
 // comparators: (has, in, is, by)
 // functions: (aim, checkpoint, clear, fadein, fadeout, flush, force, freeze,
 //             hide, move, pin, play, reach, restart, run, show, set, shift,
-//             wait)
+//             wait, add, remove)
 // corax known objects: (animation, flip, gamepad, globals, hitmap, key,
-//                       name, player, pressed, scene, sheet, theatre, zone)
+//                       name, player, pressed, scene, sheet, theatre, zone,
+//                       camera, target)
 // built-in values: (false, true)
-
 
 
 script collects_sword_get_ready

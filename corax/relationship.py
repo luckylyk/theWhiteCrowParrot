@@ -21,7 +21,7 @@ def detect_collision(collisions, subject, target):
     position2 = target.coordinate.block_position
     for collision in collisions:
         if collision['directions']:
-            aim = aim_relationships(subject.coordinate, target.coordinate)
+            aim = aim_relationships(subject, target)
             if aim not in collision['directions']:
                 continue
         hitmap1 = (subject.hitmaps or {}).get(collision["subject_hitmap"], [])
@@ -54,13 +54,15 @@ def build_moves_probabilities(rules, subject, target):
     return moves
 
 
-def aim_relationships(coordinate1, coordinate2):
+def aim_relationships(char1, char2):
     """
     Look up at the position and the flip state of each coordinate and define
     the AIM_RELATIONSHIP_TYPES.
     """
-    before = coordinate1.block_position[0] <= coordinate2.block_position[0]
-    if coordinate1.flip == coordinate2.flip:
+    if not all((char1.pixel_center, char2.pixel_center)):
+        return
+    before = char1.pixel_center[0] <= char2.pixel_center[0]
+    if char1.coordinate.flip == char2.coordinate.flip:
         if before:
             return AIM_RELATIONSHIP_TYPES.TARGET_FROM_BEHIND
         return AIM_RELATIONSHIP_TYPES.SUBJECT_FROM_BEHIND
@@ -70,11 +72,10 @@ def aim_relationships(coordinate1, coordinate2):
 
 
 def filter_aim_relationships(rules, subject, target):
-    coord1 = subject.coordinate
-    coord2 = target.coordinate
     return [
         rule for rule in rules
-        if aim_relationships(coord1, coord2) in rule['directions']]
+        if rule['directions'] is None or
+        aim_relationships(subject, target) in rule['directions']]
 
 
 def filter_rules_from_distance(rules, subject, target):

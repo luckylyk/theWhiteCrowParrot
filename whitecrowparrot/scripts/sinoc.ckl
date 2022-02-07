@@ -1,5 +1,33 @@
+// Welcome to Crackle Script.
+//
+// This is the Corax Engine event script language.
+// Don't be scared, it's extremely easy to use. The language rely on indent of
+// four spaces. It is composed of scripts which are evaluated by the Zones
+// where it is attached. For instance, a zone named "chest_interaction" has is
+// defined as "affected by whitecrow", the script will be evaluated when the
+// zone contains the center of "whitecrow".
+// The syntax is pretty simple, zero indent is the script declaration level.
+// Firt indent level is the condition to execute the followings jobs and the
+// second indent level is the job queue.
+//
+// List of available keywords:
+// declaration: (script, event)
+// conditional and time related adverbs/function: (always, freeze, nolock,
+//                                                 wait)
+// comparators: (has, in, is, by)
+// functions: (aim, checkpoint, clear, fadein, fadeout, flush, force, freeze,
+//             hide, move, pin, play, reach, restart, run, show, set, shift,
+//             wait, add, remove)
+// corax known objects: (animation, flip, gamepad, globals, hitmap, key,
+//                       name, player, pressed, scene, sheet, theatre, zone,
+//                       camera, target)
+// built-in values: (false, true)
+
+
 event sinoc_pushed_back
     freeze 2
+    pin npc.sinoc
+    flush npc.sinoc
     npc.sinoc play pushed_back
 
 
@@ -20,6 +48,8 @@ event sinoc_click2
 
 
 event sinoc_shoot_head
+    pin player.whitecrow
+    flush player.whitecrow
     nolock player.whitecrow.sheet set death
     player.whitecrow play death_by_mace
 
@@ -42,7 +72,13 @@ event mace_push
 
 event high_parade
     nolock player.whitecrow play stroke_retrieve
+    wait 1
+    freeze 4
     npc.sinoc play high_parade
+
+
+event low_block
+    player.whitecrow play stroke_retrieve
 
 
 event block
@@ -78,6 +114,12 @@ event slap
     player.whitecrow.sheet set sword
 
 
+event slapb
+    player.whitecrow.sheet set fight
+    player.whitecrow play back_shoot
+    player.whitecrow.sheet set sword
+
+
 event sinoc_charge_back
     pin player.whitecrow
     flush player.whitecrow
@@ -87,9 +129,33 @@ event sinoc_charge_back
     player.whitecrow.sheet set sword
 
 
-event hit_wall
-    pin player.whitecrow
-    flush player.whitecrow
-    player.whitecrow.sheet set fight
-    player.whitecrow play wall
-    restart
+script hit_wall
+    theatre.globals.hill_wall_collapsed is false
+        theatre.globals.hill_wall_collapsed set true
+        theatre.globals.sinoc_fight_is_started set false
+        disable zone.sinoc_vs_whitecrow
+        prop.hill_right_wall play collapse
+        wait 15
+        fadeout 75
+        restart
+
+
+event goodbye
+    flush npc.sinoc
+    nolock prop.goundtip_prop play collapse
+    npc.sinoc play fall_from_hill
+    hide npc.sinoc
+    hide prop.goundtip_prop
+    enable camera.soft_boundaries
+    camera.target remove sinoc
+    disable zone.sinoc_vs_whitecrow
+    // fadeout 75
+    // restart
+
+
+script start_fight
+    theatre.globals.sinoc_fight_is_started is false
+        theatre.globals.sinoc_fight_is_started set true
+        enable zone.sinoc_vs_whitecrow
+        camera.target add sinoc
+        disable camera.soft_boundaries

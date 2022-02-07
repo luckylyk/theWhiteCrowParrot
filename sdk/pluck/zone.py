@@ -2,9 +2,8 @@ from PySide6 import QtWidgets
 from pluck.data import DATA_TEMPLATES
 from pluck.field import (
     ZoneField, StrField, InteractorField, OptionField, TypeField, ScriptsField,
-    FileField)
+    FileField,  BoolField, StrArrayField)
 from pluck.parsing import list_all_existing_zones
-from sdk.pluck.field import StrArrayField
 
 
 WINDOW_TITLE = "Create Zone"
@@ -15,6 +14,7 @@ WIDGET_BY_TYPE = {
     "name": StrField,
     "affect": InteractorField,
     "subject": InteractorField,
+    "enable": BoolField,
     "event": StrField,
     "hitmaps": StrArrayField,
     "target": InteractorField,

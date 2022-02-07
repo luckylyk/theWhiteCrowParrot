@@ -188,6 +188,8 @@ class Theatre:
                 case NODE_TYPES.INTERACTION:
                     self.evaluate_interactions(zone)
                 case NODE_TYPES.RELATIONSHIP:
+                    if not zone.enable:
+                        continue
                     self.evaluate_relationship(zone)
                 case NODE_TYPES.COLLIDER:
                     self.evaluate_collision(zone)
@@ -233,7 +235,6 @@ class Theatre:
                 character.name in zone.affect and
                 character.hitmaps and
                 list(hitmaps:=set(list(character.hitmaps)) & set(zone.hitmaps)))
-
             if not conditions:
                 continue
 

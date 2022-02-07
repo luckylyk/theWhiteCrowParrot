@@ -33,8 +33,8 @@ def check_name_clash(nodes):
 def node_bounds(node, document):
     rect = node.bounds()
     width, height = document.width(), document.height()
-    rect.setLeft(rect.left() if rect.left() >= 0 else 0)
-    rect.setTop(rect.top() if rect.top() >= 0 else 0)
+    rect.setLeft(max(rect.left(), 0))
+    rect.setTop(max(rect.top(), 0))
     rect.setRight(rect.right() if rect.right() <= width else width)
     rect.setBottom(rect.bottom() if rect.bottom() <= height else height)
     return rect.x(), rect.y(), rect.width(), rect.height()

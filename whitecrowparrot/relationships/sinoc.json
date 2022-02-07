@@ -2,13 +2,23 @@
     "name": "sinoc_vs_whitecrow",
     "rules": [
         {
-            "directions": ["facing", "backing", "target_from_behind", "subject_from_behind"],
+            "directions": null,
             "block_distance_range": [26, 60],
             "subject_animations": ["idle"],
             "target_animations": null,
             "priority": 5,
             "moves": {
                 "run": 10
+            }
+        },
+        {
+            "directions": null,
+            "block_distance_range": [0, 26],
+            "subject_animations": ["idle"],
+            "target_animations": ["death_by_mace_down"],
+            "priority": 5,
+            "moves": {
+                "step": 10
             }
         },
         {
@@ -139,6 +149,12 @@
             "event": "sinoc.sinoc_charge"
         },
         {
+            "directions": ["facing"],
+            "subject_hitmap": "low_shield",
+            "target_hitmap": "hit_sword",
+            "event": "sinoc.low_block"
+        },
+        {
             "directions": ["target_from_behind"],
             "subject_hitmap": "strong_shield",
             "target_hitmap": "torso",
@@ -152,7 +168,7 @@
         },
         {
             "directions": null,
-            "subject_hitmap": "feet",
+            "subject_hitmap": "idle_feet",
             "target_hitmap": "lie_down",
             "event": "sinoc.finish_him"
         },
@@ -169,7 +185,13 @@
             "event": "sinoc.sinoc_strong_pushed_back"
         },
         {
-            "directions": null,
+            "directions": ["facing"],
+            "subject_hitmap": "slap",
+            "target_hitmap": "head",
+            "event": "sinoc.slap"
+        },
+        {
+            "directions": ["target_from_behind"],
             "subject_hitmap": "slap",
             "target_hitmap": "head",
             "event": "sinoc.slap"

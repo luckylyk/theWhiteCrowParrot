@@ -91,7 +91,7 @@
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 129,
-            "triggers": null
+            "triggers": [[1, "slap_helmet_2"]]
         },
         "death_by_mace_down": {
             "center": [0, 0],

@@ -111,6 +111,7 @@ DATA_TEMPLATES = {
         "zone": (int, int, int, int),
     },
     "relationship": {
+        "enable": bool,
         "type": str,
         "name": str,
         "subject": str,

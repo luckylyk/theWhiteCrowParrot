@@ -2,8 +2,8 @@
     "name": "Scene 02",
     "type": "scene",
     "background_color": [173, 177, 189],
-    "boundary": [80, 0, 1680, 268],
-    "soft_boundaries": [[0, 0, 800, 268]],
+    "boundary": [80, 0, 1600, 268],
+    "soft_boundaries": [[920, 0, 1600, 270], [80, 0, 920, 270]],
     "target_offset": [300, 0],
     "sounds": [
         {
@@ -125,36 +125,136 @@
             "falloff": 0,
             "trigger": "sword_shield_win",
             "zone": [-290, -300, 2080, 580]
+        },
+        {
+            "name": "sinoc_parade",
+            "type": "sfx_sound",
+            "file": "effects/sinoc_parade.ogg",
+            "channel": 6,
+            "emitter": "sinoc",
+            "falloff": 0,
+            "trigger": "sinoc_parade",
+            "zone": [-300, -310, 2080, 570]
+        },
+        {
+            "name": "body_hit",
+            "type": "sfx_sound",
+            "file": "effects/body_hit_01.ogg",
+            "channel": 3,
+            "emitter": "whitecrow",
+            "falloff": 0,
+            "trigger": "body_hit",
+            "zone": [-280, -310, 2060, 570]
+        },
+        {
+            "name": "slap_helmet",
+            "type": "sfx_sound",
+            "file": "effects/helmet_gong_01.ogg",
+            "channel": 4,
+            "emitter": "whitecrow",
+            "falloff": 0,
+            "trigger": "slap_helmet",
+            "zone": [-270, -320, 2060, 560]
+        },
+        {
+            "name": "mass_whoosh",
+            "type": "sfx_sound_collection",
+            "channel": 8,
+            "emitter": "sinoc",
+            "falloff": 0,
+            "files": ["effects/mace_whoosh_01.ogg", "effects/mace_whoosh_02.ogg", "effects/mace_whoosh_03.ogg", "effects/mace_whoosh_04.ogg", "effects/mace_whoosh_05.ogg", "effects/mace_whoosh_06.ogg", "effects/mace_whoosh_07.ogg", "effects/mace_whoosh_08.ogg"],
+            "order": "shuffle",
+            "trigger": "mace_whoosh",
+            "zone": [-300, -310, 2080, 560]
+        },
+        {
+            "name": "slap_helmet_02",
+            "type": "sfx_sound",
+            "file": "effects/helmet_gong_02.ogg",
+            "channel": 4,
+            "emitter": "whitecrow",
+            "falloff": 0,
+            "trigger": "slap_helmet_2",
+            "zone": [-290, -320, 2080, 570]
+        },
+        {
+            "name": "wcp_dash",
+            "type": "sfx_sound",
+            "file": "effects/wcp_dash.ogg",
+            "channel": 3,
+            "emitter": "whitecrow",
+            "falloff": 0,
+            "trigger": "wcp_dash",
+            "zone": [-260, -310, 2070, 560]
+        },
+        {
+            "name": "stroke_whoosh",
+            "type": "sfx_sound",
+            "file": "effects/stroke_whoosh_01.ogg",
+            "channel": 1,
+            "emitter": "whitecrow",
+            "falloff": 0,
+            "trigger": "stroke_whoosh",
+            "zone": [-270, -310, 2070, 560]
+        },
+        {
+            "name": "stroke_whoosh_prep",
+            "type": "sfx_sound",
+            "file": "effects/stroke_whoosh_02.ogg",
+            "channel": 6,
+            "emitter": "whitecrow",
+            "falloff": 0,
+            "trigger": "stroke_whoosh_prep",
+            "zone": [-290, -310, 2080, 560]
+        },
+        {
+            "name": "top",
+            "type": "sfx_sound",
+            "file": "effects/tap.ogg",
+            "channel": 11,
+            "emitter": "sinoc",
+            "falloff": 0,
+            "trigger": "tap",
+            "zone": [-280, -290, 2060, 560]
         }
     ],
     "zones": [
         {
-            "name": "right_limit",
-            "type": "no_go",
-            "affect": ["whitecrow"],
-            "zone": [144, 14, 160, 27]
-        },
-        {
             "name": "left_limit",
             "type": "no_go",
             "affect": ["whitecrow"],
-            "zone": [0, 13, 11, 27]
+            "zone": [0, 13, 45, 27]
         },
         {
             "name": "sinoc_vs_whitecrow",
             "type": "relationship",
+            "enable": false,
             "relationship": "sinoc_vs_whitecrow",
             "subject": "sinoc",
             "target": "whitecrow",
             "zone": [11, 0, 143, 27]
         },
         {
-            "name": "hill_wall",
+            "name": "sinoc_is_die",
             "type": "collider",
+            "affect": "sinoc",
+            "event": "sinoc.goodbye",
+            "hitmaps": ["idle_feet"],
+            "zone": [33, 20, 41, 25]
+        },
+        {
+            "name": "start_the_fight_against_sinoc",
+            "type": "interaction",
             "affect": "whitecrow",
-            "event": "sinoc.hit_wall",
-            "hitmaps": ["torso"],
-            "zone": [144, 2, 170, 30]
+            "scripts": ["sinoc.start_fight"],
+            "zone": [58, 0, 80, 28]
+        },
+        {
+            "name": "right_limit",
+            "type": "interaction",
+            "affect": "whitecrow",
+            "scripts": ["sinoc.hit_wall"],
+            "zone": [131, 0, 160, 26]
         }
     ],
     "elements": [
@@ -167,48 +267,67 @@
             "name": "bg",
             "type": "set_static",
             "file": "hill/bg.png",
-            "position": [11, 0],
-            "deph": -0.1
+            "position": [-220, 0],
+            "deph": -0.2
         },
         {
             "name": "montain",
             "type": "set_static",
             "file": "hill/montain.png",
-            "position": [4, 159],
-            "deph": -0.075
+            "position": [-100, 159],
+            "deph": 0.0
         },
         {
             "name": "ground",
             "type": "set_static",
             "file": "hill/ground.png",
-            "position": [94, 1],
+            "position": [379, 0],
+            "deph": 0.0
+        },
+        {
+            "name": "characters",
+            "type": "layer",
+            "deph": 0.0
+        },
+        {
+            "name": "tree-interactive",
+            "type": "set_static",
+            "file": "hill/tree-interactive.png",
+            "position": [1073, 65],
+            "deph": 0.0
+        },
+        {
+            "name": "goundtip_prop",
+            "type": "set_animated",
+            "file": "hill_groundtip.json",
+            "position": [322, 210],
+            "alpha": 255,
             "deph": 0.0
         },
         {
             "name": "sinoc",
             "type": "npc",
-            "block_position": [35, 10],
+            "block_position": [40, 8],
             "flip": false
         },
         {
             "name": "whitecrow",
             "type": "player",
-            "block_position": [120, 9],
-            "flip": false
+            "block_position": [100, 7],
+            "flip": true
         },
         {
-            "name": "fg_bush_2",
-            "type": "set_static",
-            "file": "hill/fg_bush_2.png",
-            "position": [1500, 140],
-            "deph": 0.22
+            "name": "foreground",
+            "type": "layer",
+            "deph": 0.0
         },
         {
-            "name": "fg_bush",
-            "type": "set_static",
-            "file": "hill/fg_bush.png",
-            "position": [1050, 225],
-            "deph": 0.1
+            "name": "hill_right_wall",
+            "type": "set_animated",
+            "file": "hill_right_wall.json",
+            "position": [1159, 0],
+            "alpha": 255,
+            "deph": 0.0
         },
         {
             "name": "fg_tree",
@@ -216,6 +335,20 @@
             "file": "hill/fg_tree.png",
             "position": [824, 0],
             "deph": 0.2
+        },
+        {
+            "name": "fg_bush_2",
+            "type": "set_static",
+            "file": "hill/fg_bush_2.png",
+            "position": [1200, 96],
+            "deph": 0.25
+        },
+        {
+            "name": "fg_bush",
+            "type": "set_static",
+            "file": "hill/fg_bush.png",
+            "position": [850, 204],
+            "deph": 0.23
         }
     ]
 }

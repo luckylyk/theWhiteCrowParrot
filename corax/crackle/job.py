@@ -8,6 +8,7 @@ set back to RUN_MODES.NORMAL. As long as a job is running, the RUN_MODES is set
 to RUN_MODES.SCRIPT which block the gameplay evaluation.
 """
 
+
 from functools import partial
 
 from corax.core import EVENTS, RUN_MODES
@@ -40,30 +41,46 @@ def create_job(line, theatre):
 
 def create_job_without_subject(line, theatre):
     function = filter_action(line)
-    if function == "run":
-        return partial(job_run_script, theatre, line.split(" ")[-1])
-    if function == "clear":
-        return partial(job_clear, theatre)
-    elif function == "force":
-        return partial(job_force_script, theatre, line.split(" ")[-1])
-    elif function in ("hide", "show"):
-        element = object_name(line.split(" ")[-1])
-        return partial(job_switch_visibility, theatre, element, function == "show")
-    elif function == "wait":
-        return lambda: int(line.split(" ")[-1])
-    elif function == "freeze":
-        return partial(job_freeze_theatre, theatre, int(int(line.split(" ")[-1])))
-    elif function == "flush":
-        player_name = object_name(line.split(" ")[-1])
-        return partial(job_flush_animation, theatre, player_name)
-    elif function == "pin":
-        player_name = object_name(line.split(" ")[-1])
-        return partial(job_pin_play, theatre, player_name)
-    elif function == "restart":
-        return partial(job_restart, theatre)
-    elif function in ("fadein", "fadeout"):
-        duration = int(line.split(" ")[-1])
-        return partial(job_fade, theatre, function == "fadein", duration)
+    match function:
+        case "run":
+            return partial(job_run_script, theatre, line.split(" ")[-1])
+        case "clear":
+            return partial(job_clear, theatre)
+        case "force":
+            return partial(job_force_script, theatre, line.split(" ")[-1])
+        case "wait":
+            return lambda: int(line.split(" ")[-1])
+        case "freeze":
+            return partial(
+                job_freeze_theatre, theatre, int(int(line.split(" ")[-1])))
+        case "flush":
+            player_name = object_name(line.split(" ")[-1])
+            return partial(job_flush_animation, theatre, player_name)
+        case "pin":
+            player_name = object_name(line.split(" ")[-1])
+            return partial(job_pin_play, theatre, player_name)
+        case "restart":
+            return partial(job_restart, theatre)
+        case "hide":
+            element = object_name(line.split(" ")[-1])
+            return partial(
+                job_switch_visibility, theatre, element, function == "show")
+        case "show":
+            element = object_name(line.split(" ")[-1])
+            return partial(
+                job_switch_visibility, theatre, element, function == "show")
+        case "fadein":
+            duration = int(line.split(" ")[-1])
+            return partial(job_fade, theatre, function == "fadein", duration)
+        case "fadeout":
+            duration = int(line.split(" ")[-1])
+            return partial(job_fade, theatre, function == "fadein", duration)
+        case "enable":
+            obj = line.split(" ")[-1]
+            return create_enable_disable_job(theatre, obj, True)
+        case "disable":
+            obj = line.split(" ")[-1]
+            return create_enable_disable_job(theatre, obj, False)
 
 
 def create_job_with_subject(subject, function, arguments, theatre):
@@ -80,6 +97,9 @@ def create_job_with_subject(subject, function, arguments, theatre):
             if subject_name == "camera":
                 position = string_to_int_list(arguments)
                 return partial(job_move_camera, theatre, position)
+    elif subject_type == "camera":
+        if subject_name == "target":
+            return partial(job_camera_target, theatre, function, arguments)
     elif subject_type in ("player", "npc"):
         return create_character_job(theatre, subject_name, function, arguments)
     elif subject_type == "prop":
@@ -118,6 +138,15 @@ def create_character_job(theatre, character_name, function, arguments):
             return partial(job_set_sheet, character, arguments)
 
 
+def create_enable_disable_job(theatre, obj, state):
+    type_ = object_type(obj)
+    name = object_name(obj)
+    if type_ == "zone":
+        return partial(job_enable_disable_zone, theatre, name, state)
+    elif type_ == "camera":
+        return partial(job_camera_boundaries, theatre, state)
+
+
 def nolock_job(job):
     job()
     return 0
@@ -139,8 +168,29 @@ def job_aim(player, move, direction):
     return player.animation_controller.animation.length
 
 
+def job_camera_boundaries(theatre, state):
+    theatre.scene.scrolling.use_soft_boundaries = state
+    return 0
+
+
+def job_camera_target(theatre, function, target):
+    target = find_character(theatre, target)
+    match function:
+        case "add":
+            theatre.scene.scrolling.targets.append(target)
+        case "remove":
+            theatre.scene.scrolling.targets.remove(target)
+    return 0
+
+
 def job_clear(theatre):
     theatre.loaded_scenes.clear()
+    return 0
+
+
+def job_enable_disable_zone(theatre, zone, state):
+    zone = find_zone(theatre.scene, zone)
+    zone.enable = state
     return 0
 
 

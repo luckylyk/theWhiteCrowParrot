@@ -17,6 +17,7 @@ class Zone:
     """
     def __init__(self, data):
         self.data = data
+        self.enable = data.get("enable", True)
 
     @property
     def script_names(self):
