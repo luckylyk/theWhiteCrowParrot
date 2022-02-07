@@ -16,7 +16,7 @@
     "preferences": {
         "block_size": 10,
         "camera_speed": 500,
-        "fps": 30,
+        "fps": 4,
         "key_color": [0, 255, 0],
         "resolution": [800, 268]
     },

@@ -111,12 +111,14 @@ event belly_shoot
 
 
 event slap
+    flush player.whitecrow
     player.whitecrow.sheet set fight
     player.whitecrow play head_slap
     player.whitecrow.sheet set sword
 
 
 event slapb
+    flush player.whitecrow
     player.whitecrow.sheet set fight
     player.whitecrow play back_shoot
     player.whitecrow.sheet set sword
