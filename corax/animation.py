@@ -134,6 +134,10 @@ class SpriteSheet:
             layer: [image_mirror(image) for image in images]
             for layer, images in self.sequences.items()}
 
+    @property
+    def available_animations(self):
+        return self.data["evaluation_order"]
+
     @staticmethod
     def from_filename(name, filename):
         data = load_json(filename)

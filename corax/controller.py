@@ -82,6 +82,7 @@ class AnimationController():
                 not self.animation.is_lock() and
                 is_moves_sequence_valid(move, self.data, self.animation) and
                 is_layers_authorized(move, self.data, self.layers) and
+                move in self.spritesheet.available_animations and
                 self.is_offset_allowed(move))
             if conditions:
                 self.set_move(move)
