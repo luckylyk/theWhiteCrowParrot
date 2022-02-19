@@ -62,20 +62,34 @@ def aim_relationships(char1, char2):
     if not all((char1.pixel_center, char2.pixel_center)):
         return
     before = char1.pixel_center[0] <= char2.pixel_center[0]
-    if char1.coordinate.flip == char2.coordinate.flip:
+
+    if char1.coordinate.flip and char2.coordinate.flip:
         if before:
+            return AIM_RELATIONSHIP_TYPES.SUBJECT_FROM_BEHIND
+        else:
             return AIM_RELATIONSHIP_TYPES.TARGET_FROM_BEHIND
+    elif char1.coordinate.flip:
+        if before:
+            return AIM_RELATIONSHIP_TYPES.BACK_TO_BACK
+        else:
+            return AIM_RELATIONSHIP_TYPES.FACING
+    elif char2.coordinate.flip:
+        if before:
+            return AIM_RELATIONSHIP_TYPES.FACING
+        else:
+            return AIM_RELATIONSHIP_TYPES.BACK_TO_BACK
+    elif before:
+        return AIM_RELATIONSHIP_TYPES.TARGET_FROM_BEHIND
+    else:
         return AIM_RELATIONSHIP_TYPES.SUBJECT_FROM_BEHIND
-    if before:
-        return AIM_RELATIONSHIP_TYPES.FACING
-    return AIM_RELATIONSHIP_TYPES.BACK_TO_BACK
 
 
 def filter_aim_relationships(rules, subject, target):
+    aiming = aim_relationships(subject, target)
     return [
         rule for rule in rules
         if rule['directions'] is None or
-        aim_relationships(subject, target) in rule['directions']]
+        aiming in rule['directions']]
 
 
 def filter_rules_from_distance(rules, subject, target):

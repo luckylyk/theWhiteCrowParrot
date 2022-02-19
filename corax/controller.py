@@ -133,7 +133,6 @@ class AnimationController():
         flip = self.coordinate.flip
         layers = self.layers
         self.animation = self.spritesheet.build_animation(move, flip, layers)
-
         for event, value in self.animation.pre_events.items():
             self.apply_event(event, value)
             msg = f"Event: {self.animation.name}, {event}, {value}"

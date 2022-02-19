@@ -71,7 +71,7 @@ def extract_line_infos(line):
             value = type_value(RESULT_PATTERN.findall(line)[0])
     except Exception as e:
         print(e)
-        raise SyntaxError(SYNTAX_ERROR_MSG.format(line))
+        raise SyntaxError(SYNTAX_ERROR_MSG.format(line)) from e
     return operator, filename, keys, value
 
 
@@ -121,7 +121,7 @@ def load_json(filename):
             msg = OVERRIDE_MSG.format(file_, [str(k) for k in keys], value)
             logging.debug(msg)
 
-        for keys, _ in actions_data.get('del', []):
+        for keys, value in actions_data.get('del', []):
             *first_keys, last_key = keys
             del reduce(getitem, first_keys, data)[last_key]
             msg = DELETE_MSG.format(file_, [str(k) for k in keys], value)

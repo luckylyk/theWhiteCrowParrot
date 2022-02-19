@@ -96,6 +96,7 @@ if not arguments.skip_splash:
         pygame.display.flip()
         clock.tick(SPLASH_FPS)
 
+# Run the game
 gameloop = GameLoop(game_data, screen)
 while not gameloop.done:
     next(gameloop)

@@ -1,13 +1,32 @@
 {
     "name": "",
     "default_move": "collision",
-    "evaluation_order": ["collision", "belly_shoot", "head_slap", "wall", "back_shoot"],
+    "evaluation_order": ["collision", "belly_shoot", "wall", "back_shoot", "head_slap", "head_slap_2", "feet_hit", "back_slap", "back_low_hit", "punch"],
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
     "layers": {
         "body": "whitecrowparrot_fight.png"
     },
     "moves": {
+        "back_low_hit": {
+            "center": [70, 155],
+            "conditions": {},
+            "frames_centers": [[0, 0], [9.21700542761414, -0.26568445320424416], [14.875362958158007, 0.8224612257465083], [20.533720488701874, 0.387202954166213], [28.58599851293738, 0.387202954166213], [34.67961431506154, 0.16957381837605112], [39.24982616665467, -0.04805531741408231]],
+            "frames_per_image": [1, 6, 2, 2, 2, 2, 2],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {
+                "block_offset": [4, 0]
+            },
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 81,
+            "triggers": null
+        },
         "back_shoot": {
             "center": [70, 155],
             "conditions": {},
@@ -26,6 +45,25 @@
             "release_frame": -1,
             "start_at_image": 40,
             "triggers": null
+        },
+        "back_slap": {
+            "center": [70, 155],
+            "conditions": {},
+            "frames_centers": [[0, 0], [11.175667649725483, -0.26568445320424416], [19.445574809751136, -0.26568445320424416], [29.674144191888132, -0.04805531741408231], [40.77323011718572, -0.26568445320424416], [60.7951106098794, -0.4833135889943776]],
+            "frames_per_image": [2, 2, 2, 2, 2, 2],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {
+                "block_offset": [6, 0]
+            },
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 74,
+            "triggers": [[0, "slap_helmet"]]
         },
         "belly_shoot": {
             "center": [170, 155],
@@ -69,6 +107,27 @@
             "start_at_image": 1,
             "triggers": [[2, "step_whitecrow"]]
         },
+        "feet_hit": {
+            "center": [170, 155],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [2, 3, 4, 2, 5],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {
+                "block_offset": [6, 0]
+            },
+            "pre_events": {
+                "block_offset": [-10, 0]
+            },
+            "release_frame": -1,
+            "start_at_image": 0,
+            "triggers": null
+        },
         "head_slap": {
             "center": [170, 155],
             "conditions": {},
@@ -90,6 +149,44 @@
             "release_frame": -1,
             "start_at_image": 15,
             "triggers": [[1, "slap_helmet"], [3, "step_whitecrow"], [5, "step_whitecrow"], [6, "step_whitecrow"], [8, "step_whitecrow"], [11, "step_whitecrow"]]
+        },
+        "head_slap_2": {
+            "center": [170, 155],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 4, 1],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {
+                "block_offset": [6, 0]
+            },
+            "pre_events": {
+                "block_offset": [-10, 0]
+            },
+            "release_frame": -1,
+            "start_at_image": 56,
+            "triggers": null
+        },
+        "punch": {
+            "center": [70, 155],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [2, 5, 2, 25],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 90,
+            "triggers": null
         },
         "wall": {
             "center": [80, 150],

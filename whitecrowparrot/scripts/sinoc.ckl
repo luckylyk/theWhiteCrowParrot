@@ -120,7 +120,7 @@ event slap
 event slapb
     flush player.whitecrow
     player.whitecrow.sheet set fight
-    player.whitecrow play back_shoot
+    player.whitecrow play back_slap
     player.whitecrow.sheet set sword
 
 

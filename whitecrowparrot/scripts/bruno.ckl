@@ -1,0 +1,99 @@
+// Welcome to Crackle Script.
+//
+// This is the Corax Engine event script language.
+// Don't be scared, it's extremely easy to use. The language rely on indent of
+// four spaces. It is composed of scripts which are evaluated by the Zones
+// where it is attached. For instance, a zone named "chest_interaction" has is
+// defined as "affected by whitecrow", the script will be evaluated when the
+// zone contains the center of "whitecrow".
+// The syntax is pretty simple, zero indent is the script declaration level.
+// Firt indent level is the condition to execute the followings jobs and the
+// second indent level is the job queue.
+//
+// List of available keywords:
+// declaration: (script, event)
+// conditional and time related adverbs/function: (always, freeze, nolock,
+//                                                 wait)
+// comparators: (has, in, is, by)
+// functions: (aim, checkpoint, clear, fadein, fadeout, flush, force, freeze,
+//             hide, move, pin, play, reach, restart, run, show, set, shift,
+//             wait, add, remove)
+// corax known objects: (animation, flip, gamepad, globals, hitmap, key,
+//                       name, player, pressed, scene, sheet, theatre, zone,
+//                       camera, target)
+// built-in values: (false, true)
+
+
+event jump
+    pin npc.bruno
+    flush npc.bruno
+    npc.bruno play jump
+
+
+event crouch
+    pin npc.bruno
+    flush npc.bruno
+    npc.bruno play crouch_down
+
+
+event low_block
+    nolock player.whitecrow play low_block_retrieve
+    pin npc.bruno
+    flush npc.bruno
+    npc.bruno play low_blocked
+
+
+event high_block
+    nolock player.whitecrow play high_block_retrieve
+    pin npc.bruno
+    flush npc.bruno
+    npc.bruno play high_blocked
+
+
+event slap
+    pin player.whitecrow
+    flush player.whitecrow
+    player.whitecrow.sheet set fight
+    player.whitecrow play head_slap_2
+    player.whitecrow.sheet set sword
+
+
+event back_slap
+    pin player.whitecrow
+    flush player.whitecrow
+    player.whitecrow.sheet set fight
+    player.whitecrow play back_slap
+    player.whitecrow.sheet set sword
+
+
+event feet_push
+    pin player.whitecrow
+    flush player.whitecrow
+    player.whitecrow.sheet set fight
+    player.whitecrow play feet_hit
+    player.whitecrow.sheet set sword
+
+
+event back_feet_push
+    pin player.whitecrow
+    flush player.whitecrow
+    player.whitecrow.sheet set fight
+    player.whitecrow play back_low_hit
+    player.whitecrow.sheet set sword
+
+
+event unarmed
+    wait 2
+    pin npc.bruno
+    flush npc.bruno
+
+    nolock npc.bruno play unarmed
+    wait 2
+    freeze 3
+    wait 15
+
+
+event finished
+    pin npc.bruno
+    flush npc.bruno
+    npc.bruno play finished

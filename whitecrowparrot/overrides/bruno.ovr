@@ -1,0 +1,4 @@
+main.json["start_scene"] = "bruno"
+characters/whitecrow.json["default_sheet"] = "sword"
+characters/whitecrow.json["layers"]["sword"] = true
+

@@ -13,10 +13,11 @@ def iter_on_jobs(jobs, actions=None):
     for i, job in enumerate(jobs):
         try:
             frame_count = job()
-        except Exception:
+        except Exception as e:
             print(traceback.format_exc())
-            error = actions[i] + ": failed" if actions else ""
-            raise ValueError(error + ": " + str(job))
+            error = f'{actions[i]}: failed' if actions else ""
+            print(e)
+            raise ValueError(f'{error}: ' + str(job)) from e
         while frame_count > 0:
             yield
             frame_count -= 1

@@ -1,0 +1,53 @@
+{
+    "name": "bruno_fight",
+    "type": "scene",
+    "background_color": [107, 138, 145],
+    "boundary": [0, 0, 800, 268],
+    "soft_boundaries": [],
+    "target_offset": [75, 0],
+    "sounds": [
+        
+    ],
+    "zones": [
+        {
+            "name": "left_limit",
+            "type": "no_go",
+            "affect": null,
+            "zone": [-4, 0, 6, 27]
+        },
+        {
+            "name": "right_limit",
+            "type": "no_go",
+            "affect": null,
+            "zone": [75, 0, 93, 26]
+        },
+        {
+            "name": "bruno_vs_whitecrow",
+            "type": "relationship",
+            "enable": true,
+            "relationship": "bruno_vs_whitecrow",
+            "subject": "bruno",
+            "target": "whitecrow",
+            "zone": [-10, -2, 96, 28]
+        }
+    ],
+    "elements": [
+        {
+            "name": "background",
+            "type": "layer",
+            "deph": 0.0
+        },
+        {
+            "name": "whitecrow",
+            "type": "player",
+            "block_position": [50, 7],
+            "flip": true
+        },
+        {
+            "name": "bruno",
+            "type": "npc",
+            "block_position": [0, 6],
+            "flip": false
+        }
+    ]
+}

@@ -58,7 +58,7 @@ def create_job_without_subject(line, theatre):
             return partial(job_flush_animation, theatre, player_name)
         case "pin":
             player_name = object_name(line.split(" ")[-1])
-            return partial(job_pin_play, theatre, player_name)
+            return partial(job_pin, theatre, player_name)
         case "restart":
             return partial(job_restart, theatre)
         case "hide":
@@ -228,9 +228,14 @@ def job_move_player(character, block_position):
     return 0
 
 
-def job_pin_play(theatre, character_name):
-    character = find_character(theatre, character_name)
-    character.pin()
+def job_pin(theatre, character_name):
+    try:
+        character = find_character(theatre, character_name)
+        character.pin()
+    except Exception as e:
+        import traceback
+        print(traceback.format_exc())
+        raise Exception from e
     return 0
 
 
