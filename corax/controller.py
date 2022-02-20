@@ -55,14 +55,24 @@ class AnimationController():
         self.layers = layers or [
             str(key) for key in spritesheet.data["layers"].keys()]
         self.moves_buffer = []
+        self.unhold_buffer = []
         self.sequence = []
         self.spritesheet = spritesheet
         self.set_move(data["default_move"])
 
-    def unhold(self, unholdable):
+    def unhold(self, unholdables):
+        for unholdable in unholdables:
+            if unholdable in self.moves_buffer:
+                # This buffer stores the holdable movement in the moves_buffer
+                # which already recieved an unhold instruction.
+                # Later, if that animation is build, the `hold` property will
+                # be automatically set false. This avoid animation get stuck,
+                # because the game missed the unhold signal sent before.
+                self.unhold_buffer.append(unholdable)
+
         if not self.animation or self.animation.hold is False:
             return
-        self.animation.hold = self.animation.name not in unholdable
+        self.animation.hold = self.animation.name not in unholdables
 
     def propose_moves(self, moves):
         """
@@ -123,7 +133,6 @@ class AnimationController():
         brute force, no check are done then, the providen move have to be
         validated before.
         """
-        self.moves_buffer = []
         if self.animation is not None:
             for event, value in self.animation.post_events.items():
                 self.apply_event(event, value)
@@ -133,10 +142,15 @@ class AnimationController():
         flip = self.coordinate.flip
         layers = self.layers
         self.animation = self.spritesheet.build_animation(move, flip, layers)
+
+        if move in self.unhold_buffer and self.animation.hold:
+            self.animation.hold = False
+
         for event, value in self.animation.pre_events.items():
             self.apply_event(event, value)
             msg = f"Event: {self.animation.name}, {event}, {value}"
             logging.debug(msg)
+        self.clear_buffer()
 
     def flush(self):
         """
@@ -147,8 +161,8 @@ class AnimationController():
         flip = self.coordinate.flip
         layers = self.layers
         move = self.data["default_move"]
-        self.moves_buffer = []
         self.animation = self.spritesheet.build_animation(move, flip, layers)
+        self.clear_buffer()
         logging.debug(f"Flush: {move}")
 
     def apply_event(self, event, value):
@@ -193,13 +207,18 @@ class AnimationController():
             conditions = (
                 is_moves_sequence_valid(move, self.data, self.animation) and
                 is_layers_authorized(move, self.data, self.layers) and
-                self.is_offset_allowed(move))
+                self.is_offset_allowed(move) and
+                move not in self.unhold_buffer)
             if not conditions:
                 continue
             self.set_move(move)
             return
 
         self.set_move(next_move)
+
+    def clear_buffer(self):
+        self.unhold_buffer = []
+        self.moves_buffer = []
 
     def evaluate(self):
         if not self.animation:
