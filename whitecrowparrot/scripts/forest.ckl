@@ -93,3 +93,8 @@ script rabbit_trigger
         theatre.globals.rabbit_triggered set true
         nolock prop.rabbit play goes_out
         nolock prop.door play opening
+
+
+script robert_die
+    prop.robert.animation is idle
+        nolock prop.robert play dying

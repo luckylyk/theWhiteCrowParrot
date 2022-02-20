@@ -11,9 +11,9 @@
             "type": "music",
             "file": "musics/saqueboute.ogg",
             "channel": 5,
-            "falloff":  null,
+            "falloff": null,
             "listener": "whitecrow",
-            "zone":  null
+            "zone": null
         },
         {
             "name": "ambiance_nature_outisde",
@@ -214,6 +214,13 @@
             "affect": ["whitecrow"],
             "scripts": ["arbaletist.shoot_1", "arbaletist.shoot_2", "arbaletist.shoot_3", "arbaletist.shoot_4"],
             "zone": [407, 25, 414, 27]
+        },
+        {
+            "name": "good_bye_robert",
+            "type": "interaction",
+            "affect": "whitecrow",
+            "scripts": ["forest.robert_die"],
+            "zone": [82, 20, 104, 27]
         }
     ],
     "elements": [
@@ -655,23 +662,23 @@
             "alpha": 155,
             "deph": 0.0,
             "direction_options": {
-                    "rotation_range": -1,
-                    "speed": 10
-                },
-            "emission_positions":  null,
-            "emission_zone":  null,
+                "rotation_range": -1,
+                "speed": 10
+            },
+            "emission_positions": null,
+            "emission_zone": null,
             "flow": 0,
             "shape_options": {
-                    "type": "square",
-                    "alpha": [35, 150],
-                    "color": [100, 111, 150],
-                    "size": 1
-                },
+                "type": "square",
+                "alpha": [35, 150],
+                "color": [100, 111, 150],
+                "size": 1
+            },
             "spot_options": {
-                    "boundary_behavior": "bounce_on_boundary",
-                    "frequency": [25, 40],
-                    "speed": [0.1, 0.2]
-                },
+                "boundary_behavior": "bounce_on_boundary",
+                "frequency": [25, 40],
+                "speed": [0.1, 0.2]
+            },
             "start_number": 150,
             "zone": [1580, 30, 2200, 300]
         },
@@ -716,10 +723,18 @@
             "deph": 0.0
         },
         {
+            "name": "robert",
+            "type": "set_animated",
+            "file": "robert.json",
+            "position": [1140, -30],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
             "name": "whitecrow",
             "type": "player",
             "block_position": [14, 10],
-            "flip":  false
+            "flip": false
         },
         {
             "name": "forest_dust_2",
@@ -727,23 +742,23 @@
             "alpha": 255,
             "deph": 0.0,
             "direction_options": {
-                    "rotation_range": -1,
-                    "speed": 6
-                },
-            "emission_positions":  null,
-            "emission_zone":  null,
+                "rotation_range": -1,
+                "speed": 6
+            },
+            "emission_positions": null,
+            "emission_zone": null,
             "flow": 0,
             "shape_options": {
-                    "type": "square",
-                    "alpha": [35, 150],
-                    "color": [60, 80, 100],
-                    "size": 1
-                },
+                "type": "square",
+                "alpha": [35, 150],
+                "color": [60, 80, 100],
+                "size": 1
+            },
             "spot_options": {
-                    "boundary_behavior": "bounce_on_boundary",
-                    "frequency": [15, 20],
-                    "speed": [0.05, 0.15]
-                },
+                "boundary_behavior": "bounce_on_boundary",
+                "frequency": [15, 20],
+                "speed": [0.05, 0.15]
+            },
             "start_number": 100,
             "zone": [1580, 150, 2200, 300]
         },
@@ -753,23 +768,23 @@
             "alpha": 75,
             "deph": 0.0,
             "direction_options": {
-                    "rotation_range": -1,
-                    "speed": 12
-                },
-            "emission_positions":  null,
-            "emission_zone":  null,
+                "rotation_range": -1,
+                "speed": 12
+            },
+            "emission_positions": null,
+            "emission_zone": null,
             "flow": 0,
             "shape_options": {
-                    "type": "square",
-                    "alpha": [35, 150],
-                    "color": [60, 30, 60],
-                    "size": 1
-                },
+                "type": "square",
+                "alpha": [35, 150],
+                "color": [60, 30, 60],
+                "size": 1
+            },
             "spot_options": {
-                    "boundary_behavior": "bounce_on_boundary",
-                    "frequency": [40, 75],
-                    "speed": [0.15, 0.25]
-                },
+                "boundary_behavior": "bounce_on_boundary",
+                "frequency": [40, 75],
+                "speed": [0.15, 0.25]
+            },
             "start_number": 300,
             "zone": [1580, 200, 2200, 300]
         },

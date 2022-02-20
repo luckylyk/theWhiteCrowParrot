@@ -1,0 +1,63 @@
+{
+    "name": "",
+    "default_move": "idle",
+    "evaluation_order": ["idle", "dying", "lie_down"],
+    "frame_size": [260, 300],
+    "key_color": [0, 255, 0],
+    "layers": {
+        "item": "robert.png"
+    },
+    "moves": {
+        "dying": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 6, 1, 1, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 5, 2, 2, 2, 2, 1, 9],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "lie_down",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 0,
+            "triggers": null
+        },
+        "idle": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [1],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": null,
+            "next_move": "idle",
+            "next_move_bufferable": null,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 0,
+            "triggers": null
+        },
+        "lie_down": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [3000],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "lie_down",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 39,
+            "triggers": null
+        }
+    }
+}
