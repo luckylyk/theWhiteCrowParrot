@@ -33,4 +33,5 @@ for filepath in filepaths:
                     imports.add(line.strip(" "))
 
 print("Total number of lines is:", count)
-print("".join(imports))
+print("-------------------------")
+print("".join(sorted(list(imports))))
