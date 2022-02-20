@@ -723,18 +723,18 @@
             "deph": 0.0
         },
         {
+            "name": "whitecrow",
+            "type": "player",
+            "block_position": [14, 10],
+            "flip": false
+        },
+        {
             "name": "robert",
             "type": "set_animated",
             "file": "robert.json",
             "position": [1140, -30],
             "alpha": 255,
             "deph": 0.0
-        },
-        {
-            "name": "whitecrow",
-            "type": "player",
-            "block_position": [14, 10],
-            "flip": false
         },
         {
             "name": "forest_dust_2",

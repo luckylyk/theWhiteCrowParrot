@@ -249,7 +249,7 @@
         "return": {
             "center": [70, 155],
             "conditions": {
-                "animation_in": ["idle", "walk_off"]
+                "animation_in": ["idle", "walk_off", "walk_a", "walk_b"]
             },
             "frames_centers": null,
             "frames_per_image": [1, 1, 1],
