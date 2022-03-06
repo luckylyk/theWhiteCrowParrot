@@ -31,11 +31,11 @@ class GameLoop:
 
     def __next__(self):
         self.ensure_controller_connected()
-        self.joystick.init()
         events = pygame.event.get()
         self.done = escape_in_events(events)
         if self.done:
             return
+        self.joystick.init()
 
         self.menu.evaluate(self.screen, self.joystick)
         event = self.menu.collect_event()
@@ -70,6 +70,9 @@ class GameLoop:
 
             pygame.display.flip()
             self.clock.tick(cctx.FPS)
+            events = pygame.event.get()
+            if escape_in_events(events):
+                pygame.quit()
 
     def evaluate_theatre(self):
         if self.theatre.run_mode == RUN_MODES.RESTART:

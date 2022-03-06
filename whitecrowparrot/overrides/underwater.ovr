@@ -1,0 +1,2 @@
+main.json["start_scene"] = "underwater"
+characters/whitecrow.json["default_sheet"] = "underwater"

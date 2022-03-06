@@ -1,0 +1,57 @@
+{
+    "name": "underwater",
+    "type": "scene",
+    "background_color": [0, 0, 0],
+    "boundary": [0, 0, 800, 268],
+    "soft_boundaries": [],
+    "target_offset": [75, 0],
+    "sounds": [
+        
+    ],
+    "zones": [
+        {
+            "name": "left_limit",
+            "type": "no_go",
+            "affect": "whitecrow",
+            "zone": [0, 0, 27, 27]
+        },
+        {
+            "name": "right_limit",
+            "type": "no_go",
+            "affect": "whitecrow",
+            "zone": [54, 0, 77, 27]
+        }
+    ],
+    "elements": [
+        {
+            "name": "background",
+            "type": "layer",
+            "deph": 0.0
+        },
+        {
+            "name": "bg",
+            "type": "set_static",
+            "file": "underwater/bg.png",
+            "position": [0, 0],
+            "deph": 0.0
+        },
+        {
+            "name": "whitecrow",
+            "type": "player",
+            "block_position": [27, 6],
+            "flip": false
+        },
+        {
+            "name": "foreground",
+            "type": "layer",
+            "deph": 0.0
+        },
+        {
+            "name": "fg",
+            "type": "set_static",
+            "file": "underwater/fg.png",
+            "position": [0, 0],
+            "deph": 0.0
+        }
+    ]
+}

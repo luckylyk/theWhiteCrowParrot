@@ -1,0 +1,121 @@
+{
+    "name": "",
+    "default_move": "idle",
+    "evaluation_order": ["catch", "idle", "turn", "walk_a", "walk_b", "release"],
+    "frame_size": [310, 300],
+    "key_color": [0, 255, 0],
+    "layers": {
+        "body": "whitecrowparrot_banner_body.png"
+    },
+    "moves": {
+        "catch": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [2, 2, 2, 2, 5, 2, 1, 9, 2, 2, 2],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 1,
+            "triggers": null
+        },
+        "idle": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [1],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": null,
+            "next_move": "idle",
+            "next_move_bufferable": null,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 21,
+            "triggers": null
+        },
+        "release": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [2, 3, 4, 8, 3, 2, 2, 1, 1],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 12,
+            "triggers": null
+        },
+        "turn": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [1, 2, 3, 2, 1, 1, 1, 2, 3],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": ["LEFT"],
+            "loop_on": "idle",
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {
+                "block_offset": [-3, 0],
+                "flip": true
+            },
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 22,
+            "triggers": null
+        },
+        "walk_a": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            "hitmaps": null,
+            "hold": true,
+            "inputs": ["RIGH"],
+            "loop_on": "walk_b",
+            "next_move": "idle",
+            "next_move_bufferable": true,
+            "post_events": {
+                "block_offset": [4, 0]
+            },
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 30,
+            "triggers": null
+        },
+        "walk_b": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            "hitmaps": null,
+            "hold": true,
+            "inputs": ["RIGHT"],
+            "loop_on": "walk_a",
+            "next_move": "idle",
+            "next_move_bufferable": true,
+            "post_events": {
+                "block_offset": [4, 0]
+            },
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 42,
+            "triggers": null
+        }
+    }
+}

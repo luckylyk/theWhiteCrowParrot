@@ -11,7 +11,7 @@
         "back_dash": {
             "center": [190, 155],
             "conditions": {
-                "animation_in": ["idle", "step_forward", "step_backward"]
+                "animation_in": ["idle", "jump", "step_forward", "step_backward", "crouch_up", "crouch_hit_retrieve", "high_hit_retrieve", "high_block_retrieve", "low_block_retrieve", "high_hit_shoot", "low_hit_shoot", "stroke_retrieve"]
             },
             "frames_centers": [[-10, 0], [-30, 0], [-60, 0], [-100, 0], [-110, 0], [-120, 0], [-120, 0], [-120, 0]],
             "frames_per_image": [2, 2, 3, 2, 1, 1, 1, 1],
@@ -36,7 +36,7 @@
         "crouch_down": {
             "center": [70, 155],
             "conditions": {
-                "animation_in": ["idle", "high_block_retrieve", "step_forward", "step_forward", "step_backward"]
+                "animation_in": ["idle", "jump", "step_forward", "back_dash", "step_backward", "crouch_up", "crouch_hit_retrieve", "high_hit_retrieve", "high_block_retrieve", "low_block_retrieve", "high_hit_shoot", "low_hit_shoot", "stroke_retrieve"]
             },
             "frames_centers": null,
             "frames_per_image": [1, 1, 1, 1, 1, 1],
@@ -126,7 +126,7 @@
         "high_block": {
             "center": [70, 155],
             "conditions": {
-                "animation_in": ["idle", "step_forward", "step_backward", "stroke_retrieve", "crouch_up", "high_hit_retrieve", "return", "low_hit_retrieve", "high_hit_shoot", "low_hit_shoot"]
+                "animation_in": ["idle", "jump", "step_forward", "step_backward", "crouch_up", "crouch_hit_retrieve", "high_hit_retrieve", "high_block_retrieve", "low_block_retrieve", "high_hit_shoot", "low_hit_shoot", "stroke_retrieve"]
             },
             "frames_centers": null,
             "frames_per_image": [1, 1],
@@ -171,7 +171,7 @@
         "high_hit_ready": {
             "center": [70, 155],
             "conditions": {
-                "animation_in": ["idle", "jump", "step_forward", "step_backward"],
+                "animation_in": ["idle", "jump", "step_forward", "step_backward", "crouch_up", "crouch_hit_retrieve", "high_hit_retrieve", "high_block_retrieve", "low_block_retrieve", "high_hit_shoot", "low_hit_shoot", "stroke_retrieve"],
                 "animation_not_in": ["crouch_down"]
             },
             "frames_centers": null,
@@ -262,7 +262,7 @@
         "jump": {
             "center": [70, 155],
             "conditions": {
-                "animation_in": ["idle", "step_forward", "step_backward", "crouch_up"]
+                "animation_in": ["idle", "jump", "step_forward", "step_backward", "back_dash", "crouch_up", "crouch_hit_retrieve", "high_hit_retrieve", "high_block_retrieve", "low_block_retrieve", "high_hit_shoot", "low_hit_shoot", "stroke_retrieve"]
             },
             "frames_centers": null,
             "frames_per_image": [1, 1, 2, 3, 4, 3, 2, 1, 1],
@@ -286,7 +286,7 @@
         "low_block": {
             "center": [70, 155],
             "conditions": {
-                "animation_in": ["idle", "step_forward", "step_backward"]
+                "animation_in": ["idle", "step_forward", "step_backward", "stroke_retrieve", "crouch_up", "high_hit_retrieve", "return", "high_hit_shoot", "low_hit_shoot", "crouch_up", "low_block_retrieve", "high_block_retrieve"]
             },
             "frames_centers": null,
             "frames_per_image": [1, 1, 1, 1],
@@ -327,7 +327,7 @@
         "low_hit_ready": {
             "center": [70, 155],
             "conditions": {
-                "animation_in": ["idle", "step_forward", "step_backward"]
+                "animation_in": ["idle", "step_forward", "step_backward", "crouch_up", "crouch_hit_retrieve", "high_hit_retrieve", "high_block_retrieve", "low_block_retrieve", "high_hit_shoot", "low_hit_shoot", "stroke_retrieve"]
             },
             "frames_centers": null,
             "frames_per_image": [2, 4, 6],
@@ -363,10 +363,10 @@
             "inputs": [],
             "loop_on": null,
             "next_move": "idle",
-            "next_move_bufferable": false,
+            "next_move_bufferable": true,
             "post_events": {},
             "pre_events": {},
-            "release_frame": -1,
+            "release_frame": 5,
             "start_at_image": 30,
             "triggers": null
         },
@@ -449,7 +449,7 @@
         "stroke_ready": {
             "center": [70, 155],
             "conditions": {
-                "animation_in": ["idle", "step_forward", "step_backward"]
+                "animation_in": ["idle", "step_forward", "back_dash", "jump", "step_backward", "crouch_up", "crouch_hit_retrieve", "high_hit_retrieve", "high_block_retrieve", "low_block_retrieve", "high_hit_shoot", "stroke_retrieve", "low_hit_shoot"]
             },
             "frames_centers": null,
             "frames_per_image": [1, 2, 2, 3, 5],
@@ -488,7 +488,7 @@
             "next_move_bufferable": true,
             "post_events": {},
             "pre_events": {},
-            "release_frame": 5,
+            "release_frame": 0,
             "start_at_image": 60,
             "triggers": null
         },

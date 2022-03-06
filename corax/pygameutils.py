@@ -9,6 +9,7 @@ object from files.
 
 import os
 import pygame
+from pygame.locals import QUIT
 import corax.context as cctx
 from corax.core import COLORS
 from corax.iterators import itertable
@@ -18,7 +19,8 @@ import corax.screen as sctx
 
 def escape_in_events(events):
     return any(
-        event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE
+        (event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE) or
+        event.type == QUIT
         for event in events)
 
 

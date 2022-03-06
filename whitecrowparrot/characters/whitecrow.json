@@ -17,7 +17,9 @@
         "sword": "whitecrowparrot_sword.json",
         "collects_sword": "whitecrowparrot_collects_sword.json",
         "fight": "whitecrowparrot_fight.json",
-        "fall": "whitecrowparrot_fall.json"
+        "fall": "whitecrowparrot_fall.json",
+        "banner": "whitecrowparrot_banner.json",
+        "underwater": "whitecrowparrot_underwater.json"
     },
     "hitmaps_color": {
         "leggs": [255, 50, 75],
