@@ -1,7 +1,66 @@
 {
     "name": "jos_vs_whitecrow",
     "rules": [
-
+        {
+            "directions": ["target_from_behind"],
+            "block_distance_range": [30, 600],
+            "subject_animations": ["idle", "shaking"],
+            "target_animations": null,
+            "priority": 5,
+            "moves": {
+                "run_1": 10
+            }
+        },
+        {
+            "directions": ["target_from_behind"],
+            "block_distance_range": [10, 30],
+            "subject_animations": ["idle", "shaking"],
+            "target_animations": null,
+            "priority": 5,
+            "moves": {
+                "walk_in": 10
+            }
+        },
+        {
+            "directions": ["target_from_behind"],
+            "block_distance_range": [4, 10],
+            "subject_animations": ["idle", "shaking"],
+            "target_animations": null,
+            "priority": 5,
+            "moves": {
+                "stab": 10
+            }
+        },
+        {
+            "directions": ["facing"],
+            "block_distance_range": [30, 600],
+            "subject_animations": ["idle", "shaking"],
+            "target_animations": null,
+            "priority": 5,
+            "moves": {
+                "shaking": 10
+            }
+        },
+        {
+            "directions": ["facing"],
+            "block_distance_range": [0, 30],
+            "subject_animations": ["idle", "shaking"],
+            "target_animations": null,
+            "priority": 5,
+            "moves": {
+                "step_back_1": 10
+            }
+        },
+        {
+            "directions": ["back_to_back", "subject_from_behind"],
+            "block_distance_range": [0, 5000],
+            "subject_animations": ["idle", "shaking"],
+            "target_animations": null,
+            "priority": 5,
+            "moves": {
+                "return": 10
+            }
+        }
     ],
     "collisions": [
 
