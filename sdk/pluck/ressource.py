@@ -21,7 +21,7 @@ GAMEFOLDERS = [
     'sheets',
     'sounds']
 LAYER_FILENAME = os.path.join(RESSOURCES_PATH, "layer.json")
-PLAYER_FILENAME = os.path.join(RESSOURCES_PATH, "player.json")
+CHARACTER_FILENAME = os.path.join(RESSOURCES_PATH, "character.json")
 PLAYER_PLACEHOLDER_FILENAME = os.path.join(RESSOURCES_PATH, "player_placeholder.json")
 SCENE_FILENAME = os.path.join(RESSOURCES_PATH, "scene.json")
 SCRIPT_FILENAME = os.path.join(RESSOURCES_PATH, "script.ckl")
@@ -30,7 +30,7 @@ SET_STATIC_FILENAME = os.path.join(RESSOURCES_PATH, "set_static.json")
 SHEET_FILENAME = os.path.join(RESSOURCES_PATH, "sheet.json")
 
 RESSOURCE_DEFAULT_VALUES = {
-    'player': ({'filename': 'player.json', 'name': 'player'}),
+    'character': ({'filename': 'character.json', 'name': 'character'}),
     'script': ({'filename': 'script.ckl'}),
     'sheet': ({'filename': 'sheet.json'}),
     'scene': ({'filename': 'scene.json', 'name': 'scene'})
@@ -58,9 +58,10 @@ def ensure_dst_directory_exists(filename):
         os.makedirs(directory)
 
 
-def create_player(filename, name):
+def create_character(filename, name):
+    print(filename, name, CHARACTER_FILENAME, cctx.CHARACTER_FOLDER)
     return create_file_from_ressources(
-        filename, name, PLAYER_FILENAME, cctx.PLAYER_FOLDER)
+        filename, name, CHARACTER_FILENAME, cctx.CHARACTER_FOLDER)
 
 
 def create_scene(filename, name):

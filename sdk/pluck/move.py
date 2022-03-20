@@ -394,8 +394,8 @@ class AnimationViewer(QtWidgets.QWidget):
     def emit_mouse_clicked(self, position):
         if not self.rect().contains(position.toPoint()):
             return
-        pix_x = self.paintcontext.absolute(position.x())
-        pix_y = self.paintcontext.absolute(position.y())
+        pix_x = int(round(self.paintcontext.absolute(position.x())))
+        pix_y = int(round(self.paintcontext.absolute(position.y())))
         block_x, block_y = self.paintcontext.block_position(position.x(), position.y())
         self.mouseEdit.emit((pix_x, pix_y), (block_x, block_y))
 

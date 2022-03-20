@@ -15,7 +15,7 @@ from pluck.jsonmodel import QJsonModel
 from pluck.project import ProjectManager
 from pluck.qtutils import wait_cursor, get_icon, set_shortcut
 from pluck.ressource import (
-    RESSOURCE_DEFAULT_VALUES, detect_filetype, load_json, create_player,
+    RESSOURCE_DEFAULT_VALUES, detect_filetype, load_json, create_character,
     create_scene, create_sheet, create_script)
 from pluck.sanity import data_sanity_check
 from pluck.scene import SceneEditor
@@ -95,8 +95,8 @@ class PluckMainWindow(QtWidgets.QMainWindow):
             return
         try:
             match type_:
-                case 'player':
-                    create_player(filename=dialog.filename, name=dialog.name)
+                case 'character':
+                    create_character(filename=dialog.filename, name=dialog.name)
                 case 'sheet':
                     create_sheet(filename=dialog.filename, name=dialog.name)
                 case 'script':

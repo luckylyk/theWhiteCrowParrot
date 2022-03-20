@@ -641,7 +641,7 @@ class BoolField(ComboField):
 
     @value.setter
     def value(self, value):
-        return self.setCurrentIndex(int(bool(value)))
+        return self.setCurrentIndex(int(not bool(value)))
 
 
 class DictField(QtWidgets.QPlainTextEdit):

@@ -1,0 +1,10 @@
+{
+    "name": "jos",
+    "type": "npc",
+    "default_sheet": "fight",
+    "hitmaps_color": {},
+    "layers": {
+        "body": true
+    },
+    "sheets": {"fight": "jos.json"}
+}

@@ -1,5 +1,5 @@
 {
-    "name": "player1",
+    "name": "character1",
     "default_sheet": null,
     "layers": {
         "body": true
