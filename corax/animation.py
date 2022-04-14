@@ -9,7 +9,7 @@ all frame informations necessary to create an animation object.
 from corax.coordinate import map_pixel_position, to_block_size
 from corax.mathutils import sum_num_arrays
 from corax.override import load_json
-from corax.pygameutils import load_images, image_mirror
+from corax.pygameutils import load_frames, image_mirror
 
 
 class Animation:
@@ -144,7 +144,7 @@ class SpriteSheet:
         frame_size = data["frame_size"]
         key_color = data["key_color"]
         sequences = {
-            layer: load_images(filename, frame_size, key_color)
+            layer: load_frames(filename, frame_size, key_color)
             for layer, filename in data["layers"].items()}
         return SpriteSheet(name, data, sequences)
 

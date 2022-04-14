@@ -8,7 +8,7 @@ from corax.core import RUN_MODES, MENU_EVENTS, GAMELOOP_ACTIONS, COLORS
 from corax.theatre import Theatre
 from corax.menu import Menu
 from corax.override import load_json
-from corax.pygameutils import render_centered_text, escape_in_events, draw_letterbox
+from corax.pygameutils import render_centered_text, escape_in_events
 
 
 CONNECT_CONTROLLER_WARNING = "Connect game controller (X Input)"
@@ -41,7 +41,7 @@ class GameLoop:
         event = self.menu.collect_event()
         if event == MENU_EVENTS.ENTER:
             self.theatre.pause()
-        elif event in [MENU_EVENTS.QUIT,  GAMELOOP_ACTIONS.RESUME]:
+        elif event in [MENU_EVENTS.QUIT, GAMELOOP_ACTIONS.RESUME]:
             self.theatre.resume()
         elif event == GAMELOOP_ACTIONS.EXIT:
             self.done = True
