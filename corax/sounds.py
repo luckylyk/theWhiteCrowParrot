@@ -4,7 +4,8 @@ import corax.context as cctx
 from corax.core import LOOP_TYPES, NODE_TYPES
 from corax.euclide import Rect
 from corax.iterators import shuffle
-from corax.pygameutils import load_sound
+from corax.pygameutils import (
+    load_sound, play_sound, get_volume, set_volume, stop_sound)
 from corax.seeker import find_element
 
 
@@ -35,21 +36,21 @@ class Ambiance():
 
     @does_not_execute_on_muted
     def play(self):
-        self.sound.play(-1)
+        play_sound(self.sound, loop=True)
         self.is_playing = True
 
     @does_not_execute_on_muted
     def pause(self):
-        self._backed_volume = self.sound.get_volume()
-        self.sound.set_volume(0)
+        self._backed_volume = get_volume(self.sound)
+        set_volume(self.sound, 0)
 
     @does_not_execute_on_muted
     def resume(self):
-        self.sound.set_volume(self._backed_volume)
+        set_volume(self.sound, self._backed_volume)
 
     @does_not_execute_on_muted
     def stop(self):
-        self.sound.stop()
+        stop_sound(self.sound)
         self.is_playing = False
 
     @does_not_execute_on_muted
@@ -67,7 +68,7 @@ class Ambiance():
             self.stop()
             return
         ratio = self.zone.falloff_ratio(position, self.falloff)
-        self.sound.set_volume(ratio or 0)
+        set_volume(self.sound, ratio or 0)
 
     def __eq__(self, sound):
         message = "Ambiance only support comparison with str and Ambiance()"
@@ -109,13 +110,13 @@ class SfxSoundCollection():
         position = self.emitter.pixel_center
         ratio = self.zone.falloff_ratio(position, self.falloff)
         sound = next(self.iterator)
-        sound.set_volume(ratio or 0)
-        sound.play()
+        set_volume(sound, ratio or 0)
+        play_sound(sound)
 
     @does_not_execute_on_muted
     def stop(self):
         for sound in self.sounds:
-            sound.stop()
+            stop_sound(sound)
 
 
 class SfxSound():
@@ -144,12 +145,12 @@ class SfxSound():
             ratio = self.zone.falloff_ratio(position, self.falloff)
         else:
             ratio = 100
-        self.sound.set_volume(ratio)
-        self.sound.play()
+        set_volume(self.sound, ratio)
+        play_sound(self.sound)
 
     @does_not_execute_on_muted
     def stop(self):
-        self.sound.stop()
+        stop_sound(self.sound)
 
 
 class AudioStreamer():

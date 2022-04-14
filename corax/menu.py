@@ -1,7 +1,8 @@
 
 from corax.core import MENU_MODES, MENU_EVENTS
 from corax.gamepad import InputBuffer
-from corax.pygameutils import load_sound, render_text, render_background
+from corax.pygameutils import (
+    load_sound, render_text, render_background, play_sound)
 from corax.screen import screen_relative_y
 
 
@@ -35,30 +36,30 @@ class Menu:
         return result
 
     def set_next(self):
-        self.sounds["next"].play()
+        play_sound(self.sounds["next"])
         self.index += 1
         if self.index == len(self.items):
             self.index = 0
 
     def set_previous(self):
-        self.sounds["previous"].play()
+        play_sound(self.sounds["previous"])
         if self.index == 0:
             self.index = len(self.items) - 1
             return
         self.index -= 1
 
     def trigger(self):
-        self.sounds["press"].play()
+        play_sound(self.sounds["press"])
         return self.data["content"][self.index].get("event")
 
     def enter(self):
         self.done = False
-        self.sounds["enter"].play()
+        play_sound(self.sounds["enter"])
         self.animation = self.enter_animation()
         self.index = 0
 
     def quit(self, event=None):
-        self.sounds["quit"].play()
+        play_sound(self.sounds["quit"])
         event = event or MENU_EVENTS.QUIT
         self.animation = self.leave_animation(event)
 

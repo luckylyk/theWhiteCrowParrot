@@ -22,6 +22,7 @@ import corax.screen as sctx
 # Each pygame object is stored in this module.  The game itself only store id
 # to find binary object saved here.
 _image_store = {}
+_sound_store = {}
 
 
 def escape_in_events(events):
@@ -60,6 +61,8 @@ def load_frames(filename, frame_size, key_color, relative=True):
 
 
 def load_image(filename, key_color=None):
+    if _image_store.get(filename):
+        return filename
     image = pygame.image.load(filename).convert()
     if key_color is not None:
         image.set_colorkey(key_color)
@@ -85,16 +88,49 @@ def image_mirror(id_, horizontal=True, vertical=False):
 
 def load_sound(filename):
     filename = os.path.join(cctx.SOUNDS_FOLDER, filename)
+    if _sound_store.get(filename):
+        return filename
     try:
-        return pygame.mixer.Sound(filename)
+        _sound_store[filename] = pygame.mixer.Sound(filename)
+        return filename
     except FileNotFoundError as e:
         msg = f"No such file or directory: {filename}"
         raise FileNotFoundError(msg) from e
 
 
+def play_sound(id_, loop=False):
+    sound = _sound_store.get(id_)
+    if not sound:
+        raise ValueError(f'Sound "{id_}" is not loaded')
+    if loop:
+        _sound_store[id_].play(-1)
+        return
+    _sound_store[id_].play()
+
+
+def stop_sound(id_):
+    sound = _sound_store.get(id_)
+    if not sound:
+        raise ValueError(f'Sound "{id_}" is not loaded')
+    return _sound_store[id_].stop()
+
+
+def get_volume(id_):
+    sound = _sound_store.get(id_)
+    if not sound:
+        raise ValueError(f'Sound "{id_}" is not loaded')
+    return _sound_store[id_].get_volume()
+
+
+def set_volume(id_, volume):
+    sound = _sound_store.get(id_)
+    if not sound:
+        raise ValueError(f'Sound "{id_}" is not loaded')
+    return _sound_store[id_].set_volume(volume)
+
+
 def render_image(id_, screen, position, alpha=255):
     image = _image_store[id_]
-    print(id_)
     if alpha == 255:
         screen.blit(image, position)
         return
