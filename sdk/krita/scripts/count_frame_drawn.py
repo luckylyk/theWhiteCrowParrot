@@ -30,7 +30,7 @@ class MockArguments:
 
 
 cctx.initialize(MockArguments)
-from corax.pygameutils import load_images
+from corax.pygameutils import load_frames
 
 pygame.joystick.init()
 pygame.mixer.init()
@@ -43,6 +43,6 @@ for sheet in sheets:
         data = json.load(f)
     images_path = os.path.join(cctx.ANIMATION_FOLDER, [str(k) for k in data["layers"].values()][0])
     print (images_path)
-    images.extend(load_images(images_path, data["frame_size"], data["key_color"]))
+    images.extend(load_frames(images_path, data["frame_size"], data["key_color"]))
 
 print (len(images))

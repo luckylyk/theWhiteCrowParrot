@@ -9,12 +9,19 @@ object from files.
 
 import os
 import pygame
+
 from pygame.locals import QUIT
+
 import corax.context as cctx
 from corax.core import COLORS
 from corax.iterators import itertable
 import corax.screen as sctx
 
+
+# In order to make the corax as less agnostic as possible from Pygame.
+# Each pygame object is stored in this module.  The game itself only store id
+# to find binary object saved here.
+_image_store = {}
 
 
 def escape_in_events(events):
@@ -24,7 +31,10 @@ def escape_in_events(events):
         for event in events)
 
 
-def load_images(filename, frame_size, key_color, relative=True):
+def load_frames(filename, frame_size, key_color, relative=True):
+    """
+    Split a huge sheet in memory.
+    """
     if relative:
         filename = os.path.join(cctx.ANIMATION_FOLDER, filename)
     sheet = pygame.image.load(filename).convert()
@@ -33,39 +43,58 @@ def load_images(filename, frame_size, key_color, relative=True):
     col = sheet.get_width() / width
     if row != int(row) or col != int(col):
         message = (
-            "the sprite sheet file {} size doesn't match "
-            "with his block size".format(filename))
+            f"the sprite sheet file {filename} size doesn't "
+            "match with his block size")
         raise ValueError(message)
-    images = []
+    ids = []
+
     for j, i in itertable(int(row), int(col)):
         image = pygame.Surface([width, height]).convert()
         x, y = i * width, j * height
         image.blit(sheet, (0, 0), (x, y, width, height))
         image.set_colorkey(key_color)
-        images.append(image)
-    return images
+        id_ = f'{filename}[{i}.{j}]'
+        _image_store[id_] = image
+        ids.append(id_)
+    return ids
 
 
 def load_image(filename, key_color=None):
     image = pygame.image.load(filename).convert()
     if key_color is not None:
         image.set_colorkey(key_color)
-    return image
+    _image_store[filename] = image
+    return filename
 
 
-def image_mirror(image, horizontal=True, vertical=False):
-    return pygame.transform.flip(image, horizontal, vertical)
+def image_mirror(id_, horizontal=True, vertical=False):
+    if not _image_store.get(id_):
+        raise ValueError(f'Unknown image id {id_}. Cannot generate a mirror.')
+    flip_id = f'{id_}['
+    if horizontal:
+        flip_id += 'h'
+    if vertical:
+        flip_id += 'v'
+    flip_id += ']'
+    if not _image_store.get(flip_id):
+        image = _image_store[id_]
+        mirror = pygame.transform.flip(image, horizontal, vertical)
+        _image_store[flip_id] = mirror
+    return flip_id
 
 
 def load_sound(filename):
     filename = os.path.join(cctx.SOUNDS_FOLDER, filename)
     try:
         return pygame.mixer.Sound(filename)
-    except FileNotFoundError:
-        raise FileNotFoundError(f"No such file or directory: {filename}")
+    except FileNotFoundError as e:
+        msg = f"No such file or directory: {filename}"
+        raise FileNotFoundError(msg) from e
 
 
-def render_image(image, screen, position, alpha=255):
+def render_image(id_, screen, position, alpha=255):
+    image = _image_store[id_]
+    print(id_)
     if alpha == 255:
         screen.blit(image, position)
         return
@@ -81,7 +110,7 @@ def render_image(image, screen, position, alpha=255):
     screen.blit(temp, position)
 
 
-def render_rect(screen, color, x, y, width, height , alpha=255):
+def render_rect(screen, color, x, y, width, height, alpha=255):
     temp = pygame.Surface((width, height)).convert()
     pygame.draw.rect(temp, color, [0, 0, width, height])
     temp.set_alpha(alpha)
@@ -131,7 +160,7 @@ def render_centered_text(screen, text, color=None):
     font = pygame.font.SysFont('Consolas', 15)
     text = font.render(text, True, color)
     x, y = sctx.SCREEN
-    text_rect = text.get_rect(center=(x/2, y/2))
+    text_rect = text.get_rect(center=(x / 2, y / 2))
     screen.blit(text, text_rect)
 
 
