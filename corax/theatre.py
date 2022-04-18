@@ -1,4 +1,5 @@
 
+import itertools
 import os
 import logging
 
@@ -103,8 +104,10 @@ class Theatre:
         self.alpha = 0 if self.transition else 255
 
     def get_scene(self, scene_name, scene_data):
-        return self.loaded_scenes.get(scene_name) or self.loaded_scenes.setdefault(
-            scene_name, build_scene(scene_name, scene_data))
+        return (
+            self.loaded_scenes.get(scene_name) or
+            self.loaded_scenes.setdefault(
+                scene_name, build_scene(scene_name, scene_data)))
 
     def set_scene(self, scene_name):
         # Currently, the engine rebuild each scene from scratch each it is set.
@@ -138,6 +141,7 @@ class Theatre:
                     slot.character = character
                     character.coordinate.block_position = slot.block_position
                     character.coordinate.flip = slot.flip
+
             if character.type == NODE_TYPES.PLAYER:
                 character.set_no_go_zones([
                     z for z in self.scene.zones
@@ -259,11 +263,11 @@ class Theatre:
             if conditions:
                 continue
 
-            for script_name in script_names:
-                for script in self.current_scripts:
-                    if script.name == script_name and script.check():
-                        logging.debug(f"SCRIPT: running {script_name}")
-                        self.run_script(script)
+            iterator = itertools.product(script_names, self.current_scripts)
+            for script_name, script in iterator:
+                if script.name == script_name and script.check():
+                    logging.debug(f"SCRIPT: running {script_name}")
+                    self.run_script(script)
 
     def queue_event(self, event):
         crackle_event = self.events[event]

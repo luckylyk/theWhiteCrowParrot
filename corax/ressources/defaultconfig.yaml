@@ -1,0 +1,24 @@
+---
+keybinding:
+  ls_up: LS_UP
+  ls_down: LS_DOWN
+  ls_left: LS_LEFT
+  ls_right: LS_RIGHT
+  rs_up: RS_UP
+  rs_down: RS_DOWN
+  rs_left: RS_LEFT
+  rs_right: RS_RIGHT
+  dpad_up: DPAD_UP
+  dpad_down: DPAD_DOWN
+  dpad_left: DPAD_LEFT
+  dpad_right: DPAD_RIGHT
+  r1: R1
+  r2: R2
+  l1: L1
+  l2: L2
+  x: X
+  y: "Y"
+  a: A
+  b: B
+fullscreen: false
+scaled: true

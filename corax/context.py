@@ -27,6 +27,8 @@ SCRIPT_FOLDER = None
 SET_FOLDER = None
 SHEET_FOLDER = None
 SOUNDS_FOLDER = None
+CONFIG_FILE = None
+RESSOURCES_FOLDER = os.path.join(os.path.dirname(__file__), "ressources")
 
 
 def initialize(arguments):
@@ -36,10 +38,12 @@ def initialize(arguments):
     context.
     argumenrts: argparse.Namespace
     """
-    global ROOT, DATA_FOLDER, ANIMATION_FOLDER, SET_FOLDER, SHEET_FOLDER, \
-    SCRIPT_FOLDER, SCENE_FOLDER, SOUNDS_FOLDER, GAME_FILE, RESOLUTION, FPS, \
-    CAMERA_SPEED, BLOCK_SIZE, KEY_COLOR, DEBUG, MUTE, CHARACTER_FOLDER, TITLE, \
-    OVERRIDE_FILE, RELATIONSHIP_FOLDER, MENU_FOLDER
+    global \
+        ROOT, DATA_FOLDER, ANIMATION_FOLDER, SET_FOLDER, SHEET_FOLDER, \
+        SCRIPT_FOLDER, SCENE_FOLDER, SOUNDS_FOLDER, GAME_FILE, RESOLUTION, \
+        FPS, CAMERA_SPEED, BLOCK_SIZE, KEY_COLOR, DEBUG, MUTE, \
+        CHARACTER_FOLDER, TITLE, OVERRIDE_FILE, RELATIONSHIP_FOLDER, \
+        MENU_FOLDER, CONFIG_FILE
 
     ROOT = os.path.abspath(arguments.game_root)
     OVERRIDE_FILE = arguments.overrides
@@ -62,6 +66,7 @@ def initialize(arguments):
     TITLE = game_data["title"]
     BLOCK_SIZE = game_data["preferences"]["block_size"]
     CAMERA_SPEED = game_data["preferences"]["camera_speed"]
+    CONFIG_FILE = os.path.expanduser(f'~/{TITLE}/config.yaml')
     FPS = game_data["preferences"]["fps"] * (2 if arguments.speedup else 1)
     KEY_COLOR = game_data["preferences"]["key_color"]
     RESOLUTION = game_data["preferences"]["resolution"]

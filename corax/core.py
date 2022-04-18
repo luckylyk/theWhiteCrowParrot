@@ -74,6 +74,7 @@ class RUN_MODES:
     NORMAL = "normal"
     PAUSE = "pause"
     RESTART = "restart"
+    RESTORE_CHECKPOINT = "restore_checkpoint"
 
 
 class SHAPE_TYPES:

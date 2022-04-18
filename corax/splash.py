@@ -11,11 +11,10 @@ from corax.pygameutils import (
 from corax.screen import screen_relative_y
 
 
-RESSOURCES_FOLDER = os.path.join(os.path.dirname(__file__), "ressources")
-LOGO_PATH = os.path.join(RESSOURCES_FOLDER, "logo.png")
-CORAX_PATH = os.path.join(RESSOURCES_FOLDER, "corax_engine.png")
-TITLE_PATH =  os.path.join(RESSOURCES_FOLDER, "cinematic_platformer.png")
-SOUND_PATH = os.path.join(RESSOURCES_FOLDER, "corax.ogg")
+LOGO_PATH = os.path.join(cctx.RESSOURCES_FOLDER, "logo.png")
+CORAX_PATH = os.path.join(cctx.RESSOURCES_FOLDER, "corax_engine.png")
+TITLE_PATH = os.path.join(cctx.RESSOURCES_FOLDER, "cinematic_platformer.png")
+SOUND_PATH = os.path.join(cctx.RESSOURCES_FOLDER, "corax.ogg")
 DURATION = 45
 PLAY_SOUND_AT = 10
 SPLASH_FPS = 15

@@ -6,6 +6,7 @@ images are multiple animations. The sprites sheet data are a json containing
 all frame informations necessary to create an animation object.
 """
 
+
 from corax.coordinate import map_pixel_position, to_block_size
 from corax.mathutils import sum_num_arrays
 from corax.override import load_json
@@ -157,12 +158,12 @@ class SpriteSheet:
         if not sequences:
             msg = f"No image found for {self.name}, {move}. "
             msg += "May no valid layer for the current sheet is found."
-            raise Exception(msg)
+            raise ValueError(msg)
         try:
             data = self.data["moves"][move]
-        except KeyError:
+        except KeyError as e:
             keys = ", ".join(str(k) for k in self.data["moves"].keys())
-            raise KeyError(f"{keys} doesn't contains {move}")
+            raise KeyError(f"{keys} doesn't contains {move}") from e
         size = self.data["frame_size"]
         return Animation(move, sequences, data, size, flip)
 
@@ -260,8 +261,7 @@ def build_hitmaps_sequence(data, size, flip):
     except IndexError as e:
         import traceback
         msg = traceback.format_exc()
-        raise IndexError("Wrong hitmap for " + str(data) + "\n" + msg)
-
+        raise IndexError(f"Wrong hitmap for {str(data)}" + "\n" + msg) from e
 
 
 def animation_index_to_data_index(index, data):

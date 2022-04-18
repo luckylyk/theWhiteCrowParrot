@@ -68,6 +68,7 @@ parser.add_argument("-ss", "--skip_splash", action='store_true')
 parser.add_argument("-sp", "--speedup", action='store_true')
 arguments = parser.parse_args()
 
+
 if arguments.debug:
     import logging
     logging.getLogger().setLevel(logging.DEBUG)
@@ -76,6 +77,7 @@ if arguments.debug:
 import corax.context as cctx
 from corax.gameloop import GameLoop
 from corax.screen import setup_display
+from corax import config
 # Initialize the engine constants based on the application arguments and loads
 # the main.json file.
 game_data = cctx.initialize(arguments)
@@ -85,7 +87,10 @@ import pygame
 pygame.joystick.init()
 pygame.mixer.init()
 pygame.font.init()
-screen = setup_display(scaled=arguments.scaled, fullscreen=arguments.fullscreen)
+screen = setup_display(
+    scaled=arguments.scaled or config.get('scaled'),
+    fullscreen=arguments.fullscreen or config.get('fullscreen'))
+
 
 # This execute the Corax Engine splash screen.
 if not arguments.skip_splash:
@@ -95,6 +100,7 @@ if not arguments.skip_splash:
     for _ in splash:
         pygame.display.flip()
         clock.tick(SPLASH_FPS)
+
 
 # Run the game
 gameloop = GameLoop(game_data, screen)
