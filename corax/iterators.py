@@ -1,4 +1,5 @@
 
+import itertools
 import random
 import traceback
 
@@ -17,7 +18,7 @@ def iter_on_jobs(jobs, actions=None):
             print(traceback.format_exc())
             error = f'{actions[i]}: failed' if actions else ""
             print(e)
-            raise ValueError(f'{error}: ' + str(job)) from e
+            raise ValueError(f'{error}: {str(job)}') from e
         while frame_count > 0:
             yield
             frame_count -= 1
@@ -36,9 +37,7 @@ def itertable(a, b):
     """
     Bi-dimensional iterator.
     """
-    for i in range(a):
-        for j in range(b):
-            yield i, j
+    yield from itertools.product(range(a), range(b))
 
 
 def frame_data_iterator(frame_data):

@@ -3,8 +3,8 @@
     "rules": [
         {
             "directions": ["target_from_behind"],
-            "block_distance_range": [30, 600],
-            "subject_animations": ["idle", "shaking"],
+            "block_distance_range": [20, 600],
+            "subject_animations": ["idle", "shaking", "run_1", "run_2", "walk_1", "walk_2"],
             "target_animations": null,
             "priority": 5,
             "moves": {
@@ -13,8 +13,8 @@
         },
         {
             "directions": ["target_from_behind"],
-            "block_distance_range": [10, 30],
-            "subject_animations": ["idle", "shaking"],
+            "block_distance_range": [8, 20],
+            "subject_animations": ["idle", "shaking", "run_1", "run_2"],
             "target_animations": null,
             "priority": 5,
             "moves": {
@@ -23,8 +23,8 @@
         },
         {
             "directions": ["target_from_behind"],
-            "block_distance_range": [4, 10],
-            "subject_animations": ["idle", "shaking"],
+            "block_distance_range": [4, 8],
+            "subject_animations": ["idle", "shaking", "run_1", "run_2", "walk_1", "walk_2"],
             "target_animations": null,
             "priority": 5,
             "moves": {
@@ -33,8 +33,8 @@
         },
         {
             "directions": ["facing"],
-            "block_distance_range": [30, 600],
-            "subject_animations": ["idle", "shaking"],
+            "block_distance_range": [15, 30],
+            "subject_animations": ["idle", "shaking", "run_1", "run_2", "walk_1", "walk_2"],
             "target_animations": null,
             "priority": 5,
             "moves": {
@@ -43,18 +43,38 @@
         },
         {
             "directions": ["facing"],
-            "block_distance_range": [0, 30],
-            "subject_animations": ["idle", "shaking"],
+            "block_distance_range": [30, 100],
+            "subject_animations": ["idle", "shaking", "run_1", "run_2"],
             "target_animations": null,
             "priority": 5,
             "moves": {
-                "step_back_1": 10
+                "walk_in": 10
+            }
+        },
+        {
+            "directions": ["facing"],
+            "block_distance_range": [100, 5000],
+            "subject_animations": ["idle", "shaking", "run_1", "run_2", "walk_1", "walk_2"],
+            "target_animations": null,
+            "priority": 5,
+            "moves": {
+                "run_1": 10
+            }
+        },
+        {
+            "directions": ["facing"],
+            "block_distance_range": [0, 15],
+            "subject_animations": ["idle", "shaking", "run_1", "run_2", "walk_1", "walk_2"],
+            "target_animations": null,
+            "priority": 5,
+            "moves": {
+                "back_step_1": 10
             }
         },
         {
             "directions": ["back_to_back", "subject_from_behind"],
             "block_distance_range": [0, 5000],
-            "subject_animations": ["idle", "shaking"],
+            "subject_animations": ["idle", "shaking", "run_1", "run_2", "walk_1", "walk_2"],
             "target_animations": null,
             "priority": 5,
             "moves": {

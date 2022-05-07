@@ -19,7 +19,9 @@
             "loop_on": "idle",
             "next_move": "idle",
             "next_move_bufferable": false,
-            "post_events": {},
+            "post_events": {
+                "block_offset": [-8, 0]
+            },
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 31,
@@ -36,7 +38,9 @@
             "loop_on": "idle",
             "next_move": "idle",
             "next_move_bufferable": false,
-            "post_events": {},
+            "post_events": {
+                "block_offset": [-8, 0]
+            },
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 38,
@@ -104,7 +108,10 @@
             "loop_on": "idle",
             "next_move": "idle",
             "next_move_bufferable": false,
-            "post_events": {},
+            "post_events": {
+                "flip": true,
+                "block_offset": [8, 0]
+            },
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 5,
@@ -121,7 +128,9 @@
             "loop_on": "idle",
             "next_move": "run_2",
             "next_move_bufferable": false,
-            "post_events": {},
+            "post_events": {
+                "block_offset": [14, 0]
+            },
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 45,
@@ -138,7 +147,9 @@
             "loop_on": "idle",
             "next_move": "run_1",
             "next_move_bufferable": false,
-            "post_events": {},
+            "post_events": {
+                "block_offset": [14, 0]
+            },
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 54,
@@ -164,7 +175,7 @@
         "shooted": {
             "center": [160, 145],
             "conditions": {},
-            "frames_centers": null,
+            "frames_centers": [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [-98, -69]],
             "frames_per_image": [2, 2, 2, 2, 2, 7, 2, 2, 2, 2, 10],
             "hitmaps": null,
             "hold": true,
@@ -189,7 +200,9 @@
             "loop_on": "idle",
             "next_move": "idle",
             "next_move_bufferable": false,
-            "post_events": {},
+            "post_events": {
+                "block_offset": [8, 0]
+            },
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 11,
@@ -198,7 +211,7 @@
         "walk_1": {
             "center": [160, 145],
             "conditions": {},
-            "frames_centers": null,
+            "frames_centers": [[25, 1], [30, 0], [35, 0], [41, 0], [45, 0], [50, 0], [57, 0], [63, 0]],
             "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2],
             "hitmaps": null,
             "hold": false,
@@ -206,7 +219,9 @@
             "loop_on": "idle",
             "next_move": "walk_2",
             "next_move_bufferable": false,
-            "post_events": {},
+            "post_events": {
+                "block_offset": [4, 0]
+            },
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 65,
@@ -223,7 +238,9 @@
             "loop_on": "idle",
             "next_move": "walk_1",
             "next_move_bufferable": false,
-            "post_events": {},
+            "post_events": {
+                "block_offset": [4, 0]
+            },
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 73,
@@ -240,7 +257,9 @@
             "loop_on": "idle",
             "next_move": "walk_1",
             "next_move_bufferable": false,
-            "post_events": {},
+            "post_events": {
+                "block_offset": [2, 0]
+            },
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 63,

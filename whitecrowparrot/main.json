@@ -24,6 +24,7 @@
         {"name": "forest", "file": "forest_01.json"},
         {"name": "mine", "file": "mine_01.json"},
         {"name": "hole", "file": "hole.json"},
+        {"name": "hives", "file": "hives.json"},
         {"name": "exit", "file": "exit.json"},
         {"name": "tente", "file": "tente.json"},
         {"name": "ending", "file": "ending.json"},

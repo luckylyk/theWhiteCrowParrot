@@ -52,6 +52,16 @@
             }
         },
         {
+            "directions":  null,
+            "block_distance_range": [0, 5],
+            "subject_animations": ["idle", "high_blocked", "low_blocked", "jump", "high_block", "walk", "step"],
+            "target_animations": null,
+            "priority": 5,
+            "moves": {
+                "walk": 10
+            }
+        },
+        {
             "directions":  ["facing", "target_from_behind"],
             "block_distance_range": [5, 15],
             "subject_animations": ["idle"],

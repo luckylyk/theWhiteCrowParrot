@@ -1,0 +1,70 @@
+{
+    "name": "hives",
+    "type": "scene",
+    "background_color": [0, 0, 0],
+    "boundary": [0, 0, 1600, 268],
+    "soft_boundaries": [[0, 0, 650, 270], [890, 0, 1600, 270]],
+    "target_offset": [75, 0],
+    "sounds": [
+        
+    ],
+    "zones": [
+        {
+            "name": "jos_vs_whitecrow",
+            "type": "relationship",
+            "enable": true,
+            "relationship": "jos_vs_whitecrow",
+            "subject": "jos",
+            "target": "whitecrow",
+            "zone": [-9, -7, 178, 31]
+        },
+        {
+            "name": "bruno_vs_whitecrow",
+            "type": "relationship",
+            "enable": true,
+            "relationship": "bruno_vs_whitecrow",
+            "subject": "bruno",
+            "target": "whitecrow",
+            "zone": [-9, -7, 178, 30]
+        }
+    ],
+    "elements": [
+        {
+            "name": "background",
+            "type": "layer",
+            "deph": 0.0
+        },
+        {
+            "name": "bg",
+            "type": "set_static",
+            "file": "hives/bg.png",
+            "position": [0, 0],
+            "deph": 0.0
+        },
+        {
+            "name": "jos",
+            "type": "npc",
+            "block_position": [44, 10],
+            "flip": true
+        },
+        {
+            "name": "whitecrow",
+            "type": "player",
+            "block_position": [20, 9],
+            "flip": true
+        },
+        {
+            "name": "bruno",
+            "type": "npc",
+            "block_position": [0, 8],
+            "flip": false
+        },
+        {
+            "name": "fg",
+            "type": "set_static",
+            "file": "hives/fg.png",
+            "position": [0, 104],
+            "deph": 0.0
+        }
+    ]
+}

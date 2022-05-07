@@ -19,7 +19,7 @@
             "name": "right_limit",
             "type": "no_go",
             "affect": "whitecrow",
-            "zone": [54, 0, 77, 27]
+            "zone": [50, 0, 77, 27]
         }
     ],
     "elements": [

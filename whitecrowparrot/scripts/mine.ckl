@@ -256,8 +256,8 @@ script intro_exit
 
 
 script go_to_ending
-    globals.sinoc_is_alive is true
-        globals.sinoc_is_alive set false
+    theatre.globals.sinoc_is_alive is true
+        theatre.globals.sinoc_is_alive set false
         flush player.whitecrow
         theatre.scene set ending
         player.whitecrow play walk_a

@@ -151,7 +151,6 @@ class Theatre:
     def evaluate(self, joystick, screen):
         if not self.scene:
             raise ValueError("No scene set")
-
         if self.freeze > 0:
             self.freeze -= 1
         elif self.run_mode == RUN_MODES.NORMAL:
@@ -212,7 +211,7 @@ class Theatre:
         relationship = find_relationship(self.relationships, zone.relationship)
         if not relationship:
             return
-        # Check collision event
+        # Check collision event.
         event = detect_collision(relationship["collisions"], subject, target)
         if event and (event not in self.event_iterators):
             self.queue_event(event)

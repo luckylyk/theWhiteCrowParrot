@@ -1,1 +1,1 @@
-pythonw pluck ..\galaxytime
+py %~dp0\pluck %~dp0..\galaxytime

@@ -82,7 +82,10 @@ def is_move_cross_zone(
     """
     sheet_data = data["moves"][move]
     block_positions = []
-    while True:
+    i = 1
+    while i:=i+i:
+        if i > 100:
+            return False
         pre_offset = sheet_data["pre_events"].get(EVENTS.BLOCK_OFFSET)
         post_offset = sheet_data["post_events"].get(EVENTS.BLOCK_OFFSET)
         flip_event = sheet_data["post_events"].get(EVENTS.FLIP)

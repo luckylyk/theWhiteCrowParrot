@@ -5,15 +5,15 @@ count = 0
 paths = [
     os.path.join(os.path.dirname(__file__), "..", "corax"),
     os.path.join(os.path.dirname(__file__), "..", "corax", "crackle"),
-    # os.path.join(os.path.dirname(__file__), "..", "sdk", "pluck"),
-    # os.path.join(os.path.dirname(__file__), "..", "sdk", "krita", "scripts"),
-    # os.path.join(os.path.dirname(__file__), "..", "sdk", "krita", "extensions"),
-    # os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot"),
-    # os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot", "sheets"),
-    # os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot", "scenes"),
-    # os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot", "scripts"),
-    # os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot", "characters"),
-    # os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot", "relationships")
+    os.path.join(os.path.dirname(__file__), "..", "sdk", "pluck"),
+    os.path.join(os.path.dirname(__file__), "..", "sdk", "krita", "scripts"),
+    os.path.join(os.path.dirname(__file__), "..", "sdk", "krita", "extensions"),
+    os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot"),
+    os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot", "sheets"),
+    os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot", "scenes"),
+    os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot", "scripts"),
+    os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot", "characters"),
+    os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot", "relationships")
 ]
 
 
@@ -28,7 +28,7 @@ for filepath in filepaths:
             if filepath.endswith(".py"):
                 conditions = (
                     ("import " in str(line) or str(line).startswith("from ")) and
-                    "corax" not in str(line))
+                    "corax" not in str(line) and "corax" not in str(line))
                 if conditions:
                     imports.add(line.strip(" "))
 
