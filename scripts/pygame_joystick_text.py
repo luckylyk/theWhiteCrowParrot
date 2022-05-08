@@ -117,6 +117,7 @@ class input_test(object):
         self.pre_render_circle_image()
         # self.clock = pygame.time.Clock()
         self.joycount = pygame.joystick.get_count()
+        print(self.joycount)
         if self.joycount == 0:
             print("This program only works with at least one joystick plugged in. No joysticks were detected.")
             self.quit(1)

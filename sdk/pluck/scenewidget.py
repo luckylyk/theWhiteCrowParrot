@@ -459,32 +459,3 @@ class ModeManager:
         self.mouse_ghost = position
         return result.toPoint() if result else None
 
-
-if __name__ == "__main__":
-
-# initialize project
-    import corax.context as cctx
-    GAMEDATA_FOLDER = os.path.join(MAIN_FOLDER, "whitecrowparrot")
-
-    class MockArguments:
-        """
-        The Corax Engine uses an argparse object to initialize. This is a argparse
-        mocker to be able to initialize the engine for sdk uses.
-        """
-        game_root = GAMEDATA_FOLDER
-        debug = False
-        mute = True
-        speedup = False
-        overrides = None
-
-    GAME_DATA = cctx.initialize(MockArguments)
-    app = QtWidgets.QApplication()
-    wid = SceneWidget()
-    wid.background_color = "#FF01FF"
-    wid.mode_manager.zone_mode = False
-    path = r"D:\Works\code\GitHub\theWhiteCrowParrot\whitecrowparrot\scenes\forest_01.json"
-    tree = create_scene_outliner_tree(load_json(path))
-    # print(tree)
-    wid.show()
-    wid.set_tree(tree)
-    app.exec()

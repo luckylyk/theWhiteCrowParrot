@@ -12,15 +12,16 @@ _cache = None
 
 
 def load():
+    global _cache
     try:
         if not os.path.exists(cctx.CONFIG_FILE):
             shutil.copy(DEFAULTCONFIG, cctx.CONFIG_FILE)
         with open(cctx.CONFIG_FILE, 'r') as f:
-            return yaml.safe_load(f)
+            _cache = yaml.safe_load(f)
+            return _cache
     except BaseException:
         print(traceback.format_exc())
         with open(DEFAULTCONFIG, 'r') as f:
-            global _cache
             _cache = yaml.safe_load(f)
             return _cache
 

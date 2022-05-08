@@ -77,7 +77,7 @@
             "post_events": {},
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 86,
+            "start_at_image": 85,
             "triggers": null
         },
         "leg_hit": {
@@ -94,7 +94,7 @@
             "post_events": {},
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 82,
+            "start_at_image": 81,
             "triggers": null
         },
         "return": {
@@ -120,8 +120,8 @@
         "run_1": {
             "center": [160, 145],
             "conditions": {},
-            "frames_centers": [[24, 0], [55, 0], [75, 0], [87, 0], [98, 0], [109, 0], [127, 0], [143, 0], [157, 0]],
-            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2],
+            "frames_centers": [[24, 0], [55, 0], [75, 0], [87, 0], [98, 0], [109, 0], [127, 0], [143, 0], [157, 0], [0, 0]],
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -139,8 +139,8 @@
         "run_2": {
             "center": [160, 145],
             "conditions": {},
-            "frames_centers": [[25, 0], [57, 0], [73, 0], [91, 0], [100, 0], [110, 0], [124, 0], [143, 0], [158, 0]],
-            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2],
+            "frames_centers": [[25, 0], [57, 0], [73, 0], [91, 0], [100, 0], [110, 0], [124, 0], [143, 0], [158, 0], [0, 0]],
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -152,7 +152,7 @@
             },
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 54,
+            "start_at_image": 53,
             "triggers": null
         },
         "shaking": {
@@ -186,7 +186,7 @@
             "post_events": {},
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 104,
+            "start_at_image": 103,
             "triggers": null
         },
         "stab": {
@@ -224,7 +224,7 @@
             },
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 65,
+            "start_at_image": 64,
             "triggers": null
         },
         "walk_2": {
@@ -243,7 +243,7 @@
             },
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 73,
+            "start_at_image": 72,
             "triggers": null
         },
         "walk_in": {
@@ -262,7 +262,7 @@
             },
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 63,
+            "start_at_image": 62,
             "triggers": null
         }
     }

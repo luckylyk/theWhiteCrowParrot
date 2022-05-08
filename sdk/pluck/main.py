@@ -1,6 +1,7 @@
 
 from functools import partial
 import os
+from re import A
 import subprocess
 import sys
 
@@ -114,7 +115,9 @@ class PluckMainWindow(QtWidgets.QMainWindow):
         if result != QtWidgets.QDialog.Accepted:
             return
         corax_root = os.path.join(os.path.dirname(__file__), "../../corax")
-        arguments = [sys.executable, corax_root, cctx.ROOT, *dialog.arguments()]
+        arguments = [
+            sys.executable, corax_root, cctx.ROOT, *dialog.arguments(),
+            '--use_default_config']
         subprocess.Popen(arguments)
 
     def set_savable_tab(self, widget):

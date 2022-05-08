@@ -9,3 +9,4 @@ class MockArguments:
     mute = True
     speedup = False
     overrides = None
+    use_default_config = True

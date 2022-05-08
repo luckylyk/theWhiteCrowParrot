@@ -4,21 +4,23 @@ To initialize the engine with game data, use in your terminal comand syntax:
 python {$CoraxEngineRoot} {$GameDataRoot} [flags]
 flags available:
 
-    --debug        -d | Run game in debug mode. Add some verbose and render the
-                      | infos HUD.
-    --fullscreen   -f | Launch the game in fullscreen mode.
-    --help         -h | Show the help. If that flag is set, the engine will not
-                      | initialize any game.
-    --mute         -m | Disable all sounds.
-    --overrides    -o | Path to an override json file. For debug purpose, this
-                      | is usefull for to change the start spot of the game
-                      | without editing the game data.
-    --scaled -s       | Scaled pixels
-    --skip_splash -ss | Skip Corax Splash screen. This is for debug purpose.
-                      | This is not mandatory, but keeping the splash screen
-                      | enable with distributed version of software would be
-                      | appreciated.
-    --speedup     -sp | Run the game twice faster
+    --debug                -d | Run game in debug mode. Add some verbose and
+                              | render the infos HUD.
+    --fullscreen           -f | Launch the game in fullscreen mode.
+    --help                 -h | Show the help. If that flag is set, the engine
+                              | will not initialize any game.
+    --mute                 -m | Disable all sounds.
+    --overrides            -o | Path to an override json file. For debug
+                              | purpose, this is usefull for to change the
+                              | start spot of the game without editing the game
+                              | data.
+    --scaled               -s | Scaled pixels
+    --skip_splash         -ss | Skip Corax Splash screen. This is for debug
+                              | purpose. This is not mandatory, but keeping the
+                              | splash screen enable with distributed version
+                              | of software would be appreciated.
+    --speedup             -sp | Run the game twice faster
+    --use_default_config -udc | Run the game twice faster
 
 ===============================================================================
 

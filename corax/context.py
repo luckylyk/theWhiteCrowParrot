@@ -66,9 +66,16 @@ def initialize(arguments):
     TITLE = game_data["title"]
     BLOCK_SIZE = game_data["preferences"]["block_size"]
     CAMERA_SPEED = game_data["preferences"]["camera_speed"]
-    CONFIG_FILE = os.path.expanduser(f'~/{TITLE}/config.yaml')
+    CONFIG_FILE = _get_config_file(arguments.use_default_config)
     FPS = game_data["preferences"]["fps"] * (2 if arguments.speedup else 1)
     KEY_COLOR = game_data["preferences"]["key_color"]
     RESOLUTION = game_data["preferences"]["resolution"]
 
     return game_data
+
+
+def _get_config_file(use_default_config):
+    if use_default_config:
+        return os.path.join(f'{RESSOURCES_FOLDER}/defaultconfig.yaml')
+    folder = TITLE.lower().replace(" ", "_")
+    return os.path.expanduser(f'~/{folder}/config.yaml')
