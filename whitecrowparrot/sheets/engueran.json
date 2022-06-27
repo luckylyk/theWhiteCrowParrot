@@ -162,7 +162,7 @@
             "triggers": null
         },
         "malenia_retrieve": {
-            "center": [180, 260],
+            "center": [260, 260],
             "conditions": {},
             "frames_centers": null,
             "frames_per_image": [2, 2, 2, 2, 1],
@@ -179,7 +179,7 @@
             "triggers": null
         },
         "roll": {
-            "center": [180, 260],
+            "center": [60, 260],
             "conditions": {},
             "frames_centers": null,
             "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
