@@ -2,7 +2,13 @@
     "name": "jos",
     "type": "npc",
     "default_sheet": "fight",
-    "hitmaps_color": {},
+    "hitmaps_color": {
+        "leggs": "red",
+        "front_hit": "blue",
+        "back_hit": "yellow",
+        "will_stab": "purple",
+        "stab": "pink"
+    },
     "layers": {
         "body": true
     },

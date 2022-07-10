@@ -83,6 +83,17 @@
         }
     ],
     "collisions": [
-
+        {
+            "directions": ["subject_from_behind"],
+            "subject_hitmap": "back_hit",
+            "target_hitmap": "hit_sword",
+            "event": "jos.kick_ass"
+        },
+        {
+            "directions": null,
+            "subject_hitmap": "will_stab",
+            "target_hitmap": "torso",
+            "event": "jos.backstab"
+        }
     ]
 }

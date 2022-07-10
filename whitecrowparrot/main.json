@@ -7,6 +7,7 @@
         "chest_open": false,
         "has_sword": false,
         "hill_wall_collapsed": false,
+        "jos_flee_running": false,
         "lie_down_miner_is_dead": false,
         "rabbit_triggered": false,
         "sinoc_fight_is_started": false,

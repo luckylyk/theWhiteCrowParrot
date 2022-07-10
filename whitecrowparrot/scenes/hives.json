@@ -21,11 +21,25 @@
         {
             "name": "bruno_vs_whitecrow",
             "type": "relationship",
-            "enable": true,
+            "enable": false,
             "relationship": "bruno_vs_whitecrow",
             "subject": "bruno",
             "target": "whitecrow",
             "zone": [-9, -7, 178, 30]
+        },
+        {
+            "name": "jos_flee",
+            "type": "interaction",
+            "affect": "jos",
+            "scripts": ["jos.flee"],
+            "zone": [0, 22, 21, 27]
+        },
+        {
+            "name": "tree_shaking",
+            "type": "interaction",
+            "affect": "whitecrow",
+            "scripts": ["jos.tree_shaking", "jos.tree_small_shaking"],
+            "zone": [91, 22, 112, 27]
         }
     ],
     "elements": [
@@ -39,6 +53,14 @@
             "type": "set_static",
             "file": "hives/bg.png",
             "position": [0, 0],
+            "deph": 0.0
+        },
+        {
+            "name": "lie_trunk",
+            "type": "set_animated",
+            "file": "lie_trunk.json",
+            "position": [873, 222],
+            "alpha": 255,
             "deph": 0.0
         },
         {
