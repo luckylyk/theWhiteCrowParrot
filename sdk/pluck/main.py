@@ -10,7 +10,7 @@ from PySide6 import QtWidgets, QtCore, QtGui
 import corax.context as cctx
 
 from pluck.data import data_to_plain_text
-from pluck.dialog import GameKicker, CreateRessourceFileDialog
+from pluck.dialog import GameKicker, CreateRessourceFileDialog, SearchFileDialog
 from pluck.highlighter import get_plaint_text_editor
 from pluck.jsonmodel import QJsonModel
 from pluck.project import ProjectManager
@@ -23,6 +23,7 @@ from pluck.scene import SceneEditor
 from pluck.sheet import SheetEditor
 
 
+
 SUPPORTED_FILETYPES = "sheets", "scenes", "scripts"
 WINDOW_TITLE = "Pluck"
 
@@ -32,6 +33,7 @@ class PluckMainWindow(QtWidgets.QMainWindow):
         super().__init__(parent)
         set_shortcut("CTRL+S", self, self.save_current_tab)
         set_shortcut("CTRL+P", self, self.kick_game)
+        set_shortcut("tab", self, self.quick_search_file)
 
         self.project_explorer_toolbar = ProjectToolbar()
         self.project_explorer_toolbar.runRequested.connect(self.kick_game)
@@ -124,7 +126,7 @@ class PluckMainWindow(QtWidgets.QMainWindow):
         for i in range(self.tab.count()):
             if widget == self.tab.widget(i):
                 break
-        else: # widget doesn't exist
+        else:  # widget doesn't exist
             return
         self.tab.setTabIcon(i, get_icon("save.png"))
 
@@ -142,29 +144,43 @@ class PluckMainWindow(QtWidgets.QMainWindow):
             return
         filenames = {self.project_explorer_model.filePath(i) for i in indexes}
         for filename in filenames:
-            if os.path.isdir(filename):
-                continue
-            filetype = detect_filetype(filename)
-            tabname = os.path.basename(filename)
-            if filetype == "sheets":
-                spritesheet = load_json(filename)
-                widget = SheetEditor(spritesheet)
-            elif filetype == "scripts":
-                with open(filename, "r") as f:
-                    text = f.read()
-                widget, _ = get_plaint_text_editor("crackle")
-                widget.setPlainText(text)
-            elif filetype == "scenes":
-                widget = SceneEditor(load_json(filename), cctx)
-            elif filename.endswith(".json"):
-                model = QJsonModel()
-                widget = QtWidgets.QTreeView()
-                widget.setModel(model)
-                model.load(load_json(filename))
-            else:
-                continue
-            widget.filename = filename
-            self.add_widget(tabname, widget)
+            self.open_file(filename)
+
+    def open_file(self, filename):
+        if os.path.isdir(filename):
+            return
+        filetype = detect_filetype(filename)
+        tabname = os.path.basename(filename)
+        if filetype == "sheets":
+            spritesheet = load_json(filename)
+            widget = SheetEditor(spritesheet)
+        elif filetype == "scripts":
+            with open(filename, "r") as f:
+                text = f.read()
+            widget, _ = get_plaint_text_editor("crackle")
+            widget.setPlainText(text)
+        elif filetype == "scenes":
+            widget = SceneEditor(load_json(filename), cctx)
+        elif filename.endswith(".json"):
+            model = QJsonModel()
+            widget = QtWidgets.QTreeView()
+            widget.setModel(model)
+            model.load(load_json(filename))
+        else:
+            return
+        widget.filename = filename
+        self.add_widget(tabname, widget)
+
+    def quick_search_file(self):
+        dialog = SearchFileDialog()
+        point = self.project_explorer_tree.rect().topLeft()
+        dialog.move(self.mapToGlobal(point))
+        if dialog.exec() != QtWidgets.QDialog.Accepted:
+            return
+        filepath = f'{cctx.ROOT}/{dialog.combo.currentText()}'
+        if not os.path.exists(filepath):
+            return
+        self.open_file(filepath)
 
     def edit_game_settings(self):
         try:

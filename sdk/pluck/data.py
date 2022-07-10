@@ -5,7 +5,7 @@ from corax.core import NODE_TYPES
 
 
 KEY_ORDER = "name", "type", "file", "position"
-ROOT_SUBFOLDERS =(
+ROOT_SUBFOLDERS = (
     "animations",
     "players",
     "scripts",
@@ -268,7 +268,8 @@ def data_to_plain_text(data, indent=0, sorted_keys=True):
             value = "{}"
         elif isinstance(value, dict):
             value = data_to_plain_text(
-                value, indent=indent+1, sorted_keys=key not in DONT_SORT_KEYS)
+                value, indent=indent + 1,
+                sorted_keys=key not in DONT_SORT_KEYS)
 
         lines.append(f"    \"{key}\": {value}".replace("'", '"'))
     spacer = "    " * indent

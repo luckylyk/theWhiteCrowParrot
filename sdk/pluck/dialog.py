@@ -6,7 +6,8 @@ import pygame
 import corax.context as cctx
 from corax.animation import animation_index_to_data_index
 from pluck.parsing import (
-    list_all_existing_triggers, list_all_existing_triggers_sounds)
+    list_all_existing_triggers, list_all_existing_triggers_sounds,
+    list_all_project_files)
 from pluck.preference import save_preference, get_preference
 from pluck.color import ColorWheel
 
@@ -255,3 +256,29 @@ class ColorDialog(QtWidgets.QDialog):
     @property
     def rgb(self):
         return self.color_wheel.rgb255()
+
+
+class SearchFileDialog(QtWidgets.QDialog):
+    def __init__(self, parent=None):
+        flags = (
+            QtCore.Qt.WindowStaysOnTopHint |
+            QtCore.Qt.FramelessWindowHint)
+        super().__init__(parent, flags)
+        excluded_extentions = ['png', 'wav', 'ogg']
+        files = list_all_project_files(excluded_extentions)
+        self.combo = QtWidgets.QComboBox()
+        self.combo.addItems(files)
+        self.completer = QtWidgets.QCompleter(files)
+        self.combo.setEditable(True)
+        self.completer.setFilterMode(QtCore.Qt.MatchContains)
+        self.combo.setCompleter(self.completer)
+        self.combo.lineEdit().selectAll()
+        self.layout = QtWidgets.QVBoxLayout(self)
+        self.layout.setContentsMargins(0, 0, 0, 0)
+        self.layout.addWidget(self.combo)
+
+    def keyPressEvent(self, event):
+        if event.key() == QtCore.Qt.Key_Return:
+            return self.accept()
+        elif event.key() == QtCore.Qt.Key_Escape:
+            return self.reject()

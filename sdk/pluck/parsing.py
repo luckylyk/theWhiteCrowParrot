@@ -106,3 +106,15 @@ def list_all_existing_script_names():
         namespace = ".".join(filename.split(".")[:-1])
         scripts.extend(corax.crackle.io.parse_crackle_file(filepath, namespace)[0])
     return sorted(list({script.name for script in scripts}))
+
+
+def list_all_project_files(excluded_extentions=None):
+    excluded_extentions = excluded_extentions or []
+    all_files = []
+    for root, _, files in os.walk(cctx.ROOT):
+        all_files.extend([
+            f'{root[len(cctx.ROOT):]}{os.sep}{f}'
+            for f in files
+            if os.path.splitext(f)[-1].strip('.').lower()
+            not in excluded_extentions])
+    return all_files
