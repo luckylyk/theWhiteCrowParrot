@@ -1,7 +1,7 @@
 
 from functools import partial
 from corax.core import NODE_TYPES
-from corax.seeker import find_animated_set, find_player
+from corax.seeker import find_animated_set, find_player, find_character
 from corax.crackle.parser import (
     object_attribute, object_name, object_type, BOOL_AS_STRING, string_to_bool,
     string_to_string_list)
@@ -11,7 +11,7 @@ def split_condition(line):
     result = line.split(" ")
     if len(result) > 3 and result[2].startswith("(") and result[-1].endswith(")"):
         # check if the value is a valid list
-        result = result[0:2] + [" ".join(result[2:])]
+        result = result[:2] + [" ".join(result[2:])]
     if len(result) != 3:
         msg = f"{line}, {result}: syntax must be: Subject Operator Value"
         raise SyntaxError(msg)
@@ -20,14 +20,19 @@ def split_condition(line):
 
 def create_subject_value_collector(subject, theatre):
     subject_type = object_type(subject)
-    if subject_type ==  NODE_TYPES.PLAYER:
-        return create_player_subject_collector(subject, theatre)
-    elif subject_type == "gamepad":
-        return create_gamepad_value_collector(subject, theatre)
-    elif subject_type == "theatre":
-        return create_theatre_value_collector(subject, theatre)
-    elif subject_type == "prop":
-        return create_props_subject_collector(subject, theatre)
+    match subject_type:
+        case NODE_TYPES.PLAYER:
+            seeker = find_player
+            return create_animated_subject_collector(subject, seeker, theatre)
+        case NODE_TYPES.NPC:
+            seeker = find_character
+            return create_animated_subject_collector(subject, seeker, theatre)
+        case "gamepad":
+            return create_gamepad_value_collector(subject, theatre)
+        case "theatre":
+            return create_theatre_value_collector(subject, theatre)
+        case "prop":
+            return create_props_subject_collector(subject, theatre)
 
 
 def create_theatre_value_collector(subject, theatre):
@@ -48,21 +53,21 @@ def create_gamepad_value_collector(subject, theatre):
         elif attribute == "inputs":
             return theatre.input_buffer.inputs
         else:
-            raise NameError("Unkown gamepad attribute: " + attribute)
+            raise NameError(f"Unkown gamepad attribute: {attribute}")
 
 
-def create_player_subject_collector(subject, theatre):
-    player = find_player(theatre, object_name(subject))
+def create_animated_subject_collector(subject, seeker, theatre):
+    animated = seeker(theatre, object_name(subject))
     attribute = object_attribute(subject)
     if attribute == "animation":
-        return lambda: player.animation_controller.animation.name
+        return lambda: animated.animation_controller.animation.name
     elif attribute == "flip":
-        return lambda: player.animation_controller.coordinate.flip
+        return lambda: animated.animation_controller.coordinate.flip
     elif attribute == "sheet":
-        return lambda: player.sheet_name
+        return lambda: animated.sheet_name
     elif attribute.startswith("hitmap"):
         name = attribute.split(".")[-1]
-        return lambda: player.animation.hitmaps[name]
+        return lambda: animated.animation.hitmaps[name]
 
 
 def create_props_subject_collector(subject, theatre):
@@ -88,10 +93,10 @@ def create_condition_checker(line, theatre):
         comparator,
         value_collector)
     if not callable(subject_collector):
-        msg = "Line can't create a valid subject collector: {}".format(line)
+        msg = f"Line can't create a valid subject collector: {line}"
         raise ValueError(msg)
     if not callable(value_collector):
-        msg = "Line can't create a valid value collector: {}".format(line)
+        msg = f"Line can't create a valid value collector: {line}"
         raise ValueError(msg)
     return collector
 

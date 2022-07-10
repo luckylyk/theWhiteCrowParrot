@@ -25,7 +25,9 @@ class CrackleScript:
 
     def check(self):
         checks = [checker() for checker in self.checkers]
-        message = self.name + ": " + str([str(r) + ": " + c for r, c in zip(checks, self.conditions)])
+        message = f"{self.name}: " + str(
+            [f"{str(r)}: {c}" for r, c in zip(checks, self.conditions)])
+
         logging.debug(message)
         return all(checks)
 
