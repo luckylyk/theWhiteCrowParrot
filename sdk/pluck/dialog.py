@@ -268,6 +268,7 @@ class SearchFileDialog(QtWidgets.QDialog):
         files = list_all_project_files(excluded_extentions)
         self.combo = QtWidgets.QComboBox()
         self.combo.addItems(files)
+        self.combo.currentIndexChanged.connect(self.force_accept)
         self.completer = QtWidgets.QCompleter(files)
         self.combo.setEditable(True)
         self.completer.setFilterMode(QtCore.Qt.MatchContains)
@@ -282,3 +283,6 @@ class SearchFileDialog(QtWidgets.QDialog):
             return self.accept()
         elif event.key() == QtCore.Qt.Key_Escape:
             return self.reject()
+
+    def force_accept(self, *_):
+        return self.accept()

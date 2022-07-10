@@ -88,6 +88,14 @@ class Zone:
         return self.data.get("event")
 
     @property
+    def event_names(self):
+        return self.data.get("events")
+
+    @property
+    def trigger(self):
+        return self.data.get("trigger")
+
+    @property
     def affect(self):
         return self.data["affect"] or []
 

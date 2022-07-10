@@ -16,20 +16,21 @@ HERE = os.path.dirname(os.path.realpath(__file__))
 ICON_FOLDER = os.path.join(HERE, "icons")
 
 ICON_MATCH = {
-    NODE_TYPES.SFX_COLLECTION: "sound_collection.png",
-    NODE_TYPES.SFX: "sound.png",
-    NODE_TYPES.MUSIC: "music.png",
     NODE_TYPES.AMBIANCE: "ambiance.png",
-    NODE_TYPES.NO_GO: "no_go.png",
+    NODE_TYPES.COLLIDER: "collision.png",
+    NODE_TYPES.EVENT_ZONE: "interaction.png",
     NODE_TYPES.INTERACTION: "interaction.png",
-    NODE_TYPES.RELATIONSHIP: "interaction.png",
     NODE_TYPES.LAYER: "layer.png",
     NODE_TYPES.PLAYER: "player.png",
+    NODE_TYPES.MUSIC: "music.png",
     NODE_TYPES.NPC: "player.png",
+    NODE_TYPES.NO_GO: "no_go.png",
+    NODE_TYPES.PARTICLES: "particles.png",
+    NODE_TYPES.RELATIONSHIP: "interaction.png",
     NODE_TYPES.SET_STATIC: "set.png",
     NODE_TYPES.SET_ANIMATED: "set.png",
-    NODE_TYPES.PARTICLES: "particles.png",
-    NODE_TYPES.COLLIDER: "collision.png"
+    NODE_TYPES.SFX_COLLECTION: "sound_collection.png",
+    NODE_TYPES.SFX: "sound.png",
 }
 
 

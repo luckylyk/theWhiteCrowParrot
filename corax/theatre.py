@@ -196,6 +196,8 @@ class Theatre:
                     self.evaluate_relationship(zone)
                 case NODE_TYPES.COLLIDER:
                     self.evaluate_collision(zone)
+                case NODE_TYPES.EVENT_ZONE:
+                    self.evaluate_trigger(zone)
         self.evaluate_events()
 
         if keystate_changed is True and self.run_mode != RUN_MODES.SCRIPT:
@@ -249,8 +251,35 @@ class Theatre:
                     self.queue_event(event)
                     return
 
+    def evaluate_trigger(self, zone):
+        if not (event_names := zone.event_names):
+            return
+
+        evaluables = self.characters + self.npcs + self.scene.animated_sets
+
+        target = find(evaluables, zone.target) if zone.target else None
+        for evaluable in evaluables:
+            conditions = (
+                evaluable.name not in zone.affect or
+                evaluable.trigger is None or
+                evaluable.trigger != zone.trigger or
+                evaluable.pixel_center is None or
+                not zone.contains(pixel_position=evaluable.pixel_center))
+            if target and target.pixel_center:
+                zonale = zone.contains(pixel_position=target.pixel_center)
+                conditions = conditions or not zonale
+
+            if conditions:
+                continue
+
+            for event in event_names:
+                logging.debug(
+                    f"Event: {event}: trigger={evaluable.trigger}"
+                    f"->character:{evaluable.name}")
+                self.queue_event(event)
+
     def evaluate_interactions(self, zone):
-        if not (script_names:=zone.script_names):
+        if not (script_names := zone.script_names):
             return
 
         for character in self.characters:

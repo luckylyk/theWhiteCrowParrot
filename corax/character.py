@@ -41,10 +41,6 @@ class CharacterSlot:
     def evaluate(self):
         self.character.evaluate()
 
-    @property
-    def coordinate(self):
-        return self.character.coordinate
-
 
 class Character:
     def __init__(self, data):

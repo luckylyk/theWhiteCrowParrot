@@ -10,7 +10,7 @@ from pluck.dialog import ColorDialog
 from pluck.highlighter import CoraxHighlighter, RULES
 from pluck.parsing import (
     list_all_existing_triggers, list_all_existing_interactors,
-    list_all_existing_script_names)
+    list_all_existing_event_names, list_all_existing_script_names)
 from pluck.qtutils import get_icon
 from pluck.sanity import is_valid_animation_path
 
@@ -104,17 +104,17 @@ class ComboField(QtWidgets.QComboBox):
         self.setCurrentText(value)
 
 
-class ScriptsField(QtWidgets.QWidget):
+class ExistingStringsField(QtWidgets.QWidget):
     edited = QtCore.Signal()
 
-    def __init__(self, parent=None):
+    def __init__(self, strings, parent=None):
         super().__init__(parent)
         mode = QtWidgets.QAbstractItemView.ExtendedSelection
         self.list1 = QtWidgets.QListWidget()
         self.list1.setSelectionMode(mode)
         self.list2 = QtWidgets.QListWidget()
         self.list2.setSelectionMode(mode)
-        self.list2.addItems(list_all_existing_script_names())
+        self.list2.addItems(strings)
 
         self.add = QtWidgets.QPushButton("Add")
         self.add.released.connect(self.call_add)
@@ -158,6 +158,18 @@ class ScriptsField(QtWidgets.QWidget):
     def value(self, value):
         self.list1.clear()
         self.list1.addItems(value)
+
+
+class ScriptsField(ExistingStringsField):
+
+    def __init__(self):
+        super().__init__(list_all_existing_script_names())
+
+
+class EventsField(ExistingStringsField):
+
+    def __init__(self):
+        super().__init__(list_all_existing_event_names())
 
 
 class TypeField(ComboField):

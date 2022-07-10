@@ -67,6 +67,7 @@ class NODE_TYPES:
     INTERACTION = "interaction"
     RELATIONSHIP = "relationship"
     COLLIDER = "collider"
+    EVENT_ZONE = "event_zone"
 
 
 class RUN_MODES:

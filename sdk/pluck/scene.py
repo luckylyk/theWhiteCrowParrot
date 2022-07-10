@@ -41,7 +41,7 @@ FIELDS = {
         "falloff": IntField,
         "listener": InteractorField,
         "zone": ZoneField,
-        },
+    },
     "ambiance": {
         "name": StrField,
         "file": SoundFileField,
@@ -49,7 +49,7 @@ FIELDS = {
         "falloff": IntField,
         "listener": InteractorField,
         "zone": ZoneField,
-        },
+    },
     "sfx_sound_collection": {
         "name": StrField,
         "files": SoundFilesField,
@@ -59,7 +59,7 @@ FIELDS = {
         "trigger": TriggerField,
         "zone": ZoneField,
         "emitter": InteractorField
-        },
+    },
     "sfx_sound": {
         "name": StrField,
         "file": SoundFileField,
@@ -68,18 +68,26 @@ FIELDS = {
         "trigger": TriggerField,
         "zone": ZoneField,
         "emitter": InteractorField
-        },
+    },
     "no_go": {
         "name": StrField,
         "affect": StrArrayField,
         "zone": ZoneField
-        },
+    },
     "interaction": {
         "name": StrField,
         "affect": StrArrayField,
         "scripts": StrArrayField,
         "zone": ZoneField
-        },
+    },
+    "event_zone": {
+        "name": StrField,
+        "affect": InteractorField,
+        "events": StrArrayField,
+        "zone": ZoneField,
+        "target": StrField,
+        "trigger": StrField
+    },
     "collider": {
         "name": StrField,
         "affect": InteractorField,
@@ -87,7 +95,7 @@ FIELDS = {
         "zone": ZoneField,
         "event": StrField,
         "hitmaps": StrArrayField,
-        },
+    },
     "relationship": {
         "name": StrField,
         "enable": BoolField,
@@ -95,17 +103,17 @@ FIELDS = {
         "target": InteractorField,
         "relationship": FileField,
         "zone": ZoneField
-        },
+    },
     "layer": {
         "name": StrField,
         "deph": FloatField
-        },
+    },
     "set_static": {
         "name": StrField,
         "file": FileField,
         "position": IntVectorField,
         "deph": FloatField
-        },
+    },
     "particles_system": {
         # "name": StrField,
         # "alpha": IntField,
@@ -137,7 +145,7 @@ FIELDS = {
         "position": IntVectorField,
         "alpha": IntField,
         "deph": FloatField
-        },
+    },
     "player": {
         "name": StrField,
         "block_position": IntVectorField,

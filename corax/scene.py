@@ -146,7 +146,8 @@ def build_scene_zones(scene, data):
             NODE_TYPES.NO_GO,
             NODE_TYPES.INTERACTION,
             NODE_TYPES.RELATIONSHIP,
-            NODE_TYPES.COLLIDER)
+            NODE_TYPES.COLLIDER,
+            NODE_TYPES.EVENT_ZONE)
         if zone_data.get("type") in types:
             zone = Zone(zone_data)
             scene.zones.append(zone)

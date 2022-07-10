@@ -1,6 +1,7 @@
 from corax.animation import SpriteSheet
 from corax.controller import AnimationController
 from corax.coordinate import Coordinate
+from corax.mathutils import sum_num_arrays
 from corax.override import load_json
 from corax.pygameutils import load_image, render_image
 
@@ -45,6 +46,14 @@ class SetAnimatedElement:
         animation_controller = AnimationController(data, spritesheet, coordinate)
         return SetAnimatedElement(
             name, animation_controller, coordinate, deph, alpha)
+
+    @property
+    def pixel_center(self):
+        center = self.animation_controller.animation.pixel_center
+        pos = [center, self.coordinate.pixel_position]
+        if None in pos:
+            return
+        return sum_num_arrays(*pos)
 
     @property
     def pixel_position(self):

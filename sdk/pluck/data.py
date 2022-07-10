@@ -23,7 +23,8 @@ ZONE_TYPES = (
     NODE_TYPES.NO_GO,
     NODE_TYPES.INTERACTION,
     NODE_TYPES.RELATIONSHIP,
-    NODE_TYPES.COLLIDER)
+    NODE_TYPES.COLLIDER,
+    NODE_TYPES.EVENT_ZONE)
 SOUND_TYPES = (
     NODE_TYPES.SFX,
     NODE_TYPES.AMBIANCE,
@@ -110,6 +111,15 @@ DATA_TEMPLATES = {
         "event": str,
         "zone": (int, int, int, int),
     },
+    "event_zone": {
+        "type": str,
+        "name": str,
+        "affect": {str},
+        "events": {str},
+        "target": str,
+        "trigger": str,
+        "zone": (int, int, int, int),
+    },
     "relationship": {
         "enable": bool,
         "type": str,
@@ -170,7 +180,7 @@ DATA_TEMPLATES = {
         "type": str,
         "deph": float
     },
-    "set_static":{
+    "set_static": {
         "name": str,
         "type": str,
         "file": str,
