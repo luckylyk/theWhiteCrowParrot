@@ -102,6 +102,9 @@ class Character:
         """
         point1 = self.animation.pixel_center
         point2 = self.animation.centers[0]
+        if None in (point1, point2):
+            logging.debug(f"Pin {self.name}: skipped")
+            return
         pixel_vector = points_to_vector(point1, point2)
         # In rare particulare cases where a pre offset is has been proceeded,
         # this pre offset has to be substracted.

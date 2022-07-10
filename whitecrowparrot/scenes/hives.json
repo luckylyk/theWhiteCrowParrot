@@ -35,31 +35,58 @@
             "zone": [0, 22, 21, 27]
         },
         {
-            "name": "step_on_tree",
+            "name": "step_on_tree_1",
             "type": "event_zone",
             "affect": "whitecrow",
             "events": ["hives.tree_small_shaking"],
             "target": null,
             "trigger": "foot_step_contact",
-            "zone": [91, 18, 114, 27]
+            "zone": [101, 18, 114, 27]
         },
         {
             "name": "step_on_tree_2",
+            "type": "event_zone",
+            "affect": "whitecrow",
+            "events": ["hives.tree_small_shaking"],
+            "target": null,
+            "trigger": "foot_step_contact",
+            "zone": [91, 18, 97, 27]
+        },
+        {
+            "name": "step_on_tree_jos_1",
             "type": "event_zone",
             "affect": "jos",
             "events": ["hives.tree_small_shaking"],
             "target": null,
             "trigger": "foot_step_contact",
-            "zone": [91, 18, 114, 27]
+            "zone": [101, 18, 114, 27]
         },
         {
-            "name": "whitcrow_jump_tree_shaking",
+            "name": "step_on_tree_jos_2",
+            "type": "event_zone",
+            "affect": "jos",
+            "events": ["hives.tree_small_shaking"],
+            "target": null,
+            "trigger": "foot_step_contact",
+            "zone": [91, 18, 97, 27]
+        },
+        {
+            "name": "whitcrow_jump_tree_shaking_1",
             "type": "event_zone",
             "affect": "whitecrow",
             "events": ["hives.tree_shaking"],
             "target": null,
             "trigger": "foot_jump_contact",
-            "zone": [93, 20, 111, 27]
+            "zone": [101, 20, 111, 27]
+        },
+        {
+            "name": "whitcrow_jump_tree_shaking_2",
+            "type": "event_zone",
+            "affect": "whitecrow",
+            "events": ["hives.tree_shaking"],
+            "target": null,
+            "trigger": "foot_jump_contact",
+            "zone": [93, 20, 97, 27]
         },
         {
             "name": "shake_makes_waggles",
