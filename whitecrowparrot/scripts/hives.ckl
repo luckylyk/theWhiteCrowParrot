@@ -46,15 +46,16 @@ script flee
         // theatre.globals.jos_flee_running set false
 
 
-script tree_shaking
-    player.whitecrow.animation is jump
-        wait 15
-        nolock prop.lie_trunk play shake
+event tree_shaking
+    nolock prop.lie_trunk play shake
 
 
-script tree_small_shaking
-    player.whitecrow.animation in (walk_a, walk_b, step_forward)
-        wait 3
-        nolock prop.lie_trunk play step_shake
-        nolock npc.jos play waggling
+event tree_small_shaking
+    nolock prop.lie_trunk play step_shake
+
+
+event shake_jos_1
+    pin npc.jos
+    flush npc.jos
+    nolock npc.jos play waggling
 

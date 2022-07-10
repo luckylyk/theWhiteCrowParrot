@@ -21,19 +21,7 @@
         "key_color": [0, 255, 0],
         "resolution": [800, 268]
     },
-    "scenes": [
-        {"name": "forest", "file": "forest_01.json"},
-        {"name": "mine", "file": "mine_01.json"},
-        {"name": "hole", "file": "hole.json"},
-        {"name": "hives", "file": "hives.json"},
-        {"name": "exit", "file": "exit.json"},
-        {"name": "tente", "file": "tente.json"},
-        {"name": "ending", "file": "ending.json"},
-        {"name": "hill", "file": "hill.json"},
-        {"name": "walk_test", "file": "walk_test.json"},
-        {"name": "credits", "file": "credits.json"},
-        {"name": "bruno", "file": "bruno_test.json"},
-        {"name": "underwater", "file": "underwater.json"}],
+    "scenes": [{"name": "forest", "file": "forest_01.json"}, {"name": "mine", "file": "mine_01.json"}, {"name": "hole", "file": "hole.json"}, {"name": "hives", "file": "hives.json"}, {"name": "exit", "file": "exit.json"}, {"name": "tente", "file": "tente.json"}, {"name": "ending", "file": "ending.json"}, {"name": "hill", "file": "hill.json"}, {"name": "walk_test", "file": "walk_test.json"}, {"name": "credits", "file": "credits.json"}, {"name": "bruno", "file": "bruno_test.json"}, {"name": "underwater", "file": "underwater.json"}],
     "start_scene": "forest",
     "start_scrolling_targets": ["whitecrow"],
     "title": "The White Crow Parrot"

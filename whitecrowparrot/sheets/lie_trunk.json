@@ -9,7 +9,7 @@
     },
     "moves": {
         "idle": {
-            "center": [0, 0],
+            "center": [135, 30],
             "conditions": {},
             "frames_centers": null,
             "frames_per_image": [10],
@@ -26,10 +26,10 @@
             "triggers": null
         },
         "shake": {
-            "center": [0, 0],
+            "center": [135, 30],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [2, 1, 1, 1, 1],
+            "frames_per_image": [2, 1, 1, 1, 1, 1, 1, 1],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -40,10 +40,10 @@
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 1,
-            "triggers": null
+            "triggers": [[0, "strong_shake"]]
         },
         "step_shake": {
-            "center": [0, 0],
+            "center": [135, 30],
             "conditions": {},
             "frames_centers": null,
             "frames_per_image": [1, 1, 1],

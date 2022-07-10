@@ -35,11 +35,40 @@
             "zone": [0, 22, 21, 27]
         },
         {
-            "name": "tree_shaking",
-            "type": "interaction",
+            "name": "step_on_tree",
+            "type": "event_zone",
             "affect": "whitecrow",
-            "scripts": ["jos.tree_shaking", "jos.tree_small_shaking"],
-            "zone": [91, 22, 112, 27]
+            "events": ["hives.tree_small_shaking"],
+            "target": null,
+            "trigger": "foot_step_contact",
+            "zone": [91, 18, 114, 27]
+        },
+        {
+            "name": "step_on_tree_2",
+            "type": "event_zone",
+            "affect": "jos",
+            "events": ["hives.tree_small_shaking"],
+            "target": null,
+            "trigger": "foot_step_contact",
+            "zone": [91, 18, 114, 27]
+        },
+        {
+            "name": "whitcrow_jump_tree_shaking",
+            "type": "event_zone",
+            "affect": "whitecrow",
+            "events": ["hives.tree_shaking"],
+            "target": null,
+            "trigger": "foot_jump_contact",
+            "zone": [93, 20, 111, 27]
+        },
+        {
+            "name": "shake_makes_waggles",
+            "type": "event_zone",
+            "affect": "lie_trunk",
+            "events": ["hives.shake_jos_1"],
+            "target": "jos",
+            "trigger": "strong_shake",
+            "zone": [93, 20, 110, 27]
         }
     ],
     "elements": [
