@@ -29,6 +29,8 @@ event kick_ass
 
 
 event backstab
+    pin npc.jos
+    npc.jos play stabbing
     player.whitecrow.sheet set death
     nolock player.whitecrow play death_by_backstab
     wait 75

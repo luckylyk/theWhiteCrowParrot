@@ -1,7 +1,7 @@
 {
     "name": "",
     "default_move": "idle",
-    "evaluation_order": ["idle", "shaking", "return", "stab", "back_step_1", "back_step_2", "run_1", "run_2", "walk_in", "walk_1", "walk_2", "leg_hit", "waggling", "wiggle", "waggling_back", "pick_ass"],
+    "evaluation_order": ["idle", "shaking", "return", "stab", "back_step_1", "back_step_2", "run_1", "run_2", "walk_in", "walk_1", "walk_2", "leg_hit", "waggling", "wiggle", "waggling_back", "pick_ass", "start_pose", "introducing_jos", "stabbing"],
     "frame_size": [400, 160],
     "key_color": [0, 255, 0],
     "layers": {
@@ -69,6 +69,23 @@
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 0,
+            "triggers": null
+        },
+        "introducing_jos": {
+            "center": [160, 145],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [2, 2, 2, 4, 1, 7, 1, 1, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 6],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 168,
             "triggers": null
         },
         "leg_hit": {
@@ -216,6 +233,40 @@
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 11,
+            "triggers": null
+        },
+        "stabbing": {
+            "center": [160, 145],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [2, 2, 2, 2, 2, 4, 4, 4, 4, 4, 15000],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 188,
+            "triggers": null
+        },
+        "start_pose": {
+            "center": [160, 145],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [10000],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 168,
             "triggers": null
         },
         "waggling": {
