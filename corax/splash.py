@@ -7,7 +7,8 @@ from itertools import cycle
 import corax.context as cctx
 from corax.core import COLORS
 from corax.pygameutils import (
-    load_image, load_frames, load_sound, render_background, render_image)
+    load_image, load_frames, load_sound, render_background, render_image,
+    play_sound)
 from corax.screen import screen_relative_y
 
 
@@ -37,7 +38,7 @@ def splash_screen(screen):
     y = screen_relative_y(y)
     while frame < DURATION:
         if frame == PLAY_SOUND_AT:
-            sound.play()
+            play_sound(sound)
         frame += 1
         logo_image = next(images_iterator)
         render_background(screen, COLORS.BLACK)
