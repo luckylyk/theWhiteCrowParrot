@@ -21,7 +21,7 @@
         {
             "name": "bruno_vs_whitecrow",
             "type": "relationship",
-            "enable": false,
+            "enable": true,
             "relationship": "bruno_vs_whitecrow",
             "subject": "bruno",
             "target": "whitecrow",
@@ -41,34 +41,25 @@
             "events": ["hives.tree_small_shaking"],
             "target": null,
             "trigger": "foot_step_contact",
-            "zone": [101, 18, 114, 27]
+            "zone": [91, 18, 114, 27]
         },
         {
-            "name": "step_on_tree_2",
-            "type": "event_zone",
-            "affect": "whitecrow",
-            "events": ["hives.tree_small_shaking"],
-            "target": null,
-            "trigger": "foot_step_contact",
-            "zone": [91, 18, 97, 27]
-        },
-        {
-            "name": "step_on_tree_jos_1",
+            "name": "step_on_tree_jos",
             "type": "event_zone",
             "affect": "jos",
             "events": ["hives.tree_small_shaking"],
             "target": null,
             "trigger": "foot_step_contact",
-            "zone": [101, 18, 114, 27]
+            "zone": [91, 18, 114, 27]
         },
         {
-            "name": "step_on_tree_jos_2",
+            "name": "step_on_tree_jos",
             "type": "event_zone",
-            "affect": "jos",
+            "affect": "bruno",
             "events": ["hives.tree_small_shaking"],
             "target": null,
             "trigger": "foot_step_contact",
-            "zone": [91, 18, 97, 27]
+            "zone": [91, 18, 114, 27]
         },
         {
             "name": "whitcrow_jump_tree_shaking_1",
@@ -77,25 +68,16 @@
             "events": ["hives.tree_shaking"],
             "target": null,
             "trigger": "foot_jump_contact",
-            "zone": [101, 20, 111, 27]
+            "zone": [93, 20, 111, 27]
         },
         {
-            "name": "whitcrow_jump_tree_shaking_2",
-            "type": "event_zone",
-            "affect": "whitecrow",
-            "events": ["hives.tree_shaking"],
-            "target": null,
-            "trigger": "foot_jump_contact",
-            "zone": [93, 20, 97, 27]
-        },
-        {
-            "name": "shake_makes_waggles",
-            "type": "event_zone",
-            "affect": "lie_trunk",
-            "events": ["hives.shake_jos_1"],
+            "name": "jos_and_trunk",
+            "type": "relationship",
+            "enable": true,
+            "relationship": "jos_vs_trunk",
+            "subject": "lie_trunk",
             "target": "jos",
-            "trigger": "strong_shake",
-            "zone": [93, 20, 110, 27]
+            "zone": [0, 0, 170, 30]
         }
     ],
     "elements": [

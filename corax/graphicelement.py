@@ -42,8 +42,9 @@ class SetAnimatedElement:
     def from_filename(name, filename, pixel_position, deph, alpha):
         spritesheet = SpriteSheet.from_filename(None, filename)
         data = load_json(filename)
-        coordinate = Coordinate(pixel_offset=pixel_position)
-        animation_controller = AnimationController(data, spritesheet, coordinate)
+        coordinate = Coordinate(pixel_position=pixel_position)
+        animation_controller = AnimationController(
+            data, spritesheet, coordinate)
         return SetAnimatedElement(
             name, animation_controller, coordinate, deph, alpha)
 
@@ -54,6 +55,10 @@ class SetAnimatedElement:
         if None in pos:
             return
         return sum_num_arrays(*pos)
+
+    @property
+    def hitmaps(self):
+        return self.animation_controller.animation.hitmaps
 
     @property
     def pixel_position(self):

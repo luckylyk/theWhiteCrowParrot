@@ -1,0 +1,18 @@
+{
+    "name": "jos_vs_trunk",
+    "rules": [],
+    "collisions": [
+        {
+            "directions": null,
+            "subject_hitmap": "shake_zone",
+            "target_hitmap": "wiggle_leggs",
+            "event": "hives.jos_fall"
+        },
+        {
+            "directions": null,
+            "subject_hitmap": "shake_zone",
+            "target_hitmap": "leggs",
+            "event": "hives.shake_jos"
+        }
+    ]
+}

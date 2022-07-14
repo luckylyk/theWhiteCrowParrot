@@ -13,7 +13,7 @@
         },
         {
             "directions": ["target_from_behind"],
-            "block_distance_range": [8, 20],
+            "block_distance_range": [10, 20],
             "subject_animations": ["idle", "shaking", "run_1", "run_2"],
             "target_animations": null,
             "priority": 5,
@@ -23,7 +23,7 @@
         },
         {
             "directions": ["target_from_behind"],
-            "block_distance_range": [4, 8],
+            "block_distance_range": [6, 10],
             "subject_animations": ["idle", "shaking", "run_1", "run_2", "walk_1", "walk_2"],
             "target_animations": null,
             "priority": 5,
@@ -86,7 +86,7 @@
         {
             "directions": ["subject_from_behind"],
             "subject_hitmap": "back_hit",
-            "target_hitmap": "hit_sword",
+            "target_hitmap": "stroke_tip",
             "event": "hives.kick_ass"
         },
         {
@@ -94,6 +94,12 @@
             "subject_hitmap": "will_stab",
             "target_hitmap": "torso",
             "event": "hives.backstab"
+        },
+        {
+            "directions": null,
+            "subject_hitmap": "leggs",
+            "target_hitmap": "hit_sword",
+            "event": "hives.job_hit_leggs"
         }
     ]
 }

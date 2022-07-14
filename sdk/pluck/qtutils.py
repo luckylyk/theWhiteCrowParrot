@@ -31,6 +31,7 @@ ICON_MATCH = {
     NODE_TYPES.SET_ANIMATED: "set.png",
     NODE_TYPES.SFX_COLLECTION: "sound_collection.png",
     NODE_TYPES.SFX: "sound.png",
+    NODE_TYPES.RELATIONSHIP: "relationship.png",
 }
 
 

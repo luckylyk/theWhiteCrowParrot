@@ -1,6 +1,6 @@
 {
     "default_move": "death_by_arrow_front",
-    "evaluation_order": ["death_by_arrow_front", "death_by_arrow_back", "death_by_arrow_front_sword", "death_by_arrow_back_sword", "stranguled", "stranguled_last_frame", "death_by_mace", "death_by_mace_down", "death_by_backstab"],
+    "evaluation_order": ["death_by_arrow_front", "death_by_arrow_back", "death_by_arrow_front_sword", "death_by_arrow_back_sword", "stranguled", "stranguled_last_frame", "death_by_mace", "death_by_mace_down", "death_by_backstab", "death_by_backstab_down"],
     "filename": "whitecrowparrot_death.png",
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
@@ -80,7 +80,24 @@
             "center": [70, 155],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [2, 1, 1, 1, 2, 4, 2, 2, 2, 2, 2, 3, 2, 1, 1, 1, 100],
+            "frames_per_image": [2, 1, 1, 2, 4, 6, 5, 4, 2, 3, 3, 8, 6, 3, 1, 1, 25],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "death_by_backstab_down",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 144,
+            "triggers": null
+        },
+        "death_by_backstab_down": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [60],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -90,7 +107,7 @@
             "post_events": {},
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 144,
+            "start_at_image": 160,
             "triggers": null
         },
         "death_by_mace": {

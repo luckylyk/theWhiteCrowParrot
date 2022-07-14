@@ -16,12 +16,19 @@ class Coordinate():
             self,
             flip=False,
             block_position=None,
-            pixel_offset=None,
+            pixel_position=None,
             center=None):
 
         self.flip = flip
-        self.pixel_offset = pixel_offset or [0, 0]
-        self.block_position = block_position or [0, 0]
+
+        if not pixel_position:
+            self.block_position = block_position or [0, 0]
+            self.pixel_offset = [0, 0]
+        else:
+            self.block_position = to_block_position(pixel_position)
+            self.pixel_offset = extract_pixel_offset(pixel_position)
+            print("OFSET", self.pixel_offset)
+
         self.center_offset = center or [0, 0]
         self.deph = 0
 
@@ -81,3 +88,12 @@ def map_pixel_position(pixel_position, size=None, flip=False):
     if flip is False:
         return pixel_position
     return [size[0] - pixel_position[0], pixel_position[1]]
+
+
+def extract_pixel_offset(pixel_position):
+    """
+    Extract pixel offset. Subustract block position and returns the rest.
+    """
+    return (
+        pixel_position[0] % cctx.BLOCK_SIZE,
+        pixel_position[1] % cctx.BLOCK_SIZE)

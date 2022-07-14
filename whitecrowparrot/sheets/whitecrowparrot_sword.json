@@ -419,7 +419,7 @@
             },
             "release_frame": 2,
             "start_at_image": 100,
-            "triggers": null
+            "triggers": [[0, "step_whitecrow"], [2, "foot_step_contact"], [3, "step_whitecrow"]]
         },
         "step_forward": {
             "center": [70, 155],

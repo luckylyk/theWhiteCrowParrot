@@ -31,8 +31,8 @@ event kick_ass
 event backstab
     player.whitecrow.sheet set death
     nolock player.whitecrow play death_by_backstab
-    wait 30
-    fadeout 15
+    wait 75
+    fadeout 30
     restart
 
 
@@ -54,8 +54,17 @@ event tree_small_shaking
     nolock prop.lie_trunk play step_shake
 
 
-event shake_jos_1
+event shake_jos
     pin npc.jos
     flush npc.jos
     nolock npc.jos play waggling
 
+
+event job_hit_leggs
+    npc.jos play leg_hit
+
+
+event jos_fall
+    npc.jos play waggling_back
+    disable zone.jos_vs_whitecrow
+    hide npc.jos

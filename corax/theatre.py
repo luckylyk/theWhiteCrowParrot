@@ -103,6 +103,10 @@ class Theatre:
         self.transition = trans
         self.alpha = 0 if self.transition else 255
 
+    @property
+    def evaluables(self):
+        return self.characters + self.npcs + self.scene.animated_sets
+
     def get_scene(self, scene_name, scene_data):
         return (
             self.loaded_scenes.get(scene_name) or
@@ -206,10 +210,11 @@ class Theatre:
 
     def evaluate_relationship(self, zone):
         # Detect assosiated relationship
-        subject = find(self.characters, zone.subject)
-        target = find(self.characters, zone.target)
+        subject = find(self.evaluables, zone.subject)
+        target = find(self.evaluables, zone.target)
         if None in (subject, target):
             return
+
         relationship = find_relationship(self.relationships, zone.relationship)
         if not relationship:
             return
@@ -235,17 +240,18 @@ class Theatre:
                 del self.event_iterators[name]
 
     def evaluate_collision(self, zone):
-        for character in self.characters:
+        for evaluable in self.evaluables:
             conditions = (
-                character.name in zone.affect and
-                character.hitmaps and
-                list(hitmaps:=set(list(character.hitmaps)) & set(zone.hitmaps)))
+                evaluable.name in zone.affect and
+                evaluable.hitmaps and
+                list(hitmaps:=set(list(evaluable.hitmaps)) & set(zone.hitmaps)))
+
             if not conditions:
                 continue
 
             for hitmap in hitmaps:
-                block_position = character.coordinate.block_position
-                hitmap = character.hitmaps[hitmap]
+                block_position = evaluable.coordinate.block_position
+                hitmap = evaluable.hitmaps[hitmap]
                 if hitmap_collide_zone(hitmap, zone, block_position):
                     event = zone.event
                     self.queue_event(event)
@@ -255,10 +261,8 @@ class Theatre:
         if not (event_names := zone.event_names):
             return
 
-        evaluables = self.characters + self.npcs + self.scene.animated_sets
-
-        target = find(evaluables, zone.target) if zone.target else None
-        for evaluable in evaluables:
+        target = find(self.evaluables, zone.target) if zone.target else None
+        for evaluable in self.evaluables:
             conditions = (
                 evaluable.name not in zone.affect or
                 evaluable.trigger is None or

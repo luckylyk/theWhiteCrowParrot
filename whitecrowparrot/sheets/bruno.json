@@ -327,7 +327,7 @@
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 97,
-            "triggers": null
+            "triggers": [[2, "foot_step_contact"]]
         },
         "turn": {
             "center": [70, 165],
@@ -385,7 +385,7 @@
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 80,
-            "triggers": null
+            "triggers": [[2, "foot_step_contact"], [7, "foot_step_contact"]]
         }
     }
 }

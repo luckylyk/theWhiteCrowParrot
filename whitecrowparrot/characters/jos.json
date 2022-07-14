@@ -7,7 +7,8 @@
         "front_hit": "blue",
         "back_hit": "yellow",
         "will_stab": "purple",
-        "stab": "pink"
+        "stab": "pink",
+        "wiggle_leggs": "orange"
     },
     "layers": {
         "body": true
