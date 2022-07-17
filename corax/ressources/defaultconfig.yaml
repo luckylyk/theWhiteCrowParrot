@@ -1,24 +1,28 @@
 ---
 keybinding:
-  ls_up: LS_UP
-  ls_down: LS_DOWN
-  ls_left: LS_LEFT
-  ls_right: LS_RIGHT
-  rs_up: RS_UP
-  rs_down: RS_DOWN
-  rs_left: RS_LEFT
-  rs_right: RS_RIGHT
-  dpad_up: DPAD_UP
-  dpad_down: DPAD_DOWN
-  dpad_left: DPAD_LEFT
-  dpad_right: DPAD_RIGHT
-  r1: R1
-  r2: R2
-  l1: L1
-  l2: L2
-  x: X
-  y: "Y"
-  a: A
-  b: B
+  LS_UP: 'LS_UP'
+  LS_DOWN: 'LS_DOWN'
+  LS_LEFT: 'LS_LEFT'
+  LS_RIGHT: 'LS_RIGHT'
+  LSB : 'LSB'
+  RS_UP: 'RS_UP'
+  RS_DOWN: 'RS_DOWN'
+  RS_LEFT: 'RS_LEFT'
+  RS_RIGHT: 'RS_RIGHT'
+  RSB : 'RSB'
+  UP: 'UP'
+  DOWN: 'DOWN'
+  LEFT: 'LEFT'
+  RIGHT: 'RIGHT'
+  R1: 'R1'
+  R2: 'R2'
+  L1: 'L1'
+  L2: 'L2'
+  X: 'X'
+  Y: 'Y'
+  A: 'A'
+  B: 'B'
+  start: 'start'
+  select: 'select'
 fullscreen: false
-scaled: true
+scaled: false

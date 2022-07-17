@@ -27,7 +27,6 @@ class Coordinate():
         else:
             self.block_position = to_block_position(pixel_position)
             self.pixel_offset = extract_pixel_offset(pixel_position)
-            print("OFSET", self.pixel_offset)
 
         self.center_offset = center or [0, 0]
         self.deph = 0

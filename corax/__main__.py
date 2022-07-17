@@ -63,6 +63,7 @@ parser.add_argument("-d", "--debug", action='store_true')
 parser.add_argument("-f", "--fullscreen", action='store_true')
 parser.add_argument("-m", "--mute", action='store_true')
 parser.add_argument("-udc", "--use_default_config", action='store_true')
+parser.add_argument("-uc", "--use_config", action='store_true')
 parser.add_argument("-o", "--overrides", type=str)
 parser.add_argument("-s", "--scaled", action='store_true')
 parser.add_argument("-ss", "--skip_splash", action='store_true')
@@ -76,21 +77,25 @@ if arguments.debug:
 
 
 import corax.context as cctx
-from corax.gameloop import GameLoop
 from corax.screen import setup_display
+from corax.gameloop import GameLoop
+from corax.gamepad import load_config_keybinding
 from corax import config
 # Initialize the engine constants based on the application arguments and loads
 # the main.json file.
 game_data = cctx.initialize(arguments)
+load_config_keybinding()
+
 
 # PyGame2 initialize needed modules
 import pygame
 pygame.joystick.init()
 pygame.mixer.init()
 pygame.font.init()
-screen = setup_display(
-    scaled=arguments.scaled or config.get('scaled'),
-    fullscreen=arguments.fullscreen or config.get('fullscreen'))
+
+sc = config.get('scaled') if cctx.USE_CONFIG else arguments.scaled
+fs = config.get('fullscreen') if cctx.USE_CONFIG else arguments.fullscreen
+screen = setup_display(scaled=sc, fullscreen=fs)
 
 
 # This execute the Corax Engine splash screen.

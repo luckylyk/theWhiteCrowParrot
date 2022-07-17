@@ -15,7 +15,10 @@ def load():
     global _cache
     try:
         if not os.path.exists(cctx.CONFIG_FILE):
-            shutil.copy(DEFAULTCONFIG, cctx.CONFIG_FILE)
+            directory = os.path.dirname(cctx.CONFIG_FILE)
+            if not os.path.exists(directory):
+                os.makedirs(directory)
+            shutil.copy(cctx.DEFAULT_CONFIG_FILE, cctx.CONFIG_FILE)
         with open(cctx.CONFIG_FILE, 'r') as f:
             _cache = yaml.safe_load(f)
             return _cache
@@ -36,6 +39,8 @@ def save():
 def get(key):
     if not _cache:
         load()
+        print('cache', _cache)
+    print('loaded', _cache)
     return _cache.get(key)
 
 

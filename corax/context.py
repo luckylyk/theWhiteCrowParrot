@@ -28,6 +28,8 @@ SET_FOLDER = None
 SHEET_FOLDER = None
 SOUNDS_FOLDER = None
 CONFIG_FILE = None
+USE_CONFIG = None
+DEFAULT_CONFIG_FILE = None
 RESSOURCES_FOLDER = os.path.join(os.path.dirname(__file__), "ressources")
 
 
@@ -43,10 +45,11 @@ def initialize(arguments):
         SCRIPT_FOLDER, SCENE_FOLDER, SOUNDS_FOLDER, GAME_FILE, RESOLUTION, \
         FPS, CAMERA_SPEED, BLOCK_SIZE, KEY_COLOR, DEBUG, MUTE, \
         CHARACTER_FOLDER, TITLE, OVERRIDE_FILE, RELATIONSHIP_FOLDER, \
-        MENU_FOLDER, CONFIG_FILE
+        MENU_FOLDER, CONFIG_FILE, USE_CONFIG, DEFAULT_CONFIG_FILE
 
     ROOT = os.path.abspath(arguments.game_root)
     OVERRIDE_FILE = arguments.overrides
+    USE_CONFIG = arguments.use_config
 
     DEBUG = arguments.debug
     MUTE = arguments.mute
@@ -66,7 +69,9 @@ def initialize(arguments):
     TITLE = game_data["title"]
     BLOCK_SIZE = game_data["preferences"]["block_size"]
     CAMERA_SPEED = game_data["preferences"]["camera_speed"]
+    DEFAULT_CONFIG_FILE = f'{RESSOURCES_FOLDER}/defaultconfig.yaml'
     CONFIG_FILE = _get_config_file(arguments.use_default_config)
+    print('CONFIG_FILE', CONFIG_FILE)
     FPS = game_data["preferences"]["fps"] * (2 if arguments.speedup else 1)
     KEY_COLOR = game_data["preferences"]["key_color"]
     RESOLUTION = game_data["preferences"]["resolution"]
@@ -76,6 +81,7 @@ def initialize(arguments):
 
 def _get_config_file(use_default_config):
     if use_default_config:
-        return os.path.join(f'{RESSOURCES_FOLDER}/defaultconfig.yaml')
+        return DEFAULT_CONFIG_FILE
     folder = TITLE.lower().replace(" ", "_")
-    return os.path.expanduser(f'~/{folder}/config.yaml')
+    root = os.getenv('LOCALAPPDATA') if os.name == 'nt' else '~'
+    return os.path.expanduser(f'{root}/{folder}/config.yaml')
