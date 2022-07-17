@@ -5,7 +5,7 @@ It does export a json containing the level data as well.
 """
 
 import krita
-from PySide6 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui
 import os
 import json
 
