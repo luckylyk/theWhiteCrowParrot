@@ -1,7 +1,6 @@
 
 from functools import partial
 import os
-from re import A
 import subprocess
 import sys
 
@@ -120,6 +119,7 @@ class PluckMainWindow(QtWidgets.QMainWindow):
         arguments = [
             sys.executable, corax_root, cctx.ROOT, *dialog.arguments(),
             '--use_default_config']
+        print(" ".join(arguments))
         subprocess.Popen(arguments)
 
     def set_savable_tab(self, widget):

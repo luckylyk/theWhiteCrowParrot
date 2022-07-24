@@ -14,10 +14,10 @@
 // declaration: (script, event)
 // conditional and time related adverbs/function: (always, freeze, nolock,
 //                                                 wait)
-// comparators: (has, in, is, by)
+// comparators: (has, in, is, by, overlaps)
 // functions: (aim, checkpoint, clear, fadein, fadeout, flush, force, freeze,
 //             hide, move, pin, play, reach, restart, run, show, set, shift,
-//             wait, add, remove)
+//             wait, add, remove, offset)
 // corax known objects: (animation, flip, gamepad, globals, hitmap, key,
 //                       name, player, pressed, scene, sheet, theatre, zone,
 //                       camera, target)
@@ -29,8 +29,9 @@ event kick_ass
 
 
 event backstab
+    flush npc.jos
     pin npc.jos
-    npc.jos play stabbing
+    nolock npc.jos play stabbing
     player.whitecrow.sheet set death
     nolock player.whitecrow play death_by_backstab
     wait 75
@@ -70,3 +71,10 @@ event jos_fall
     npc.jos play waggling_back
     disable zone.jos_vs_whitecrow
     hide npc.jos
+
+
+script activate_jos
+    theatre.globals.jos_is_waiting is true
+        theatre.globals.jos_is_waiting set false
+        enable zone.jos_vs_whitecrow
+        nolock npc.jos play introducing_jos
