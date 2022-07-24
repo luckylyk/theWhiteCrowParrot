@@ -39,8 +39,6 @@ def save():
 def get(key):
     if not _cache:
         load()
-        print('cache', _cache)
-    print('loaded', _cache)
     return _cache.get(key)
 
 

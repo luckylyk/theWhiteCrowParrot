@@ -71,7 +71,6 @@ def initialize(arguments):
     CAMERA_SPEED = game_data["preferences"]["camera_speed"]
     DEFAULT_CONFIG_FILE = f'{RESSOURCES_FOLDER}/defaultconfig.yaml'
     CONFIG_FILE = _get_config_file(arguments.use_default_config)
-    print('CONFIG_FILE', CONFIG_FILE)
     FPS = game_data["preferences"]["fps"] * (2 if arguments.speedup else 1)
     KEY_COLOR = game_data["preferences"]["key_color"]
     RESOLUTION = game_data["preferences"]["resolution"]
