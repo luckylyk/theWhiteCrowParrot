@@ -1,4 +1,8 @@
-
+"""
+This is utilities iterators. Unfortunately, for the save system, the yield
+keyworkd is forbiden. Each 'generator' has to be written as custom iterable
+class.
+"""
 import itertools
 import random
 import traceback
@@ -24,40 +28,61 @@ def iter_on_jobs(jobs, actions=None):
             frame_count -= 1
 
 
-def fade(duration, maximum=255, reverse=False):
-    """
-    This iterator yield a progressive value between 0 and a maximum value.
-    """
-    for i in range(duration + 1):
-        result = maximum * linear_ratio(i, 0, duration)
-        yield maximum - result if reverse else result
+class fade:
+    def __init__(self, duration, maximum, reverse=False):
+        self.duration = duration
+        self.maximum = maximum
+        self.reverse = reverse
+        self._index = 0
+
+    def __next__(self):
+        if self._index > self.duration:
+            raise StopIteration()
+        result = self.maximum * linear_ratio(self._index, 0, self.duration)
+        self._index += 1
+        return self.maximum - result if self.reverse else result
 
 
 def itertable(a, b):
     """
     Bi-dimensional iterator.
     """
-    yield from itertools.product(range(a), range(b))
+    return itertools.product(range(a), range(b))
 
 
-def frame_data_iterator(frame_data):
-    for i, data in enumerate(frame_data):
-        duration = data.get("duration", 1)
-        for _ in range(duration):
-            yield i
+class frame_data_iterator:
+
+    def __init__(self, frame_data):
+        self.frame_data = frame_data
+        self._findex = 0
+        self._durations = self.frame_data[self._findex].get('duration', 1)
+        self._index = 0
+
+    def __next__(self):
+        if self._index >= len(self._durations):
+            self._index = 0
+            self._findex += 1
+            data = self.frame_data.get(self._findex)
+            if data is None:
+                raise StopIteration()
+            self._durations = data.get('duration', 1)
+        return self._duractions[self._index]
 
 
-def shuffle(array, no_repeat=True):
-    """
-    Iterate randomly on an array.
-    """
-    last = None
-    while True:
-        element = random.choice(array)
-        if no_repeat is True and element == last:
-            continue
-        last = element
-        yield element
+class shuffle:
+
+    def __init__(self, array, no_repeat=True):
+        self.array = array
+        self.no_repeat = no_repeat
+        self._last = None
+
+    def __next__(self):
+        while True:
+            element = random.choice(self.array)
+            if self.no_repeat is True and element == self._last:
+                continue
+            self._last = element
+            return element
 
 
 def choose(items):
