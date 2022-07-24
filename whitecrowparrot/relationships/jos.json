@@ -23,12 +23,22 @@
         },
         {
             "directions": ["target_from_behind"],
-            "block_distance_range": [6, 10],
+            "block_distance_range": [4, 8],
             "subject_animations": ["idle", "shaking", "run_1", "run_2", "walk_1", "walk_2"],
             "target_animations": null,
             "priority": 5,
             "moves": {
                 "stab": 10
+            }
+        },
+        {
+            "directions": null ,
+            "block_distance_range": [0, 3],
+            "subject_animations": ["idle", "shaking", "run_1", "run_2", "walk_1", "walk_2"],
+            "target_animations": null,
+            "priority": 5,
+            "moves": {
+                "back_step_1": 10
             }
         },
         {
@@ -63,7 +73,7 @@
         },
         {
             "directions": ["facing"],
-            "block_distance_range": [0, 15],
+            "block_distance_range": [0, 13],
             "subject_animations": ["idle", "shaking", "run_1", "run_2", "walk_1", "walk_2"],
             "target_animations": null,
             "priority": 5,

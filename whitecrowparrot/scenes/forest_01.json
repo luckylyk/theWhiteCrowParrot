@@ -221,6 +221,20 @@
             "affect": "whitecrow",
             "scripts": ["forest.robert_die"],
             "zone": [82, 20, 104, 27]
+        },
+        {
+            "name": "activate_ladder",
+            "type": "interaction",
+            "affect": ["robert"],
+            "scripts": ["forest.activate_ladder_prop"],
+            "zone": [114, 20, 150, 27]
+        },
+        {
+            "name": "catch_drop_ladder",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["forest.drop_ladder", "forest.drop_ladder_flip", "forest.pick_ladder", "forest.pick_ladder_flip"],
+            "zone": [-4, -9, 427, 35]
         }
     ],
     "elements": [
@@ -719,6 +733,14 @@
             "type": "set_animated",
             "file": "rabbit.json",
             "position": [2777, 182],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
+            "name": "ladder",
+            "type": "set_animated",
+            "file": "ladder.json",
+            "position": [1280, -1500],
             "alpha": 255,
             "deph": 0.0
         },

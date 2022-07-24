@@ -1,4 +1,3 @@
-
 import copy
 import logging
 import os
@@ -7,10 +6,11 @@ import pygame
 
 import corax.context as cctx
 from corax.core import RUN_MODES, MENU_EVENTS, GAMELOOP_ACTIONS, COLORS
-from corax.theatre import Theatre
+from corax.iterators import fade
 from corax.menu import Menu
 from corax.override import load_json
 from corax.pygameutils import render_centered_text, escape_in_events
+from corax.theatre import Theatre
 
 
 CONNECT_CONTROLLER_WARNING = "Connect game controller (X Input)"
@@ -88,6 +88,11 @@ class GameLoop:
                 logging.debug('No checkpoint found, gamerestart.')
             else:
                 self.theatre = pickle.loads(self.checkpoint)
+                # TODO: move the magic number '50' as an option of restore
+                # function : "restore 50"
+                trans = fade(50, maximum=255, reverse=True)
+                self.theatre.transition = trans
+                self.theatre.alpha = 0
                 logging.debug('Checkpoint loaded.')
 
         elif self.theatre.run_mode == RUN_MODES.RESTART:

@@ -14,15 +14,14 @@
 // declaration: (script, event)
 // conditional and time related adverbs/function: (always, freeze, nolock,
 //                                                 wait)
-// comparators: (has, in, is, by)
+// comparators: (has, in, is, by, overlaps)
 // functions: (aim, checkpoint, clear, fadein, fadeout, flush, force, freeze,
-//             hide, move, pin, play, reach, restart, run, show, set, shift,
-//             wait, add, remove)
+//             hide, move, pin, play, reach, restart, restore, run, show, set,
+//             shift, wait, add, remove, offset)
 // corax known objects: (animation, flip, gamepad, globals, hitmap, key,
 //                       name, player, pressed, scene, sheet, theatre, zone,
 //                       camera, target)
 // built-in values: (false, true)
-
 
 
 script go_to_tente_with_sword
@@ -81,7 +80,7 @@ script go_to_credits
         fadein 20
         wait 60
         fadeout 20
-        restart
+        restore
 
 ///////////////////////////////////////////////////////////////////////////////
 //// -- ENVIRONMENT -- ////////////////////////////////////////////////////////
@@ -98,3 +97,57 @@ script rabbit_trigger
 script robert_die
     prop.robert.animation is idle
         nolock prop.robert play dying
+
+
+///////////////////////////////////////////////////////////////////////////////
+//// -- BANNER -- /////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+
+script activate_ladder_prop
+    theatre.globals.ladder_is_activated is false
+    prop.robert.animation is lie_down
+        theatre.globals.ladder_is_activated set true
+        prop.ladder move (128, 0)
+
+
+script pick_ladder
+    prop.ladder.hitmap.ground_zone overlaps player.whitecrow.hitmap.leggs
+    player.whitecrow.flip is false
+    gamepad.keys.pressed has X
+        prop.ladder move (128, -100)
+        player.whitecrow.sheet set banner
+        player.whitecrow offset (-7, -12)
+        player.whitecrow play catch
+
+
+script pick_ladder_flip
+    prop.ladder.hitmap.ground_zone overlaps player.whitecrow.hitmap.leggs
+    player.whitecrow.flip is true
+    gamepad.keys.pressed has X
+        prop.ladder move (128, -100)
+        player.whitecrow.sheet set banner
+        player.whitecrow offset (0, -12)
+        player.whitecrow play catch
+
+
+script drop_ladder
+    gamepad.keys.pressed has X
+    player.whitecrow.animation is idle
+    player.whitecrow.flip is false
+    player.whitecrow.sheet is banner
+        player.whitecrow play release
+        player.whitecrow.sheet set exploration
+        player.whitecrow offset (7, 12)
+        prop.ladder move (128, 0)
+
+
+script drop_ladder_flip
+    gamepad.keys.pressed has X
+    player.whitecrow.animation is idle
+    player.whitecrow.flip is true
+    player.whitecrow.sheet is banner
+        player.whitecrow play release
+        player.whitecrow.sheet set exploration
+        player.whitecrow offset (0, 12)
+        prop.ladder move (128, 0)

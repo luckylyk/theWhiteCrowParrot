@@ -4,6 +4,7 @@ Module to give some tool to handle and convert 2d coordinates data
 
 import corax.context as cctx
 from corax.euclide import distance2d
+from corax.mathutils import sum_num_arrays
 
 
 class Coordinate():
@@ -34,6 +35,25 @@ class Coordinate():
     def block_center_distance(self, cordinate):
         pixel_distance = distance2d(self.pixel_center, cordinate.pixel_center)
         return pixel_distance // cctx.BLOCK_SIZE
+
+    def offset(self, block_offset=None, pixel_offset=None):
+        pixel_offset = pixel_offset or [0, 0]
+
+        if block_offset:
+            position = to_pixel_position(block_offset)
+            pixel_offset = sum_num_arrays(pixel_offset, position)
+
+        if self.flip:
+            pixel_offset = flip_position(pixel_offset)
+
+        block_offset = to_block_position(pixel_offset)
+        pixel_offset = extract_pixel_offset(pixel_offset)
+
+        block_position = sum_num_arrays(
+            self.block_position, block_offset)
+        self.block_position = block_position
+        self.pixel_offset = sum_num_arrays(
+            self.pixel_offset, pixel_offset)
 
     @property
     def pixel_position(self):

@@ -145,10 +145,7 @@ def create_character_job(theatre, character_name, function, arguments):
             return partial(job_move, character, position)
         case "offset":
             offset = string_to_int_list(arguments)
-            size = character.animation_controller.size
-            center = character.animation_controller.animation.pixel_center
-            return partial(
-                job_offset, character.coordinate, offset, center, size)
+            return partial(job_offset, character, offset)
         case "play":
             anim = arguments
             return partial(job_play_animation, character, anim)
@@ -257,8 +254,8 @@ def job_move(evaluable, block_position):
     return 0
 
 
-def job_offset(coordinate, offset, center, size):
-    coordinate.offset(block_position=offset, size=size, center=center)
+def job_offset(character, offset):
+    character.animation_controller.offset(block_offset=offset)
     return 0
 
 
@@ -291,7 +288,6 @@ def job_restart(theatre):
 
 
 def job_restore(theatre):
-    print("JOB RESTORE")
     theatre.run_mode = RUN_MODES.RESTORE
     return 0
 

@@ -1,7 +1,7 @@
 {
     "name": "",
     "default_move": "idle",
-    "evaluation_order": ["idle", "dying", "lie_down"],
+    "evaluation_order": ["idle", "dying", "lie_down", "lie_down_2"],
     "frame_size": [260, 300],
     "key_color": [0, 255, 0],
     "layers": {
@@ -9,7 +9,7 @@
     },
     "moves": {
         "dying": {
-            "center": [0, 0],
+            "center": [137, 296],
             "conditions": {},
             "frames_centers": null,
             "frames_per_image": [2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 6, 1, 1, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 5, 2, 2, 1, 1, 1, 1, 1, 2, 6, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -26,7 +26,7 @@
             "triggers": null
         },
         "idle": {
-            "center": [0, 0],
+            "center": [134, 285],
             "conditions": {},
             "frames_centers": null,
             "frames_per_image": [1],
@@ -43,6 +43,23 @@
             "triggers": null
         },
         "lie_down": {
+            "center": [137, 287],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [2],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "lie_down_2",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 53,
+            "triggers": null
+        },
+        "lie_down_2": {
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
@@ -51,12 +68,12 @@
             "hold": false,
             "inputs": [],
             "loop_on": "idle",
-            "next_move": "lie_down",
+            "next_move": "lie_down_2",
             "next_move_bufferable": false,
             "post_events": {},
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 53,
+            "start_at_image": 54,
             "triggers": null
         }
     }

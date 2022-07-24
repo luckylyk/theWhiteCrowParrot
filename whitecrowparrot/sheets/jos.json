@@ -1,6 +1,6 @@
 {
     "name": "",
-    "default_move": "idle",
+    "default_move": "start_pose",
     "evaluation_order": ["idle", "shaking", "return", "stab", "back_step_1", "back_step_2", "run_1", "run_2", "walk_in", "walk_1", "walk_2", "leg_hit", "waggling", "wiggle", "waggling_back", "pick_ass", "start_pose", "introducing_jos", "stabbing"],
     "frame_size": [400, 160],
     "key_color": [0, 255, 0],
@@ -82,7 +82,10 @@
             "loop_on": "idle",
             "next_move": "idle",
             "next_move_bufferable": false,
-            "post_events": {},
+            "post_events": {
+                "flip": true,
+                "block_offset": [8, 0]
+            },
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 168,

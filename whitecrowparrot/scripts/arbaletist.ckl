@@ -24,7 +24,6 @@
 // built-in values: (false, true)
 
 
-
 script aiming
     theatre.globals.wearing_blackhelmet is false
     prop.arbaletist.animation is idle
