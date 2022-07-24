@@ -14,7 +14,7 @@ def render_player_debug(player, deph, screen, camera):
     position = sum_num_arrays(center, player.pixel_position)
     x, y = camera.relative_pixel_position(position, deph)
     y = screen_relative_y(y)
-    render_rect(screen, (255, 255, 0), x-1, y-1, 2, 2, 255)
+    render_rect(screen, (255, 255, 0), x - 1, y - 1, 2, 2, 255)
     position = to_block_position(position)
     position = to_pixel_position(position)
     x, y = camera.relative_pixel_position(position, deph)
