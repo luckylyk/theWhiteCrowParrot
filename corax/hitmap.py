@@ -3,6 +3,12 @@ from corax.euclide import Rect
 from corax.mathutils import sum_num_arrays
 
 
+def flat_hitmap(hitmap, block_position):
+    if not hitmap:
+        return None
+    return [sum_num_arrays(block, block_position) for block in hitmap]
+
+
 def detect_hitmaps_collision(
         hitmap1, hitmap2, block_position1=None, block_position2=None):
     """
