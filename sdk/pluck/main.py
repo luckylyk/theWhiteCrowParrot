@@ -22,7 +22,6 @@ from pluck.scene import SceneEditor
 from pluck.sheet import SheetEditor
 
 
-
 SUPPORTED_FILETYPES = "sheets", "scenes", "scripts"
 WINDOW_TITLE = "Pluck"
 

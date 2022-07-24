@@ -1,16 +1,20 @@
 
 from functools import partial
+
 from corax.core import NODE_TYPES
-from corax.seeker import find_animated_set, find_player, find_character
+from corax.crackle.collector import (
+    property_collector, value_collector, item_collector, hitmap_collector)
 from corax.crackle.parser import (
     object_attribute, object_name, object_type, BOOL_AS_STRING, string_to_bool,
     string_to_string_list)
+from corax.hitmap import detect_hitmaps_collision
+from corax.seeker import find_animated_set, find_player, find_character
 
 
 def split_condition(line):
     result = line.split(" ")
     if len(result) > 3 and result[2].startswith("(") and result[-1].endswith(")"):
-        # check if the value is a valid list
+        # Check if the value is a valid list.
         result = result[:2] + [" ".join(result[2:])]
     if len(result) != 3:
         msg = f"{line}, {result}: syntax must be: Subject Operator Value"
@@ -32,15 +36,17 @@ def create_subject_value_collector(subject, theatre):
         case "theatre":
             return create_theatre_value_collector(subject, theatre)
         case "prop":
-            return create_props_subject_collector(subject, theatre)
+            seeker = find_animated_set
+            return create_animated_subject_collector(
+                subject, seeker, theatre.scene)
 
 
 def create_theatre_value_collector(subject, theatre):
     attribute = object_attribute(subject)
     if object_name(subject) == "scene" and attribute == "name":
-        return lambda: theatre.scene.name
+        return property_collector(theatre, ['scene', 'name'])
     elif object_name(subject) == "globals":
-        return lambda: theatre.globals[attribute]
+        return item_collector(theatre.globals, attribute)
 
 
 def create_gamepad_value_collector(subject, theatre):
@@ -59,43 +65,45 @@ def create_gamepad_value_collector(subject, theatre):
 def create_animated_subject_collector(subject, seeker, theatre):
     animated = seeker(theatre, object_name(subject))
     attribute = object_attribute(subject)
-    if attribute == "animation":
-        return lambda: animated.animation_controller.animation.name
-    elif attribute == "flip":
-        return lambda: animated.animation_controller.coordinate.flip
-    elif attribute == "sheet":
-        return lambda: animated.sheet_name
-    elif attribute.startswith("hitmap"):
-        name = attribute.split(".")[-1]
-        return lambda: animated.animation.hitmaps[name]
-
-
-def create_props_subject_collector(subject, theatre):
-    props = find_animated_set(theatre.scene, object_name(subject))
-    attribute = object_attribute(subject)
-    if attribute == "animation":
-        return lambda: props.animation_controller.animation.name
+    match attribute.split('.')[0]:
+        case "animation":
+            properties = ['animation_controller', 'animation', 'name']
+            return property_collector(animated, properties)
+            # return lambda: animated.animation_controller.animation.name
+        case "flip":
+            properties = ['animation_controller', 'coordinate', 'flip']
+            return property_collector(animated, properties)
+        case "sheet":
+            return property_collector(animated, ['sheet_name'])
+        case "hitmap":
+            name = attribute.split(".")[-1]
+            return hitmap_collector(animated, name, animated.coordinate)
 
 
 def create_condition_checker(line, theatre):
     if line == "always":
-        return lambda: True
+        return value_collector(True)
     subject, comparator, value = split_condition(line)
     subject_collector = create_subject_value_collector(subject, theatre)
     if value in BOOL_AS_STRING:
         value = string_to_bool(value)
+        vcollector = value_collector(value)
     elif value.startswith("("):
         value = string_to_string_list(value)
-    value_collector = lambda: value
+        vcollector = value_collector(value)
+    elif '.hitmap.' in value:
+        vcollector = create_subject_value_collector(value, theatre)
+    else:
+        vcollector = value_collector(value)
     collector = partial(
         check_condition,
         subject_collector,
         comparator,
-        value_collector)
+        vcollector)
     if not callable(subject_collector):
         msg = f"Line can't create a valid subject collector: {line}"
         raise ValueError(msg)
-    if not callable(value_collector):
+    if not callable(vcollector):
         msg = f"Line can't create a valid value collector: {line}"
         raise ValueError(msg)
     return collector
@@ -110,4 +118,8 @@ def check_condition(subject_collector, comparator, value_collector):
         return value in subject
     elif comparator == "in":
         return subject in value
+    elif comparator == "overlaps":
+        if all((subject, value)):
+            return detect_hitmaps_collision(subject, value)
+        return False
     raise NotImplementedError(f"Comparator \"{comparator}\" is unknown")

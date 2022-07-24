@@ -16,7 +16,7 @@ def object_name(obj):
 
 
 def object_attribute(obj):
-    if obj.count(".") >= 3:
+    if obj.count(".") < 2:
         raise ValueError(f"No attibute specified for \"{obj}\"")
     return ".".join(obj.split(".")[2:])
 
@@ -31,5 +31,3 @@ def string_to_string_list(string):
 
 def string_to_bool(string):
     return string == "true"
-
-

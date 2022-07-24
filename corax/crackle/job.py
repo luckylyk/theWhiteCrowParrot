@@ -16,11 +16,12 @@ from corax.iterators import fade
 from corax.seeker import (
     find_animated_set, find_element, find_zone, find_character)
 
-from corax.crackle.parser import (
-    object_attribute, string_to_int_list, object_type, object_name)
 from corax.crackle.action import (
     has_subject, filter_action, split_with_subject, extract_reach_arguments,
     is_nolock_action)
+from corax.crackle.collector import value_collector
+from corax.crackle.parser import (
+    object_attribute, string_to_int_list, object_type, object_name)
 
 
 def create_job(line, theatre):
@@ -49,7 +50,7 @@ def create_job_without_subject(line, theatre):
         case "force":
             return partial(job_force_script, theatre, line.split(" ")[-1])
         case "wait":
-            return lambda: int(line.split(" ")[-1])
+            return value_collector(int(line.split(" ")[-1]))
         case "freeze":
             return partial(
                 job_freeze_theatre, theatre, int(int(line.split(" ")[-1])))
@@ -97,16 +98,31 @@ def create_job_with_subject(subject, function, arguments, theatre):
             if subject_name == "camera":
                 position = string_to_int_list(arguments)
                 return partial(job_move_camera, theatre, position)
+
     elif subject_type == "camera":
         if subject_name == "target":
             return partial(job_camera_target, theatre, function, arguments)
+
     elif subject_type in ("player", "npc"):
         return create_character_job(theatre, subject_name, function, arguments)
+
     elif subject_type == "prop":
-        if function == "play":
-            animation = arguments
-            prop = find_animated_set(theatre.scene, subject_name)
-            return partial(job_play_animation, prop, animation)
+        match function:
+            case "play":
+                animation = arguments
+                prop = find_animated_set(theatre.scene, subject_name)
+                return partial(job_play_animation, prop, animation)
+            case "move":
+                prop = find_animated_set(theatre.scene, subject_name)
+                return partial(job_move, prop, string_to_int_list(arguments))
+            case "offset":
+                prop = find_animated_set(theatre.scene, subject_name)
+                size = prop.animation_controller.size
+                offset = string_to_int_list(arguments)
+                center = prop.animation_controller.animation.pixel_center
+                return partial(
+                    job_offset, prop.coordinate, offset, center, size)
+
     elif subject_type == "zone":
         zone = find_zone(theatre.scene, subject_name)
         rect = string_to_int_list(arguments)
@@ -116,26 +132,32 @@ def create_job_with_subject(subject, function, arguments, theatre):
 def create_character_job(theatre, character_name, function, arguments):
     character = find_character(theatre, character_name)
     match function:
-        case "play":
-            anim = arguments
-            return partial(job_play_animation, character, anim)
-        case "show":
-            layer = arguments
-            return partial(job_switch_layer, character, True, layer)
+        case "aim":
+            direction, move = arguments.split(" by ")
+            return partial(job_aim, character, move, direction)
         case "hide":
             layer = arguments
             return partial(job_switch_layer, character, False, layer)
         case "move":
             position = string_to_int_list(arguments)
-            return partial(job_move_player, character, position)
+            return partial(job_move, character, position)
+        case "offset":
+            offset = string_to_int_list(arguments)
+            size = character.animation_controller.size
+            center = character.animation_controller.animation.pixel_center
+            return partial(
+                job_offset, character.coordinate, offset, center, size)
+        case "play":
+            anim = arguments
+            return partial(job_play_animation, character, anim)
         case "reach":
             pos, animations = extract_reach_arguments(arguments)
             return partial(job_reach, character, pos, animations)
-        case "aim":
-            direction, move = arguments.split(" by ")
-            return partial(job_aim, character, move, direction)
         case "set":
             return partial(job_set_sheet, character, arguments)
+        case "show":
+            layer = arguments
+            return partial(job_switch_layer, character, True, layer)
 
 
 def create_enable_disable_job(theatre, obj, state):
@@ -223,8 +245,13 @@ def job_move_camera(theatre, pixel_position):
     return 0
 
 
-def job_move_player(character, block_position):
-    character.coordinate.block_position = block_position
+def job_move(evaluable, block_position):
+    evaluable.coordinate.block_position = block_position
+    return 0
+
+
+def job_offset(coordinate, offset, center, size):
+    coordinate.offset(block_position=offset, size=size, center=center)
     return 0
 
 
