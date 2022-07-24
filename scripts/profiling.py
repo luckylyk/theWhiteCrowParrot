@@ -32,6 +32,7 @@ for filepath in filepaths:
                 if conditions:
                     imports.add(line.strip(" "))
 
+
 print("Total number of lines is:", count)
 print("-------------------------")
 print("".join(sorted(list(imports))))

@@ -7,6 +7,7 @@ object from files.
 """
 
 
+import itertools
 import os
 import pygame
 
@@ -14,7 +15,6 @@ from pygame.locals import QUIT
 
 import corax.context as cctx
 from corax.core import COLORS
-from corax.iterators import itertable
 import corax.screen as sctx
 
 
@@ -49,7 +49,7 @@ def load_frames(filename, frame_size, key_color, relative=True):
         raise ValueError(message)
     ids = []
 
-    for j, i in itertable(int(row), int(col)):
+    for j, i in itertools.product(range(int(row)), range(int(col))):
         image = pygame.Surface([width, height]).convert()
         x, y = i * width, j * height
         image.blit(sheet, (0, 0), (x, y, width, height))

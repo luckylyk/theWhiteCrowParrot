@@ -98,6 +98,7 @@ class Theatre:
         self.run_mode = RUN_MODES.NORMAL
         self.script_iterator = None
         self.event_iterators = {}
+        self.checkpoint_requested = False
         duration = data["fade_in_duration"]
         trans = fade(duration, maximum=255, reverse=True) if duration else None
         self.transition = trans
@@ -176,7 +177,7 @@ class Theatre:
             next(self.script_iterator)
         except StopIteration:
             # The script is finished then go back to normal mode.
-            if self.run_mode == RUN_MODES.RESTART:
+            if self.run_mode in (RUN_MODES.RESTART, RUN_MODES.RESTORE):
                 return
             self.run_mode = RUN_MODES.NORMAL
             self.script_iterator = None
@@ -286,11 +287,11 @@ class Theatre:
         if not (script_names := zone.script_names):
             return
 
-        for character in self.characters:
+        for evaluable in self.evaluables:
             conditions = (
-                character.name not in zone.affect or
-                character.pixel_center is None or
-                not zone.contains(pixel_position=character.pixel_center))
+                evaluable.name not in zone.affect or
+                evaluable.pixel_center is None or
+                not zone.contains(pixel_position=evaluable.pixel_center))
 
             if conditions:
                 continue

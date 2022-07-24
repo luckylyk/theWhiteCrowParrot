@@ -16,8 +16,8 @@
 //                                                 wait)
 // comparators: (has, in, is, by, overlaps)
 // functions: (aim, checkpoint, clear, fadein, fadeout, flush, force, freeze,
-//             hide, move, pin, play, reach, restart, run, show, set, shift,
-//             wait, add, remove, offset)
+//             hide, move, pin, play, reach, restart, restore, run, show, set,
+//             shift, wait, add, remove, offset)
 // corax known objects: (animation, flip, gamepad, globals, hitmap, key,
 //                       name, player, pressed, scene, sheet, theatre, zone,
 //                       camera, target)
@@ -80,7 +80,7 @@ script descending_for_snusnu
         wait 15
         fadeout 35
         wait 1
-        restart
+        restore
 
 
 script descending_for_scavenging
@@ -206,7 +206,7 @@ script denunciation
         wait 15
         fadeout 35
         wait 1
-        restart
+        restore
 
 
 script dead_by_snusnu
@@ -223,7 +223,7 @@ script dead_by_snusnu
         wait 15
         fadeout 35
         wait 1
-        restart
+        restore
 
 
 script strangulation

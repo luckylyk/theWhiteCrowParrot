@@ -16,8 +16,8 @@
 //                                                 wait)
 // comparators: (has, in, is, by, overlaps)
 // functions: (aim, checkpoint, clear, fadein, fadeout, flush, force, freeze,
-//             hide, move, pin, play, reach, restart, run, show, set, shift,
-//             wait, add, remove, offset)
+//             hide, move, pin, play, reach, restart, restore, run, show, set,
+//             shift, wait, add, remove, offset)
 // corax known objects: (animation, flip, gamepad, globals, hitmap, key,
 //                       name, player, pressed, scene, sheet, theatre, zone,
 //                       camera, target)
@@ -50,7 +50,7 @@ script shoot_1
         wait 50
         fadeout 50
         wait 1
-        restart
+        restore
 
 
 script shoot_2
@@ -66,7 +66,7 @@ script shoot_2
         wait 20
         fadeout 50
         wait 1
-        restart
+        restore
 
 
 script shoot_3
@@ -81,7 +81,7 @@ script shoot_3
         player.whitecrow play death_by_arrow_back
         fadeout 30
         wait 1
-        restart
+        restore
 
 
 script shoot_4
@@ -96,4 +96,4 @@ script shoot_4
         player.whitecrow play death_by_arrow_front
         fadeout 30
         wait 1
-        restart
+        restore

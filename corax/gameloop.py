@@ -1,6 +1,8 @@
 
 import copy
+import logging
 import os
+import pickle
 import pygame
 
 import corax.context as cctx
@@ -75,7 +77,27 @@ class GameLoop:
                 pygame.quit()
 
     def evaluate_theatre(self):
-        if self.theatre.run_mode == RUN_MODES.RESTART:
+        if self.theatre.checkpoint_requested is True:
+            self.save_checkpoint()
+
+        if self.theatre.run_mode == RUN_MODES.RESTORE:
+            self.theatre.audio_streamer.stop()
+            self.theatre.run_mode = RUN_MODES.NORMAL
+            if self.checkpoint is None:
+                self.theatre = Theatre(copy.deepcopy(self.data))
+                logging.debug('No checkpoint found, gamerestart.')
+            else:
+                self.theatre = pickle.loads(self.checkpoint)
+                logging.debug('Checkpoint loaded.')
+
+        elif self.theatre.run_mode == RUN_MODES.RESTART:
             self.theatre.audio_streamer.stop()
             self.theatre = Theatre(copy.deepcopy(self.data))
+            logging.debug('Game restart.')
+
         self.theatre.evaluate(self.joystick, self.screen)
+
+    def save_checkpoint(self):
+        self.theatre.checkpoint_requested = False
+        self.checkpoint = pickle.dumps(self.theatre)
+        logging.debug('Checkpoint saved.')

@@ -16,8 +16,8 @@
 //                                                 wait)
 // comparators: (has, in, is, by, overlaps)
 // functions: (aim, checkpoint, clear, fadein, fadeout, flush, force, freeze,
-//             hide, move, pin, play, reach, restart, run, show, set, shift,
-//             wait, add, remove, offset)
+//             hide, move, pin, play, reach, restart, restore, run, show, set,
+//             shift, wait, add, remove, offset)
 // corax known objects: (animation, flip, gamepad, globals, hitmap, key,
 //                       name, player, pressed, scene, sheet, theatre, zone,
 //                       camera, target)
@@ -64,7 +64,7 @@ script push_and_die
         wait 50
         fadeout 75
         wait 1
-        restart
+        restore
 
 
 script push_successfully
@@ -142,6 +142,7 @@ script open
         wait 4
         prop.chest play succes_to_open
         theatre.globals.chest_open set true
+        checkpoint
 
 
 script open_from_idle
@@ -158,6 +159,7 @@ script open_from_idle
         wait 4
         prop.chest play succes_to_open
         theatre.globals.chest_open set true
+        checkpoint
 
 
 script unlock_low

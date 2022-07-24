@@ -1,4 +1,5 @@
 
+import itertools
 import os
 import json
 import numpy as np
@@ -8,7 +9,6 @@ from PIL import Image, ImageQt
 from PySide6 import QtGui, QtCore, QtWidgets
 from corax.core import NODE_TYPES
 import corax.context as cctx
-from corax.iterators import itertable
 from pluck.data import SOUND_TYPES, ZONE_TYPES
 
 
@@ -146,7 +146,7 @@ def spritesheet_to_images(sheet, frame_size):
     row = sheet.height() / height
     col = sheet.width() / width
     images = []
-    for j, i in itertable(int(row), int(col)):
+    for j, i in itertools.product(range(int(row)), range(int(col))):
         x, y = i * width, j * height
         image = sheet.copy(x, y, width, height)
         images.append(image)
@@ -158,7 +158,7 @@ def sub_rects(rect, size):
     row = rect.height() / height
     col = rect.width() / width
     rects = []
-    for j, i in itertable(int(row), int(col)):
+    for j, i in itertools.product(range(int(row)), range(int(col))):
         x, y = i * width, j * height
         rects.append(QtCore.QRectF(x, y, width, height))
     return rects

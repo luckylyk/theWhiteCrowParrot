@@ -7,8 +7,6 @@ length. This duration is needed to inform the theatre that the RUN_MODES can be
 set back to RUN_MODES.NORMAL. As long as a job is running, the RUN_MODES is set
 to RUN_MODES.SCRIPT which block the gameplay evaluation.
 """
-
-
 from functools import partial
 
 from corax.core import EVENTS, RUN_MODES
@@ -43,45 +41,49 @@ def create_job(line, theatre):
 def create_job_without_subject(line, theatre):
     function = filter_action(line)
     match function:
-        case "run":
-            return partial(job_run_script, theatre, line.split(" ")[-1])
+        case "checkpoint":
+            return partial(job_checkpoint, theatre)
         case "clear":
             return partial(job_clear, theatre)
-        case "force":
-            return partial(job_force_script, theatre, line.split(" ")[-1])
-        case "wait":
-            return value_collector(int(line.split(" ")[-1]))
-        case "freeze":
-            return partial(
-                job_freeze_theatre, theatre, int(int(line.split(" ")[-1])))
-        case "flush":
-            player_name = object_name(line.split(" ")[-1])
-            return partial(job_flush_animation, theatre, player_name)
-        case "pin":
-            player_name = object_name(line.split(" ")[-1])
-            return partial(job_pin, theatre, player_name)
-        case "restart":
-            return partial(job_restart, theatre)
-        case "hide":
-            element = object_name(line.split(" ")[-1])
-            return partial(
-                job_switch_visibility, theatre, element, function == "show")
-        case "show":
-            element = object_name(line.split(" ")[-1])
-            return partial(
-                job_switch_visibility, theatre, element, function == "show")
+        case "disable":
+            obj = line.split(" ")[-1]
+            return create_enable_disable_job(theatre, obj, False)
+        case "enable":
+            obj = line.split(" ")[-1]
+            return create_enable_disable_job(theatre, obj, True)
         case "fadein":
             duration = int(line.split(" ")[-1])
             return partial(job_fade, theatre, function == "fadein", duration)
         case "fadeout":
             duration = int(line.split(" ")[-1])
             return partial(job_fade, theatre, function == "fadein", duration)
-        case "enable":
-            obj = line.split(" ")[-1]
-            return create_enable_disable_job(theatre, obj, True)
-        case "disable":
-            obj = line.split(" ")[-1]
-            return create_enable_disable_job(theatre, obj, False)
+        case "force":
+            return partial(job_force_script, theatre, line.split(" ")[-1])
+        case "freeze":
+            return partial(
+                job_freeze_theatre, theatre, int(int(line.split(" ")[-1])))
+        case "flush":
+            player_name = object_name(line.split(" ")[-1])
+            return partial(job_flush_animation, theatre, player_name)
+        case "hide":
+            element = object_name(line.split(" ")[-1])
+            return partial(
+                job_switch_visibility, theatre, element, function == "show")
+        case "pin":
+            player_name = object_name(line.split(" ")[-1])
+            return partial(job_pin, theatre, player_name)
+        case "restart":
+            return partial(job_restart, theatre)
+        case "restore":
+            return partial(job_restore, theatre)
+        case "run":
+            return partial(job_run_script, theatre, line.split(" ")[-1])
+        case "show":
+            element = object_name(line.split(" ")[-1])
+            return partial(
+                job_switch_visibility, theatre, element, function == "show")
+        case "wait":
+            return value_collector(int(line.split(" ")[-1]))
 
 
 def create_job_with_subject(subject, function, arguments, theatre):
@@ -210,6 +212,11 @@ def job_clear(theatre):
     return 0
 
 
+def job_checkpoint(theatre):
+    theatre.checkpoint_requested = True
+    return 0
+
+
 def job_enable_disable_zone(theatre, zone, state):
     zone = find_zone(theatre.scene, zone)
     zone.enable = state
@@ -280,6 +287,12 @@ def job_reach(player, block_position, animations):
 
 def job_restart(theatre):
     theatre.run_mode = RUN_MODES.RESTART
+    return 0
+
+
+def job_restore(theatre):
+    print("JOB RESTORE")
+    theatre.run_mode = RUN_MODES.RESTORE
     return 0
 
 

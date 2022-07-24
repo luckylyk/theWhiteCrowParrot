@@ -3,29 +3,45 @@ This is utilities iterators. Unfortunately, for the save system, the yield
 keyworkd is forbiden. Each 'generator' has to be written as custom iterable
 class.
 """
-import itertools
 import random
 import traceback
 
 from corax.mathutils import linear_ratio
 
 
-def iter_on_jobs(jobs, actions=None):
+class iter_on_jobs:
     """
     This iterator recieve a list of functions. All the functions must return
     int representing the number of iteration it needs to be done.
     """
-    for i, job in enumerate(jobs):
-        try:
-            frame_count = job()
-        except Exception as e:
-            print(traceback.format_exc())
-            error = f'{actions[i]}: failed' if actions else ""
-            print(e)
-            raise ValueError(f'{error}: {str(job)}') from e
-        while frame_count > 0:
-            yield
-            frame_count -= 1
+    def __init__(self, jobs, actions=None):
+        self._actions = actions
+        self._jobs = jobs
+        self._job_index = 0
+        self._frame_count = 0
+
+    def __next__(self):
+        if self._job_index >= len(self._jobs):
+            raise StopIteration()
+
+        if self._frame_count == 0:
+            try:
+                job = self._jobs[self._job_index]
+                self._frame_count = job()
+                self._job_index += 1
+            except Exception as e:
+                print(traceback.format_exc())
+                if self._actions:
+                    error = f'{self._actions[self._job_index]}: failed'
+                else:
+                    error = ""
+                print(e)
+                raise ValueError(f'{error}: {str(job)}') from e
+
+        while self._frame_count == 0:
+            next(self)
+
+        self._frame_count -= 1
 
 
 class fade:
@@ -41,13 +57,6 @@ class fade:
         result = self.maximum * linear_ratio(self._index, 0, self.duration)
         self._index += 1
         return self.maximum - result if self.reverse else result
-
-
-def itertable(a, b):
-    """
-    Bi-dimensional iterator.
-    """
-    return itertools.product(range(a), range(b))
 
 
 class frame_data_iterator:

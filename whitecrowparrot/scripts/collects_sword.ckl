@@ -16,8 +16,8 @@
 //                                                 wait)
 // comparators: (has, in, is, by, overlaps)
 // functions: (aim, checkpoint, clear, fadein, fadeout, flush, force, freeze,
-//             hide, move, pin, play, reach, restart, run, show, set, shift,
-//             wait, add, remove, offset)
+//             hide, move, pin, play, reach, restart, restore, run, show, set,
+//             shift, wait, add, remove, offset)
 // corax known objects: (animation, flip, gamepad, globals, hitmap, key,
 //                       name, player, pressed, scene, sheet, theatre, zone,
 //                       camera, target)
@@ -58,6 +58,7 @@ script collects_sword
         nolock player.whitecrow play collects
         player.whitecrow.layer show sword
         prop.sword_holder play detached
+        checkpoint
 
 
 script footsie_for_sword_collect
