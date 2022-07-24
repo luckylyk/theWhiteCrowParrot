@@ -9,7 +9,7 @@ from corax.screen import screen_relative_y
 def render_player_debug(player, deph, screen, camera):
     render_grid(screen, camera, (125, 125, 125), alpha=50)
     # Render coordinates infos on onverlay
-    size = player.animation_controller.data["frame_size"]
+    size = player.animation_controller.size
     center = player.animation_controller.animation.pixel_center
     position = sum_num_arrays(center, player.pixel_position)
     x, y = camera.relative_pixel_position(position, deph)
@@ -29,7 +29,8 @@ def render_player_debug(player, deph, screen, camera):
     render_text(screen, (155, 255, 0), 0, screen_relative_y(0), text)
     text = f"    (position: {player.coordinate.block_position})"
     render_text(screen, (155, 255, 0), 0, screen_relative_y(15), text)
-    text = f"    (center pixel position: {player.animation_controller.animation.pixel_center})"
+    pxcenter = player.animation_controller.animation.pixel_center
+    text = f"    (center pixel position: {pxcenter})"
     render_text(screen, (155, 255, 0), 0, screen_relative_y(30), text)
     text = f"    (center block position: {bcenter})"
     render_text(screen, (155, 255, 0), 0, screen_relative_y(45), text)

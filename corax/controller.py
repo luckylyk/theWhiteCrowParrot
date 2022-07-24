@@ -121,7 +121,7 @@ class AnimationController():
             block_position = sum_num_arrays(block_position, block_offset)
         return not is_move_cross_zone(
             move=move,
-            image_size=self.data["frame_size"],
+            image_size=self.size,
             block_position=block_position,
             flip=flip,
             data=self.data,
@@ -248,3 +248,6 @@ class AnimationController():
         if self.animation:
             return self.animation.images
 
+    @property
+    def size(self):
+        return self.data["frame_size"]

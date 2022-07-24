@@ -32,11 +32,11 @@
           }
         },
         {
-          "match": "(\\brun\\b|\\bplay\\b|\\bset\\b|\\breach\\b|\\bcheckpoint\\b|\\bfadeout\\b|\\bfadein\\b|\\bflush\\b|\\bpin\\b|\\bshow\\b|\\bhide\\b|\\bmove\\b|\\baim\\b|\\bshift\\b|\\bforce\\b|\\badd\\b|\\bremove\\b|\\bdisable\\b|\\benable\\b)",
+          "match": "(\\boffset\\b|\\brun\\b|\\bplay\\b|\\bset\\b|\\breach\\b|\\bcheckpoint\\b|\\bfadeout\\b|\\bfadein\\b|\\bflush\\b|\\bpin\\b|\\bshow\\b|\\bhide\\b|\\bmove\\b|\\baim\\b|\\bshift\\b|\\bforce\\b|\\badd\\b|\\bremove\\b|\\bdisable\\b|\\benable\\b)",
           "name": "entity.name.function.mysample"
         },
         {
-          "match": "(\\bis\\b|\\bin\\b|\\bcross\\b|\\bhas\\b|\\bby\\b)",
+          "match": "(\\boverlaps\\b|\\bis\\b|\\bin\\b|\\bcross\\b|\\bhas\\b|\\bby\\b)",
           "name": "keyword.mysample"
         },
         {
