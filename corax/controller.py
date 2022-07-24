@@ -221,6 +221,11 @@ class AnimationController():
     def offset(self, block_offset=None, pixel_offset=None):
         self.coordinate.offset(block_offset, pixel_offset)
 
+    def place(self, element, block_offset=None, pixel_offset=None):
+        element.coordinate.block_position = self.coordinate.block_position[:]
+        element.coordinate.pixel_offset = self.coordinate.pixel_offset[:]
+        element.coordinate.offset(block_offset, pixel_offset)
+
     def clear_buffer(self):
         self.unhold_buffer = []
         self.moves_buffer = []

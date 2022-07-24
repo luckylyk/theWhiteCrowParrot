@@ -140,6 +140,7 @@ script drop_ladder
         player.whitecrow.sheet set exploration
         player.whitecrow offset (7, 12)
         prop.ladder move (128, 0)
+        player.whitecrow place prop.ladder by (8, -10)
 
 
 script drop_ladder_flip
@@ -151,3 +152,4 @@ script drop_ladder_flip
         player.whitecrow.sheet set exploration
         player.whitecrow offset (0, 12)
         prop.ladder move (128, 0)
+        player.whitecrow place prop.ladder by (12, -10)

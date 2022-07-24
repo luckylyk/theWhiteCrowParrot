@@ -49,11 +49,10 @@ class Coordinate():
         block_offset = to_block_position(pixel_offset)
         pixel_offset = extract_pixel_offset(pixel_offset)
 
-        block_position = sum_num_arrays(
-            self.block_position, block_offset)
-        self.block_position = block_position
-        self.pixel_offset = sum_num_arrays(
-            self.pixel_offset, pixel_offset)
+        self.block_position[0] += block_offset[0]
+        self.block_position[1] += block_offset[1]
+        self.pixel_offset[0] += pixel_offset[0]
+        self.pixel_offset[1] += pixel_offset[1]
 
     @property
     def pixel_position(self):

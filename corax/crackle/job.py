@@ -60,15 +60,15 @@ def create_job_without_subject(line, theatre):
         case "force":
             return partial(job_force_script, theatre, line.split(" ")[-1])
         case "freeze":
-            return partial(
-                job_freeze_theatre, theatre, int(int(line.split(" ")[-1])))
+            frames = int(int(line.split(" ")[-1]))
+            return partial(job_freeze_theatre, theatre, frames)
         case "flush":
             player_name = object_name(line.split(" ")[-1])
             return partial(job_flush_animation, theatre, player_name)
         case "hide":
             element = object_name(line.split(" ")[-1])
-            return partial(
-                job_switch_visibility, theatre, element, function == "show")
+            show = function == "show"
+            return partial(job_switch_visibility, theatre, element, show)
         case "pin":
             player_name = object_name(line.split(" ")[-1])
             return partial(job_pin, theatre, player_name)
@@ -80,8 +80,8 @@ def create_job_without_subject(line, theatre):
             return partial(job_run_script, theatre, line.split(" ")[-1])
         case "show":
             element = object_name(line.split(" ")[-1])
-            return partial(
-                job_switch_visibility, theatre, element, function == "show")
+            show = function == "show"
+            return partial(job_switch_visibility, theatre, element, show)
         case "wait":
             return value_collector(int(line.split(" ")[-1]))
 
@@ -149,6 +149,11 @@ def create_character_job(theatre, character_name, function, arguments):
         case "play":
             anim = arguments
             return partial(job_play_animation, character, anim)
+        case "place":
+            prop, offset = arguments.split(" by ")
+            prop_name = object_name(prop)
+            offset = string_to_int_list(offset)
+            return partial(job_place, theatre, character, prop_name, offset)
         case "reach":
             pos, animations = extract_reach_arguments(arguments)
             return partial(job_reach, character, pos, animations)
@@ -267,6 +272,12 @@ def job_pin(theatre, character_name):
         import traceback
         print(traceback.format_exc())
         raise Exception from e
+    return 0
+
+
+def job_place(theatre, placer, name, offset):
+    element = find_element(theatre.scene, name)
+    placer.animation_controller.place(element, offset)
     return 0
 
 
