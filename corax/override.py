@@ -8,12 +8,12 @@ each time and in the meantime, it avoids to edit the game data to start with
 another change.
 """
 
-from functools import reduce
 import json
 import logging
-from operator import getitem
 import os
 import re
+from functools import reduce
+from operator import getitem
 
 import corax.context as cctx
 
@@ -52,7 +52,7 @@ def type_value(value):
 
 
 def extract_line_operator(line):
-    if (operator:=line.split(" ")[0]) in OPERATORS:
+    if (operator := line.split(" ")[0]) in OPERATORS:
         return operator, line.strip(" ")[4:]
     return 'set', line
 

@@ -1,7 +1,6 @@
 from cryptography.fernet import Fernet
 import json
 import os
-import codecs
 import msgpack
 
 
@@ -30,19 +29,6 @@ for root, _, filenames in os.walk(gameroot):
 
 result = msgpack.packb(result, use_bin_type=True)
 
-
-# key = Fernet.generate_key()
-# fernet = Fernet(key)
-# print(key)
-# result = fernet.encrypt(result)
-
-
-# with open(output, "w") as f:
-#     json.dump(result, f)
-# with open(output, "rb") as f:
-#     result = f.read()
-
-# # print(result)
 
 with open(output, "wb") as f:
     f.write(result)
