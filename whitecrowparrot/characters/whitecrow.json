@@ -19,7 +19,8 @@
         "fight": "whitecrowparrot_fight.json",
         "fall": "whitecrowparrot_fall.json",
         "banner": "whitecrowparrot_banner.json",
-        "underwater": "whitecrowparrot_underwater.json"
+        "underwater": "whitecrowparrot_underwater.json",
+        "hivesjump": "whitecrowparrot_hivesjump.json"
     },
     "hitmaps_color": {
         "leggs": [255, 50, 75],
