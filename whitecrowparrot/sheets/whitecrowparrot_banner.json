@@ -1,7 +1,7 @@
 {
     "name": "",
     "default_move": "idle",
-    "evaluation_order": ["catch", "idle", "turn", "walk_a", "walk_b", "release"],
+    "evaluation_order": ["catch", "idle", "turn", "walk_a", "walk_b", "release", "through"],
     "frame_size": [310, 300],
     "key_color": [0, 255, 0],
     "layers": {
@@ -57,6 +57,23 @@
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 12,
+            "triggers": null
+        },
+        "through": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 54,
             "triggers": null
         },
         "turn": {

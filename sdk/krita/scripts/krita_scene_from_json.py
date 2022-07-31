@@ -8,22 +8,16 @@ ROOT = r"D:\Works\code\GitHub\theWhiteCrowParrot\whitecrowparrot"
 JSON = r"scenes\forest_01.json"
 
 
-def pillow_to_qbytearray(image):
+def remove_key_color(image):
     for i in range(image.width()):
         for j in range(image.height()):
             color = image.pixelColor(i, j)
             if color == QtGui.QColor(0, 255, 0, 255):
                 image.setPixelColor(i, j, QtGui.QColor(0, 0, 0, 0))
-    return image_to_data(image)
 
 
 def image_to_data(image):  # {{{
-    ba = QtCore.QByteArray()
-    buf = QtCore.QBuffer(ba)
-    buf.open(QtCore.QBuffer.WriteOnly)
-    ret = bytes(ba.data())
-    buf.close()
-    return ret
+    return image.bits().asstring(image.width() * image.height() * 4)
 
 
 jsonfile = os.path.join(ROOT, JSON)
@@ -52,8 +46,8 @@ for element in data["elements"]:
         assert layer
         node = document.createNode(os.path.basename(element["name"]), "paintlayer")
         layer.addChildNode(node, None)
-
         image = QtGui.QImage(os.path.join(ROOT, "sets", element["file"]))
-        data = pillow_to_qbytearray(image)
-        node.setPixelData(pillow_to_qbytearray(), 0, 0, image.width(), image.height())
+        remove_key_color(image)
+        node.setPixelData(image_to_data(image), element['position'][0], element['position'][1], image.width(), image.height())
+
 document.refreshProjection()
