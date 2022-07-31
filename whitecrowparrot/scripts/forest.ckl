@@ -192,3 +192,13 @@ script jump
         player.whitecrow move (27, 6)
         nolock player.whitecrow play fall
         fadein 35
+
+
+script through_banner
+    gamepad.keys.pressed has X
+    player.whitecrow.sheet is banner
+    player.whitecrow.animation is idle
+    player.whitecrow.flip is true
+        player.whitecrow play through
+        player.whitecrow.sheet set exploration
+        player.whitecrow offset (-13, -1)
