@@ -201,4 +201,4 @@ script through_banner
     player.whitecrow.flip is true
         player.whitecrow play through
         player.whitecrow.sheet set exploration
-        player.whitecrow offset (-13, -1)
+        player.whitecrow offset (0, 12)
