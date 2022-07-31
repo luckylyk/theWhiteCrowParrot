@@ -72,7 +72,7 @@ script collects_sword_from_around
     gamepad.keys.pressed has X
     prop.sword_holder.animation is attached
     player.whitecrow.animation is idle
-        player.whitecrow reach (348, 10) by (return, walk_a, footsie)
+        player.whitecrow reach (508, 10) by (return, walk_a, footsie)
         player.whitecrow aim RIGHT by return
         player.whitecrow.sheet set collects_sword
         player.whitecrow play get_ready

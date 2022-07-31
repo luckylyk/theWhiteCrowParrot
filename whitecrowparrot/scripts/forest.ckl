@@ -38,7 +38,7 @@ script go_to_tente
     theatre.scene.name is forest
     player.whitecrow.sheet is exploration
     player.whitecrow.animation is idle
-        player.whitecrow reach (272, 10) by (return, walk_a, footsie)
+        player.whitecrow reach (432, 10) by (return, walk_a, footsie)
         player.whitecrow aim RIGHT by return
         nolock fadeout 10
         player.whitecrow play through_door
@@ -56,8 +56,8 @@ script go_to_forest
         fadeout 6
         wait 1
         theatre.scene set forest
-        player.whitecrow move (272, 10)
-        theatre.camera move (2600, 134)
+        player.whitecrow move (432, 10)
+        theatre.camera move (4200, 134)
         flush player.whitecrow
         nolock fadein 6
 
@@ -108,14 +108,14 @@ script activate_ladder_prop
     theatre.globals.ladder_is_activated is false
     prop.robert.animation is lie_down
         theatre.globals.ladder_is_activated set true
-        prop.ladder move (128, 0)
+        prop.ladder move (288, 0)
 
 
 script pick_ladder
     prop.ladder.hitmap.ground_zone overlaps player.whitecrow.hitmap.leggs
     player.whitecrow.flip is false
     gamepad.keys.pressed has X
-        prop.ladder move (128, -100)
+        prop.ladder move (288, -100)
         player.whitecrow.sheet set banner
         player.whitecrow offset (-7, -12)
         player.whitecrow play catch
@@ -125,7 +125,7 @@ script pick_ladder_flip
     prop.ladder.hitmap.ground_zone overlaps player.whitecrow.hitmap.leggs
     player.whitecrow.flip is true
     gamepad.keys.pressed has X
-        prop.ladder move (128, -100)
+        prop.ladder move (288, -100)
         player.whitecrow.sheet set banner
         player.whitecrow offset (0, -12)
         player.whitecrow play catch
@@ -139,7 +139,7 @@ script drop_ladder
         player.whitecrow play release
         player.whitecrow.sheet set exploration
         player.whitecrow offset (7, 12)
-        prop.ladder move (128, 0)
+        prop.ladder move (288, 0)
         player.whitecrow place prop.ladder by (8, -10)
 
 
@@ -151,5 +151,44 @@ script drop_ladder_flip
         player.whitecrow play release
         player.whitecrow.sheet set exploration
         player.whitecrow offset (0, 12)
-        prop.ladder move (128, 0)
+        prop.ladder move (288, 0)
         player.whitecrow place prop.ladder by (12, -10)
+
+
+///////////////////////////////////////////////////////////////////////////////
+//// -- JUMP IN WATER -- //////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////
+
+
+script prepare_jump
+    player.whitecrow.flip is true
+    player.whitecrow.animation is idle
+    player.whitecrow.sheet is exploration
+        player.whitecrow reach (112, 10) by (return, walk_a, footsie)
+        player.whitecrow aim LEFT by return
+        player.whitecrow.sheet set hivesjump
+        player.whitecrow offset (13, 1)
+        player.whitecrow play prepare_jump
+
+
+script cancel_jump
+    player.whitecrow.animation is ready_to_jump
+    player.whitecrow.sheet is hivesjump
+    gamepad.keys.pressed has RIGHT
+        player.whitecrow play cancel_jump
+        player.whitecrow.sheet set exploration
+        player.whitecrow offset (-13, -1)
+        player.whitecrow aim RIGHT by return
+
+
+script jump
+    player.whitecrow.animation is ready_to_jump
+    player.whitecrow.sheet is hivesjump
+    gamepad.keys.pressed has A
+        player.whitecrow play jump
+        fadeout 35
+        theatre.scene set underwater
+        player.whitecrow.sheet set underwater
+        player.whitecrow move (27, 6)
+        nolock player.whitecrow play fall
+        fadein 35

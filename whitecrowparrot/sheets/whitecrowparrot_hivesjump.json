@@ -1,7 +1,7 @@
 {
     "name": "",
     "default_move": "idle",
-    "evaluation_order": ["idle", "prepare_jump", "cancel_jump", "get_ready_to_jump", "jump"],
+    "evaluation_order": ["idle", "prepare_jump", "cancel_jump", "ready_to_jump", "jump", "drawn"],
     "frame_size": [370, 168],
     "key_color": [0, 255, 0],
     "layers": {
@@ -10,7 +10,7 @@
     },
     "moves": {
         "cancel_jump": {
-            "center": [0, 0],
+            "center": [70, 145],
             "conditions": {},
             "frames_centers": null,
             "frames_per_image": [2, 2, 2, 1],
@@ -26,25 +26,25 @@
             "start_at_image": 4,
             "triggers": null
         },
-        "get_ready_to_jump": {
+        "drawn": {
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [1],
+            "frames_per_image": [1000],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
             "loop_on": "idle",
-            "next_move": "idle",
+            "next_move": "drawn",
             "next_move_bufferable": false,
             "post_events": {},
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 3,
+            "start_at_image": 49,
             "triggers": null
         },
         "idle": {
-            "center": [0, 0],
+            "center": [70, 145],
             "conditions": {},
             "frames_centers": null,
             "frames_per_image": [1],
@@ -61,7 +61,7 @@
             "triggers": null
         },
         "jump": {
-            "center": [0, 0],
+            "center": [70, 145],
             "conditions": {},
             "frames_centers": null,
             "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1, 1, 7, 2, 2, 3, 2, 2, 2, 2, 2, 2, 2, 3, 2],
@@ -69,7 +69,7 @@
             "hold": false,
             "inputs": [],
             "loop_on": "idle",
-            "next_move": "idle",
+            "next_move": "drawn",
             "next_move_bufferable": false,
             "post_events": {},
             "pre_events": {},
@@ -78,7 +78,7 @@
             "triggers": null
         },
         "prepare_jump": {
-            "center": [0, 0],
+            "center": [70, 145],
             "conditions": {},
             "frames_centers": null,
             "frames_per_image": [2, 2, 2, 1],
@@ -86,12 +86,29 @@
             "hold": false,
             "inputs": [],
             "loop_on": "idle",
-            "next_move": "idle",
+            "next_move": "ready_to_jump",
             "next_move_bufferable": false,
             "post_events": {},
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 0,
+            "triggers": null
+        },
+        "ready_to_jump": {
+            "center": [70, 145],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [1],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "ready_to_jump",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 3,
             "triggers": null
         }
     }
