@@ -6,7 +6,7 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-        
+
     ],
     "zones": [
         {
@@ -26,6 +26,14 @@
         {
             "name": "background",
             "type": "layer",
+            "deph": 0.0
+        },
+        {
+            "name": "ladder",
+            "type": "set_animated",
+            "file": "uw_ladder.json",
+            "position": [390, 180],
+            "alpha": 255,
             "deph": 0.0
         },
         {
