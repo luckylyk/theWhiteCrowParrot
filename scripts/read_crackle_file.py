@@ -18,6 +18,7 @@ class MockArguments:
     speedup = False
     overrides = None
     use_default_config = True
+    use_config = True
 
 
 GAMEDATA_FOLDER = os.path.join(HERE, "../whitecrowparrot")

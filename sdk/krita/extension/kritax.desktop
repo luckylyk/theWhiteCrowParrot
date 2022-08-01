@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=Krita/PythonPlugin
+X-KDE-Library=annotation_layer
+X-Pyhon-2-Compatible=true
+Name=Kritax
+Comment=This creates two layers over the current node.
