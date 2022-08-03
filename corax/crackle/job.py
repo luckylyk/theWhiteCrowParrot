@@ -185,10 +185,11 @@ def create_character_job(theatre, character_name, function, arguments):
 def create_enable_disable_job(theatre, obj, state):
     type_ = object_type(obj)
     name = object_name(obj)
-    if type_ == "zone":
-        return partial(job_enable_disable_zone, theatre, name, state)
-    elif type_ == "camera":
-        return partial(job_camera_boundaries, theatre, state)
+    match type_:
+        case "zone":
+            return partial(job_enable_disable_zone, theatre, name, state)
+        case "camera":
+            return partial(job_camera_boundaries, theatre, state)
 
 
 def nolock_job(job):
