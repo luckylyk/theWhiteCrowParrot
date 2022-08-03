@@ -10,7 +10,7 @@ to RUN_MODES.SCRIPT which block the gameplay evaluation.
 from functools import partial
 
 from corax.core import EVENTS, RUN_MODES
-from corax.iterators import fade
+from corax.iterators import fade, timer
 from corax.seeker import (
     find_animated_set, find_element, find_zone, find_character)
 
@@ -78,6 +78,9 @@ def create_job_without_subject(line, theatre):
             return partial(job_restore, theatre)
         case "run":
             return partial(job_run_script, theatre, line.split(" ")[-1])
+        case "start":
+            timername = object_attribute(line.split(" ")[-1])
+            return partial(job_start_timer, theatre, timername)
         case "show":
             element = object_name(line.split(" ")[-1])
             show = function == "show"
@@ -90,16 +93,23 @@ def create_job_with_subject(subject, function, arguments, theatre):
     subject_type = object_type(subject)
     subject_name = object_name(subject)
     if subject_type == "theatre":
-        if function == "set":
-            if subject_name == "scene":
-                return partial(job_set_scene, theatre, arguments)
-            elif subject_name == "globals":
-                key = object_attribute(subject)
-                return partial(job_set_global, theatre, key, arguments)
-        elif function == "move":
-            if subject_name == "camera":
-                position = string_to_int_list(arguments)
-                return partial(job_move_camera, theatre, position)
+        match function:
+            case "set":
+                if subject_name == "scene":
+                    return partial(job_set_scene, theatre, arguments)
+                elif subject_name == "globals":
+                    key = object_attribute(subject)
+                    return partial(job_set_global, theatre, key, arguments)
+            case "move":
+                if subject_name == "camera":
+                    position = string_to_int_list(arguments)
+                    return partial(job_move_camera, theatre, position)
+            case "init":
+                subject_attribute = object_attribute(subject)
+                event, duration = arguments.split(" by ")
+                duration = int(duration)
+                name = subject_attribute
+                return partial(job_init_timer, theatre, name, event, duration)
 
     elif subject_type == "camera":
         if subject_name == "target":
@@ -249,6 +259,11 @@ def job_flush_animation(theatre, character_name):
     return 0
 
 
+def job_init_timer(theatre, name, event, duration):
+    theatre.timers[name] = timer(name, event, duration)
+    return 0
+
+
 def job_move_camera(theatre, pixel_position):
     theatre.scene.camera.set_center(pixel_position)
     return 0
@@ -329,6 +344,16 @@ def job_set_sheet(player, sheet_name):
 
 def job_shift_zone(zone, rect):
     zone.set_rect(rect)
+    return 0
+
+
+def job_start_timer(theatre, timername):
+    theatre.timers[timername].start()
+    return 0
+
+
+def job_stop_timer(theatre, timername):
+    theatre.timers[timername].stop()
     return 0
 
 

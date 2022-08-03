@@ -182,6 +182,7 @@ script cancel_jump
 
 
 script jump
+    theatre.globals.underwater_ladder_visible is true
     player.whitecrow.animation is ready_to_jump
     player.whitecrow.sheet is hivesjump
     gamepad.keys.pressed has A
@@ -189,9 +190,27 @@ script jump
         fadeout 35
         theatre.scene set underwater
         player.whitecrow.sheet set underwater
+        show prop.underwater_ladder
         player.whitecrow move (27, 6)
         nolock player.whitecrow play fall
         fadein 35
+
+
+script jump2
+    theatre.globals.underwater_ladder_visible is false
+    player.whitecrow.animation is ready_to_jump
+    player.whitecrow.sheet is hivesjump
+    gamepad.keys.pressed has A
+        player.whitecrow play jump
+        fadeout 35
+        theatre.scene set underwater
+        hide prop.underwater_ladder
+        player.whitecrow.sheet set underwater
+        player.whitecrow move (27, 6)
+        nolock player.whitecrow play fall
+        fadein 35
+        theatre.timer.asphixia_countdown init underwater.asphyxia by 200
+        start theatre.timer.asphixia_countdown
 
 
 script through_banner
@@ -202,3 +221,4 @@ script through_banner
         player.whitecrow play through
         player.whitecrow.sheet set exploration
         player.whitecrow offset (0, 12)
+        theatre.globals.underwater_ladder_visible set true

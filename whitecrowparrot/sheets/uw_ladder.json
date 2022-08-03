@@ -19,7 +19,7 @@
                     "post_events": {},
                     "pre_events": {},
                     "release_frame": -1,
-                    "start_at_image": 1,
+                    "start_at_image": 0,
                     "triggers":  null
                 }
         }

@@ -323,7 +323,7 @@
             "name": "jump_to_water",
             "type": "interaction",
             "affect": ["whitecrow"],
-            "scripts": ["forest.cancel_jump", "forest.jump", "forest.prepare_jump"],
+            "scripts": ["forest.cancel_jump", "forest.jump", "forest.jump2", "forest.prepare_jump"],
             "zone": [118, 24, 124, 28]
         },
         {

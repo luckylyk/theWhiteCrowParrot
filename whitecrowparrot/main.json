@@ -13,7 +13,8 @@
         "sinoc_fight_is_started": false,
         "wearing_blackhelmet": false,
         "jos_is_waiting": true,
-        "ladder_is_activated": false
+        "ladder_is_activated": false,
+        "underwater_ladder_visible": false
     },
     "menu": "main.json",
     "preferences": {

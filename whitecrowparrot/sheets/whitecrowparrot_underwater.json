@@ -1,23 +1,40 @@
 {
     "name": "",
     "default_move": "fall",
-    "evaluation_order": ["fall", "idle", "return", "step", "idk", "swim", "asphyxia", "crouch_down", "crouch_up", "electrocution"],
+    "evaluation_order": ["fall", "idle", "return", "step", "idk", "swim", "asphyxia", "crouch_down", "crouch_up", "electrocution", "asphixied"],
     "frame_size": [200, 180],
     "key_color": [0, 255, 0],
     "layers": {
         "body": "whitecrowparrot_underwater_body.png"
     },
     "moves": {
+        "asphixied": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [1],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "asphixied",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 93,
+            "triggers": null
+        },
         "asphyxia": {
             "center": [105, 165],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [2, 2, 2, 2, 5, 4, 2, 2, 7, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2],
+            "frames_per_image": [2, 2, 2, 2, 5, 4, 2, 2, 7, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 35],
             "hitmaps": null,
             "hold": false,
             "inputs": ["R1"],
             "loop_on": "idle",
-            "next_move": "idle",
+            "next_move": "asphixied",
             "next_move_bufferable": false,
             "post_events": {},
             "pre_events": {},

@@ -91,6 +91,7 @@ class Theatre:
 
         self.scrolling_targets = find_start_scrolling_targets(chars, data)
         self.scripts, events = load_crackle_objects()
+        self.timers = {}
         self.events = {e.name: e for e in events}
         self.current_scripts = []
         self.freeze = 0
@@ -203,6 +204,7 @@ class Theatre:
                     self.evaluate_collision(zone)
                 case NODE_TYPES.EVENT_ZONE:
                     self.evaluate_trigger(zone)
+        self.evaluate_timers()
         self.evaluate_events()
 
         if keystate_changed is True and self.run_mode != RUN_MODES.SCRIPT:
@@ -282,6 +284,17 @@ class Theatre:
                     f"Event: {event}: trigger={evaluable.trigger}"
                     f"->character:{evaluable.name}")
                 self.queue_event(event)
+
+    def evaluate_timers(self):
+        # List conversion is necessary because the dict is edited during
+        # iteration.
+        for t in list(self.timers.values()):
+            try:
+                next(t)
+            except StopIteration:
+                logging.debug(f"Timer done: {t.name}")
+                self.queue_event(t.event)
+                del self.timers[t.name]
 
     def evaluate_interactions(self, zone):
         if not (script_names := zone.script_names):

@@ -44,7 +44,31 @@ class iter_on_jobs:
         self._frame_count -= 1
 
 
+class timer:
+    def __init__(self, name, event, length):
+        self.name = name
+        self.event = event
+        self.duration = length
+        self.countdown = length
+        self.running = False
+
+    def __next__(self):
+        if not self.running:
+            return
+        if self.countdown == 0:
+            raise StopIteration()
+        self.countdown -= 1
+
+    def stop(self):
+        self.countdown = self.duration
+        self.running = False
+
+    def start(self):
+        self.running = True
+
+
 class fade:
+
     def __init__(self, duration, maximum, reverse=False):
         self.duration = duration
         self.maximum = maximum
@@ -95,11 +119,11 @@ class shuffle:
 
 
 def choose(items):
-    '''
+    """
     this method is an utils to choose an element with a coefficient.
     :items: is a dict {'item1': coefficient as int}
     return a random key with a chance coefficient as value
-    '''
+    """
     return random.choice([
         t for k, v in items.items()
         for t in tuple([k] * v) if v])

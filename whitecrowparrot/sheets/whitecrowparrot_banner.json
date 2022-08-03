@@ -60,7 +60,7 @@
             "triggers": null
         },
         "through": {
-            "center": [0, 0],
+            "center": [140, 275],
             "conditions": {},
             "frames_centers": null,
             "frames_per_image": [2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
