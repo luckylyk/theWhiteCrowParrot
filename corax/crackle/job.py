@@ -92,53 +92,61 @@ def create_job_without_subject(line, theatre):
 def create_job_with_subject(subject, function, arguments, theatre):
     subject_type = object_type(subject)
     subject_name = object_name(subject)
-    if subject_type == "theatre":
-        match function:
-            case "set":
-                if subject_name == "scene":
-                    return partial(job_set_scene, theatre, arguments)
-                elif subject_name == "globals":
-                    key = object_attribute(subject)
-                    return partial(job_set_global, theatre, key, arguments)
-            case "move":
-                if subject_name == "camera":
-                    position = string_to_int_list(arguments)
-                    return partial(job_move_camera, theatre, position)
-            case "init":
-                subject_attribute = object_attribute(subject)
-                event, duration = arguments.split(" by ")
-                duration = int(duration)
-                name = subject_attribute
-                return partial(job_init_timer, theatre, name, event, duration)
+    match subject_type:
+        case "theatre":
+            return create_theatre_job(subject, function, theatre, arguments)
+        case "camera":
+            if subject_name == "target":
+                return partial(job_camera_target, theatre, function, arguments)
+        case "player":
+            name = subject_name
+            return create_character_job(theatre, name, function, arguments)
+        case "npc":
+            name = subject_name
+            return create_character_job(theatre, name, function, arguments)
+        case "prop":
+            return create_prop_job(subject_name, function, arguments, theatre)
+        case "zone":
+            zone = find_zone(theatre.scene, subject_name)
+            rect = string_to_int_list(arguments)
+            return partial(job_shift_zone, zone, rect)
 
-    elif subject_type == "camera":
-        if subject_name == "target":
-            return partial(job_camera_target, theatre, function, arguments)
 
-    elif subject_type in ("player", "npc"):
-        return create_character_job(theatre, subject_name, function, arguments)
+def create_theatre_job(subject, function, theatre, arguments):
+    subject_name = object_name(subject)
+    match function:
+        case "set":
+            if subject_name == "scene":
+                return partial(job_set_scene, theatre, arguments)
+            elif subject_name == "globals":
+                key = object_attribute(subject)
+                return partial(job_set_global, theatre, key, arguments)
+        case "move":
+            if subject_name == "camera":
+                position = string_to_int_list(arguments)
+                return partial(job_move_camera, theatre, position)
+        case "init":
+            subject_attribute = object_attribute(subject)
+            event, duration = arguments.split(" by ")
+            duration = int(duration)
+            name = subject_attribute
+            return partial(job_init_timer, theatre, name, event, duration)
 
-    elif subject_type == "prop":
-        match function:
-            case "play":
-                animation = arguments
-                prop = find_animated_set(theatre.scene, subject_name)
-                return partial(job_play_animation, prop, animation)
-            case "move":
-                prop = find_animated_set(theatre.scene, subject_name)
-                return partial(job_move, prop, string_to_int_list(arguments))
-            case "offset":
-                prop = find_animated_set(theatre.scene, subject_name)
-                size = prop.animation_controller.size
-                offset = string_to_int_list(arguments)
-                center = prop.animation_controller.animation.pixel_center
-                return partial(
-                    job_offset, prop.coordinate, offset, center, size)
 
-    elif subject_type == "zone":
-        zone = find_zone(theatre.scene, subject_name)
-        rect = string_to_int_list(arguments)
-        return partial(job_shift_zone, zone, rect)
+def create_prop_job(name, function, arguments, theatre):
+    prop = find_animated_set(theatre.scene, name)
+    match function:
+        case "play":
+            animation = arguments
+            return partial(job_play_animation, prop, animation)
+        case "move":
+            return partial(job_move, prop, string_to_int_list(arguments))
+        case "offset":
+            size = prop.animation_controller.size
+            offset = string_to_int_list(arguments)
+            center = prop.animation_controller.animation.pixel_center
+            return partial(
+                job_offset, prop.coordinate, offset, center, size)
 
 
 def create_character_job(theatre, character_name, function, arguments):
