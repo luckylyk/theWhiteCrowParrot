@@ -1,18 +1,20 @@
 {
     "name": "",
     "default_move": "fall",
-    "evaluation_order": ["fall", "idle", "return", "step", "idk", "swim", "asphyxia", "crouch_down", "crouch_up", "electrocution", "asphixied"],
+    "evaluation_order": ["fall", "idle", "return", "step", "idk", "swim", "asphyxia", "asphixied", "crouch_down", "crouch_up", "electrocution", "catch_chain", "ladder"],
     "frame_size": [200, 180],
     "key_color": [0, 255, 0],
     "layers": {
-        "body": "whitecrowparrot_underwater_body.png"
+        "body": "whitecrowparrot_underwater_body.png",
+        "head": "whitecrowparrot_underwater_head.png",
+        "scord": "whitecrowparrot_underwater_sword.png"
     },
     "moves": {
         "asphixied": {
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [1],
+            "frames_per_image": [1000],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -32,7 +34,7 @@
             "frames_per_image": [2, 2, 2, 2, 5, 4, 2, 2, 7, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 35],
             "hitmaps": null,
             "hold": false,
-            "inputs": ["R1"],
+            "inputs": [""],
             "loop_on": "idle",
             "next_move": "asphixied",
             "next_move_bufferable": false,
@@ -40,6 +42,23 @@
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 73,
+            "triggers": null
+        },
+        "catch_chain": {
+            "center": [105, 165],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [2, 2, 2, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2, 1],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 138,
             "triggers": null
         },
         "crouch_down": {
@@ -142,6 +161,23 @@
             "pre_events": {},
             "release_frame": 0,
             "start_at_image": 13,
+            "triggers": null
+        },
+        "ladder": {
+            "center": [105, 165],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 131,
             "triggers": null
         },
         "return": {
