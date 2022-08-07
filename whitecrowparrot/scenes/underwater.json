@@ -20,6 +20,20 @@
             "type": "no_go",
             "affect": "whitecrow",
             "zone": [50, 0, 77, 27]
+        },
+        {
+            "name": "climb_ladder",
+            "type": "interaction",
+            "affect": "whitecrow",
+            "scripts": ["underwater.climb_ladder"],
+            "zone": [44, 18, 58, 26]
+        },
+        {
+            "name": "catch_chain",
+            "type": "interaction",
+            "affect": "whitecrow",
+            "scripts": ["underwater.catch_chain"],
+            "zone": [22, 18, 31, 25]
         }
     ],
     "elements": [

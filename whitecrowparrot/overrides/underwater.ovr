@@ -1,2 +1,3 @@
 main.json["start_scene"] = "underwater"
+main.json["globals"]["underwater_ladder_visible"] = true
 characters/whitecrow.json["default_sheet"] = "underwater"

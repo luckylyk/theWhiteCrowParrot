@@ -7,6 +7,8 @@ from corax.screen import screen_relative_y
 
 
 def render_player_debug(player, deph, screen, camera):
+    if player.name != 'whitecrow':
+        return
     render_grid(screen, camera, (125, 125, 125), alpha=50)
     # Render coordinates infos on onverlay
     size = player.animation_controller.size

@@ -81,6 +81,9 @@ def create_job_without_subject(line, theatre):
         case "start":
             timername = object_attribute(line.split(" ")[-1])
             return partial(job_start_timer, theatre, timername)
+        case "stop":
+            timername = object_attribute(line.split(" ")[-1])
+            return partial(job_stop_timer, theatre, timername)
         case "show":
             element = object_name(line.split(" ")[-1])
             show = function == "show"
@@ -136,6 +139,9 @@ def create_theatre_job(subject, function, theatre, arguments):
 def create_prop_job(name, function, arguments, theatre):
     prop = find_animated_set(theatre.scene, name)
     match function:
+        case "layover":
+            target = object_name(arguments)
+            return partial(job_layover, theatre, name, target)
         case "play":
             animation = arguments
             return partial(job_play_animation, prop, animation)
@@ -158,6 +164,9 @@ def create_character_job(theatre, character_name, function, arguments):
         case "hide":
             layer = arguments
             return partial(job_switch_layer, character, False, layer)
+        case "layover":
+            target = object_name(arguments)
+            return partial(job_layover, theatre, character_name, target)
         case "move":
             position = string_to_int_list(arguments)
             return partial(job_move, character, position)
@@ -362,7 +371,8 @@ def job_start_timer(theatre, timername):
 
 
 def job_stop_timer(theatre, timername):
-    theatre.timers[timername].stop()
+    print(list(theatre.timers))
+    del theatre.timers[timername]
     return 0
 
 
@@ -374,4 +384,11 @@ def job_switch_layer(player, state, layer):
 def job_switch_visibility(theatre, name, visible):
     element = find_element(theatre.scene, name)
     element.visible = visible
+    return 0
+
+
+def job_layover(theatre, element_name, target_name):
+    element = find_element(theatre.scene, element_name)
+    target = find_element(theatre.scene, target_name)
+    theatre.scene.layover(element, target)
     return 0

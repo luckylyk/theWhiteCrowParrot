@@ -1,7 +1,7 @@
 {
     "name": "",
-    "default_move": "fall",
-    "evaluation_order": ["fall", "idle", "return", "step", "idk", "swim", "asphyxia", "asphixied", "crouch_down", "crouch_up", "electrocution", "catch_chain", "ladder"],
+    "default_move": "idle_transite",
+    "evaluation_order": ["fall", "idle", "return", "step", "idk", "swim", "asphyxia", "asphixied", "crouch_down", "crouch_up", "electrocution", "catch_chain", "ladder", "idle_transite"],
     "frame_size": [200, 180],
     "key_color": [0, 255, 0],
     "layers": {
@@ -11,7 +11,7 @@
     },
     "moves": {
         "asphixied": {
-            "center": [0, 0],
+            "center": [105, 165],
             "conditions": {},
             "frames_centers": null,
             "frames_per_image": [1000],
@@ -163,11 +163,11 @@
             "start_at_image": 13,
             "triggers": null
         },
-        "ladder": {
-            "center": [105, 165],
+        "idle_transite": {
+            "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [2, 2, 2, 2, 2, 2, 2],
+            "frames_per_image": [1],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -177,7 +177,24 @@
             "post_events": {},
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 131,
+            "start_at_image": 13,
+            "triggers": null
+        },
+        "ladder": {
+            "center": [105, 165],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 128,
             "triggers": null
         },
         "return": {

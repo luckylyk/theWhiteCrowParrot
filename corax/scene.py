@@ -40,6 +40,18 @@ class Scene():
     def append(self, layer):
         self.layers.append(layer)
 
+    def layover(self, element, target):
+        for layer in self.layers:
+            if element in layer.elements:
+                layer.remove(element)
+        for layer in self.layers:
+            if target in layer.elements:
+                index = layer.elements.index(target)
+                layer.elements.insert(index + 1, element)
+                return
+        msg = f'Layover error: {element.name} or {target.name} not found.'
+        raise ValueError(msg)
+
     def render(self, screen):
         screen.fill(self.background_color)
         for layer in sorted(self.layers, key=lambda layer: layer.deph):
@@ -68,6 +80,12 @@ class Layer():
 
     def append(self, element):
         self.elements.append(element)
+
+    def remove(self, element):
+        self.elements.remove(element)
+
+    def insert(self, index, element):
+        self.elements.insert(index, element)
 
 
 def assert_first_is_layer(data):

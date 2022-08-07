@@ -4,9 +4,7 @@ import os
 
 import corax.context as cctx
 from corax.animation import SpriteSheet
-from corax.coordinate import (
-    flip_position, to_block_position, to_pixel_position,
-    extract_pixel_offset, map_pixel_position)
+from corax.coordinate import flip_position
 from corax.core import EVENTS
 from corax.mathutils import sum_num_arrays
 from corax.override import load_json
