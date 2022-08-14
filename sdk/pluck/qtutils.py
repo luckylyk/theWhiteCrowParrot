@@ -116,7 +116,7 @@ def remove_key_color(filename):
     replacement_color = (0, 0, 0, 0)
     image = Image.open(filename).convert('RGBA')
     data = np.array(image)
-    data[(data == orig_color).all(axis = -1)] = replacement_color
+    data[(data == orig_color).all(axis=-1)] = replacement_color
     return ImageQt.ImageQt(Image.fromarray(data, mode='RGBA'))
 
 
@@ -129,7 +129,7 @@ def build_spritesheet_image(filenames):
     for filename in filenames:
         image = Image.open(filename).convert('RGBA')
         data = np.array(image)
-        data[(data == orig_color).all(axis = -1)] = replacement_color
+        data[(data == orig_color).all(axis=-1)] = replacement_color
         images.append(Image.fromarray(data, mode='RGBA'))
 
     background, *images = images

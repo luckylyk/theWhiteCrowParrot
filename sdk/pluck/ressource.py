@@ -119,7 +119,6 @@ def create_project(root, title):
     for folder in GAMEFOLDERS:
         dst = os.path.join(root, folder)
         os.mkdir(dst)
-    print(root)
     scene_filename = os.path.join(root, 'scenes', 'scene_01.json')
     scenes = [{scene_filename: 'Scene 01'}]
     create_main_file(root, title, scenes, 'Scene 01')
