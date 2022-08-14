@@ -11,7 +11,7 @@ from corax.character import CharacterSlot
 from corax.zone import Zone
 
 
-class Scene():
+class Scene:
     def __init__(
             self,
             name,
@@ -39,18 +39,6 @@ class Scene():
 
     def append(self, layer):
         self.layers.append(layer)
-
-    def layover(self, element, target):
-        for layer in self.layers:
-            if element in layer.elements:
-                layer.remove(element)
-        for layer in self.layers:
-            if target in layer.elements:
-                index = layer.elements.index(target)
-                layer.elements.insert(index + 1, element)
-                return
-        msg = f'Layover error: {element.name} or {target.name} not found.'
-        raise ValueError(msg)
 
     def render(self, screen):
         screen.fill(self.background_color)
@@ -91,6 +79,22 @@ class Layer():
 def assert_first_is_layer(data):
     if data["elements"][0]["type"] != NODE_TYPES.LAYER:
         raise ValueError("first scene element must be a Layer")
+
+
+def layover(layers, element, target):
+    """
+    function to put a layer above another one at rendering time.
+    """
+    for layer in layers:
+        if element in layer.elements:
+            layer.remove(element)
+    for layer in layers:
+        if target in layer.elements:
+            index = layer.elements.index(target)
+            layer.elements.insert(index + 1, element)
+            return
+    msg = f'Layover error: {element.name} or {target.name} not found.'
+    raise ValueError(msg)
 
 
 def build_set_static_element(data):

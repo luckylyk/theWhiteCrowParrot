@@ -1,5 +1,5 @@
 
-import config
+from corax import config
 
 
 # Set default keybinding

@@ -7,10 +7,12 @@ length. This duration is needed to inform the theatre that the RUN_MODES can be
 set back to RUN_MODES.NORMAL. As long as a job is running, the RUN_MODES is set
 to RUN_MODES.SCRIPT which block the gameplay evaluation.
 """
+
 from functools import partial
 
 from corax.core import EVENTS, RUN_MODES
 from corax.iterators import fade, timer
+from corax.scene import layover
 from corax.seeker import (
     find_animated_set, find_element, find_zone, find_character)
 
@@ -371,7 +373,6 @@ def job_start_timer(theatre, timername):
 
 
 def job_stop_timer(theatre, timername):
-    print(list(theatre.timers))
     del theatre.timers[timername]
     return 0
 
@@ -390,5 +391,5 @@ def job_switch_visibility(theatre, name, visible):
 def job_layover(theatre, element_name, target_name):
     element = find_element(theatre.scene, element_name)
     target = find_element(theatre.scene, target_name)
-    theatre.scene.layover(element, target)
+    layover(theatre.scene.layers, element, target)
     return 0
