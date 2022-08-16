@@ -16,8 +16,8 @@ def remove_key_color(filename):
 
 def switch_colors(image, palette1, palette2):
     data = np.array(image)
-    red, green, blue, _ = data.T # Temporarily unpack the bands for readability
-
+    # Temporarily unpack the bands for readability
+    red, green, blue, _ = data.T
     for color1, color2 in zip(palette1, palette2):
         if color1 == color2:
             continue

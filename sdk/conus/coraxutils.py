@@ -56,3 +56,8 @@ def list_all_scenes():
     names = [load_json(f)['name'] for f in filepaths]
     filenames = [f[len(cctx.SCENE_FOLDER):] for f in filepaths]
     return list(zip(names, filenames))
+
+
+def list_all_sheets():
+    filepaths = glob.glob(f'{cctx.SHEET_FOLDER}/**/*.json', recursive=True)
+    return [f[len(cctx.SHEET_FOLDER):] for f in filepaths]

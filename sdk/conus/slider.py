@@ -69,6 +69,8 @@ class _Handler(QtWidgets.QWidget):
             self.endHandeling.emit()
 
     def mouseMoveEvent(self, event):
+        if not self.ghost:
+            return
         value = self.ghost.x() - event.position().x()
         func = math.ceil if value > 0 else math.floor
         self.handled.emit(int(func(value)))

@@ -13,6 +13,7 @@ sys.path.append(SDK_FOLDER)
 import corax.context as cctx
 from pluck.context import MockArguments
 
+
 GAMEDATA_FOLDER = sys.argv[1]
 MockArguments.game_root = os.path.abspath(GAMEDATA_FOLDER)
 GAME_DATA = cctx.initialize(MockArguments)
