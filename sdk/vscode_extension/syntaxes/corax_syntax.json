@@ -36,7 +36,7 @@
           "name": "entity.name.function.mysample"
         },
         {
-          "match": "(\\boverlaps\\b|\\bis\\b|\\bin\\b|\\bcross\\b|\\bhas\\b|\\bby\\b)",
+          "match": "(\\boverlaps\\b|\\bfrom\\b|\\bis\\b|\\bin\\b|\\bcross\\b|\\bhas\\b|\\bby\\b)",
           "name": "keyword.mysample"
         },
         {

@@ -14,7 +14,7 @@
 // declaration: (script, event)
 // conditional and time related adverbs/function: (always, freeze, nolock,
 //                                                 wait)
-// comparators: (has, in, is, by, overlaps)
+// comparators: (by, from, has, in, is, overlaps)
 // functions: (aim, checkpoint, clear, fadein, fadeout, flush, force, freeze,
 //             hide, move, pin, play, reach, restart, restore, run, show, set,
 //             shift, wait, add, remove, layover, offset)

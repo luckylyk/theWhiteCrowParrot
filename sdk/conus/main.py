@@ -198,7 +198,7 @@ class MainWindow(QtWidgets.QMainWindow):
         palette_model = PaletteModel()
         colors = list_rgb_colors(display_image)
         palette_model.colors = colors
-        model = Model()
+        model = SceneModel()
         model.image = display_image.copy()
         model.display_image = display_image
         model.palette_model = palette_model
@@ -382,7 +382,7 @@ class ImageLabel(QtWidgets.QWidget):
         self.label.setPixmap(self.model.pixmap())
 
 
-class Model:
+class SceneModel:
     image = None
     display_image = None
     palette_model = None
