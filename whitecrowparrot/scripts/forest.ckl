@@ -113,20 +113,11 @@ script activate_ladder_prop
 
 script pick_ladder
     prop.ladder.hitmap.ground_zone overlaps player.whitecrow.hitmap.leggs
-    player.whitecrow.flip is false
     gamepad.keys.pressed has X
-        prop.ladder move (288, -100)
+        player.whitecrow join (-2, 10) from prop.ladder by (return, walk_a, footsie)
+        player.whitecrow aim LEFT by return
         player.whitecrow.sheet set banner
-        player.whitecrow offset (-7, -12)
-        player.whitecrow play catch
-
-
-script pick_ladder_flip
-    prop.ladder.hitmap.ground_zone overlaps player.whitecrow.hitmap.leggs
-    player.whitecrow.flip is true
-    gamepad.keys.pressed has X
         prop.ladder move (288, -100)
-        player.whitecrow.sheet set banner
         player.whitecrow offset (0, -12)
         player.whitecrow play catch
 
@@ -134,23 +125,11 @@ script pick_ladder_flip
 script drop_ladder
     gamepad.keys.pressed has X
     player.whitecrow.animation is idle
-    player.whitecrow.flip is false
     player.whitecrow.sheet is banner
+        player.whitecrow aim LEFT by turn
         player.whitecrow play release
-        player.whitecrow.sheet set exploration
-        player.whitecrow offset (7, 12)
-        prop.ladder move (288, 0)
-        player.whitecrow place prop.ladder by (8, -10)
-
-
-script drop_ladder_flip
-    gamepad.keys.pressed has X
-    player.whitecrow.animation is idle
-    player.whitecrow.flip is true
-    player.whitecrow.sheet is banner
-        player.whitecrow play release
-        player.whitecrow.sheet set exploration
         player.whitecrow offset (0, 12)
+        player.whitecrow.sheet set exploration
         prop.ladder move (288, 0)
         player.whitecrow place prop.ladder by (12, -10)
 

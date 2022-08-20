@@ -310,7 +310,7 @@
             "name": "catch_drop_ladder",
             "type": "interaction",
             "affect": ["whitecrow"],
-            "scripts": ["forest.drop_ladder", "forest.drop_ladder_flip", "forest.pick_ladder", "forest.pick_ladder_flip"],
+            "scripts": ["forest.drop_ladder", "", "forest.pick_ladder"],
             "zone": [156, -9, 587, 35]
         },
         {

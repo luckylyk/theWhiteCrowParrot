@@ -12,13 +12,14 @@ from functools import partial
 
 from corax.core import EVENTS, RUN_MODES
 from corax.iterators import fade, timer
+from corax.mathutils import sum_num_arrays
 from corax.scene import layover
 from corax.seeker import (
     find_animated_set, find_element, find_zone, find_character)
 
 from corax.crackle.action import (
-    has_subject, filter_action, split_with_subject, extract_reach_arguments,
-    is_nolock_action)
+    has_subject, filter_action, split_with_subject, parse_join_arguments,
+    parse_reach_arguments, is_nolock_action)
 from corax.crackle.collector import value_collector
 from corax.crackle.parser import (
     object_attribute, string_to_int_list, object_type, object_name)
@@ -35,9 +36,7 @@ def create_job(line, theatre):
         result = create_job_with_subject(subject, function, arguments, theatre)
     if result is None:
         raise ValueError(f'Impossible to build job from: {line}')
-    if not nolock:
-        return result
-    return partial(nolock_job, result)
+    return partial(nolock_job, result) if nolock else result
 
 
 def create_job_without_subject(line, theatre):
@@ -166,6 +165,10 @@ def create_character_job(theatre, character_name, function, arguments):
         case "hide":
             layer = arguments
             return partial(job_switch_layer, character, False, layer)
+        case "join":
+            pos, elt, animations = parse_join_arguments(arguments)
+            elt = object_name(elt)
+            return partial(job_join, theatre, character, elt, pos, animations)
         case "layover":
             target = object_name(arguments)
             return partial(job_layover, theatre, character_name, target)
@@ -184,7 +187,7 @@ def create_character_job(theatre, character_name, function, arguments):
             offset = string_to_int_list(offset)
             return partial(job_place, theatre, character, prop_name, offset)
         case "reach":
-            pos, animations = extract_reach_arguments(arguments)
+            pos, animations = parse_reach_arguments(arguments)
             return partial(job_reach, character, pos, animations)
         case "set":
             return partial(job_set_sheet, character, arguments)
@@ -217,7 +220,9 @@ def job_aim(player, move, direction):
     if not event:
         msg = f"{move} has no flip event, can't be used for aim function"
         raise ValueError(msg)
+    print(player.coordinate.flip, (direction == "LEFT"))
     if (direction == "LEFT") == player.coordinate.flip:
+        print('skip return')
         return 0
 
     player.animation_controller.set_move(move)
@@ -279,6 +284,13 @@ def job_flush_animation(theatre, character_name):
     return 0
 
 
+def job_join(theatre, character, element_name, block_position, animations):
+    element = find_element(theatre.scene, element_name)
+    element_block_position = element.coordinate.block_position
+    block_position = sum_num_arrays(element_block_position, block_position)
+    return job_reach(character, block_position, animations)
+
+
 def job_init_timer(theatre, name, event, duration):
     theatre.timers[name] = timer(name, event, duration)
     return 0
@@ -321,9 +333,9 @@ def job_play_animation(animable, animation_name):
     return animable.animation_controller.animation.length
 
 
-def job_reach(player, block_position, animations):
-    sequence = player.reach(block_position, animations)
-    data = player.animation_controller.data
+def job_reach(character, block_position, animations):
+    sequence = character.reach(block_position, animations)
+    data = character.animation_controller.data
     key = "frames_per_image"
     return sum(sum(data["moves"][move][key]) for move in sequence)
 
@@ -377,8 +389,8 @@ def job_stop_timer(theatre, timername):
     return 0
 
 
-def job_switch_layer(player, state, layer):
-    player.set_layer_visible(layer, state)
+def job_switch_layer(character, state, layer):
+    character.set_layer_visible(layer, state)
     return 0
 
 
