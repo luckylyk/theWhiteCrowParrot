@@ -32,3 +32,15 @@ def list_rgb_colors(image):
     return sorted(
         list(Counter(image.convert('RGB').getdata())),
         key=lambda rgb: colorsys.rgb_to_hls(*rgb))
+
+
+def get_frame(image, framesize, index):
+    width, height = framesize
+    ncol = image.size[0] / width
+    row = index // ncol
+    col = index % ncol
+    x = col * width
+    y = row * height
+    result = image.copy()
+    result = result.crop([x, y, x + width, y + height])
+    return result.copy()

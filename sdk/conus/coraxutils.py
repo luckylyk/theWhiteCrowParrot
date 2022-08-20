@@ -1,6 +1,6 @@
+import os
 import glob
 import json
-import os
 
 from PIL import Image
 
@@ -44,6 +44,23 @@ def scene_to_display_image(filename):
         image = remove_key_color(filepath)
         bg.paste(image, element['position'], image)
     return bg
+
+
+def load_sheet(filename):
+    return load_json(f'{cctx.SHEET_FOLDER}/{filename}')
+
+
+def sheet_to_image_display(filename, layers):
+    data = load_json(f'{cctx.SHEET_FOLDER}/{filename}')
+    filenames = [data['layers'][layer] for layer in layers]
+    image = None
+    for filename in filenames:
+        layer = remove_key_color(f'{cctx.ANIMATION_FOLDER}/{filename}')
+        if not image:
+            image = layer
+            continue
+        image.paste(layer, (0, 0, image.size[0], image.size[1]), layer)
+    return image
 
 
 def load_json(filepath):

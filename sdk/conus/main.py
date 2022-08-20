@@ -5,12 +5,13 @@ from PySide6 import QtWidgets, QtCore, QtGui
 
 from conus.colorwheel import ColorWheel
 from conus.coraxutils import (
-    scene_to_display_image, list_all_scenes, list_all_sheets)
-from conus.imagedisplay import ImageDisplay
-from conus.imgutils import list_rgb_colors, switch_colors
+    scene_to_display_image, list_all_scenes, list_all_sheets,
+    load_sheet, sheet_to_image_display)
+from conus.imagedisplay import ImageDisplay, AnimationDisplay
+from conus.imgutils import list_rgb_colors, switch_colors, get_frame
+from conus.multislider import MultiValueSlider
 from conus.outliner import build_scene_tree
 from conus.palette import PaletteView, PaletteModel, PaletteScrollArea
-from conus.slider import MultiValueSlider
 
 
 MDI_BACKGROUND_COLOR = '#101010'
@@ -211,7 +212,25 @@ class MainWindow(QtWidgets.QMainWindow):
         window.show()
 
     def add_sheet(self, filename):
-        ...
+        data = load_sheet(filename)
+        layers = list(data['layers'])
+        display_image = sheet_to_image_display(filename, layers)
+        palette_model = PaletteModel()
+        colors = list_rgb_colors(display_image)
+        palette_model.colors = colors
+        model = AnimationModel()
+        model.data = data
+        model.display_image = display_image
+        model.palette_model = palette_model
+        model.image = display_image.copy()
+        model.filename = filename
+        model.original_palette = colors.copy()
+        widget = AnimationDisplay(model)
+        self.palette.set_model(model.palette_model)
+        window = self.mdi_area.addSubWindow(widget)
+        window.setWindowTitle(filename)
+        window.show()
+        widget.reset()
 
     def sub_window_changed(self, window):
         if not window:
@@ -219,8 +238,9 @@ class MainWindow(QtWidgets.QMainWindow):
             return
         self.palette.set_model(window.widget().model.palette_model)
         self.outliner.clear()
-        for item in build_scene_tree(self.model.filename, self.outliner):
-            self.outliner.addTopLevelItem(item)
+        if isinstance(self.model, SceneList):
+            for item in build_scene_tree(self.model.filename, self.outliner):
+                self.outliner.addTopLevelItem(item)
         self.colors_selected()
 
     def change_colors(self):
@@ -391,6 +411,27 @@ class SceneModel:
 
     def imageqt(self):
         return ImageQt.ImageQt(self.display_image)
+
+    def update_image(self):
+        palette1 = self.original_palette
+        palette2 = self.palette_model.colors
+        self.display_image = switch_colors(self.image, palette1, palette2)
+
+
+class AnimationModel:
+    frame = 0
+    data = None
+    image = None
+    display_image = None
+    palette_model = None
+    original_palette = None
+    filename = None
+    layers = []
+
+    def imageqt(self):
+        framesize = self.data['frame_size']
+        frame = get_frame(self.display_image, framesize, self.frame)
+        return ImageQt.ImageQt(frame)
 
     def update_image(self):
         palette1 = self.original_palette

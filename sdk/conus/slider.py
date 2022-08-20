@@ -1,142 +1,126 @@
-import math
 from PySide6 import QtGui, QtCore, QtWidgets
 
 
-SLIDER_HEIGHT = 12
-MAX = 255
+SLIDER_HEIGHT = 22
 SLIDER_COLORS = {
     "bordercolor": "#111159",
-    "backgroundcolor": "#334455",
-    "linecolor": "yellow"}
+    "backgroundcolor.filled": "#777777",
+    "backgroundcolor.empty": "#334455",
+    "framelinecolor": "#FFCC33",
+    "markercolor": "red",
+    "frameplayrangecolor": "#AA8800"}
 
 
-class MultiValueSlider(QtWidgets.QWidget):
-    valuesChanged = QtCore.Signal()
-
-    def __init__(self, colors=None, parent=None):
-        super().__init__(parent)
-        self.slider = _Slider(colors or SLIDER_COLORS.copy())
-        self.handler = _Handler()
-        self.handler.setFixedSize(SLIDER_HEIGHT, SLIDER_HEIGHT)
-        self.handler.startHandeling.connect(self.start_handeling)
-        self.handler.endHandeling.connect(self.end_handeling)
-        self.handler.handled.connect(self.handled)
-        self.layout = QtWidgets.QHBoxLayout(self)
-        self.layout.addWidget(self.slider)
-        self.layout.addWidget(self.handler)
-        self._buffer = None
-
-    @property
-    def values(self):
-        return self.slider.values
-
-    def set_values(self, values):
-        self._buffer = values
-        self.slider.values = values
-
-    def start_handeling(self):
-        self._buffer = self.slider.values[:]
-
-    def end_handeling(self):
-        self._buffer = None
-
-    def handled(self, offset):
-        self._buffer = [v - offset for v in self._buffer]
-        self.slider.values = [max([min([v, MAX]), 0]) for v in self._buffer]
-        self.valuesChanged.emit()
-
-
-class _Handler(QtWidgets.QWidget):
-    handled = QtCore.Signal(int)
-    startHandeling = QtCore.Signal()
-    endHandeling = QtCore.Signal()
+class Slider(QtWidgets.QWidget):
+    valueChanged = QtCore.Signal(int)
 
     def __init__(self, parent=None):
         super().__init__(parent)
-        self.pressed = False
-        self.ghost = None
-
-    def mousePressEvent(self, event):
-        if event.button() == QtCore.Qt.LeftButton:
-            self.pressed = True
-            self.ghost = event.position()
-            self.startHandeling.emit()
-
-    def mouseReleaseEvent(self, event):
-        if event.button() == QtCore.Qt.LeftButton:
-            self.pressed = False
-            self.ghost = None
-            self.endHandeling.emit()
-
-    def mouseMoveEvent(self, event):
-        if not self.ghost:
-            return
-        value = self.ghost.x() - event.position().x()
-        func = math.ceil if value > 0 else math.floor
-        self.handled.emit(int(func(value)))
-        self.ghost = event.position()
-
-    def sizeHint(self):
-        return QtCore.QSize(25, 25)
-
-    def enterEvent(self, event):
-        QtWidgets.QApplication.setOverrideCursor(QtCore.Qt.SizeHorCursor)
-
-    def leaveEvent(self, event):
-        QtWidgets.QApplication.restoreOverrideCursor()
-
-    def paintEvent(self, event):
-        painter = QtGui.QPainter(self)
-        painter.setRenderHint(QtGui.QPainter.Antialiasing)
-        painter.setBrush(QtCore.Qt.darkGray)
-        painter.setPen(QtCore.Qt.transparent)
-
-        romb = QtGui.QPolygonF()
-        rect = self.rect()
-        romb.append(QtCore.QPointF(rect.center().x(), 0))
-        romb.append(QtCore.QPointF(rect.right(), rect.center().y()))
-        romb.append(QtCore.QPointF(rect.center().x(), rect.bottom()))
-        romb.append(QtCore.QPointF(0, rect.center().y()))
-        painter.drawPolygon(romb)
-        painter.end()
-
-
-class _Slider(QtWidgets.QWidget):
-    valueChanged = QtCore.Signal(int)
-
-    def __init__(self, colors=None, parent=None):
-        super().__init__(parent)
         self.setFixedHeight(SLIDER_HEIGHT)
-        self.colors = colors or get_colors()
-        self.value_lines = []
-        self._values = []
+        self._minimum = 0
+        self._value = 0
+        self._maximum = None
+        self._mouse_lb_is_pressed = False
+        self.value_line = None
+        self.mark_lines = []
+        self.marks = []
 
     @property
-    def values(self):
-        return self._values
+    def minimum(self):
+        return self._minimum
 
-    @values.setter
-    def values(self, values):
-        self._values = values
+    @minimum.setter
+    def minimum(self, value):
+        self._minimum = value
+        if self._value < value:
+            self._value = value
+        self.compute_shapes()
+        self.repaint()
+
+    @property
+    def maximum(self):
+        return self._maximum
+
+    @maximum.setter
+    def maximum(self, value):
+        self._maximum = value
+        if self._maximum < value:
+            self._value = value
+        self.compute_shapes()
+        self.repaint()
+
+    @property
+    def value(self):
+        return self._value or 0
+
+    @value.setter
+    def value(self, value):
+        if self._mouse_lb_is_pressed is True:
+            return
+        self._value = value
+        self.compute_shapes()
+        self.repaint()
+        self.valueChanged.emit(value)
+
+    @property
+    def marks(self):
+        return self._marks
+
+    @marks.setter
+    def marks(self, marks):
+        self._marks = marks
         self.compute_shapes()
         self.repaint()
 
     def compute_shapes(self):
-        self.value_lines = get_value_lines(self, self.values)
+        if None in [self.minimum, self.maximum]:
+            return
+        self.value_line = get_value_line(self, self.value)
+        self.mark_lines = get_mark_lines(self, self.marks)
+
+    def mousePressEvent(self, event):
+        if self._value is None:
+            return
+        if event.button() == QtCore.Qt.LeftButton:
+            self._mouse_lb_is_pressed = True
+        self.set_value_from_point(event.position().toPoint())
 
     def resizeEvent(self, _):
         self.compute_shapes()
         self.repaint()
 
+    def mouseMoveEvent(self, event):
+        if self._value is None:
+            return
+        if self._mouse_lb_is_pressed is True:
+            self.set_value_from_point(event.position().toPoint())
+
+    def mouseReleaseEvent(self, _):
+        self._mouse_lb_is_pressed = False
+
+    def set_value_from_point(self, point):
+        if not self.value_line:
+            self.compute_shapes()
+        if not self.rect().bottom() < point.y() < self.rect().top():
+            point.setY(self.rect().top())
+        if not self.rect().contains(point):
+            return
+        value = get_value_from_point(self, point)
+        if self._mouse_lb_is_pressed:
+            self._value = value
+        self.compute_shapes()
+        self.repaint()
+        self.valueChanged.emit(self._value)
+
     def paintEvent(self, _):
-        if not self.value_lines:
+        if not self.value_line:
             self.compute_shapes()
         # if any error appmaximum during the paint, all the application freeze
         # to avoid this error, the paint is placed under a global try
         painter = QtGui.QPainter()
         painter.begin(self)
         try:
-            drawslider(painter, self, self.colors)
+            drawslider(painter, self)
         except Exception:
             import traceback
             print(traceback.format_exc())
@@ -148,24 +132,32 @@ def drawslider(painter, slider, colors=None):
     colors = get_colors(colors)
     transparent = QtGui.QColor(0, 0, 0, 0)
     # draw background
-    backgroundcolor = QtGui.QColor(colors['backgroundcolor'])
+    backgroundcolor = QtGui.QColor(colors['backgroundcolor.empty'])
     pen = QtGui.QPen(transparent)
     brush = QtGui.QBrush(backgroundcolor)
     painter.setBrush(brush)
     painter.setPen(pen)
     painter.drawRect(slider.rect())
     # draw marks
-    for value_line in slider.value_lines:
-        pen.setWidthF((slider.width() / MAX) * 3)
-        linecolor = QtGui.QColor(colors['linecolor'])
-        linecolor.setAlpha(50)
+    for mark_line in slider.mark_lines:
+        pen.setWidth(10)
+        linecolor = QtGui.QColor(colors['markercolor'])
         pen.setColor(linecolor)
         brush.setColor(transparent)
         painter.setBrush(brush)
         painter.setPen(pen)
-        painter.drawLine(value_line)
+        painter.drawLine(mark_line)
+    # draw current
+    if slider.value_line:
+        pen.setWidth(10)
+        linecolor = QtGui.QColor(colors['framelinecolor'])
+        pen.setColor(linecolor)
+        brush.setColor(transparent)
+        painter.setBrush(brush)
+        painter.setPen(pen)
+        painter.drawLine(slider.value_line)
     # draw borderp
-    pen.setWidth(2)
+    pen.setWidth(5)
     bordercolor = QtGui.QColor(colors['bordercolor'])
     pen.setColor(bordercolor)
     brush.setColor(transparent)
@@ -176,14 +168,32 @@ def drawslider(painter, slider, colors=None):
 
 def get_value_line(slider, value):
     rect = slider.rect()
-    left = value * (rect.width() / MAX)
+    horizontal_divisor = float(slider.maximum - slider.minimum) - 1 or 1
+    horizontal_unit_size = rect.width() / horizontal_divisor
+    left = (value - slider.minimum) * horizontal_unit_size
     minimum = QtCore.QPoint(left, rect.top())
     maximum = QtCore.QPoint(left, rect.bottom())
     return QtCore.QLine(minimum, maximum)
 
 
-def get_value_lines(slider, values):
-    return [get_value_line(slider, value) for value in values]
+def get_mark_lines(slider, marks):
+    return [get_value_line(slider, mark) for mark in marks]
+
+
+def get_value_from_point(slider, point):
+    if slider.maximum - slider.minimum <= 1:
+        return slider.minimum
+    horizontal_divisor = float(slider.maximum - slider.minimum) - 1 or 1
+    horizontal_unit_size = slider.rect().width() / horizontal_divisor
+    value = 0
+    x = 0
+    while x < point.x():
+        value += 1
+        x += horizontal_unit_size
+    # If pointer is closer to previous value, we set the value to previous one.
+    if (x - point.x() > point.x() - (x - horizontal_unit_size)):
+        value -= 1
+    return value + slider.minimum
 
 
 def get_colors(colors):

@@ -1,6 +1,63 @@
 from PySide6 import QtWidgets, QtGui, QtCore
-from PIL import ImageQt
 from conus.qtutils import shift_pressed, alt_pressed
+from conus.slider import Slider
+
+
+class AnimationDisplay(QtWidgets.QWidget):
+    def __init__(self, model, parent=None):
+        super().__init__(parent)
+        self.model = model
+        self.animations = QtWidgets.QListWidget()
+        self.animations.addItems(model.data['evaluation_order'])
+        self.animations.itemDoubleClicked.connect(self.animation_changed)
+        self.animations.setFocusPolicy(QtCore.Qt.NoFocus)
+
+        self.animation = QtWidgets.QWidget()
+        self.imagedisplay = ImageDisplay(model)
+        self.slider = Slider()
+        self.slider.valueChanged.connect(self.change_frame)
+
+        self.vlayout = QtWidgets.QVBoxLayout(self.animation)
+        self.vlayout.setSpacing(0)
+        self.vlayout.setContentsMargins(0, 0, 0, 0)
+        self.vlayout.addWidget(self.imagedisplay)
+        self.vlayout.addWidget(self.slider)
+
+        self.splitter = QtWidgets.QSplitter(QtCore.Qt.Horizontal)
+        self.splitter.addWidget(self.animation)
+        self.splitter.addWidget(self.animations)
+
+        self.layout = QtWidgets.QHBoxLayout(self)
+        self.layout.addWidget(self.splitter)
+        self.set_animation(model.data['evaluation_order'][0])
+
+    def set_animation(self, name):
+        mdata = self.model.data['moves'][name]
+        self.slider.minimum = mdata['start_at_image']
+        maxmium = self.slider.minimum + len(mdata['frames_per_image'])
+        self.slider.maximum = maxmium
+        self.slider.value = self.slider.minimum
+        self.model.frame = self.slider.minimum
+        self.imagedisplay.repaint()
+
+    def keyPressEvent(self, event):
+        if event.key() == QtCore.Qt.Key_F:
+            self.reset()
+
+    def reset(self):
+        self.imagedisplay.viewportmapper.viewsize = self.imagedisplay.rect()
+        img = self.model.imageqt()
+        size = img.size()
+        rect = QtCore.QRectF(0, 0, size.width(), size.height())
+        self.imagedisplay.viewportmapper.focus(rect)
+        self.repaint()
+
+    def animation_changed(self, item):
+        self.set_animation(item.text())
+
+    def change_frame(self, frame):
+        self.model.frame = frame
+        self.imagedisplay.repaint()
 
 
 class ImageDisplay(QtWidgets.QWidget):
@@ -37,10 +94,12 @@ class ImageDisplay(QtWidgets.QWidget):
         painter.setBrush(QtCore.Qt.black)
         painter.setPen(QtCore.Qt.transparent)
         painter.drawRect(self.rect())
+        painter.setBrush(QtCore.Qt.darkBlue)
         img = self.model.imageqt()
         size = img.size()
         rect = QtCore.QRectF(0, 0, size.width(), size.height())
         rect = self.viewportmapper.to_viewport_rect(rect)
+        painter.drawRect(rect)
         painter.drawImage(rect, img)
         painter.end()
 
