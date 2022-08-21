@@ -25,6 +25,7 @@
         "resolution": [800, 268]
     },
     "scenes": [
+        {"name": "airlock", "file": "airlock.json"},
         {"name": "forest", "file": "forest.json"},
         {"name": "mine", "file": "mine_01.json"},
         {"name": "hole", "file": "hole.json"},

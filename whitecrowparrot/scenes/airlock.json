@@ -1,0 +1,167 @@
+{
+    "name": "airlock",
+    "type": "scene",
+    "background_color": [8, 11, 20],
+    "boundary": [0, 0, 800, 268],
+    "soft_boundaries": [],
+    "target_offset": [75, 0],
+    "sounds": [
+
+    ],
+    "zones": [
+
+    ],
+    "elements": [
+        {
+            "name": "background",
+            "type": "layer",
+            "deph": 0.0
+        },
+        {
+            "name": "bg",
+            "type": "set_static",
+            "file": "airlock/bg.png",
+            "position": [
+                0,
+                0
+            ],
+            "deph": 0.0
+        },
+        {
+            "name": "toolbar",
+            "type": "set_static",
+            "file": "airlock/toolbar.png",
+            "position": [
+                517,
+                36
+            ],
+            "deph": 0.0
+        },
+        {
+            "name": "bgrock",
+            "type": "set_static",
+            "file": "airlock/bgrock.png",
+            "position": [
+                226,
+                147
+            ],
+            "deph": 0.0
+        },
+        {
+            "name": "ground",
+            "type": "set_static",
+            "file": "airlock/ground.png",
+            "position": [
+                0,
+                179
+            ],
+            "deph": 0.0
+        },
+        {
+            "name": "trap",
+            "type": "set_static",
+            "file": "airlock/trap.png",
+            "position": [
+                376,
+                242
+            ],
+            "deph": 0.0
+        },
+        {
+            "name": "crate",
+            "type": "set_static",
+            "file": "airlock/crate.png",
+            "position": [
+                427,
+                117
+            ],
+            "deph": 0.0
+        },
+        {
+            "name": "barrel",
+            "type": "set_static",
+            "file": "airlock/barrel.png",
+            "position": [
+                441,
+                0
+            ],
+            "deph": 0.0
+        },
+        {
+            "name": "chest1",
+            "type": "set_static",
+            "file": "airlock/chest1.png",
+            "position": [
+                457,
+                151
+            ],
+            "deph": 0.0
+        },
+        {
+            "name": "whitecrow",
+            "type": "player",
+            "block_position": [174, 10],
+            "flip": false
+        },
+        {
+            "name": "bird cage",
+            "type": "set_static",
+            "file": "airlock/bird cage.png",
+            "position": [
+                289,
+                66
+            ],
+            "deph": 0.0
+        },
+        {
+            "name": "fg_rocks_2",
+            "type": "set_static",
+            "file": "airlock/fg_rocks_2.png",
+            "position": [
+                0,
+                0
+            ],
+            "deph": 0.0
+        },
+        {
+            "name": "fg_rocks",
+            "type": "set_static",
+            "file": "airlock/fg_rocks.png",
+            "position": [
+                0,
+                0
+            ],
+            "deph": 0.0
+        },
+        {
+            "name": "fg_plancks",
+            "type": "set_static",
+            "file": "airlock/fg_plancks.png",
+            "position": [
+                0,
+                0
+            ],
+            "deph": 0.0
+        },
+        {
+            "name": "trombon",
+            "type": "set_static",
+            "file": "airlock/trombon.png",
+            "position": [
+                504,
+                70
+            ],
+            "deph": 0.0
+        },
+        {
+            "name": "ropes",
+            "type": "set_static",
+            "file": "airlock/ropes.png",
+            "position": [
+                84,
+                163
+            ],
+            "deph": 0.0
+        }
+    ]
+}
