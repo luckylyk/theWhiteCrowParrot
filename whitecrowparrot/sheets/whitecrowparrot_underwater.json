@@ -7,7 +7,8 @@
     "layers": {
         "body": "whitecrowparrot_underwater_body.png",
         "head": "whitecrowparrot_underwater_head.png",
-        "scord": "whitecrowparrot_underwater_sword.png"
+        "sword": "whitecrowparrot_underwater_sword.png",
+        "chain": "whitecrowparrot_underwater_chain.png"
     },
     "moves": {
         "asphixied": {

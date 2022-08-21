@@ -55,4 +55,5 @@ script catch_chain
     player.whitecrow.animation is idle
         player.whitecrow reach (19, 6) by (return, step)
         player.whitecrow aim LEFT by return
+        player.whitecrow.layer show chain
         player.whitecrow play catch_chain

@@ -220,9 +220,7 @@ def job_aim(player, move, direction):
     if not event:
         msg = f"{move} has no flip event, can't be used for aim function"
         raise ValueError(msg)
-    print(player.coordinate.flip, (direction == "LEFT"))
     if (direction == "LEFT") == player.coordinate.flip:
-        print('skip return')
         return 0
 
     player.animation_controller.set_move(move)
