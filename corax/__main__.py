@@ -1,36 +1,35 @@
-
 """
 ===============================================================================
 |                                                                             |
-|   Welcome to the Corax Engine !     `:+ys/                                  |
-|                                  -shho:yM+                                  |
-|                               `/hho.   oM+                                  |
-|                              .y+.      oM+ o/                               |
-|                             .h.        oM+`MNy`                             |
-|                            .dy  o      oM+`MMMo                             |
-|                           :MM-  m      NM/  `                               |
-|                           `hN-  -   +yoys-                                  |
-|       .+hhhsoooooo:---``````yh`     ho`  `d+------------------              |
-|     `-+yhhhhhhhyoo++++//+yd.`ym-    h.   :N--++++++++++syyyyy+`             |
-|                          `m+ `hm`   h.   sN -s+/-`                          |
-|          .:/oooooooo///-  :h  .No+/+s    hd` .-/+oo//-`                     |
-|          ```........``.``./h-  /.``..   `mhys+-.`  ``.`                     |
-|                   +o+/++mh   .-+h/ .ho-  .+y//osyy+.                        |
-|                      `yo` `dh:hMNNmmNNoss+. -y`                             |
-|                      +s   .MNmMNh:`./NMNMM+  s.                             |
-|                     -ms   `/sNMh    :dmo++`  :o                             |
-|                     oms    .+NMNy+ohNmMNh.   /o                             |
-|                     -dN`   +NMmyyMMMm:s+/`  .m.                             |
-|                       oNd-       ::-.    .od:                               |
-|                        :yms:.         ./oy+`                                |
-|                       :: .`/oss/////+:o/.-`                                 |
-|               ```  -h/                    oy                                |
-|           `:+o+/:  ..                      o.                               |
-|           -..  .o/                          `                               |
-|               :h+`--                         . .-.`                         |
-|              /-   `y                       y-// .:++:`                      |
-|                   `d                       o` o:                            |
-|                   `:                       /   +.                           |
+|   Welcome to the Corax Engine !     ░▒█▒▒▒                                  |
+|                                  ▀▒▓▓▒░▒█▄                                  |
+|                               ░▒▓▓▒░   ▒█▄                                  |
+|                              ░▒▄░      ▒█▄ ▒▒                               |
+|                             ░▓░        ▒█▄░█▓▒░                             |
+|                            ░▓▒  ▒      ▒█▄░███▒                             |
+|                           ░██▀  █      ▓█▒  ░                               |
+|                           ░▓▓▀  ▀   ▄▒▒▒▒▀                                  |
+|       ░▄▓▓▓▒▒▒▒▒▒▒░▀▀▀░░░░░░▒▓░     ▓▒░  ░▓▄▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀▀              |
+|     ░▀▄▒▓▓▓▓▓▓▓▒▒▒▄▄▄▄▒▒▄▒▓░░▒█▀    ▓░   ░▓▀▀▄▄▒▒▒▒▒▒▒▒▒▒▒▒▄░               |
+|            ░░░░░░░░░░░░░░░█▄ ░▓█░   ▓░   ▒▓ ▀▒▄▒▀░                          |
+|          ░░▒▒ ▒▒▒▒ ▒▒▒▒▀  ░▓  ░▓▒▄▒▄▒    ▓▓░ ░▀▒▄▒▒▒▒▀░                     |
+|               ░░ ░░ ░░░░░▒▓▀  ▒░░░░░   ░█▓▒▒▄▀░░  ░░░░                      |
+|                   ▄▒▄▒▄▄█▓   ░▀▄▓▒ ░▓▒▀  ░▄▒▒▒▒▒▒▒▄░                        |
+|                      ░▒▒░ ░▓▓░▓█▓▓██▓▓▒▒▒▄░ ▀▒░                             |
+|                      ▄▒   ░█▓██▓▓░░░▒▓█▓██▄  ▒░                             |
+|                     ▀█▒   ░▒▒▓█▓    ░▓█▒▄▄░  ░▒                             |
+|                     ▒█▒    ░▄▓█▓▒▄▒▓▓██▓▓░   ▒▒                             |
+|                     ▀▓▓░   ▄▓██▒▒████░▒▄▒░  ░█░                             |
+|                       ▒▓▓▀       ░░▀░    ░▒▓░                               |
+|                        ░▒█▒░░         ░▒▒▒▄░                                |
+|                       ░░ ░░▒▒▒▒▒▒▒▒▒▄░▒▒░▀░                                 |
+|               ░░░  ▀▓▒                    ▒▒                                |
+|           ░░▄▒▄▒░  ░░                      ▒░                               |
+|           ▀░░  ░▒▒                          ░                               |
+|               ░▓▄░▀▀                         ░ ░▀░░                         |
+|              ▒▀   ░▒                       ▒▀▒▒ ░░▄▄░░                      |
+|                   ░▓                       ▒░ ▒░                            |
+|                   ░░                       ▒   ▄░                           |
 ===============================================================================
 """
 
@@ -77,7 +76,9 @@ if arguments.debug:
 
 
 import corax.context as cctx
-from corax.screen import setup_display
+from corax.screen import initialize_screen
+from corax.renderengine.display import setup_render_display
+from corax.renderengine.draw import render
 from corax.gameloop import GameLoop
 from corax.gamepad import load_config_keybinding
 from corax import config
@@ -85,7 +86,6 @@ from corax import config
 # the main.json file.
 game_data = cctx.initialize(arguments)
 load_config_keybinding()
-
 
 # PyGame2 initialize needed modules
 import pygame
@@ -95,20 +95,23 @@ pygame.font.init()
 
 sc = config.get('scaled') if cctx.USE_CONFIG else arguments.scaled
 fs = config.get('fullscreen') if cctx.USE_CONFIG else arguments.fullscreen
-screen = setup_display(scaled=sc, fullscreen=fs)
 
+window = setup_render_display(scaled=sc, fullscreen=fs)
+initialize_screen(cctx.RESOLUTION)
 
 # This execute the Corax Engine splash screen.
 if not arguments.skip_splash:
     from corax.splash import splash_screen, SPLASH_FPS
-    splash = splash_screen(screen)
     clock = pygame.time.Clock()
+    splash = splash_screen(window)
     for _ in splash:
         pygame.display.flip()
         clock.tick(SPLASH_FPS)
 
-
 # Run the game
-gameloop = GameLoop(game_data, screen)
+gameloop = GameLoop(game_data)
+
 while not gameloop.done:
-    next(gameloop)
+    events = pygame.event.get()
+    gameloop.__next__(events)
+    render(gameloop, window, events)

@@ -6,7 +6,7 @@
     "soft_boundaries": [[0, 0, 650, 270], [890, 0, 1600, 270]],
     "target_offset": [75, 0],
     "sounds": [
-        
+
     ],
     "zones": [
         {
@@ -97,7 +97,8 @@
         {
             "name": "background",
             "type": "layer",
-            "deph": 0.0
+            "deph": 0.0,
+            "shader": null
         },
         {
             "name": "far_bg",

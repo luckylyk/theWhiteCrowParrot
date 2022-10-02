@@ -11,7 +11,6 @@ from corax.hitmap import hitmap_collide_zone
 from corax.iterators import iter_on_jobs, fade, choose
 from corax.gamepad import InputBuffer
 from corax.override import load_json
-from corax.pygameutils import draw_letterbox, render_background
 from corax.relationship import (
     build_moves_probabilities, load_relationships, detect_collision)
 from corax.scene import build_scene
@@ -24,11 +23,11 @@ def load_scene_data(data, name):
     This function find the given scene name in the data and build a Scene
     object.
     """
-    for scene in data["scenes"]:
-        if scene["name"] == name:
-            file_ = os.path.join(cctx.SCENE_FOLDER, scene["file"])
-            return load_json(file_)
-    raise ValueError(f'Scene "{name}" not found in the game data')
+    try:
+        file_ = os.path.join(cctx.SCENE_FOLDER, data["scenes"][name])
+        return load_json(file_)
+    except KeyError as e:
+        raise ValueError(f'Scene "{name}" not found in the game data') from e
 
 
 class Theatre:
@@ -113,7 +112,8 @@ class Theatre:
         return (
             self.loaded_scenes.get(scene_name) or
             self.loaded_scenes.setdefault(
-                scene_name, build_scene(scene_name, scene_data)))
+                scene_name,
+                build_scene(scene_name, scene_data, self.data['shaders'])))
 
     def set_scene(self, scene_name):
         # Currently, the engine rebuild each scene from scratch each it is set.
@@ -154,7 +154,7 @@ class Theatre:
                     if z.type == NODE_TYPES.NO_GO and
                     character.name in z.affect])
 
-    def evaluate(self, joystick, screen):
+    def evaluate(self, joystick):
         if not self.scene:
             raise ValueError("No scene set")
         if self.freeze > 0:
@@ -170,7 +170,6 @@ class Theatre:
         triggerable = self.scene.animated_sets + self.characters
         self.audio_streamer.evaluate()
         self.audio_streamer.shoot([t.trigger for t in triggerable])
-        self.render(screen)
         self.scene.scrolling.evaluate()
 
     def evaluate_script_mode(self, joystick):
@@ -221,6 +220,7 @@ class Theatre:
         relationship = find_relationship(self.relationships, zone.relationship)
         if not relationship:
             return
+
         # Check collision event.
         event = detect_collision(relationship["collisions"], subject, target)
         if event and (event not in self.event_iterators):
@@ -331,19 +331,3 @@ class Theatre:
 
     def resume(self):
         self.audio_streamer.resume()
-
-    def render(self, screen):
-        if not self.scene:
-            raise RuntimeError("Can't render a theatre with no scene runnging")
-
-        self.scene.render(screen)
-        draw_letterbox(screen)
-
-        if self.transition:
-            try:
-                self.alpha = next(self.transition)
-            except StopIteration:
-                self.transition = None
-
-        if transition_alpha := 255 - self.alpha:
-            render_background(screen, alpha=transition_alpha)

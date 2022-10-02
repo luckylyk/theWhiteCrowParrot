@@ -10,7 +10,7 @@ all frame informations necessary to create an animation object.
 from corax.coordinate import map_pixel_position, to_block_size
 from corax.mathutils import sum_num_arrays
 from corax.override import load_json
-from corax.pygameutils import load_frames, image_mirror
+from corax.renderengine.io import load_frames, image_mirror
 
 
 class Animation:
@@ -67,7 +67,7 @@ class Animation:
         self.pre_events = data["pre_events"]
         self.post_events = data["post_events"]
         self.bufferable = data["next_move_bufferable"]
-        self.index = -1
+        self.index = 0
         self.centers = build_centers_list(data, size, flip)
         self.sequences = [build_sequence(data, imgs) for imgs in images]
         self.hold = data["hold"]

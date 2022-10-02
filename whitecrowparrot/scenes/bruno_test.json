@@ -6,7 +6,7 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-        
+
     ],
     "zones": [
         {
@@ -35,7 +35,8 @@
         {
             "name": "background",
             "type": "layer",
-            "deph": 0.0
+            "deph": 0.0,
+            "shader": null
         },
         {
             "name": "whitecrow",

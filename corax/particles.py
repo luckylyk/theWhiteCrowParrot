@@ -7,11 +7,9 @@ import math
 from functools import partial
 from itertools import cycle
 
-from corax.core import SHAPE_TYPES
 from corax.euclide import (
     Rect, angle_to_vector, vector_to_angle, points_to_vector, limit_angle)
-from corax.mathutils import normalize, clamp, difference
-from corax.pygameutils import render_rect, render_ellipse
+from corax.mathutils import normalize, difference
 
 
 DEFAULT_SPOT_OPTIONS = {
@@ -28,7 +26,7 @@ DEFAULT_DIRECTION_OPTIONS = {
 
 def spot_out_of_boundary(kill, slow_down, spot, zone):
     if kill and slow_down:
-         kill = spot.speed <=  0
+        kill = spot.speed <= 0
     if kill is True:
         spot.is_dead = True
     if slow_down is True and spot.speed > 0:
@@ -87,7 +85,7 @@ class ParticlesSystem():
             flow=0,
             emitter=None):
 
-        #to delete
+        # to delete
         self.kept_position = None
 
         self.name = name
@@ -138,22 +136,6 @@ class ParticlesSystem():
         self.clear_dead_spots()
         for spot in self.spots:
             spot.evaluate()
-
-    def render(self, screen, deph, camera):
-        deph = deph + self.deph
-        position = camera.relative_pixel_position(self.pixel_position, deph)
-        if position != self.kept_position:
-            self.kept_position = position
-        color = self.shape_options["color"]
-        for spot in self.spots:
-            x = position[0] + spot.pixel_position[0] - self.pixel_position[0]
-            y = position[1] + spot.pixel_position[1] - self.pixel_position[1]
-
-            size = self.shape_options["size"]
-            if self.shape_options["type"] == SHAPE_TYPES.SQUARE:
-                render_rect(screen, color, x, y, size, size, alpha=self.alpha)
-            elif self.shape_options["type"] == SHAPE_TYPES.ELLIPSE:
-                render_ellipse(screen, color, x, y, size, size)
 
 
 class DirectionBehavior():

@@ -261,7 +261,8 @@
         {
             "name": "background",
             "type": "layer",
-            "deph": 0.0
+            "deph": 0.0,
+            "shader": null
         },
         {
             "name": "bg",
@@ -287,7 +288,8 @@
         {
             "name": "characters",
             "type": "layer",
-            "deph": 0.0
+            "deph": 0.0,
+            "shader": null
         },
         {
             "name": "tree-interactive",
@@ -319,7 +321,8 @@
         {
             "name": "foreground",
             "type": "layer",
-            "deph": 0.0
+            "deph": 0.0,
+            "shader": null
         },
         {
             "name": "hill_right_wall",

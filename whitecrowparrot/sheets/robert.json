@@ -29,7 +29,7 @@
             "center": [134, 285],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [1],
+            "frames_per_image": [1000],
             "hitmaps": null,
             "hold": false,
             "inputs": [],

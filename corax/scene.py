@@ -1,9 +1,9 @@
 import os
+from copy import deepcopy
 
 import corax.context as cctx
 from corax.camera import Camera, Scrolling
 from corax.core import NODE_TYPES
-from corax.debugrender import render_player_debug
 from corax.euclide import Rect
 from corax.graphicelement import SetStaticElement, SetAnimatedElement
 from corax.particles import ParticlesSystem, build_emitter
@@ -40,31 +40,13 @@ class Scene:
     def append(self, layer):
         self.layers.append(layer)
 
-    def render(self, screen):
-        screen.fill(self.background_color)
-        for layer in sorted(self.layers, key=lambda layer: layer.deph):
-            for element in layer.elements:
-                if not element.visible:
-                    continue
-                element.render(screen, layer.deph, self.camera)
-        for zone in self.zones:
-            zone.render(screen, self.camera)
-        if cctx.DEBUG:
-            for slot in self.player_slots + self.npc_slots:
-                if slot.character is None:
-                    continue
-                render_player_debug(
-                    player=slot.character,
-                    deph=layer.deph,
-                    screen=screen,
-                    camera=self.camera)
-
 
 class Layer():
-    def __init__(self, name, deph, elements):
-        self.elements = elements
+    def __init__(self, name, deph, shader):
+        self.elements = []
         self.name = name
         self.deph = deph
+        self.shader = shader
 
     def append(self, element):
         self.elements.append(element)
@@ -148,7 +130,7 @@ def build_particles_system(data):
         emitter=emitter)
 
 
-def build_scene(name, data):
+def build_scene(name, data, shaders):
     assert_first_is_layer(data)
     camera = Camera()
     scrolling = build_scrolling(camera, data)
@@ -158,7 +140,7 @@ def build_scene(name, data):
         camera=camera,
         scrolling=scrolling)
     build_scene_zones(scene, data)
-    build_scene_layers(scene, data)
+    build_scene_layers(scene, data, shaders)
     return scene
 
 
@@ -175,11 +157,20 @@ def build_scene_zones(scene, data):
             scene.zones.append(zone)
 
 
-def build_scene_layers(scene, data):
+def build_shader(data, shaders):
+    if not data:
+        return None
+    shader = deepcopy(shaders[data["name"]])
+    shader["options"].update(data["options"])
+    return shader
+
+
+def build_scene_layers(scene, data, shaders):
     layer = None
     for element in data["elements"]:
         if element.get("type") == NODE_TYPES.LAYER:
-            layer = Layer(element["name"], element["deph"], [])
+            shader = build_shader(element['shader'], shaders)
+            layer = Layer(element["name"], element["deph"], shader)
             scene.layers.append(layer)
             continue
 

@@ -37,6 +37,15 @@ vec2 offsets[9] = vec2[](
 );
 
 
+vec2 forceInScreenUV(vec2 uv) {
+    if (uv[0] < -1) {uv[0] =-1;}
+    if (uv[1] < -1) {uv[1] =-1;}
+    if (uv[0] > 1) {uv[0] = 1;}
+    if (uv[1] > 1) {uv[1] = 1;}
+    return uv;
+}
+
+
 vec2 findClosestAlphaTextureCoord(vec2 uv) {
     for (int i = 0; i < offsets.length(); i++)
         {
@@ -48,7 +57,7 @@ vec2 findClosestAlphaTextureCoord(vec2 uv) {
                 offset[1] *= (i * radius);
             }
             if (texture(Texture, uv + offset).a != 0) {
-                return uv + offset;
+                return forceInScreenUV(uv + offset);
             }
         }
     return vec2(0, 0);
@@ -83,7 +92,7 @@ void main() {
             buff.r = texture(Texture, uv).r / samples;
             buff.g = texture(Texture, uv).g / samples;
             buff.b = texture(Texture, uv).b / samples;
-            buff.a = texture(Texture, uv0 + offset).a / samples;
+            buff.a = texture(Texture, forceInScreenUV(uv0 + offset)).a / samples;
             color += (buff / offsets.length());
         }
 

@@ -6,10 +6,9 @@ from itertools import cycle
 
 import corax.context as cctx
 from corax.core import COLORS
-from corax.pygameutils import (
-    load_image, load_frames, load_sound, render_background, render_image,
-    play_sound)
-from corax.screen import screen_relative_y
+from corax.renderengine.draw import draw_image, draw_background
+from corax.renderengine.io import load_frames, load_image
+from corax.soundengine.io import load_sound, play_sound
 
 
 LOGO_PATH = os.path.join(cctx.RESSOURCES_FOLDER, "logo.png")
@@ -35,19 +34,18 @@ def splash_screen(screen):
     images_iterator = cycle(logo_images)
     x = (LOGO_SIZE[0] / 2) + (cctx.RESOLUTION[0] / 2) - LOGO_SIZE[0]
     y = (LOGO_SIZE[1] / 2) + (cctx.RESOLUTION[1] / 2.5) - LOGO_SIZE[1]
-    y = screen_relative_y(y)
     while frame < DURATION:
         if frame == PLAY_SOUND_AT:
             play_sound(sound)
         frame += 1
         logo_image = next(images_iterator)
-        render_background(screen, COLORS.BLACK)
+        draw_background(screen, COLORS.BLACK)
         alpha = compute_fade_alpha(frame, DURATION, FADE_LENGHT)
-        render_image(logo_image, screen, (x, y), alpha=alpha)
-        render_image(corax_image, screen, (x - 25, y + 135), alpha=alpha)
-        render_image(title_image, screen, (x, y + 170), alpha=alpha)
+        draw_image(logo_image, screen, (x, y), alpha=alpha)
+        draw_image(corax_image, screen, (x - 25, y + 135), alpha=alpha)
+        draw_image(title_image, screen, (x, y + 170), alpha=alpha)
         yield
-    render_background(screen, COLORS.BLACK)
+    draw_background(screen, COLORS.BLACK)
 
 
 def compute_fade_alpha(frame, duration, fade_length):

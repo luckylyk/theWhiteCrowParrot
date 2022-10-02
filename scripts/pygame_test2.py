@@ -5,7 +5,7 @@ from pygame.locals import *
 
 pygame.init()
 
-FPS=30
+FPS = 30
 clock = pygame.time.Clock()
 
 VIRTUAL_RES=(160, 120)

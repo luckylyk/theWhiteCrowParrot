@@ -4,7 +4,7 @@ import pygame
 from moderngl_window import geometry
 
 
-class Window(moderngl_window.WindowConfig):
+class CoraxWindow(moderngl_window.WindowConfig):
     title = "the White Crow Parrot"
     window_size = 800, 450
 
@@ -72,16 +72,14 @@ from moderngl_window import (
     setup_basic_logging,
     create_parser,
     parse_args,
-    get_local_window_cls,
     activate_context,
-    Timer,
     weakref,
     logger
 )
+from moderngl_window.context.pygame2 import Window
 
 
-
-def run_window_config_custom(config_cls: WindowConfig, timer=None, args=None) -> None:
+def run_window_config_custom(config_cls: WindowConfig, timer=None, args=None):
     """
     Run an WindowConfig entering a blocking main loop
 
@@ -96,10 +94,9 @@ def run_window_config_custom(config_cls: WindowConfig, timer=None, args=None) ->
     config_cls.add_arguments(parser)
     values = parse_args(args=args, parser=parser)
     config_cls.argv = values
-    window_cls = get_local_window_cls(values.window)
 
     # Calculate window size
-    size = values.size or config_cls.window_size
+    size = config_cls.window_size
     size = int(size[0] * values.size_mult), int(size[1] * values.size_mult)
 
     # Resolve cursor
@@ -107,22 +104,19 @@ def run_window_config_custom(config_cls: WindowConfig, timer=None, args=None) ->
     if show_cursor is None:
         show_cursor = config_cls.cursor
 
-    window = window_cls(
-        title=config_cls.title,
+    window = Window(
+        title="the White Crow Parrot",
         size=size,
-        fullscreen=config_cls.fullscreen or values.fullscreen,
-        resizable=values.resizable
-        if values.resizable is not None
-        else config_cls.resizable,
-        gl_version=config_cls.gl_version,
-        aspect_ratio=config_cls.aspect_ratio,
-        vsync=values.vsync if values.vsync is not None else config_cls.vsync,
-        samples=values.samples if values.samples is not None else config_cls.samples,
-        cursor=show_cursor if show_cursor is not None else True,
+        fullscreen=False,
+        resizable=True,
+        gl_version=(3, 3),
+        aspect_ratio=16/9,
+        vsync=True,
+        samples=0,
+        cursor=False,
     )
     window.print_context_info()
     activate_context(window=window)
-    timer = timer or Timer()
     config = config_cls(ctx=window.ctx, wnd=window, timer=timer)
     # Avoid the event assigning in the property setter for now
     # We want the even assigning to happen in WindowConfig.__init__
@@ -135,30 +129,29 @@ def run_window_config_custom(config_cls: WindowConfig, timer=None, args=None) ->
     window.swap_buffers()
     window.set_default_viewport()
 
-    timer.start()
+    return window
+
+timer = pygame.time.Clock()
+if __name__ == '__main__':
+    window = run_window_config_custom(CoraxWindow, args=('--window', 'pygame2'))
 
     while not window.is_closing:
-        current_time, delta = timer.next_frame()
 
-        if config.clear_color is not None:
-            window.clear(*config.clear_color)
+        window.clear(0, 0, 0, 0)
 
         # Always bind the window framebuffer before calling render
         window.use()
 
-        window.render(current_time, delta)
+        window.render()
         if not window.is_closing:
             window.swap_buffers()
+        timer.tick(30)
 
-    _, duration = timer.stop()
-    window.destroy()
-    if duration > 0:
-        logger.info(
-            "Duration: {0:.2f}s @ {1:.2f} FPS".format(
-                duration, window.frames / duration
-            )
-        )
-    return config
-
-if __name__ == '__main__':
-    print(run_window_config_custom(Window, args=('--window', 'pygame2')))
+    # window.destroy()
+    # if duration > 0:
+    #     logger.info(
+    #         "Duration: {0:.2f}s @ {1:.2f} FPS".format(
+    #             duration, window.frames / duration
+    #         )
+    #     )
+    # # print(run_window_config_custom(Window, args=('--window', 'pygame2')))

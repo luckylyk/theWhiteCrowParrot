@@ -8,13 +8,13 @@
         "has_sword": false,
         "hill_wall_collapsed": false,
         "jos_flee_running": false,
+        "jos_is_waiting": true,
+        "ladder_is_activated": false,
         "lie_down_miner_is_dead": false,
         "rabbit_triggered": false,
         "sinoc_fight_is_started": false,
-        "wearing_blackhelmet": false,
-        "jos_is_waiting": true,
-        "ladder_is_activated": false,
-        "underwater_ladder_visible": false
+        "underwater_ladder_visible": false,
+        "wearing_blackhelmet": false
     },
     "menu": "main.json",
     "preferences": {
@@ -22,22 +22,42 @@
         "camera_speed": 500,
         "fps": 30,
         "key_color": [0, 255, 0],
-        "resolution": [800, 268]
+        "render_area": [800, 268],
+        "resolution": [800, 450]
     },
-    "scenes": [
-        {"name": "airlock", "file": "airlock.json"},
-        {"name": "forest", "file": "forest.json"},
-        {"name": "mine", "file": "mine_01.json"},
-        {"name": "hole", "file": "hole.json"},
-        {"name": "hives", "file": "hives.json"},
-        {"name": "exit", "file": "exit.json"},
-        {"name": "tente", "file": "tente.json"},
-        {"name": "ending", "file": "ending.json"},
-        {"name": "hill", "file": "hill.json"},
-        {"name": "walk_test", "file": "walk_test.json"},
-        {"name": "credits", "file": "credits.json"},
-        {"name": "bruno", "file": "bruno_test.json"},
-        {"name": "underwater", "file": "underwater.json"}],
+    "scenes": {
+        "airlock": "airlock.json",
+        "bruno": "bruno_test.json",
+        "credits": "credits.json",
+        "ending": "ending.json",
+        "exit": "exit.json",
+        "forest": "forest.json",
+        "hill": "hill.json",
+        "hives": "hives.json",
+        "hole": "hole.json",
+        "mine": "mine_01.json",
+        "tente": "tente.json",
+        "underwater": "underwater.json",
+        "walk_test": "walk_test.json"
+    },
+    "shaders": {
+        "film_grain": {
+            "options": {},
+            "path": "noise.glsl",
+            "use_resolution": false,
+            "use_time": true
+        },
+        "water_sinusoid": {
+            "options": {
+                "amplitude": 1200,
+                "speed": 1.0,
+                "wave_number": 12
+            },
+            "path": "water_sinusoid.glsl",
+            "use_resolution": false,
+            "use_time": true
+        }
+    },
     "start_scene": "forest",
     "start_scrolling_targets": ["whitecrow"],
     "title": "The White Crow Parrot"

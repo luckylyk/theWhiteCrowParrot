@@ -6,7 +6,7 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-        
+
     ],
     "zones": [
         {
@@ -26,7 +26,8 @@
         {
             "name": "background",
             "type": "layer",
-            "deph": 0.0
+            "deph": 0.0,
+            "shader": null
         },
         {
             "name": "bg",
@@ -34,6 +35,12 @@
             "file": "airlock/bg.png",
             "position": [0, 0],
             "deph": -0.1
+        },
+        {
+            "name": "middle",
+            "type": "layer",
+            "shader": null,
+            "deph": 0.0
         },
         {
             "name": "toolbar",
@@ -85,6 +92,13 @@
             "deph": 0.0
         },
         {
+            "name": "trombon",
+            "type": "set_static",
+            "file": "airlock/trombon.png",
+            "position": [504, 70],
+            "deph": 0.0
+        },
+        {
             "name": "whitecrow",
             "type": "player",
             "block_position": [32, 8],
@@ -112,6 +126,12 @@
             "deph": 0.1
         },
         {
+            "name": "foreground",
+            "type": "layer",
+            "shader": null,
+            "deph": 0.0
+        },
+        {
             "name": "fg_plancks",
             "type": "set_static",
             "file": "airlock/fg_plancks.png",
@@ -119,17 +139,10 @@
             "deph": 0.2
         },
         {
-            "name": "trombon",
-            "type": "set_static",
-            "file": "airlock/trombon.png",
-            "position": [504, 70],
-            "deph": 0.0
-        },
-        {
             "name": "ropes",
             "type": "set_static",
             "file": "airlock/ropes.png",
-            "position": [84, 163],
+            "position": [70, 163],
             "deph": 0.2
         }
     ]

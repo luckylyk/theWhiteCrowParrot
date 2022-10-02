@@ -1,9 +1,8 @@
 
 from corax.core import MENU_MODES, MENU_EVENTS
 from corax.gamepad import InputBuffer
-from corax.pygameutils import (
-    load_sound, render_text, render_background, play_sound)
-from corax.screen import screen_relative_y
+from corax.screen import map_to_render_area
+from corax.soundengine.io import load_sound, play_sound
 
 
 class Menu:
@@ -63,7 +62,7 @@ class Menu:
         event = event or MENU_EVENTS.QUIT
         self.animation = self.leave_animation(event)
 
-    def evaluate(self, screen, joystick):
+    def evaluate(self, joystick):
         if self.animation is not None:
             try:
                 next(self.animation)
@@ -72,8 +71,6 @@ class Menu:
 
         keypressed = self.input_buffer.update(joystick)
         if not keypressed:
-            if self.mode != MENU_MODES.INACTIVE:
-                self.render(screen)
             return
 
         buttons = self.input_buffer.pressed_delta()
@@ -89,7 +86,6 @@ class Menu:
             self.quit()
         elif "A" in buttons or "X" in buttons or "start" in buttons:
             self.quit(self.data["content"][self.index].get("event"))
-        self.render(screen)
 
     def enter_animation(self):
         self.event = MENU_EVENTS.ENTER
@@ -119,23 +115,6 @@ class Menu:
         self.done = True
         self.event = event
 
-    def render(self, screen):
-        render_background(
-            screen,
-            self.data["background_color"],
-            self.data["background_alpha"])
-
-        for i, item in enumerate(self.items):
-            key = "text_color" if i != self.index else "current_text_color"
-            render_text(
-                screen=screen,
-                color=self.data[key],
-                x=item.position[0],
-                y=item.position[1],
-                text=item.text,
-                bold=(i == self.index),
-                size=self.data["size"])
-
     @property
     def mode(self):
         if all(item.mode == MENU_MODES.INTERACTIVE for item in self.items):
@@ -148,9 +127,9 @@ class Menu:
 class MenuItem:
     def __init__(self, text, event, origin, destination, speed, acceleration):
         self.acceleration = acceleration
-        self.destination = [destination[0], screen_relative_y(destination[1])]
+        self.destination = map_to_render_area(*destination)
         self.event = event
-        self.origin = [origin[0], screen_relative_y(origin[1])]
+        self.origin = map_to_render_area(*origin)
         self.position = self.origin[:]
         self.speed = speed
         self.text = text

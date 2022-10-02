@@ -167,7 +167,7 @@ script unlock_low
     player.whitecrow.sheet is sword
     player.whitecrow.animation is low_hit_shoot
     theatre.globals.chest_locked is true
-        wait 1
+        // wait 1
         nolock prop.chest_locker play explode
         freeze 3
         theatre.globals.chest_locked set false
@@ -179,7 +179,7 @@ script unlock_high
     player.whitecrow.animation is high_hit_shoot
     theatre.globals.chest_locked is true
         nolock prop.chest_locker play explode
-        wait 1
+        // wait 1
         freeze 3
         theatre.globals.chest_locked set false
 

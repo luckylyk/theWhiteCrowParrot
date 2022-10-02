@@ -15,18 +15,21 @@ FPS = None
 GAME_FILE = None
 KEY_COLOR = None
 RESOLUTION = None
+RENDER_AREA = None
 TITLE = None
 
 ANIMATION_FOLDER = None
 CHARACTER_FOLDER = None
-MENU_FOLDER = None
 DATA_FOLDER = None
+MENU_FOLDER = None
 RELATIONSHIP_FOLDER = None
 SCENE_FOLDER = None
 SCRIPT_FOLDER = None
 SET_FOLDER = None
+SHADER_FOLDER = None
 SHEET_FOLDER = None
 SOUNDS_FOLDER = None
+
 CONFIG_FILE = None
 USE_CONFIG = None
 DEFAULT_CONFIG_FILE = None
@@ -45,7 +48,8 @@ def initialize(arguments):
         SCRIPT_FOLDER, SCENE_FOLDER, SOUNDS_FOLDER, GAME_FILE, RESOLUTION, \
         FPS, CAMERA_SPEED, BLOCK_SIZE, KEY_COLOR, DEBUG, MUTE, \
         CHARACTER_FOLDER, TITLE, OVERRIDE_FILE, RELATIONSHIP_FOLDER, \
-        MENU_FOLDER, CONFIG_FILE, USE_CONFIG, DEFAULT_CONFIG_FILE
+        MENU_FOLDER, CONFIG_FILE, USE_CONFIG, DEFAULT_CONFIG_FILE, \
+        SHADER_FOLDER, RENDER_AREA
 
     ROOT = os.path.abspath(arguments.game_root)
     OVERRIDE_FILE = arguments.overrides
@@ -64,6 +68,7 @@ def initialize(arguments):
     SET_FOLDER = os.path.realpath(os.path.join(ROOT, "sets"))
     SHEET_FOLDER = os.path.realpath(os.path.join(ROOT, "sheets"))
     SOUNDS_FOLDER = os.path.realpath(os.path.join(ROOT, "sounds"))
+    SHADER_FOLDER = os.path.realpath(os.path.join(ROOT, "shaders"))
 
     game_data = load_json(os.path.join(ROOT, GAME_FILE))
     TITLE = game_data["title"]
@@ -74,6 +79,7 @@ def initialize(arguments):
     FPS = game_data["preferences"]["fps"] * (2 if arguments.speedup else 1)
     KEY_COLOR = game_data["preferences"]["key_color"]
     RESOLUTION = game_data["preferences"]["resolution"]
+    RENDER_AREA = game_data["preferences"]["render_area"]
 
     return game_data
 

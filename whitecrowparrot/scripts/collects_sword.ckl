@@ -74,6 +74,8 @@ script collects_sword_from_around
     player.whitecrow.animation is idle
         player.whitecrow reach (508, 10) by (return, walk_a, footsie)
         player.whitecrow aim RIGHT by return
+        pin player.whitecrow
+        flush player.whitecrow
         player.whitecrow.sheet set collects_sword
         player.whitecrow play get_ready
         force collects_sword.collects_sword

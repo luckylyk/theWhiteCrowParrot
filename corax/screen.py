@@ -1,49 +1,41 @@
 
-import pygame
 import corax.context as cctx
 
 
 SCREEN = None
 USE_LETTERBOX = False
-LETTERBOX_OFFSET = None
-HIGH_LETTERBOX = None
-LOW_LETTERBOX = None
+TOP_LETTERBOX = None
+BOTTOM_LETTERBOX = None
+LEFT_LETTERBOX = None
+RIGHT_LETTERBOX = None
 
 
-def initialize_screen_variables(screen):
+def initialize_screen(size):
     if not cctx.RESOLUTION:
         raise RuntimeError(
             "Screen size can't be initialized before corax context."
             "Run corax.context.initialize() function first")
-    global LETTERBOX_OFFSET, HIGH_LETTERBOX, LOW_LETTERBOX, USE_LETTERBOX,\
-        SCREEN
+    global \
+        TOP_LETTERBOX, BOTTOM_LETTERBOX, LEFT_LETTERBOX, RIGHT_LETTERBOX, \
+        USE_LETTERBOX, SCREEN
 
-    height = screen.get_size()[1]
-    if height == cctx.RESOLUTION[1]:
-        SCREEN = cctx.RESOLUTION
-        return
-    SCREEN = screen.get_size()
-    USE_LETTERBOX = True
-    LETTERBOX_OFFSET = (height / 2) - (cctx.RESOLUTION[1] / 2)
-    HIGH_LETTERBOX = 0, 0, cctx.RESOLUTION[0], LETTERBOX_OFFSET + 1
-    bottom_letterbox_top = LETTERBOX_OFFSET + cctx.RESOLUTION[1] - 1
-    LOW_LETTERBOX = 0, bottom_letterbox_top, cctx.RESOLUTION[0], LETTERBOX_OFFSET + 1
-
-
-def setup_display(scaled=True, fullscreen=True):
-    screen_mode_flags = 0
-    if scaled:
-        screen_mode_flags |= pygame.SCALED
-    if fullscreen:
-        screen_mode_flags |= pygame.FULLSCREEN
-    screen = pygame.display.set_mode(cctx.RESOLUTION, screen_mode_flags)
-    initialize_screen_variables(screen)
-    pygame.display.set_caption(cctx.TITLE)
-    pygame.mouse.set_visible(False)
-    return screen
-
-
-def screen_relative_y(y):
+    SCREEN = size
+    USE_LETTERBOX = cctx.RESOLUTION != cctx.RENDER_AREA
     if not USE_LETTERBOX:
-        return y
-    return y + LETTERBOX_OFFSET
+        return
+    if cctx.RESOLUTION[1] != cctx.RENDER_AREA[1]:
+        bottom = int((cctx.RESOLUTION[1] - cctx.RENDER_AREA[1]) / 2)
+        TOP_LETTERBOX = 0, 0, SCREEN[0], bottom
+        BOTTOM_LETTERBOX = 0, SCREEN[1] - bottom, SCREEN[0], SCREEN[1]
+    if cctx.RESOLUTION[0] != cctx.RENDER_AREA[0]:
+        right = int((cctx.RESOLUTION[0] - cctx.RENDER_AREA[0]) / 2)
+        LEFT_LETTERBOX = 0, 0, right, SCREEN[1]
+        RIGHT_LETTERBOX = SCREEN[0] - right, 0, SCREEN[0], SCREEN[1]
+
+
+def map_to_render_area(x, y):
+    if not USE_LETTERBOX:
+        return [x, y]
+    offset_x = int((cctx.RESOLUTION[0] - cctx.RENDER_AREA[0]) / 2)
+    offset_y = int((cctx.RESOLUTION[1] - cctx.RENDER_AREA[1]) / 2)
+    return [x + offset_x, y + offset_y]
