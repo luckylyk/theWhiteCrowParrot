@@ -2,8 +2,8 @@
     "name": "dyingshop",
     "type": "scene",
     "background_color": [0, 0, 0],
-    "boundary": [0, 0, 800, 268],
-    "elements": [{"name": "background", "type": "layer", "deph": 0.0},    {
+    "boundary": [0, 0, 1600, 268],
+    "elements": [{"name": "background", "type": "layer", "deph": 0.0, "shader": null},    {
         "name": "right_room_wall",
         "type": "set_static",
         "file": "dyingshop/right_room_wall.png",
@@ -214,6 +214,12 @@
         "deph": 0.0
     },
     {
+        "name": "whitecrow",
+        "type": "player",
+        "block_position": [10, 6],
+        "flip": false
+    },
+    {
         "name": "hanging_carpets",
         "type": "set_static",
         "file": "dyingshop/hanging_carpets.png",
@@ -313,7 +319,7 @@
         ],
         "deph": 0.0
     }],
-    "soft_boundaries": [],
+    "soft_boundaries": [[0, 0, 800, 268], [800, 0, 1600, 268]],
     "sounds": [],
     "target_offset": [75, 0],
     "zones": []

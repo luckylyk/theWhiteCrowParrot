@@ -26,12 +26,11 @@
         "resolution": [800, 450]
     },
     "scenes": {
-        "court": "court.json",
-        "dyingshop": "dyingshop.json",
-        "troglodyte": "troglodyte.json",
         "airlock": "airlock.json",
         "bruno": "bruno_test.json",
+        "court": "court.json",
         "credits": "credits.json",
+        "dyingshop": "dyingshop.json",
         "ending": "ending.json",
         "exit": "exit.json",
         "forest": "forest.json",
@@ -40,6 +39,7 @@
         "hole": "hole.json",
         "mine": "mine_01.json",
         "tente": "tente.json",
+        "troglodyte": "troglodyte.json",
         "underwater": "underwater.json",
         "walk_test": "walk_test.json"
     },
@@ -48,6 +48,14 @@
             "options": {},
             "path": "noise.glsl",
             "use_resolution": false,
+            "use_time": true
+        },
+        "chromatic_aberration": {
+            "options": {
+                "amount": 1.0
+            },
+            "path": "chromatic_aberration.glsl",
+            "use_resolution": true,
             "use_time": true
         },
         "water_sinusoid": {
