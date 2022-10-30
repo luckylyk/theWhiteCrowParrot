@@ -1,0 +1,320 @@
+{
+    "name": "dyingshop",
+    "type": "scene",
+    "background_color": [0, 0, 0],
+    "boundary": [0, 0, 800, 268],
+    "elements": [{"name": "background", "type": "layer", "deph": 0.0},    {
+        "name": "right_room_wall",
+        "type": "set_static",
+        "file": "dyingshop/right_room_wall.png",
+        "position": [
+            704,
+            0
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "candle",
+        "type": "set_static",
+        "file": "dyingshop/candle.png",
+        "position": [
+            1055,
+            87
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "right_room_ground",
+        "type": "set_static",
+        "file": "dyingshop/right_room_ground.png",
+        "position": [
+            820,
+            185
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "ground_carpets",
+        "type": "set_static",
+        "file": "dyingshop/ground_carpets.png",
+        "position": [
+            924,
+            222
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "barrels",
+        "type": "set_static",
+        "file": "dyingshop/barrels.png",
+        "position": [
+            1128,
+            9
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "pump_04",
+        "type": "set_static",
+        "file": "dyingshop/pump_04.png",
+        "position": [
+            1163,
+            154
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "pump_03",
+        "type": "set_static",
+        "file": "dyingshop/pump_03.png",
+        "position": [
+            1213,
+            154
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "pump_02",
+        "type": "set_static",
+        "file": "dyingshop/pump_02.png",
+        "position": [
+            1253,
+            154
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "pump_01",
+        "type": "set_static",
+        "file": "dyingshop/pump_01.png",
+        "position": [
+            1303,
+            154
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "bg_baskets",
+        "type": "set_static",
+        "file": "dyingshop/bg_baskets.png",
+        "position": [
+            836,
+            150
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "painter_buckets",
+        "type": "set_static",
+        "file": "dyingshop/painter_buckets.png",
+        "position": [
+            1292,
+            180
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "interactible_bucket",
+        "type": "set_static",
+        "file": "dyingshop/interactible_bucket.png",
+        "position": [
+            1150,
+            197
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "left_room_ground",
+        "type": "set_static",
+        "file": "dyingshop/left_room_ground.png",
+        "position": [
+            69,
+            195
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "left_room_wall",
+        "type": "set_static",
+        "file": "dyingshop/left_room_wall.png",
+        "position": [
+            76,
+            0
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "ground_entry",
+        "type": "set_static",
+        "file": "dyingshop/ground_entry.png",
+        "position": [
+            114,
+            212
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "house_woodstructure",
+        "type": "set_static",
+        "file": "dyingshop/house_woodstructure.png",
+        "position": [
+            78,
+            0
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "bg_cloth_stack",
+        "type": "set_static",
+        "file": "dyingshop/bg_cloth_stack.png",
+        "position": [
+            426,
+            143
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "bg_carpets",
+        "type": "set_static",
+        "file": "dyingshop/bg_carpets.png",
+        "position": [
+            207,
+            59
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "blender",
+        "type": "set_static",
+        "file": "dyingshop/blender.png",
+        "position": [
+            289,
+            96
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "bg_carpet",
+        "type": "set_static",
+        "file": "dyingshop/bg_carpet.png",
+        "position": [
+            442,
+            0
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "bg_curtain",
+        "type": "set_static",
+        "file": "dyingshop/bg_curtain.png",
+        "position": [
+            489,
+            0
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "hanging_carpets",
+        "type": "set_static",
+        "file": "dyingshop/hanging_carpets.png",
+        "position": [
+            844,
+            0
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "fg_right_limit",
+        "type": "set_static",
+        "file": "dyingshop/fg_right_limit.png",
+        "position": [
+            1372,
+            0
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "fg_baskets",
+        "type": "set_static",
+        "file": "dyingshop/fg_baskets.png",
+        "position": [
+            830,
+            190
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "fg_cloth_stacks",
+        "type": "set_static",
+        "file": "dyingshop/fg_cloth_stacks.png",
+        "position": [
+            157,
+            194
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "fg_curtain_01",
+        "type": "set_static",
+        "file": "dyingshop/fg_curtain_01.png",
+        "position": [
+            551,
+            0
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "fg_curtain_03",
+        "type": "set_static",
+        "file": "dyingshop/fg_curtain_03.png",
+        "position": [
+            564,
+            0
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "fg_curtain_02",
+        "type": "set_static",
+        "file": "dyingshop/fg_curtain_02.png",
+        "position": [
+            767,
+            0
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "fg_wood_sticks",
+        "type": "set_static",
+        "file": "dyingshop/fg_wood_sticks.png",
+        "position": [
+            374,
+            216
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "fg_left_wood",
+        "type": "set_static",
+        "file": "dyingshop/fg_left_wood.png",
+        "position": [
+            0,
+            0
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "fg_top_carpet",
+        "type": "set_static",
+        "file": "dyingshop/fg_top_carpet.png",
+        "position": [
+            207,
+            0
+        ],
+        "deph": 0.0
+    }],
+    "soft_boundaries": [],
+    "sounds": [],
+    "target_offset": [75, 0],
+    "zones": []
+}
