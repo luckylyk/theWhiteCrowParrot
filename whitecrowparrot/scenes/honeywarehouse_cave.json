@@ -1,0 +1,166 @@
+{
+    "name": "honeywarehouse_cave",
+    "type": "scene",
+    "background_color": [0, 0, 0],
+    "boundary": [0, 0, 800, 268],
+    "elements": [{"name": "background", "type": "layer", "deph": 0.0, "shader": null},    {
+        "name": "bg_main",
+        "type": "set_static",
+        "file": "honeywarehouse_cave/bg_main.png",
+        "position": [
+            0,
+            0
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "bg_dead_body",
+        "type": "set_static",
+        "file": "honeywarehouse_cave/bg_dead_body.png",
+        "position": [
+            298,
+            167
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "bg_bottles",
+        "type": "set_static",
+        "file": "honeywarehouse_cave/bg_bottles.png",
+        "position": [
+            81,
+            164
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "whitecrow",
+        "type": "player",
+        "block_position": [20, 9],
+        "flip":  false
+    },
+    {
+        "name": "bg_machine",
+        "type": "set_static",
+        "file": "honeywarehouse_cave/bg_machine.png",
+        "position": [
+            357,
+            29
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "platform",
+        "type": "set_static",
+        "file": "honeywarehouse_cave/platform.png",
+        "position": [
+            368,
+            31
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "pickable_broken_bottle",
+        "type": "set_static",
+        "file": "honeywarehouse_cave/pickable_broken_bottle.png",
+        "position": [
+            363,
+            164
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "fg_machine",
+        "type": "set_static",
+        "file": "honeywarehouse_cave/fg_machine.png",
+        "position": [
+            353,
+            24
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "pickable_bottle",
+        "type": "set_static",
+        "file": "honeywarehouse_cave/pickable_bottle.png",
+        "position": [
+            137,
+            164
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "fg_bottle_3",
+        "type": "set_static",
+        "file": "honeywarehouse_cave/fg_bottle_3.png",
+        "position": [
+            100,
+            166
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "fg_columns",
+        "type": "set_static",
+        "file": "honeywarehouse_cave/fg_columns.png",
+        "position": [
+            0,
+            0
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "fg_bottles_2",
+        "type": "set_static",
+        "file": "honeywarehouse_cave/fg_bottles_2.png",
+        "position": [
+            157,
+            171
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "fg_bottles_1",
+        "type": "set_static",
+        "file": "honeywarehouse_cave/fg_bottles_1.png",
+        "position": [
+            28,
+            173
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "fg_dead_body",
+        "type": "set_static",
+        "file": "honeywarehouse_cave/fg_dead_body.png",
+        "position": [
+            468,
+            197
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "fg_column_right",
+        "type": "set_static",
+        "file": "honeywarehouse_cave/fg_column_right.png",
+        "position": [
+            398,
+            0
+        ],
+        "deph": 0.0
+    },
+    {
+        "name": "fg_column_left",
+        "type": "set_static",
+        "file": "honeywarehouse_cave/fg_column_left.png",
+        "position": [
+            0,
+            0
+        ],
+        "deph": 0.0
+    }],
+    "soft_boundaries": [],
+    "sounds": [],
+    "target_offset": [75, 0],
+    "zones": []
+}
