@@ -6,9 +6,9 @@
     "layers": {
         "blackhelmet": "whitecrowparrot_exploration_blackhelmet.png",
         "body": "whitecrowparrot_exploration_body.png",
+        "chain": "whitecrowparrot_exploration_chain.png",
         "head": "whitecrowparrot_exploration_head.png",
-        "sword": "whitecrowparrot_exploration_sword.png",
-        "chain": "whitecrowparrot_exploration_chain.png"
+        "sword": "whitecrowparrot_exploration_sword.png"
     },
     "moves": {
         "crouch_down": {

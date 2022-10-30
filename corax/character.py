@@ -9,7 +9,6 @@ from corax.core import EVENTS
 from corax.euclide import points_to_vector
 from corax.mathutils import sum_num_arrays
 from corax.override import load_json
-from corax.pygameutils import render_image
 from corax.sequence import (
     filter_moves_by_inputs, filter_unholdable_moves,
     build_sequence_to_destination)
@@ -34,9 +33,6 @@ class CharacterSlot:
         self.flip = flip
         self.character = None
         self.visible = True
-
-    def render(self, screen, deph, camera):
-        self.character.render(screen, deph, camera)
 
     def evaluate(self):
         self.character.evaluate()
@@ -67,12 +63,6 @@ class Character:
 
     def evaluate(self):
         self.animation_controller.evaluate()
-
-    def render(self, screen, deph, camera):
-        deph = deph + self.deph
-        position = camera.relative_pixel_position(self.pixel_position, deph)
-        for image in self.animation_controller.images:
-            render_image(image, screen, position)
 
     def set_sheet(self, sheet_name):
         sheet_filename = self.data["sheets"][sheet_name]

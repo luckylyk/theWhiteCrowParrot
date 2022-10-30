@@ -15,16 +15,17 @@ class iter_on_jobs:
     int representing the number of iteration it needs to be done.
     """
     def __init__(self, jobs, actions=None):
+        self._name = f'Name {random.randint(0, 15)}-{random.randint(0, 15)}-{random.randint(0, 15)}'
         self._actions = actions
         self._jobs = jobs
         self._job_index = 0
         self._frame_count = 0
 
     def __next__(self):
-        if self._job_index >= len(self._jobs):
-            raise StopIteration()
 
-        if self._frame_count == 0:
+        while self._frame_count == 0:
+            if self._job_index >= len(self._jobs):
+                raise StopIteration()
             try:
                 job = self._jobs[self._job_index]
                 self._frame_count = job()
@@ -36,10 +37,7 @@ class iter_on_jobs:
                 else:
                     error = ""
                 print(e)
-                raise ValueError(f'{error}: {str(job)}') from e
-
-        while self._frame_count == 0:
-            next(self)
+                raise RuntimeError(f'{error}: {str(job)}') from e
 
         self._frame_count -= 1
 

@@ -5,8 +5,8 @@ count = 0
 paths = [
     os.path.join(os.path.dirname(__file__), "..", "corax"),
     os.path.join(os.path.dirname(__file__), "..", "corax", "crackle"),
-    os.path.join(os.path.dirname(__file__), "..", "sdk", "pluck"),
-    os.path.join(os.path.dirname(__file__), "..", "sdk", "conus"),
+    # os.path.join(os.path.dirname(__file__), "..", "sdk", "pluck"),
+    # os.path.join(os.path.dirname(__file__), "..", "sdk", "conus"),
     # os.path.join(os.path.dirname(__file__), "..", "sdk", "krita", "scripts"),
     # os.path.join(os.path.dirname(__file__), "..", "sdk", "krita", "extensions"),
     # os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot"),

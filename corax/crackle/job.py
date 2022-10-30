@@ -14,6 +14,7 @@ from corax.core import EVENTS, RUN_MODES
 from corax.iterators import fade, timer
 from corax.mathutils import sum_num_arrays
 from corax.scene import layover
+from corax.screen import map_to_render_area
 from corax.seeker import (
     find_animated_set, find_element, find_zone, find_character)
 
@@ -295,7 +296,9 @@ def job_init_timer(theatre, name, event, duration):
 
 
 def job_move_camera(theatre, pixel_position):
-    theatre.scene.camera.set_center(pixel_position)
+    mapped_pixel_position = map_to_render_area(*pixel_position)
+    print(mapped_pixel_position, pixel_position)
+    theatre.scene.camera.set_center(mapped_pixel_position)
     return 0
 
 
@@ -328,7 +331,7 @@ def job_place(theatre, placer, name, offset):
 
 def job_play_animation(animable, animation_name):
     animable.animation_controller.set_move(animation_name)
-    return animable.animation_controller.animation.length
+    return animable.animation_controller.animation.length - 1
 
 
 def job_reach(character, block_position, animations):

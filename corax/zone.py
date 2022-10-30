@@ -4,10 +4,7 @@ This module contains all object representing the node the Zone category.
 Thats mainly data stuctures.
 """
 
-
-import corax.context as cctx
-from corax.coordinate import to_pixel_position, to_block_position
-from corax.pygameutils import render_rect
+from corax.coordinate import to_block_position
 
 
 class Zone:
@@ -102,14 +99,6 @@ class Zone:
     @property
     def hitmaps(self):
         return self.data.get("hitmaps", [])
-
-    def render(self, screen, camera):
-        if cctx.DEBUG is False:
-            return
-        world_pos = to_pixel_position([self.l, self.t])
-        x, y = camera.relative_pixel_position(world_pos)
-        w, h = to_pixel_position([self.width, self.height])
-        render_rect(screen, (255, 255, 255), x, y, w, h, alpha=25)
 
     def __repr__(self):
         return f"Zone: {self.name}: {self.l}, {self.r}, {self.t}, {self.b}"

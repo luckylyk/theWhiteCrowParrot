@@ -4,7 +4,7 @@ import corax.context as cctx
 from corax.core import LOOP_TYPES, NODE_TYPES
 from corax.euclide import Rect
 from corax.iterators import shuffle
-from corax.pygameutils import (
+from corax.soundengine.io import (
     load_sound, play_sound, get_volume, set_volume, stop_sound)
 from corax.seeker import find_element
 

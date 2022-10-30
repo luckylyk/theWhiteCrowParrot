@@ -6,7 +6,6 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-        
     ],
     "zones": [
         {
@@ -40,7 +39,14 @@
         {
             "name": "background",
             "type": "layer",
-            "deph": 0.0
+            "deph": 0.0,
+            "shader": {
+                "name": "water_sinusoid",
+                "options": {
+                    "wave_number": 8,
+                    "amplitude": 1200
+                }
+            }
         },
         {
             "name": "bg",
@@ -66,7 +72,15 @@
         {
             "name": "foreground",
             "type": "layer",
-            "deph": 0.0
+            "deph": 0.0,
+            "shader": {
+                "name": "water_sinusoid",
+                "options": {
+                    "wave_number": 4,
+                    "amplitude": 600,
+                    "speed": 20
+                }
+            }
         },
         {
             "name": "fg",

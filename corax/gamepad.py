@@ -1,6 +1,8 @@
-
+import pygame
 from corax import config
 
+
+CONNECT_GAMEPAD_WARNING = "Connect game controller (X Input)"
 
 # Set default keybinding
 BINDING = {
@@ -34,6 +36,13 @@ REVERSE_BINDING = {
     BINDING['RS_RIGHT']: BINDING['RS_LEFT'],
     BINDING['RS_LEFT']: BINDING['RS_RIGHT']
 }
+
+
+def is_joystick_connected():
+    if pygame.joystick.get_count() == 0:
+        pygame.joystick.quit()
+        pygame.joystick.init()
+    return bool(pygame.joystick.get_count())
 
 
 def get_keystate(key_name, joystick):

@@ -43,6 +43,7 @@ script go_to_tente
         nolock fadeout 10
         player.whitecrow play through_door
         theatre.scene set tente
+        wait 3
         nolock fadein 6
         player.whitecrow move (13, 8)
         player.whitecrow play walk_b
@@ -112,12 +113,15 @@ script activate_ladder_prop
 
 
 script pick_ladder
+    player.whitecrow.animation is idle
     prop.ladder.hitmap.ground_zone overlaps player.whitecrow.hitmap.leggs
     gamepad.keys.pressed has X
         player.whitecrow join (-2, 10) from prop.ladder by (return, walk_a, footsie)
         player.whitecrow aim LEFT by return
         player.whitecrow.sheet set banner
         prop.ladder move (288, -100)
+        pin player.whitecrow
+        flush player.whitecrow
         player.whitecrow offset (0, -12)
         player.whitecrow play catch
 
@@ -127,10 +131,14 @@ script drop_ladder
     player.whitecrow.animation is idle
     player.whitecrow.sheet is banner
         player.whitecrow aim LEFT by turn
+        pin player.whitecrow
+        flush player.whitecrow
         player.whitecrow play release
-        player.whitecrow offset (0, 12)
-        player.whitecrow.sheet set exploration
+        pin player.whitecrow
+        flush player.whitecrow
         prop.ladder move (288, 0)
+        player.whitecrow.sheet set exploration
+        player.whitecrow offset (0, 12)
         player.whitecrow place prop.ladder by (12, -10)
 
 

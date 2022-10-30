@@ -338,7 +338,8 @@
         {
             "name": "background",
             "type": "layer",
-            "deph": 0.0
+            "deph": 0.0,
+            "shader": null
         },
         {
             "name": "far_bg",
@@ -678,6 +679,13 @@
             "deph": -0.05
         },
         {
+            "type": "layer",
+            "name": "middle",
+            "shader": null,
+            "deph": 0.0
+        },
+
+        {
             "name": "forest_01/mid_tree_04",
             "type": "set_static",
             "file": "forest_01/mid_tree_04.png",
@@ -972,7 +980,8 @@
         {
             "name": "foreground",
             "type": "layer",
-            "deph": 0.0
+            "deph": 0.0,
+            "shader": null
         },
         {
             "name": "forest_01/lf_fg_grass",

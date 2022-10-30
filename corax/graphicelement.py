@@ -3,7 +3,7 @@ from corax.controller import AnimationController
 from corax.coordinate import Coordinate
 from corax.mathutils import sum_num_arrays
 from corax.override import load_json
-from corax.pygameutils import load_image, render_image
+from corax.renderengine.io import load_image
 
 
 class SetStaticElement:
@@ -18,11 +18,6 @@ class SetStaticElement:
     def from_filename(filename, name, pixel_position=None, key_color=None, deph=0):
         image = load_image(filename, key_color)
         return SetStaticElement(name, image, pixel_position, deph)
-
-    def render(self, screen, deph, camera):
-        deph = deph + self.deph
-        position = camera.relative_pixel_position(self.pixel_position, deph)
-        render_image(self.image, screen, position)
 
     @property
     def size(self):
@@ -70,9 +65,3 @@ class SetAnimatedElement:
 
     def evaluate(self):
         self.animation_controller.evaluate()
-
-    def render(self, screen, deph, camera):
-        deph = deph + self.deph
-        position = camera.relative_pixel_position(self.pixel_position, deph)
-        for image in self.animation_controller.images:
-            render_image(image, screen, position, self.alpha)

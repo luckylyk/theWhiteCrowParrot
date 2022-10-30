@@ -227,7 +227,8 @@
         {
             "name": "background",
             "type": "layer",
-            "deph": 0.0
+            "deph": 0.0,
+            "shader": null
         },
         {
             "name": "tente/black",
@@ -330,7 +331,7 @@
             "name": "whitecrow",
             "type": "player",
             "block_position": [13, 8],
-            "flip":  false
+            "flip": false
         },
         {
             "name": "chest_props",
@@ -351,7 +352,8 @@
         {
             "name": "foreground",
             "type": "layer",
-            "deph": 0.0
+            "deph": 0.0,
+            "shader": null
         },
         {
             "name": "tente/fg_tente",

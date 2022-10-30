@@ -318,7 +318,8 @@
         {
             "name": "background",
             "type": "layer",
-            "deph": 0.0
+            "deph": 0.0,
+            "shader": null
         },
         {
             "name": "far_bg",
@@ -952,7 +953,8 @@
         {
             "name": "foreground",
             "type": "layer",
-            "deph": 0.0
+            "deph": 0.0,
+            "shader": null
         },
         {
             "name": "forest_01/lf_fg_grass",

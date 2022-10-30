@@ -3,7 +3,7 @@ import math
 import corax.context as cctx
 from corax.euclide import Rect
 from corax.mathutils import clamp
-from corax.screen import screen_relative_y
+from corax.screen import map_to_render_area
 
 
 class Camera():
@@ -32,7 +32,7 @@ class Camera():
     def relative_pixel_position(self, pixel_position, deph=0):
         offset_x = math.ceil((pixel_position[0] - self.pixel_position[0]))
         offset_y = math.ceil((pixel_position[1] - self.pixel_position[1]))
-        offset_y = screen_relative_y(offset_y)
+        offset_x, offset_y = offset_x, offset_y
         return [offset_x + (offset_x * deph), offset_y]
 
     @property
@@ -79,15 +79,16 @@ class Scrolling():
             if self.targets[0].flip is True:
                 target_offset = -target_offset
             # Define the target X that the scrolling will aim.
-            tx = self.targets[0].pixel_center[0] + target_offset
+            center = map_to_render_area(*self.targets[0].pixel_center)
+            tx = center[0] + target_offset
 
         else:
             tx = sum(t.pixel_center[0] for t in self.targets)
             tx /= len(self.targets)
 
         # Limit the target to the border of the scene defined by hard boundary.
-        left = self.hard_boundary.left + (cctx.RESOLUTION[0] / 2)
-        right = self.hard_boundary.right - (cctx.RESOLUTION[0] / 2)
+        left = self.hard_boundary.left + (cctx.RENDER_AREA[0] / 2)
+        right = self.hard_boundary.right - (cctx.RENDER_AREA[0] / 2)
         tx = clamp(tx, left, right)
 
         # Limit the target to the current soft boundary if there is.
@@ -117,7 +118,7 @@ class Scrolling():
 def clamp_x_to_areas(x, ref_position, areas):
     for area in areas:
         if area.contains(ref_position):
-            aleft = area.left + (cctx.RESOLUTION[0] / 2)
-            aright = area.right - (cctx.RESOLUTION[0] / 2)
+            aleft = area.left + (cctx.RENDER_AREA[0] / 2)
+            aright = area.right - (cctx.RENDER_AREA[0] / 2)
             return clamp(x, aleft, aright)
     return x
