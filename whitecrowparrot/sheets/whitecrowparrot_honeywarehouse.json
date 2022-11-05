@@ -1,0 +1,32 @@
+{
+    "name": "",
+    "default_move": "idle",
+    "evaluation_order": ["idle"],
+    "frame_size": [240, 160],
+    "key_color": [0, 255, 0],
+    "layers": {
+        "honeybottle_base": "whitecrowparrot_honeywarehouse_honeybottle_base.png",
+        "body": "whitecrowparrot_honeywarehouse_body.png",
+        "head": "whitecrowparrot_honeywarehouse_head.png",
+        "sword": "whitecrowparrot_honeywarehouse_sword.png"
+    },
+    "moves": {
+        "idle": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [1],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": null,
+            "next_move": "idle",
+            "next_move_bufferable": null,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 0,
+            "triggers": null
+        }
+    }
+}
