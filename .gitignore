@@ -127,3 +127,5 @@ corax/TODO
 
 # build
 /build
+
+*.vscode
