@@ -43,7 +43,7 @@ class CoraxWindow():
             data = surface.get_view('2')
             texture.write(data)
             program = get_shader(
-                shader, self.time, cctx.RESOLUTION, self.window.size)
+                shader, self.time, tuple(cctx.RESOLUTION), self.window.size)
             self.frame.render(program)
         self.ctx.disable(moderngl.BLEND)
         self.window.swap_buffers(events)

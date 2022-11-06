@@ -178,7 +178,8 @@ DATA_TEMPLATES = {
     "layer": {
         "name": str,
         "type": str,
-        "deph": float
+        "deph": float,
+        "shader": None
     },
     "set_static": {
         "name": str,
