@@ -339,7 +339,12 @@
             "name": "background",
             "type": "layer",
             "deph": 0.0,
-            "shader": null
+            "shader": {
+                "name": "chromatic_aberration",
+                "options": {
+                    "amount": 1.0
+                }
+            }
         },
         {
             "name": "far_bg",

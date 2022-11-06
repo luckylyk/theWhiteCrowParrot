@@ -156,6 +156,12 @@
         "deph": 0.0
     },
     {
+        "name": "whitecrow",
+        "type": "player",
+        "block_position": [60, 9],
+        "flip": false
+    },
+    {
         "name": "fg_machina",
         "type": "set_static",
         "file": "honeywarehouse/fg_machina.png",
