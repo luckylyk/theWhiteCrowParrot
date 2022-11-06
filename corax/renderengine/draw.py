@@ -137,6 +137,7 @@ def render_particle_system(system, surface, deph, camera):
 def render_zone(zone, surface, camera):
     world_pos = to_pixel_position([zone.l, zone.t])
     x, y = camera.relative_pixel_position(world_pos)
+    x, y = map_to_render_area(x, y)
     w, h = to_pixel_position([zone.width, zone.height])
     draw_rect(surface, (255, 255, 255), x, y, w, h, alpha=25)
 
@@ -212,6 +213,7 @@ def render_scene_debug_overlay(scene, surface):
 def render_player_debug(player, deph, surface, camera):
     if player.name != 'whitecrow':
         return
+
     draw_grid(surface, camera, (125, 125, 125), alpha=50)
     # Render coordinates infos on onverlay
     size = player.animation_controller.size
@@ -292,5 +294,7 @@ def render(gameloop, window, events):
         render_menu(gameloop.menu, overlay)
 
     draw_letterbox(overlay)
+    if cctx.DEBUG:
+        render_scene_debug_overlay(theatre.scene, overlay)
     surfaces_and_shaders.append((overlay, NULL_SHADER))
     window.render(surfaces_and_shaders, events)
