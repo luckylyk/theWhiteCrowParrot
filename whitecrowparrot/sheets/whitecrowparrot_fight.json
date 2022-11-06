@@ -25,7 +25,7 @@
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 81,
-            "triggers": null
+            "triggers": [[4, "step_whitecrow"]]
         },
         "back_shoot": {
             "center": [70, 155],
@@ -63,7 +63,7 @@
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 74,
-            "triggers": [[0, "slap_helmet"]]
+            "triggers": [[0, "slap_helmet"], [3, "step_whitecrow"], [5, "step_whitecrow"]]
         },
         "belly_shoot": {
             "center": [170, 155],
@@ -169,7 +169,7 @@
             },
             "release_frame": -1,
             "start_at_image": 56,
-            "triggers": null
+            "triggers": [[0, "slap_helmet"], [7, "step_whitecrow"], [9, "step_whitecrow"], [11, "step_whitecrow"]]
         },
         "punch": {
             "center": [70, 155],
