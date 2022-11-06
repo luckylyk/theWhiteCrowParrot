@@ -4,11 +4,11 @@
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
     "layers": {
-        "blackhelmet": "whitecrowparrot_exploration_blackhelmet.png",
-        "body": "whitecrowparrot_exploration_body.png",
-        "chain": "whitecrowparrot_exploration_chain.png",
-        "head": "whitecrowparrot_exploration_head.png",
-        "sword": "whitecrowparrot_exploration_sword.png"
+        "blackhelmet": "whitecrow/exploration_blackhelmet.png",
+        "body": "whitecrow/exploration_body.png",
+        "chain": "whitecrow/exploration_chain.png",
+        "head": "whitecrow/exploration_head.png",
+        "sword": "whitecrow/exploration_sword.png"
     },
     "moves": {
         "crouch_down": {
@@ -146,7 +146,7 @@
             "next_move": "idle",
             "next_move_bufferable": false,
             "post_events": {
-                "switch_to": "whitecrowparrot_sword.json"
+                "switch_to": "whitecrow/sword.json"
             },
             "pre_events": {},
             "release_frame": -1,

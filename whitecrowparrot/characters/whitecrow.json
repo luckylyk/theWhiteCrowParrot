@@ -9,18 +9,19 @@
         "blackhelmet": false
     },
     "sheets": {
-        "exploration": "whitecrowparrot_exploration.json",
-        "exploration_2": "whitecrowparrot_exploration_2.json",
-        "introduction": "whitecrowparrot_appearing.json",
-        "chest": "whitecrowparrot_chest.json",
-        "death": "whitecrowparrot_death.json",
-        "sword": "whitecrowparrot_sword.json",
-        "collects_sword": "whitecrowparrot_collects_sword.json",
-        "fight": "whitecrowparrot_fight.json",
-        "fall": "whitecrowparrot_fall.json",
-        "banner": "whitecrowparrot_banner.json",
-        "underwater": "whitecrowparrot_underwater.json",
-        "hivesjump": "whitecrowparrot_hivesjump.json"
+        "exploration": "whitecrow/exploration.json",
+        "exploration_2": "whitecrow/exploration_2.json",
+        "honeywarehouse": "whitecrow/honeywarehouse.json",
+        "introduction": "whitecrow/appearing.json",
+        "chest": "whitecrow/chest.json",
+        "death": "whitecrow/death.json",
+        "sword": "whitecrow/sword.json",
+        "collects_sword": "whitecrow/collects_sword.json",
+        "fight": "whitecrow/fight.json",
+        "fall": "whitecrow/fall.json",
+        "banner": "whitecrow/banner.json",
+        "underwater": "whitecrow/underwater.json",
+        "hivesjump": "whitecrow/hivesjump.json"
     },
     "hitmaps_color": {
         "leggs": [255, 50, 75],

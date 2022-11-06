@@ -5,7 +5,7 @@
     "frame_size": [310, 300],
     "key_color": [0, 255, 0],
     "layers": {
-        "body": "whitecrowparrot_banner_body.png"
+        "body": "whitecrow/banner_body.png"
     },
     "moves": {
         "catch": {

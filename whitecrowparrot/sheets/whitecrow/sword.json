@@ -1,11 +1,10 @@
 {
     "default_move": "idle",
     "evaluation_order": ["stroke_ready", "low_hit_ready", "high_hit_ready", "jump", "high_block", "low_block", "crouch_hit_shoot", "return", "crouch_down", "crouch_up", "step_forward", "back_dash", "step_backward", "high_block_retrieve", "high_hit_shoot", "low_hit_shoot", "low_block_retrieve", "stroke_shoot", "crouch_hit_retrieve", "high_hit_retrieve", "stroke_retrieve", "tidy_up_sword", "idle"],
-    "filename": "whitecrowparrot_sword.png",
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
     "layers": {
-        "body": "whitecrowparrot_sword.png"
+        "body": "whitecrow/sword.png"
     },
     "moves": {
         "back_dash": {
@@ -530,7 +529,7 @@
             "next_move": "idle",
             "next_move_bufferable": false,
             "post_events": {
-                "switch_to": "whitecrowparrot_exploration.json"
+                "switch_to": "whitecrow/exploration.json"
             },
             "pre_events": {},
             "release_frame": -1,

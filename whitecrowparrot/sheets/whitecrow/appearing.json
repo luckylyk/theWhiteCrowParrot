@@ -1,11 +1,10 @@
 {
     "default_move": "idle",
     "evaluation_order": ["idle", "appears"],
-    "filename": "whitecrowparrot_appearing.png",
     "frame_size": [220, 160],
     "key_color": [0, 255, 0],
     "layers": {
-            "body": "whitecrowparrot_appearing.png"
+            "body": "whitecrow/appearing.png"
         },
     "moves": {
             "appears": {
@@ -20,7 +19,7 @@
                     "next_move": "idle",
                     "next_move_bufferable":  false,
                     "post_events": {
-                            "switch_to": "whitecrowparrot_exploration.json"
+                            "switch_to": "whitecrow/exploration.json"
                         },
                     "pre_events": {},
                     "release_frame": -1,

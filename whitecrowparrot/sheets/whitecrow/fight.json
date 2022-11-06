@@ -5,7 +5,7 @@
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
     "layers": {
-        "body": "whitecrowparrot_fight.png"
+        "body": "whitecrow/fight.png"
     },
     "moves": {
         "back_low_hit": {

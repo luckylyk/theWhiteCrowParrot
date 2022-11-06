@@ -5,10 +5,10 @@
     "frame_size": [200, 180],
     "key_color": [0, 255, 0],
     "layers": {
-        "body": "whitecrowparrot_underwater_body.png",
-        "head": "whitecrowparrot_underwater_head.png",
-        "sword": "whitecrowparrot_underwater_sword.png",
-        "chain": "whitecrowparrot_underwater_chain.png"
+        "body": "whitecrow/underwater_body.png",
+        "head": "whitecrow/underwater_head.png",
+        "sword": "whitecrow/underwater_sword.png",
+        "chain": "whitecrow/underwater_chain.png"
     },
     "moves": {
         "asphixied": {

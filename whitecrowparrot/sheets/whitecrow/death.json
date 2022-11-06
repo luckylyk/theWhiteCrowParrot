@@ -1,11 +1,10 @@
 {
     "default_move": "death_by_arrow_front",
     "evaluation_order": ["death_by_arrow_front", "death_by_arrow_back", "death_by_arrow_front_sword", "death_by_arrow_back_sword", "stranguled", "stranguled_last_frame", "death_by_mace", "death_by_mace_down", "death_by_backstab", "death_by_backstab_down"],
-    "filename": "whitecrowparrot_death.png",
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
     "layers": {
-        "body": "whitecrowparrot_death.png"
+        "body": "whitecrow/death.png"
     },
     "moves": {
         "death_by_arrow_back": {

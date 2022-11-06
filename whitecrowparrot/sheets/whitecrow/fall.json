@@ -1,11 +1,10 @@
 {
     "default_move": "idle",
     "evaluation_order": ["fall", "idle"],
-    "filename": "whitecrowparrot_fall.png",
     "frame_size": [210, 260],
     "key_color": [0, 255, 0],
     "layers": {
-            "body": "whitecrowparrot_fall.png"
+            "body": "whitecrow/fall.png"
         },
     "moves": {
             "fall": {
@@ -20,7 +19,7 @@
                     "next_move": "idle",
                     "next_move_bufferable":  false,
                     "post_events": {
-                            "switch_to": "whitecrowparrot_exploration.json",
+                            "switch_to": "whitecrow/exploration.json",
                             "block_offset": [3, 10]
                         },
                     "pre_events": {},

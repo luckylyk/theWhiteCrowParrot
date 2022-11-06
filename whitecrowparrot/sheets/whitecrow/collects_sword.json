@@ -1,11 +1,10 @@
 {
     "default_move": "get_ready",
     "evaluation_order": ["get_ready", "is_ready", "give_up", "collects"],
-    "filename": "whitecrowparrot_collects_sword.png",
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
     "layers": {
-            "body": "whitecrowparrot_collects_sword.png"
+            "body": "whitecrow/collects_sword.png"
         },
     "moves": {
             "collects": {
@@ -20,7 +19,7 @@
                     "next_move": "idle",
                     "next_move_bufferable":  false,
                     "post_events": {
-                            "switch_to": "whitecrowparrot_sword.json"
+                            "switch_to": "whitecrow/sword.json"
                         },
                     "pre_events": {},
                     "release_frame": -1,
@@ -56,7 +55,7 @@
                     "next_move": "is_ready",
                     "next_move_bufferable":  false,
                     "post_events": {
-                            "switch_to": "whitecrowparrot_exploration.json"
+                            "switch_to": "whitecrow/exploration.json"
                         },
                     "pre_events": {},
                     "release_frame": -1,

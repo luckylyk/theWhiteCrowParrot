@@ -5,8 +5,8 @@
     "frame_size": [370, 168],
     "key_color": [0, 255, 0],
     "layers": {
-        "body": "whitecrowparrot_hivejump_body.png",
-        "head": "whitecrowparrot_hivejump_head.png"
+        "body": "whitecrow/hivejump_body.png",
+        "head": "whitecrow/hivejump_head.png"
     },
     "moves": {
         "cancel_jump": {
