@@ -6,7 +6,7 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-
+        
     ],
     "zones": [
         {
@@ -96,7 +96,7 @@
             "name": "fg_machine",
             "type": "set_static",
             "file": "honeywarehouse_cave/fg_machine.png",
-            "position": [353, 24],
+            "position": [350, 24],
             "deph": 0.0
         },
         {
@@ -131,14 +131,14 @@
             "name": "fg_bottles_1",
             "type": "set_static",
             "file": "honeywarehouse_cave/fg_bottles_1.png",
-            "position": [28, 173],
+            "position": [53, 173],
             "deph": 0.15
         },
         {
             "name": "fg_dead_body",
             "type": "set_static",
             "file": "honeywarehouse_cave/fg_dead_body.png",
-            "position": [468, 197],
+            "position": [471, 197],
             "deph": 0.0
         },
         {
