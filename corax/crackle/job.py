@@ -225,6 +225,9 @@ def job_aim(player, move, direction):
         return 0
 
     player.animation_controller.set_move(move)
+    # Ensure if loopon attribute is set is holdable move, the animation will
+    # not loop automatically after aim is played !
+    player.animation_controller.unhold([move])
     return player.animation_controller.animation.length
 
 
@@ -286,6 +289,7 @@ def job_flush_animation(theatre, character_name):
 def job_join(theatre, character, element_name, block_position, animations):
     element = find_element(theatre.scene, element_name)
     element_block_position = element.coordinate.block_position
+    print(character.coordinate.block_position, element_block_position)
     block_position = sum_num_arrays(element_block_position, block_position)
     return job_reach(character, block_position, animations)
 
@@ -297,7 +301,6 @@ def job_init_timer(theatre, name, event, duration):
 
 def job_move_camera(theatre, pixel_position):
     mapped_pixel_position = map_to_render_area(*pixel_position)
-    print(mapped_pixel_position, pixel_position)
     theatre.scene.camera.set_center(mapped_pixel_position)
     return 0
 
