@@ -14,7 +14,7 @@
         "crouch_down": {
             "center": [70, 155],
             "conditions": {
-                "animation_in": ["idle"]
+                "animation_in": ["idle", "walk_a", "walk_b", "walk_off", "run_off", "run_a", "run_b"]
             },
             "frames_centers": null,
             "frames_per_image": [1, 1, 1, 1, 1, 1],
@@ -97,14 +97,14 @@
                 "block_offset": [2, 0]
             },
             "pre_events": {},
-            "release_frame": -1,
+            "release_frame": 6,
             "start_at_image": 49,
             "triggers": [[0, "step_whitecrow"]]
         },
         "crouched_return": {
             "center": [70, 155],
             "conditions": {
-                "animation_in": ["crouched_over"]
+                "animation_in": ["crouched_over", "crouched_over_walk"]
             },
             "frames_centers": null,
             "frames_per_image": [2, 2],
@@ -113,9 +113,9 @@
                 "leggs": [[[5, 14], [6, 14], [7, 14], [8, 14], [8, 15], [7, 15], [6, 15], [5, 15], [9, 14], [9, 15]], [[5, 14], [6, 14], [7, 14], [8, 14], [8, 15], [7, 15], [6, 15], [5, 15], [4, 14], [4, 15]]],
                 "torso": [[[5, 13], [6, 13], [7, 13], [8, 13], [8, 12], [7, 12], [6, 12], [5, 12]], [[5, 12], [5, 13], [6, 13], [7, 13], [8, 13], [8, 12], [7, 12], [6, 12]]]
             },
-            "hold": false,
+            "hold": true,
             "inputs": ["LEFT"],
-            "loop_on": null,
+            "loop_on": "crouched_over_walk",
             "next_move": "crouched_over",
             "next_move_bufferable": true,
             "post_events": {
@@ -400,7 +400,7 @@
         "stand_up": {
             "center": [70, 155],
             "conditions": {
-                "animation_in": ["crouched_over"]
+                "animation_in": ["crouched_over", "crouched_over_walk"]
             },
             "frames_centers": null,
             "frames_per_image": [1, 1, 1],

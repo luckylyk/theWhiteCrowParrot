@@ -3,6 +3,7 @@
     "type": "player",
     "default_sheet": "introduction",
     "layers": {
+        "honeybottle_base": false,
         "body": true,
         "sword": false,
         "head": true,

@@ -1,0 +1,31 @@
+{
+    "name": "",
+    "default_move": "idle",
+    "evaluation_order": ["idle"],
+    "frame_size": [60, 70],
+    "key_color": [0, 255, 0],
+    "layers": {
+        "main": "honeybottle_1.png"
+    },
+    "moves": {
+        "idle": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [10000],
+            "hitmaps": {
+                "ground_zone": [[[0.0, 5.0], [1.0, 5.0], [2.0, 6.0], [3.0, 6.0], [4.0, 6.0], [5.0, 6.0], [5.0, 5.0], [4.0, 5.0], [3.0, 5.0], [2.0, 5.0], [1.0, 6.0], [0.0, 6.0], [0.0, 4.0], [1.0, 4.0], [2.0, 4.0], [3.0, 4.0], [4.0, 4.0], [5.0, 4.0]]]
+            },
+            "hold": false,
+            "inputs": [],
+            "loop_on": null,
+            "next_move": "idle",
+            "next_move_bufferable": null,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 0,
+            "triggers": null
+        }
+    }
+}

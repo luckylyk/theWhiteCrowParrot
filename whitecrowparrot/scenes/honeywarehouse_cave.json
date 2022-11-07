@@ -6,10 +6,35 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-        
+
     ],
     "zones": [
-        
+        {
+            "name": "right_limit",
+            "type": "no_go",
+            "affect": "whitecrow",
+            "zone": [76, 0, 82, 27]
+        },
+        {
+            "name": "left_limit",
+            "type": "no_go",
+            "affect": "whitecrow",
+            "zone": [0, 0, 11, 27]
+        },
+        {
+            "name": "clim_ladder",
+            "type": "interaction",
+            "affect": "whitecrow",
+            "scripts": ["honeywarehouse.climb_ladder"],
+            "zone": [63, 16, 72, 27]
+        },
+        {
+            "name": "bottle_pick",
+            "type": "interaction",
+            "affect": "whitecrow",
+            "scripts": ["honeywarehouse.pick_bottle_1", "honeywarehouse.drop_bottle_1"],
+            "zone": [0, 19, 82, 27]
+        }
     ],
     "elements": [
         {
@@ -46,6 +71,14 @@
             "flip": false
         },
         {
+            "name": "bottle_1",
+            "type": "set_animated",
+            "file": "honeybottle_1.json",
+            "position": [510, 160],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
             "name": "bg_machine",
             "type": "set_static",
             "file": "honeywarehouse_cave/bg_machine.png",
@@ -57,13 +90,6 @@
             "type": "set_static",
             "file": "honeywarehouse_cave/platform.png",
             "position": [368, 31],
-            "deph": 0.0
-        },
-        {
-            "name": "pickable_broken_bottle",
-            "type": "set_static",
-            "file": "honeywarehouse_cave/pickable_broken_bottle.png",
-            "position": [363, 164],
             "deph": 0.0
         },
         {

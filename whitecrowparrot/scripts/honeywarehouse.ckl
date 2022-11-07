@@ -1,0 +1,104 @@
+// Welcome to Crackle Script.
+//
+// This is the Corax Engine event script language.
+// Don't be scared, it's extremely easy to use. The language rely on indent of
+// four spaces. It is composed of scripts which are evaluated by the Zones
+// where it is attached. For instance, a zone named "chest_interaction" has is
+// defined as "affected by whitecrow", the script will be evaluated when the
+// zone contains the center of "whitecrow".
+// The syntax is pretty simple, zero indent is the script declaration level.
+// Firt indent level is the condition to execute the followings jobs and the
+// second indent level is the job queue.
+//
+// List of available keywords:
+// declaration: (script, event)
+// conditional and time related adverbs/function: (always, freeze, nolock,
+//                                                 wait)
+// comparators: (by, from, has, in, is, overlaps)
+// functions: (aim, checkpoint, clear, fadein, fadeout, flush, force, freeze,
+//             hide, join, layover, move, pin, play, reach, restart, restore,
+//             run, show, set, shift, wait, add, remove, offset)
+// corax known objects: (animation, flip, gamepad, globals, hitmap, key,
+//                       name, player, pressed, scene, sheet, theatre, zone,
+//                       camera, target)
+// built-in values: (false, true)
+
+
+script go_to_cave
+    gamepad.keys.pressed has RIGHT
+    player.whitecrow.flip is false
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+        player.whitecrow.sheet set honeywarehouse
+        nolock player.whitecrow play reach_ladder
+        wait 30
+        fadeout 35
+        theatre.scene set honeywarehouse_cave
+        theatre.camera move (414, 134)
+        wait 10
+        fadein 10
+        player.whitecrow move (50, 7)
+        player.whitecrow play slide_ladder
+        player.whitecrow.sheet set exploration
+
+
+script climb_ladder
+    gamepad.keys.pressed has UP
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+        player.whitecrow reach (58, 7) by (return, walk_a, footsie)
+        player.whitecrow aim RIGHT by return
+        nolock fadeout 10
+        player.whitecrow play through_door
+        theatre.scene set honeywarehouse
+        nolock fadein 10
+        player.whitecrow move (57, 11)
+        player.whitecrow.sheet set honeywarehouse
+        player.whitecrow play climb_out_ladder
+        player.whitecrow move (46, 9)
+        player.whitecrow.sheet set exploration
+
+
+script turn_up_machina_from_idle
+    gamepad.keys.pressed has X
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+        flush player.whitecrow
+        player.whitecrow reach (22, 9) by (return, walk_a, footsie)
+        player.whitecrow aim RIGHT by return
+        player.whitecrow.sheet set honeywarehouse
+        player.whitecrow play prepare_to_turn_machina
+        player.whitecrow play turn_up_machina
+        player.whitecrow play turn_up_machina
+        player.whitecrow play turn_up_machina
+        player.whitecrow play turn_up_machina
+        player.whitecrow play turn_up_machina
+        player.whitecrow play turn_up_machina
+        player.whitecrow play turn_up_machina
+        player.whitecrow play turn_up_machina
+        player.whitecrow play turn_up_machina
+        player.whitecrow play leave_machina
+        player.whitecrow.sheet set exploration
+
+
+script pick_bottle_1
+    player.whitecrow.animation is idle
+    prop.bottle_1.hitmap.ground_zone overlaps player.whitecrow.hitmap.leggs
+    gamepad.keys.pressed has X
+        player.whitecrow join (-5, -9) from prop.bottle_1 by (return, walk_a, footsie)
+        player.whitecrow aim RIGHT by return
+        player.whitecrow.layer show honeybottle_base
+        player.whitecrow.sheet set honeywarehouse
+        prop.bottle_1 move (-500, -500)
+        player.whitecrow play pick_honeybottle
+
+
+script drop_bottle_1
+    gamepad.keys.pressed has X
+    player.whitecrow.sheet is honeywarehouse
+    player.whitecrow.animation is idle_bottle
+        player.whitecrow aim RIGHT by return
+        player.whitecrow play drop_bottle
+        player.whitecrow place prop.bottle_1 by (5, 9)
+        player.whitecrow.layer hide honeybottle_base
+        player.whitecrow.sheet set exploration
