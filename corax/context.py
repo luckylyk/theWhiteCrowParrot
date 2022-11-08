@@ -32,6 +32,7 @@ SOUNDS_FOLDER = None
 
 CONFIG_FILE = None
 USE_CONFIG = None
+USE_KEYBOARD = False
 DEFAULT_CONFIG_FILE = None
 RESSOURCES_FOLDER = os.path.join(os.path.dirname(__file__), "ressources")
 
@@ -49,11 +50,12 @@ def initialize(arguments):
         FPS, CAMERA_SPEED, BLOCK_SIZE, KEY_COLOR, DEBUG, MUTE, \
         CHARACTER_FOLDER, TITLE, OVERRIDE_FILE, RELATIONSHIP_FOLDER, \
         MENU_FOLDER, CONFIG_FILE, USE_CONFIG, DEFAULT_CONFIG_FILE, \
-        SHADER_FOLDER, RENDER_AREA
+        SHADER_FOLDER, RENDER_AREA, USE_KEYBOARD
 
     ROOT = os.path.abspath(arguments.game_root)
     OVERRIDE_FILE = arguments.overrides
     USE_CONFIG = arguments.use_config
+    USE_KEYBOARD = arguments.use_keyboard
 
     DEBUG = arguments.debug
     MUTE = arguments.mute

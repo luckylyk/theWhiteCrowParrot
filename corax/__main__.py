@@ -67,6 +67,7 @@ parser.add_argument("-o", "--overrides", type=str)
 parser.add_argument("-s", "--scaled", action='store_true')
 parser.add_argument("-ss", "--skip_splash", action='store_true')
 parser.add_argument("-sp", "--speedup", action='store_true')
+parser.add_argument("-k", "--use_keyboard", action='store_true')
 arguments = parser.parse_args()
 
 

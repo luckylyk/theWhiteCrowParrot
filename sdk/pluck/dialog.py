@@ -7,7 +7,7 @@ import corax.context as cctx
 from corax.animation import animation_index_to_data_index
 from pluck.parsing import (
     list_all_existing_triggers, list_all_existing_triggers_sounds,
-    list_all_project_files)
+    list_all_project_files, list_all_overrides)
 from pluck.preference import save_preference, get_preference
 from pluck.color import ColorWheel
 
@@ -29,8 +29,15 @@ class GameKicker(QtWidgets.QDialog):
         self.skip_splash.setChecked(get_preference("skip_splash", True))
         self.fast_fps = QtWidgets.QCheckBox("Double Speed")
         self.fast_fps.setChecked(get_preference("fast_fps", False))
-        self.overrides = QtWidgets.QLineEdit()
-        self.overrides.setText(get_preference("overrides", ""))
+        self.use_keyboard = QtWidgets.QCheckBox("Use Keyboard")
+        self.use_keyboard.setChecked(get_preference("use_keyboard", False))
+        self.overrides = QtWidgets.QComboBox()
+        items =  list_all_overrides()
+        self.overrides.addItems([''] + items)
+        self.overrides.setEditable(True)
+        default = get_preference("overrides", "")
+        if default and default in items:
+            self.overrides.setCurrentText(default)
 
         self.kick = QtWidgets.QPushButton("Kick")
         self.kick.released.connect(self.accept)
@@ -43,6 +50,7 @@ class GameKicker(QtWidgets.QDialog):
         self.layout.addWidget(self.scaled)
         self.layout.addWidget(self.skip_splash)
         self.layout.addWidget(self.fast_fps)
+        self.layout.addWidget(self.use_keyboard)
         self.layout.addWidget(self.overrides)
         self.layout.addWidget(self.kick)
 
@@ -53,7 +61,8 @@ class GameKicker(QtWidgets.QDialog):
         save_preference("scaled", self.scaled.isChecked())
         save_preference("skip_splash", self.skip_splash.isChecked())
         save_preference("fast_fps", self.fast_fps.isChecked())
-        save_preference("overrides", self.overrides.text())
+        save_preference("use_keyboard", self.use_keyboard.isChecked())
+        save_preference("overrides", self.overrides.currentText())
 
     def arguments(self):
         arguments = []
@@ -69,8 +78,10 @@ class GameKicker(QtWidgets.QDialog):
             arguments.append("--skip_splash")
         if self.fast_fps.isChecked():
             arguments.append("--speedup")
-        if self.overrides.text():
-            path = os.path.join(cctx.ROOT, self.overrides.text())
+        if self.use_keyboard.isChecked():
+            arguments.append("--use_keyboard")
+        if self.overrides.currentText():
+            path = os.path.join(cctx.ROOT, self.overrides.currentText())
             arguments.append("--overrides")
             arguments.append(path)
         return arguments

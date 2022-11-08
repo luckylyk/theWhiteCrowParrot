@@ -8,10 +8,15 @@ import corax.context as cctx
 from corax.core import RUN_MODES, MENU_EVENTS, GAMELOOP_ACTIONS
 from corax.gamepad import is_joystick_connected
 from corax.iterators import fade
+from corax.keyboard import Joystick
 from corax.menu import Menu
 from corax.override import load_json
 from corax.pygameutils import escape_in_events, tab_in_events, space_in_events
 from corax.theatre import Theatre
+
+
+def get_joystick():
+    return Joystick() if cctx.USE_KEYBOARD else pygame.joystick.Joystick(0)
 
 
 class GameLoop:
@@ -26,7 +31,7 @@ class GameLoop:
         self.theatre = Theatre(copy.deepcopy(self.data))
         self.checkpoint = None
         self.has_connected_joystick = False
-        self.joystick = pygame.joystick.Joystick(0)
+        self.joystick = get_joystick()
         filename = os.path.join(cctx.MENU_FOLDER, data["menu"])
         self.menu = Menu(load_json(filename))
 
@@ -42,7 +47,10 @@ class GameLoop:
             return
 
         self.joystick.init()
-        self.has_connected_joystick = is_joystick_connected()
+        keyboard = cctx.USE_KEYBOARD
+        self.has_connected_joystick = keyboard or is_joystick_connected()
+        if keyboard:
+            self.joystick.set_events(events)
         if not self.has_connected_joystick:
             return
 

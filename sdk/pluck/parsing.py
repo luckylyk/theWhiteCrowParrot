@@ -129,3 +129,8 @@ def list_all_project_files(excluded_extentions=None):
             if os.path.splitext(f)[-1].strip('.').lower()
             not in excluded_extentions])
     return all_files
+
+
+def list_all_overrides():
+    d = f'{cctx.ROOT}/overrides'
+    return [f'overrides/{f}' for f in os.listdir(d)]

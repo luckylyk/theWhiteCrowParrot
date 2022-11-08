@@ -11,3 +11,4 @@ class MockArguments:
     overrides = None
     use_default_config = True
     use_config = False
+    use_keyboard = False
