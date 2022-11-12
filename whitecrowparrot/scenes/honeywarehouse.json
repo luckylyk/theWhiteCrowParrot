@@ -6,7 +6,7 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-        
+
     ],
     "zones": [
         {
@@ -31,8 +31,8 @@
         {
             "name": "turn_machina",
             "type": "interaction",
-            "affect": "whitecrow",
-            "scripts": ["honeywarehouse.turn_up_machina_from_idle"],
+            "affect": ["whitecrow"],
+            "scripts": ["honeywarehouse.turn_up_machina_from_idle_with_bottle", "honeywarehouse.turn_up_machina_from_idle_without_bottle"],
             "zone": [25, 0, 36, 27]
         }
     ],
@@ -48,13 +48,6 @@
             "type": "set_static",
             "file": "honeywarehouse/bg_main.png",
             "position": [0, 0],
-            "deph": 0.0
-        },
-        {
-            "name": "trap",
-            "type": "set_static",
-            "file": "honeywarehouse/trap.png",
-            "position": [372, 245],
             "deph": 0.0
         },
         {
@@ -79,74 +72,11 @@
             "deph": 0.0
         },
         {
-            "name": "machina_",
-            "type": "set_static",
-            "file": "honeywarehouse/machina_.png",
-            "position": [321, 120],
-            "deph": 0.0
-        },
-        {
-            "name": "machina_backbeam1",
-            "type": "set_static",
-            "file": "honeywarehouse/machina_backbeam1.png",
-            "position": [346, 68],
-            "deph": 0.0
-        },
-        {
-            "name": "machina_giant_wheel",
-            "type": "set_static",
-            "file": "honeywarehouse/machina_giant_wheel.png",
-            "position": [377, 101],
-            "deph": 0.0
-        },
-        {
-            "name": "machina_giant_wheel_center",
-            "type": "set_static",
-            "file": "honeywarehouse/machina_giant_wheel_center.png",
-            "position": [403, 130],
-            "deph": 0.0
-        },
-        {
-            "name": "machina_little_wheel",
-            "type": "set_static",
-            "file": "honeywarehouse/machina_little_wheel.png",
-            "position": [357, 180],
-            "deph": 0.0
-        },
-        {
-            "name": "machina_little_wheel_base",
-            "type": "set_static",
-            "file": "honeywarehouse/machina_little_wheel_base.png",
-            "position": [369, 198],
-            "deph": 0.0
-        },
-        {
-            "name": "machina_backbeam",
-            "type": "set_static",
-            "file": "honeywarehouse/machina_backbeam.png",
-            "position": [298, 92],
-            "deph": 0.0
-        },
-        {
-            "name": "machina_wheel",
-            "type": "set_static",
-            "file": "honeywarehouse/machina_wheel.png",
-            "position": [314, 176],
-            "deph": 0.0
-        },
-        {
-            "name": "machina_wheel_base",
-            "type": "set_static",
-            "file": "honeywarehouse/machina_wheel_base.png",
-            "position": [303, 195],
-            "deph": 0.0
-        },
-        {
-            "name": "machina_wires",
-            "type": "set_static",
-            "file": "honeywarehouse/machina_wires.png",
-            "position": [343, 141],
-            "deph": 0.0
+            "name": "goods_lift",
+            "type": "npc",
+            "file": "goods_lift_up.json",
+            "block_position": [27, 0],
+            "flip": false
         },
         {
             "name": "whitecrow",
@@ -201,6 +131,122 @@
             "type": "set_static",
             "file": "honeywarehouse/big_candle.png",
             "position": [427, 0],
+            "deph": 0.0
+        },
+        {
+            "name": "fxcandle1",
+            "type": "layer",
+            "deph": 0.0,
+            "shader": null
+        },
+        {
+            "name": "right_candle_fx1",
+            "type": "set_animated",
+            "file": "fx/right_candle_fire_light.json",
+            "position": [620, 40],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
+            "name": "right_candle_fx2",
+            "type": "set_animated",
+            "file": "fx/right_candle_small_flare_25.json",
+            "position": [620, 40],
+            "alpha": 63,
+            "deph": 0.0
+        },
+        {
+            "name": "right_candle_fx3",
+            "type": "set_animated",
+            "file": "fx/right_candle_mid_flare_11.json",
+            "position": [620, 40],
+            "alpha": 25,
+            "deph": 0.0
+        },
+        {
+            "name": "right_candle_fx4",
+            "type": "set_animated",
+            "file": "fx/right_candle_large_flare_6.json",
+            "position": [620, 40],
+            "alpha": 15,
+            "deph": 0.0
+        },
+        {
+            "name": "mid_candle_fx1",
+            "type": "set_animated",
+            "file": "fx/mid_candle_fire_light.json",
+            "position": [270, 0],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
+            "name": "mid_candle_fx2",
+            "type": "set_animated",
+            "file": "fx/mid_candle_small_flare_12.json",
+            "position": [360, 0],
+            "alpha": 30,
+            "deph": 0.0
+        },
+        {
+            "name": "mid_candle_fx3",
+            "type": "set_animated",
+            "file": "fx/mid_candle_mid_flare_2.json",
+            "position": [360, 0],
+            "alpha": 5,
+            "deph": 0.0
+        },
+        {
+            "name": "mid_candle_fx4",
+            "type": "set_animated",
+            "file": "fx/mid_candle_large_flare_4.json",
+            "position": [360, 0],
+            "alpha": 10,
+            "deph": 0.0
+        },
+        {
+            "name": "fxcandle2",
+            "type": "layer",
+            "deph": 0.0,
+            "shader": null
+        },
+        {
+            "name": "left_candle_shelves_lifhts",
+            "type": "set_animated",
+            "file": "fx/left_candle_shelves_light.json",
+            "position": [260, 40],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
+            "name": "left_candle_fx1",
+            "type": "set_animated",
+            "file": "fx/left_candle_fire_light.json",
+            "position": [300, 60],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
+            "name": "left_candle_fx2",
+            "type": "set_animated",
+            "file": "fx/left_candle_small_flare_24.json",
+            "position": [300, 60],
+            "alpha": 60,
+            "deph": 0.0
+        },
+        {
+            "name": "left_candle_fx3",
+            "type": "set_animated",
+            "file": "fx/left_candle_middle_flare_11.json",
+            "position": [300, 60],
+            "alpha": 25,
+            "deph": 0.0
+        },
+        {
+            "name": "left_candle_fx4",
+            "type": "set_animated",
+            "file": "fx/left_candle_large_flare_6.json",
+            "position": [300, 60],
+            "alpha": 15,
             "deph": 0.0
         }
     ]

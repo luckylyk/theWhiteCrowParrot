@@ -92,6 +92,8 @@ def create_job_without_subject(line, theatre):
             return partial(job_switch_visibility, theatre, element, show)
         case "wait":
             return value_collector(int(line.split(" ")[-1]))
+    message = f'function "{function}" for implemented for line without subject'
+    raise NotImplementedError(message)
 
 
 def create_job_with_subject(subject, function, arguments, theatre):
@@ -115,6 +117,8 @@ def create_job_with_subject(subject, function, arguments, theatre):
             zone = find_zone(theatre.scene, subject_name)
             rect = string_to_int_list(arguments)
             return partial(job_shift_zone, zone, rect)
+    message = f'function "{function}" for implemented for {subject_type}'
+    raise NotImplementedError(message)
 
 
 def create_theatre_job(subject, function, theatre, arguments):
@@ -136,6 +140,8 @@ def create_theatre_job(subject, function, theatre, arguments):
             duration = int(duration)
             name = subject_attribute
             return partial(job_init_timer, theatre, name, event, duration)
+    message = f'function "{function}" for implemented for theatre'
+    raise NotImplementedError(message)
 
 
 def create_prop_job(name, function, arguments, theatre):
@@ -153,8 +159,9 @@ def create_prop_job(name, function, arguments, theatre):
             size = prop.animation_controller.size
             offset = string_to_int_list(arguments)
             center = prop.animation_controller.animation.pixel_center
-            return partial(
-                job_offset, prop.coordinate, offset, center, size)
+            return partial(job_offset, prop.coordinate, offset, center, size)
+    message = f'function "{function}" for implemented for prop'
+    raise NotImplementedError(message)
 
 
 def create_character_job(theatre, character_name, function, arguments):
@@ -195,6 +202,8 @@ def create_character_job(theatre, character_name, function, arguments):
         case "show":
             layer = arguments
             return partial(job_switch_layer, character, True, layer)
+    message = f'function "{function}" for implemented for character'
+    raise NotImplementedError(message)
 
 
 def create_enable_disable_job(theatre, obj, state):
@@ -341,6 +350,7 @@ def job_reach(character, block_position, animations):
     sequence = character.reach(block_position, animations)
     data = character.animation_controller.data
     key = "frames_per_image"
+    character.animation_controller.animation.hold = False
     return sum(sum(data["moves"][move][key]) for move in sequence)
 
 

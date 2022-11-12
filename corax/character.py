@@ -83,7 +83,12 @@ class Character:
             data=self.animation_controller.data,
             coordinate=self.coordinate,
             dst=destination)
-        self.animation_controller.sequence = sequence
+        if not sequence:
+            return sequence
+        self.animation_controller.set_move(sequence[0])
+        if len(sequence) == 1:
+            return sequence
+        self.animation_controller.sequence = sequence[1:]
         return sequence
 
     def pin(self):

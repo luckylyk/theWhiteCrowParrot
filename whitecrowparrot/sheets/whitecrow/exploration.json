@@ -69,7 +69,7 @@
             "inputs": [],
             "loop_on": null,
             "next_move": "crouched_over",
-            "next_move_bufferable": false,
+            "next_move_bufferable": true,
             "post_events": {},
             "pre_events": {},
             "release_frame": -1,
@@ -79,7 +79,7 @@
         "crouched_over_walk": {
             "center": [70, 155],
             "conditions": {
-                "animation_in": ["crouched_over"]
+                "animation_in": ["crouched_over", "crouch_down"]
             },
             "frames_centers": [[2, 0], [4, 0], [6, 0], [8, 0], [10, 0], [12, 0], [14, 0], [18, 0]],
             "frames_per_image": [3, 2, 2, 1, 1, 2, 3, 5],
@@ -104,7 +104,7 @@
         "crouched_return": {
             "center": [70, 155],
             "conditions": {
-                "animation_in": ["crouched_over", "crouched_over_walk"]
+                "animation_in": ["crouched_over", "crouch_down", "crouched_over_walk"]
             },
             "frames_centers": null,
             "frames_per_image": [2, 2],

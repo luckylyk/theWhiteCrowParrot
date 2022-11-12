@@ -1,0 +1,29 @@
+{
+    "name": "",
+    "default_move": "idle",
+    "evaluation_order": ["idle"],
+    "frame_size": [60, 60],
+    "key_color": [0, 255, 0],
+    "layers": {
+        "item": "fx/left_candle_large_flare_6.png"
+    },
+    "moves": {
+        "idle": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [4, 4, 4, 4, 4, 4, 4, 4, 4, 4],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": null,
+            "next_move": "idle",
+            "next_move_bufferable": null,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 0,
+            "triggers": null
+        }
+    }
+}

@@ -73,9 +73,9 @@
         {
             "name": "right_leave",
             "type": "interaction",
-            "affect": "whitecrow",
+            "affect": ["whitecrow"],
             "scripts": ["mine.leave_hole", "mine.leave_hole_standed_up"],
-            "zone": [45, 16, 80, 27]
+            "zone": [45, 0, 80, 27]
         }
     ],
     "elements": [
@@ -117,7 +117,7 @@
             "name": "whitecrow",
             "type": "player",
             "block_position": [27, 0],
-            "flip":  false
+            "flip": false
         },
         {
             "name": "foreground",

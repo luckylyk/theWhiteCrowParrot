@@ -1,7 +1,7 @@
 {
     "name": "",
     "default_move": "idle",
-    "evaluation_order": ["idle", "slide_ladder", "reach_ladder", "climb_out_ladder", "prepare_to_turn_machina", "ready_to_turn_machina", "leave_machina", "turn_up_machina", "turn_down_machina", "pick_honeybottle", "idle_bottle", "drop_bottle", "step_a", "step_b", "return"],
+    "evaluation_order": ["idle", "slide_ladder", "reach_ladder", "climb_out_ladder", "prepare_to_turn_machina", "ready_to_turn_machina", "leave_machina", "turn_up_machina", "turn_down_machina", "pick_honeybottle", "idle_bottle", "drop_bottle", "step_a", "step_b", "return", "place_bottle"],
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
     "layers": {
@@ -102,7 +102,7 @@
             "center": [70, 155],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 4, 2, 2, 4, 2, 2, 4, 4, 2, 2, 4, 4, 2, 2, 4, 2, 2, 3, 50],
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 2, 2, 4, 2, 2, 4, 2, 2, 4, 4, 2, 2, 4, 4, 2, 2, 4, 2, 2, 3, 1],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -113,6 +113,23 @@
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 87,
+            "triggers": null
+        },
+        "place_bottle": {
+            "center": [70, 155],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 3, 3, 4],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 158,
             "triggers": null
         },
         "prepare_to_turn_machina": {
@@ -180,7 +197,7 @@
             "inputs": ["LEFT"],
             "loop_on": "idle_bottle",
             "next_move": "idle_bottle",
-            "next_move_bufferable": false,
+            "next_move_bufferable": true,
             "post_events": {
                 "flip": true,
                 "block_offset": [11, 0]
@@ -209,7 +226,9 @@
         },
         "step_a": {
             "center": [70, 155],
-            "conditions": {},
+            "conditions": {
+                "animation_in": ["idle_bottle"]
+            },
             "frames_centers": [[0, 0], [3, 0], [5, 0], [8, 0], [10, 0], [13, 0], [15, 0], [17, 0]],
             "frames_per_image": [3, 3, 3, 3, 3, 3, 3, 3],
             "hitmaps": null,
@@ -217,7 +236,7 @@
             "inputs": ["RIGHT"],
             "loop_on": "step_b",
             "next_move": "idle_bottle",
-            "next_move_bufferable": false,
+            "next_move_bufferable": true,
             "post_events": {
                 "block_offset": [2, 0]
             },
@@ -228,7 +247,9 @@
         },
         "step_b": {
             "center": [70, 155],
-            "conditions": {},
+            "conditions": {
+                "animation_in": ["idle_bottle"]
+            },
             "frames_centers": [[0, 0], [3, 0], [5, 0], [8, 0], [10, 0], [13, 0], [15, 0], [17, 0]],
             "frames_per_image": [3, 3, 3, 3, 3, 3, 3, 3],
             "hitmaps": null,

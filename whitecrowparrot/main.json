@@ -5,6 +5,9 @@
         "chest_locked": true,
         "chest_moved": false,
         "chest_open": false,
+        "goods_lift_is_up": false,
+        "goods_lift_is_charged": false,
+        "goods_lift_has_broken_bottle": false,
         "has_sword": false,
         "hill_wall_collapsed": false,
         "jos_flee_running": false,
@@ -36,9 +39,9 @@
         "forest": "forest.json",
         "hill": "hill.json",
         "hives": "hives.json",
-        "honeywarehouse_cave": "honeywarehouse_cave.json",
-        "honeywarehouse": "honeywarehouse.json",
         "hole": "hole.json",
+        "honeywarehouse": "honeywarehouse.json",
+        "honeywarehouse_cave": "honeywarehouse_cave.json",
         "mine": "mine_01.json",
         "tente": "tente.json",
         "troglodyte": "troglodyte.json",
@@ -46,18 +49,18 @@
         "walk_test": "walk_test.json"
     },
     "shaders": {
-        "film_grain": {
-            "options": {},
-            "path": "noise.glsl",
-            "use_resolution": false,
-            "use_time": true
-        },
         "chromatic_aberration": {
             "options": {
                 "amount": 1.0
             },
             "path": "chromatic_aberration.glsl",
             "use_resolution": true,
+            "use_time": true
+        },
+        "film_grain": {
+            "options": {},
+            "path": "noise.glsl",
+            "use_resolution": false,
             "use_time": true
         },
         "water_sinusoid": {
@@ -73,5 +76,5 @@
     },
     "start_scene": "forest",
     "start_scrolling_targets": ["whitecrow"],
-    "title": "The White Crow Parrot"
+    "title": "The White Crow's Parrot"
 }

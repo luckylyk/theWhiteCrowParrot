@@ -1,0 +1,8 @@
+{
+    "name": "goods_lift",
+    "type": "npc",
+    "default_sheet": "default",
+    "layers": {"body": true, "brokenbottle": false},
+    "sheets": {"default": "goods_lift_up.json"},
+    "hitmaps_color": {}
+}

@@ -59,19 +59,51 @@ script climb_ladder
         player.whitecrow.sheet set exploration
 
 
-script turn_up_machina_from_idle
+script turn_up_machina_from_idle_without_bottle
+    theatre.globals.goods_lift_is_charged is false
+    theatre.globals.goods_lift_is_up is false
     gamepad.keys.pressed has X
     player.whitecrow.sheet is exploration
     player.whitecrow.animation is idle
+        npc.goods_lift.layer hide brokenbottle
         flush player.whitecrow
         player.whitecrow reach (22, 9) by (return, walk_a, footsie)
         player.whitecrow aim RIGHT by return
         player.whitecrow.sheet set honeywarehouse
         player.whitecrow play prepare_to_turn_machina
+        nolock npc.goods_lift play list_up
         player.whitecrow play turn_up_machina
         player.whitecrow play turn_up_machina
         player.whitecrow play turn_up_machina
         player.whitecrow play turn_up_machina
+        player.whitecrow play turn_up_machina
+        player.whitecrow play ready_to_turn_machina
+        wait 25
+        nolock npc.goods_lift play lift_down
+        player.whitecrow play turn_down_machina
+        player.whitecrow play turn_down_machina
+        player.whitecrow play turn_down_machina
+        player.whitecrow play turn_down_machina
+        player.whitecrow play turn_down_machina
+        player.whitecrow play leave_machina
+        player.whitecrow.sheet set exploration
+
+
+script turn_up_machina_from_idle_with_bottle
+    theatre.globals.goods_lift_is_up is false
+    theatre.globals.goods_lift_is_charged is true
+    theatre.globals.goods_lift_has_broken_bottle is true
+    gamepad.keys.pressed has X
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+        theatre.globals.goods_lift_is_up set true
+        npc.goods_lift.layer show brokenbottle
+        flush player.whitecrow
+        player.whitecrow reach (22, 9) by (return, walk_a, footsie)
+        player.whitecrow aim RIGHT by return
+        player.whitecrow.sheet set honeywarehouse
+        player.whitecrow play prepare_to_turn_machina
+        nolock npc.goods_lift play list_up
         player.whitecrow play turn_up_machina
         player.whitecrow play turn_up_machina
         player.whitecrow play turn_up_machina
@@ -102,3 +134,18 @@ script drop_bottle_1
         player.whitecrow place prop.bottle_1 by (5, 9)
         player.whitecrow.layer hide honeybottle_base
         player.whitecrow.sheet set exploration
+
+
+script place_bottle
+    gamepad.keys.pressed has X
+    player.whitecrow.sheet is honeywarehouse
+    player.whitecrow.animation is idle_bottle
+        player.whitecrow reach (26, 7) by (return, step_a)
+        player.whitecrow aim RIGHT by return
+        player.whitecrow layover set.bg_machine
+        nolock prop.goods_lift play charge
+        player.whitecrow play place_bottle
+        player.whitecrow.sheet set exploration
+        player.whitecrow layover set.bg_bottles
+        theatre.globals.goods_lift_is_charged set true
+        theatre.globals.goods_lift_has_broken_bottle set true

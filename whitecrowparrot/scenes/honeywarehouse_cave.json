@@ -6,7 +6,7 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-        
+
     ],
     "zones": [
         {
@@ -34,6 +34,13 @@
             "affect": "whitecrow",
             "scripts": ["honeywarehouse.pick_bottle_1", "honeywarehouse.drop_bottle_1"],
             "zone": [0, 19, 82, 27]
+        },
+        {
+            "name": "place_bottle",
+            "type": "interaction",
+            "affect": "whitecrow",
+            "scripts": ["honeywarehouse.place_bottle"],
+            "zone": [31, 21, 45, 25]
         }
     ],
     "elements": [
@@ -86,10 +93,11 @@
             "deph": 0.0
         },
         {
-            "name": "platform",
-            "type": "set_static",
-            "file": "honeywarehouse_cave/platform.png",
-            "position": [368, 31],
+            "name": "goods_lift",
+            "type": "set_animated",
+            "file": "goods_lift.json",
+            "position": [360, 30],
+            "alpha": 255,
             "deph": 0.0
         },
         {
