@@ -13,6 +13,14 @@ class Zone:
     where the "affected" character are not allowed to go.
     """
     def __init__(self, data):
+        if data["zone"][0] >= data["zone"][2]:
+            zone = data["zone"]
+            msg = f'Invalid Zone, left cannot be higher than right: {zone}'
+            raise ValueError(msg)
+        if data["zone"][1] >= data["zone"][3]:
+            zone = data["zone"]
+            msg = f'Invalid Zone, top cannot be higher than bottom: {zone}'
+            raise ValueError(msg)
         self.data = data
         self.enable = data.get("enable", True)
 
