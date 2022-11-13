@@ -24,7 +24,8 @@
 // built-in values: (false, true)
 
 
-script go_to_cave
+script go_to_cave_1
+    theatre.globals.goods_lift_is_up is true
     gamepad.keys.pressed has RIGHT
     player.whitecrow.flip is false
     player.whitecrow.sheet is exploration
@@ -34,6 +35,27 @@ script go_to_cave
         wait 30
         fadeout 35
         theatre.scene set honeywarehouse_cave
+        hide prop.goods_lift
+        theatre.camera move (414, 134)
+        wait 10
+        fadein 10
+        player.whitecrow move (50, 7)
+        player.whitecrow play slide_ladder
+        player.whitecrow.sheet set exploration
+
+
+script go_to_cave_2
+    theatre.globals.goods_lift_is_up is false
+    gamepad.keys.pressed has RIGHT
+    player.whitecrow.flip is false
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+        player.whitecrow.sheet set honeywarehouse
+        nolock player.whitecrow play reach_ladder
+        wait 30
+        fadeout 35
+        theatre.scene set honeywarehouse_cave
+        show prop.goods_lift
         theatre.camera move (414, 134)
         wait 10
         fadein 10
@@ -149,3 +171,17 @@ script place_bottle
         player.whitecrow layover set.bg_bottles
         theatre.globals.goods_lift_is_charged set true
         theatre.globals.goods_lift_has_broken_bottle set true
+
+
+script honey_explosion
+    theatre.globals.goods_lift_bottle_has_exploded is false
+    theatre.globals.goods_lift_is_up is true
+    theatre.globals.goods_lift_is_charged is true
+        theatre.globals.goods_lift_bottle_has_exploded set true
+        nolock npc.goods_lift play explosion
+        pin player.whitecrow
+        flush player.whitecrow
+        player.whitecrow.sheet set honeywarehouse
+        player.whitecrow play honeytized
+        player.whitecrow.sheet set exploration
+        player.whitecrow.layer show honey

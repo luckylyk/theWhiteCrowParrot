@@ -5,6 +5,7 @@
     "layers": {
         "honeybottle_base": false,
         "body": true,
+        "honey": false,
         "sword": false,
         "head": true,
         "blackhelmet": false

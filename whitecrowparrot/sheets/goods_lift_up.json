@@ -1,7 +1,7 @@
 {
     "name": "",
     "default_move": "idle",
-    "evaluation_order": ["idle", "list_up", "lift_down", "up"],
+    "evaluation_order": ["idle", "list_up", "lift_down", "up", "explosion", "exploded"],
     "frame_size": [240, 270],
     "key_color": [0, 255, 0],
     "layers": {
@@ -9,6 +9,40 @@
         "brokenbottle": "goods_lift_up_brokenbottle.png"
     },
     "moves": {
+        "exploded": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [1000000],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "exploded",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 97,
+            "triggers": null
+        },
+        "explosion": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 4],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "exploded",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 82,
+            "triggers": null
+        },
         "idle": {
             "center": [0, 0],
             "conditions": {},

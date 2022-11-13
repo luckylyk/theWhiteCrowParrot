@@ -8,6 +8,7 @@
         "goods_lift_is_up": false,
         "goods_lift_is_charged": false,
         "goods_lift_has_broken_bottle": false,
+        "goods_lift_bottle_has_exploded": false,
         "has_sword": false,
         "hill_wall_collapsed": false,
         "jos_flee_running": false,

@@ -8,6 +8,7 @@
         "body": "whitecrow/exploration_body.png",
         "chain": "whitecrow/exploration_chain.png",
         "head": "whitecrow/exploration_head.png",
+        "honey": "whitecrow/exploration_honey.png",
         "sword": "whitecrow/exploration_sword.png"
     },
     "moves": {

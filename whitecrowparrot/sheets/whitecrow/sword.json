@@ -4,7 +4,8 @@
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
     "layers": {
-        "body": "whitecrow/sword.png"
+        "body": "whitecrow/sword.png",
+        "honey": "whitecrow/sword_honey.png"
     },
     "moves": {
         "back_dash": {

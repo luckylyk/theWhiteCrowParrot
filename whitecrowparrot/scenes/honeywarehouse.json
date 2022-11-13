@@ -6,7 +6,7 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-
+        
     ],
     "zones": [
         {
@@ -25,7 +25,7 @@
             "name": "reach_ladder",
             "type": "interaction",
             "affect": ["whitecrow"],
-            "scripts": ["honeywarehouse.go_to_cave"],
+            "scripts": ["honeywarehouse.go_to_cave_1", "honeywarehouse.go_to_cave_2"],
             "zone": [63, 0, 65, 27]
         },
         {
@@ -34,6 +34,13 @@
             "affect": ["whitecrow"],
             "scripts": ["honeywarehouse.turn_up_machina_from_idle_with_bottle", "honeywarehouse.turn_up_machina_from_idle_without_bottle"],
             "zone": [25, 0, 36, 27]
+        },
+        {
+            "name": "under_the_bottle",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["honeywarehouse.honey_explosion"],
+            "zone": [40, 0, 46, 27]
         }
     ],
     "elements": [
