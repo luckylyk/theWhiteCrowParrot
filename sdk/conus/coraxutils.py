@@ -55,8 +55,9 @@ def export_scene(filename, palette1, palette2):
             continue
         filepath = f'{cctx.SET_FOLDER}/{element["file"]}'
         image = Image.open(filepath)
-        switch_colors(image, palette1, palette2)
+        image = switch_colors(image, palette1, palette2)
         image.save(filepath, mode="RGBA")
+        print(filepath, 'switched')
 
 
 def load_sheet(filename):
