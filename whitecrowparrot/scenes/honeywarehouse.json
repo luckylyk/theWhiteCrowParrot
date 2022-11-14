@@ -40,7 +40,7 @@
             "type": "interaction",
             "affect": ["whitecrow"],
             "scripts": ["honeywarehouse.honey_explosion"],
-            "zone": [40, 0, 46, 27]
+            "zone": [41, 0, 46, 27]
         }
     ],
     "elements": [

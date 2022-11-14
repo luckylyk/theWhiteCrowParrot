@@ -6,7 +6,7 @@ from PySide6 import QtWidgets, QtCore, QtGui
 from conus.colorwheel import ColorWheel
 from conus.coraxutils import (
     scene_to_display_image, list_all_scenes, list_all_sheets,
-    load_sheet, sheet_to_image_display)
+    load_sheet, sheet_to_image_display, export_scene)
 from conus.imagedisplay import ImageDisplay, AnimationDisplay
 from conus.imgutils import list_rgb_colors, switch_colors, get_frame
 from conus.multislider import MultiValueSlider
@@ -61,6 +61,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.mdi_area.setTabsClosable(True)
 
         self.export = QtGui.QAction('Export', self)
+        self.export.triggered.connect(self.call_export)
         self.close_file = QtGui.QAction('Close', self)
         self.close_file.triggered.connect(self.mdi_area.closeActiveSubWindow)
         self.close_others = QtGui.QAction('Close Others', self)
@@ -258,6 +259,16 @@ class MainWindow(QtWidgets.QMainWindow):
             self.model.original_palette,
             self.palette.colors())
         self.current_widget.repaint()
+
+    def call_export(self):
+        window = self.mdi_area.currentSubWindow()
+        if not window:
+            return
+        if isinstance(self.model, SceneModel):
+            export_scene(
+                self.model.filename,
+                self.model.original_palette,
+                self.model.palette_model.colors)
 
     @property
     def current_widget(self):

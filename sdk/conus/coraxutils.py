@@ -7,7 +7,7 @@ from PIL import Image
 import corax.context as cctx
 from corax.core import NODE_TYPES
 
-from conus.imgutils import remove_key_color
+from conus.imgutils import remove_key_color, switch_colors
 
 
 class MockArguments:
@@ -22,6 +22,7 @@ class MockArguments:
     overrides = None
     use_default_config = True
     use_config = False
+    use_keyboard = False
 
 
 def init_corax(path):
@@ -44,6 +45,18 @@ def scene_to_display_image(filename):
         image = remove_key_color(filepath)
         bg.paste(image, element['position'], image)
     return bg
+
+
+def export_scene(filename, palette1, palette2):
+    with open(f'{cctx.SCENE_FOLDER}/{filename}', 'r') as file:
+        data = json.load(file)
+    for element in data['elements']:
+        if element['type'] != NODE_TYPES.SET_STATIC:
+            continue
+        filepath = f'{cctx.SET_FOLDER}/{element["file"]}'
+        image = Image.open(filepath)
+        switch_colors(image, palette1, palette2)
+        image.save(filepath, mode="RGBA")
 
 
 def load_sheet(filename):
