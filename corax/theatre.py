@@ -148,7 +148,7 @@ class Theatre:
                     character.coordinate.block_position = slot.block_position
                     character.coordinate.flip = slot.flip
 
-            if character.type == NODE_TYPES.PLAYER:
+            if character.type in (NODE_TYPES.PLAYER, NODE_TYPES.NPC):
                 character.set_no_go_zones([
                     z for z in self.scene.zones
                     if z.type == NODE_TYPES.NO_GO and

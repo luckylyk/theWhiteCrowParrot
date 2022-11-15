@@ -111,7 +111,7 @@ class Character:
         offset = sum_num_arrays(to_block_position(pixel_vector), pre_offset)
         position = sum_num_arrays(self.coordinate.block_position, offset)
         self.coordinate.block_position = position
-        logging.debug(f"Pin {self.name}: vertor({offset})")
+        logging.debug(f"Pin {self.name}: vector({offset})")
 
     @property
     def pixel_center(self):
