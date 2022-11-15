@@ -7,6 +7,7 @@
     "layers": {
         "body": "whitecrow/honeywarehouse_body.png",
         "head": "whitecrow/honeywarehouse_head.png",
+        "honey": "whitecrow/honeywarehouse_honey.png",
         "honeybottle_base": "whitecrow/honeywarehouse_honeybottle_base.png",
         "sword": "whitecrow/honeywarehouse_sword.png"
     },
