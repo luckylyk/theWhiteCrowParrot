@@ -24,6 +24,11 @@
 // built-in values: (false, true)
 
 
+script start_fight
+    zone.bruno_vs_whitecrow.enable is false
+        enable zone.bruno_vs_whitecrow
+
+
 event jump
     pin npc.bruno
     flush npc.bruno

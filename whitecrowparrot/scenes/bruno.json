@@ -13,22 +13,29 @@
             "name": "left_limit",
             "type": "no_go",
             "affect": ["whitecrow", "bruno"],
-            "zone": [0, 0, 30, 27]
+            "zone": [0, 0, 18, 27]
         },
         {
             "name": "right_limit",
             "type": "no_go",
             "affect": ["whitecrow", "bruno"],
-            "zone": [62, 0, 80, 26]
+            "zone": [64, 0, 80, 26]
         },
         {
             "name": "bruno_vs_whitecrow",
             "type": "relationship",
-            "enable": true,
+            "enable": false,
             "relationship": "bruno_vs_whitecrow",
             "subject": "bruno",
             "target": "whitecrow",
             "zone": [-10, -2, 96, 28]
+        },
+        {
+            "name": "start_the_fucking_fight",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["bruno.start_fight"],
+            "zone": [26, 21, 52, 27]
         }
     ],
     "elements": [
@@ -48,14 +55,14 @@
         {
             "name": "whitecrow",
             "type": "player",
-            "block_position": [24, 7],
+            "block_position": [14, 7],
             "flip": false
         },
         {
             "name": "bruno",
             "type": "npc",
-            "block_position": [36, 6],
-            "flip": true
+            "block_position": [50, 6],
+            "flip": false
         }
     ]
 }
