@@ -8,7 +8,8 @@ from corax.crackle.parser import (
     object_attribute, object_name, object_type, BOOL_AS_STRING, string_to_bool,
     string_to_string_list)
 from corax.hitmap import detect_hitmaps_collision
-from corax.seeker import find_animated_set, find_player, find_character
+from corax.seeker import (
+    find_animated_set, find_player, find_character, find_zone)
 
 
 def split_condition(line):
@@ -35,10 +36,21 @@ def create_subject_value_collector(subject, theatre):
             return create_gamepad_value_collector(subject, theatre)
         case "theatre":
             return create_theatre_value_collector(subject, theatre)
+        case "zone":
+            return create_zone_value_collector(subject, theatre)
         case "prop":
             seeker = find_animated_set
             return create_animated_subject_collector(
                 subject, seeker, theatre.scene)
+
+
+def create_zone_value_collector(subject, theatre):
+    attribute = object_attribute(subject)
+    zone = find_zone(theatre.scene, object_name(subject))
+    if attribute == "enable":
+        return property_collector(zone, [attribute])
+    message = f"Zone collector for attribute {attribute} is not implemented."
+    raise NotImplementedError(message)
 
 
 def create_theatre_value_collector(subject, theatre):
