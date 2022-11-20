@@ -1,7 +1,7 @@
 {
     "name": "",
-    "default_move": "collision",
-    "evaluation_order": ["collision", "belly_shoot", "wall", "back_shoot", "head_slap", "head_slap_2", "feet_hit", "back_slap", "back_low_hit", "punch"],
+    "default_move": "idle",
+    "evaluation_order": ["collision", "belly_shoot", "wall", "back_shoot", "head_slap", "head_slap_2", "feet_hit", "back_slap", "back_low_hit", "punch", "idle"],
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
     "layers": {
@@ -49,7 +49,7 @@
         "back_slap": {
             "center": [70, 155],
             "conditions": {},
-            "frames_centers": [[0, 0], [11.175667649725483, -0.26568445320424416], [19.445574809751136, -0.26568445320424416], [29.674144191888132, -0.04805531741408231], [40.77323011718572, -0.26568445320424416], [60.7951106098794, -0.4833135889943776]],
+            "frames_centers": [[0, 0], [26, 0], [42, 0], [53, 0], [56, 0], [60.7951106098794, -0.4833135889943776]],
             "frames_per_image": [2, 2, 2, 2, 2, 2],
             "hitmaps": null,
             "hold": false,
@@ -110,7 +110,7 @@
         "feet_hit": {
             "center": [170, 155],
             "conditions": {},
-            "frames_centers": null,
+            "frames_centers": [[0, 0], [0, 0], [-22, 1], [-29, 0], [-39, 0]],
             "frames_per_image": [2, 3, 4, 2, 5],
             "hitmaps": null,
             "hold": false,
@@ -153,7 +153,7 @@
         "head_slap_2": {
             "center": [170, 155],
             "conditions": {},
-            "frames_centers": null,
+            "frames_centers": [[0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [-6, 1], [-19, 0], [-31, 0], [-37, 0], [-39, 1], [-41, 0]],
             "frames_per_image": [2, 1, 1, 1, 1, 1, 2, 2, 2, 2, 4, 1],
             "hitmaps": null,
             "hold": false,
@@ -170,6 +170,23 @@
             "release_frame": -1,
             "start_at_image": 56,
             "triggers": [[0, "slap_helmet"], [7, "step_whitecrow"], [9, "step_whitecrow"], [11, "step_whitecrow"]]
+        },
+        "idle": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [1],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 0,
+            "triggers": null
         },
         "punch": {
             "center": [70, 155],

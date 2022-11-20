@@ -24,6 +24,50 @@
 // built-in values: (false, true)
 
 
+script left_fall_back
+    player.whitecrow.sheet in (fight, exploration, sword)
+    player.whitecrow.flip is false
+        disable zone.bruno_vs_whitecrow
+        flush player.whitecrow
+        player.whitecrow move (6, 9)
+        player.whitecrow.sheet set fight_2
+        player.whitecrow play border_fall_1
+        restart
+
+
+script left_fall_front
+    player.whitecrow.sheet in (fight, exploration, sword)
+    player.whitecrow.flip is true
+        disable zone.bruno_vs_whitecrow
+        flush player.whitecrow
+        player.whitecrow move (1, 9)
+        player.whitecrow.sheet set fight_2
+        player.whitecrow play border_fall_2
+        restart
+
+
+script right_fall_back
+    player.whitecrow.sheet in (fight, exploration, sword)
+    player.whitecrow.flip is true
+        disable zone.bruno_vs_whitecrow
+        flush player.whitecrow
+        player.whitecrow move (44, 7)
+        player.whitecrow.sheet set fight_2
+        player.whitecrow play window_fall_2
+        restart
+
+
+script right_fall_front
+    player.whitecrow.sheet in (fight, exploration, sword)
+    player.whitecrow.flip is false
+        disable zone.bruno_vs_whitecrow
+        flush player.whitecrow
+        player.whitecrow move (54, 7)
+        player.whitecrow.sheet set fight_2
+        player.whitecrow play window_fall_1
+        restart
+
+
 script start_fight
     zone.bruno_vs_whitecrow.enable is false
         enable zone.bruno_vs_whitecrow

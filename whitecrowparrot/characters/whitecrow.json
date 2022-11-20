@@ -20,6 +20,7 @@
         "sword": "whitecrow/sword.json",
         "collects_sword": "whitecrow/collects_sword.json",
         "fight": "whitecrow/fight.json",
+        "fight_2": "whitecrow/fight_2.json",
         "fall": "whitecrow/fall.json",
         "banner": "whitecrow/banner.json",
         "underwater": "whitecrow/underwater.json",

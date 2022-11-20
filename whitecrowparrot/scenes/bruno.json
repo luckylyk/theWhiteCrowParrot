@@ -19,7 +19,7 @@
             "name": "right_limit",
             "type": "no_go",
             "affect": ["whitecrow", "bruno"],
-            "zone": [64, 0, 80, 26]
+            "zone": [61, 0, 80, 26]
         },
         {
             "name": "bruno_vs_whitecrow",
@@ -35,7 +35,21 @@
             "type": "interaction",
             "affect": ["whitecrow"],
             "scripts": ["bruno.start_fight"],
-            "zone": [26, 21, 52, 27]
+            "zone": [22, 21, 52, 27]
+        },
+        {
+            "name": "die_left",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["bruno.left_fall_back", "bruno.left_fall_front"],
+            "zone": [9, 21, 17, 27]
+        },
+        {
+            "name": "window_right",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["bruno.right_fall_back", "bruno.right_fall_front"],
+            "zone": [62, 18, 80, 27]
         }
     ],
     "elements": [
@@ -46,10 +60,23 @@
             "shader": null
         },
         {
-            "name": "bg_test",
+            "name": "bg",
             "type": "set_static",
-            "file": "bruno/bg_test.png",
-            "position": [0, 0],
+            "file": "bruno/bg.png",
+            "position": [
+                55,
+                0
+            ],
+            "deph": 0.0
+        },
+        {
+            "name": "bg_grey",
+            "type": "set_static",
+            "file": "bruno/bg_grey.png",
+            "position": [
+                107,
+                26
+            ],
             "deph": 0.0
         },
         {
@@ -63,6 +90,36 @@
             "type": "npc",
             "block_position": [50, 6],
             "flip": false
+        },
+        {
+            "name": "chains",
+            "type": "set_static",
+            "file": "bruno/chains.png",
+            "position": [
+                252,
+                0
+            ],
+            "deph": 0.0
+        },
+        {
+            "name": "chains_2",
+            "type": "set_static",
+            "file": "bruno/chains_2.png",
+            "position": [
+                369,
+                0
+            ],
+            "deph": 0.0
+        },
+        {
+            "name": "wall",
+            "type": "set_static",
+            "file": "bruno/wall.png",
+            "position": [
+                0,
+                0
+            ],
+            "deph": 0.0
         }
     ]
 }
