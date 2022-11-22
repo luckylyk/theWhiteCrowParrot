@@ -7,6 +7,7 @@ import moderngl_window
 import pygame
 import corax.context as cctx
 from corax.renderengine import shaders
+from corax.override import load_json
 
 
 # In order to make the corax as less agnostic as possible from Pygame.
@@ -121,3 +122,16 @@ def image_mirror(id_, horizontal=True, vertical=False):
         mirror = pygame.transform.flip(image, horizontal, vertical)
         _image_store[flip_id] = mirror
     return flip_id
+
+
+def preload_characters():
+    chars = [
+        load_json(os.path.join(cctx.CHARACTER_FOLDER, filename))
+        for filename in os.listdir(cctx.CHARACTER_FOLDER)]
+    sheets = [
+        load_json(os.path.join(cctx.SHEET_FOLDER, filename))
+        for char in chars
+        for filename in char['sheets'].values()]
+    for sheet in sheets:
+        for filename in sheet["layers"].values():
+            load_frames(filename, sheet["frame_size"], sheet["key_color"])

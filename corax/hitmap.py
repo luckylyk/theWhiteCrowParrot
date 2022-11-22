@@ -1,4 +1,4 @@
-import corax.context as cctx
+import itertools
 from corax.euclide import Rect
 from corax.mathutils import sum_num_arrays
 
@@ -10,7 +10,7 @@ def flat_hitmap(hitmap, block_position):
 
 
 def detect_hitmaps_collision(
-        hitmap1, hitmap2, block_position1=None, block_position2=None):
+        hitmap1, hitmap2, block_position1=None, block_position2=None, t=False):
     """
     Detect that two given hitmaps are overlapping.
     A hitmap contains absolute coordinates, then for each hitmap, you can
@@ -18,12 +18,11 @@ def detect_hitmaps_collision(
     """
     block_position1 = block_position1 or (0, 0)
     block_position2 = block_position2 or (0, 0)
-    for block1 in hitmap1:
+    for block1, block2 in itertools.product(hitmap1, hitmap2):
         block1 = sum_num_arrays(block1, block_position1)
-        for block2 in hitmap2:
-            block2 = sum_num_arrays(block2, block_position2)
-            if block1 == block2:
-                return True
+        block2 = sum_num_arrays(block2, block_position2)
+        if block1 == block2:
+            return True
     return False
 
 

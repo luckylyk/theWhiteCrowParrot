@@ -4,5 +4,8 @@
     "default_sheet": "fight",
     "layers": {"body": true},
     "sheets": {"fight": "bruno.json"},
-    "hitmaps_color": {}
+    "hitmaps_color": {
+        "leggs": "red",
+        "hit": "blue",
+        "stroke": "yellow"}
 }

@@ -298,7 +298,6 @@ def job_flush_animation(theatre, character_name):
 def job_join(theatre, character, element_name, block_position, animations):
     element = find_element(theatre.scene, element_name)
     element_block_position = element.coordinate.block_position
-    print(character.coordinate.block_position, element_block_position)
     block_position = sum_num_arrays(element_block_position, block_position)
     return job_reach(character, block_position, animations)
 
@@ -343,7 +342,7 @@ def job_place(theatre, placer, name, offset):
 
 def job_play_animation(animable, animation_name):
     animable.animation_controller.set_move(animation_name)
-    return animable.animation_controller.animation.length - 1
+    return animable.animation_controller.animation.length
 
 
 def job_reach(character, block_position, animations):

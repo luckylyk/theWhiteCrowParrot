@@ -80,6 +80,7 @@ import corax.context as cctx
 from corax.screen import initialize_screen
 from corax.renderengine.display import setup_render_display
 from corax.renderengine.draw import render
+from corax import renderengine
 from corax.gameloop import GameLoop
 from corax.gamepad import load_config_keybinding
 from corax import config
@@ -99,6 +100,7 @@ fs = config.get('fullscreen') if cctx.USE_CONFIG else arguments.fullscreen
 
 window = setup_render_display(scaled=sc, fullscreen=fs)
 initialize_screen(cctx.RESOLUTION)
+renderengine.initialize()
 
 # This execute the Corax Engine splash screen.
 if not arguments.skip_splash:
