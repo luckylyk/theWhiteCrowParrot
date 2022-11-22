@@ -63,6 +63,7 @@ class Animation:
         if not images:
             raise ValueError(f"No image providen to build animation {name}")
         self.name = name
+        self.started = False
         self.release_frame = data.get("release_frame", -1)
         self.pre_events = data["pre_events"]
         self.post_events = data["post_events"]
@@ -77,6 +78,9 @@ class Animation:
         self.hitmaps_sequence = build_hitmaps_sequence(data, size, flip)
         self.triggers = build_triggers_list(data)
 
+    def start(self):
+        self.started = True
+
     @property
     def length(self):
         return len(self.sequences[0])
@@ -87,12 +91,12 @@ class Animation:
         return self.index < self.release_frame
 
     def is_finished(self):
-        return self.index + 1 == len(self.sequences[0])
+        return self.index + 1 >= len(self.sequences[0])
 
     def is_playing(self):
         return not self.is_finished() and self.index >= 0
 
-    def evaluate(self):
+    def next(self):
         if self.is_finished() is False:
             self.index += 1
         return self.images

@@ -243,7 +243,10 @@ class AnimationController():
                 self.set_move(self.animation.loop_on)
             else:
                 self.animation.hold = False
-        self.animation.evaluate()
+        if not self.animation.started:
+            self.animation.start()
+        else:
+            self.animation.next()
         self.coordinate.center_offset = self.animation.pixel_center
 
     @property

@@ -120,8 +120,6 @@ script pick_ladder
         player.whitecrow aim LEFT by return
         player.whitecrow.sheet set banner
         prop.ladder move (288, -100)
-        pin player.whitecrow
-        flush player.whitecrow
         player.whitecrow offset (0, -12)
         player.whitecrow play catch
 

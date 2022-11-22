@@ -78,7 +78,7 @@
             "next_move_bufferable": null,
             "post_events": {},
             "pre_events": {},
-            "release_frame": -1,
+            "release_frame": 0,
             "start_at_image": 0,
             "triggers": null
         },
@@ -221,7 +221,7 @@
                 "block_offset": [11, 0]
             },
             "pre_events": {},
-            "release_frame": -1,
+            "release_frame": 4,
             "start_at_image": 148,
             "triggers": null
         },
