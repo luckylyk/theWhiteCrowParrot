@@ -24,6 +24,17 @@
 // built-in values: (false, true)
 
 
+script startup
+    always
+        wait 15
+        theatre.scene set bruno
+        player.whitecrow move (4, 9)
+        player.whitecrow.sheet set fight_2
+        player.whitecrow play appearing
+        player.whitecrow move (14, 7)
+        player.whitecrow.sheet set exploration
+
+
 script left_fall_back
     player.whitecrow.sheet in (fight, exploration, sword)
     player.whitecrow.flip is false

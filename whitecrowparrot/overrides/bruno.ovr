@@ -1,4 +1,4 @@
-main.json["start_scene"] = "bruno"
+main.json["start_scene"] = "startup_for_bruno_fight"
 main.json["scenes"]["bruno"] = "bruno.json"
 characters/whitecrow.json["default_sheet"] = "sword"
 characters/whitecrow.json["layers"]["sword"] = true

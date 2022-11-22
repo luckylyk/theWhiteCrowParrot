@@ -2,11 +2,11 @@
     "name": "bruno",
     "type": "scene",
     "background_color": [0, 0, 0],
-    "boundary": [0, 0, 800, 268],
+    "boundary": [0, 0, 830, 268],
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-
+        
     ],
     "zones": [
         {
@@ -63,20 +63,14 @@
             "name": "bg",
             "type": "set_static",
             "file": "bruno/bg.png",
-            "position": [
-                55,
-                0
-            ],
+            "position": [55, 0],
             "deph": 0.0
         },
         {
             "name": "bg_grey",
             "type": "set_static",
             "file": "bruno/bg_grey.png",
-            "position": [
-                107,
-                26
-            ],
+            "position": [107, 26],
             "deph": 0.0
         },
         {
@@ -95,31 +89,22 @@
             "name": "chains",
             "type": "set_static",
             "file": "bruno/chains.png",
-            "position": [
-                252,
-                0
-            ],
-            "deph": 0.0
+            "position": [252, 0],
+            "deph": 0.2
         },
         {
             "name": "chains_2",
             "type": "set_static",
             "file": "bruno/chains_2.png",
-            "position": [
-                369,
-                0
-            ],
+            "position": [369, 0],
             "deph": 0.0
         },
         {
             "name": "wall",
             "type": "set_static",
             "file": "bruno/wall.png",
-            "position": [
-                0,
-                0
-            ],
-            "deph": 0.0
+            "position": [0, 0],
+            "deph": 0.4
         }
     ]
 }

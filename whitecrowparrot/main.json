@@ -44,6 +44,7 @@
         "honeywarehouse": "honeywarehouse.json",
         "honeywarehouse_cave": "honeywarehouse_cave.json",
         "mine": "mine_01.json",
+        "startup_for_bruno_fight": "startup_for_bruno_fight.json",
         "tente": "tente.json",
         "troglodyte": "troglodyte.json",
         "underwater": "underwater.json",
