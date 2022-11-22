@@ -14,6 +14,7 @@ from corax.renderengine import shaders
 # to find binary object saved here.
 _image_store = {}
 _shader_store = {}
+_animation_store = {}
 
 
 NULL_SHADER = {
@@ -69,6 +70,10 @@ def load_frames(filename, frame_size, key_color, relative=True):
     """
     if relative:
         filename = os.path.join(cctx.ANIMATION_FOLDER, filename)
+
+    if _animation_store.get(filename):
+        return _animation_store.get(filename)
+
     sheet = pygame.image.load(filename).convert()
     width, height = frame_size
     row = sheet.get_height() / height
@@ -88,6 +93,7 @@ def load_frames(filename, frame_size, key_color, relative=True):
         id_ = f'{filename}[{i}.{j}]'
         _image_store[id_] = image
         ids.append(id_)
+    _animation_store[filename] = ids
     return ids
 
 
