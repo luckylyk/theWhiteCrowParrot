@@ -367,7 +367,7 @@ class FloatField(QtWidgets.QLineEdit):
 
     @property
     def value(self):
-        return float(self.text() or 0.0)
+        return float(self.text().replace(',', '.') or 0.0)
 
     @value.setter
     def value(self, value):
