@@ -33,6 +33,8 @@
         "hit_sword": [255, 255, 0],
         "lie_down": [255, 255, 0],
         "block": [0, 0, 255],
-        "will_hit_stroke": [255, 0, 0]
+        "will_hit_stroke": [255, 0, 0],
+        "will_hit_low": [255, 0, 0],
+        "will_hit_high": [255, 0, 0]
     }
 }

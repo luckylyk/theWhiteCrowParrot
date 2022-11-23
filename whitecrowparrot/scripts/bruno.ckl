@@ -153,6 +153,12 @@ event unarmed
     wait 15
 
 
+event dodge
+    pin npc.bruno
+    flush npc.bruno
+    npc.bruno play dodge
+
+
 event finished
     pin npc.bruno
     flush npc.bruno

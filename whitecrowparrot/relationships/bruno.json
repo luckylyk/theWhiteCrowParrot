@@ -81,6 +81,12 @@
         },
         {
             "directions": null,
+            "subject_hitmap": "leggs",
+            "target_hitmap": "will_hit_high",
+            "event": "bruno.dodge"
+        },
+        {
+            "directions": null,
                 "subject_hitmap": "leggs",
             "target_hitmap": "will_hit_stroke",
             "event": "bruno.crouch"

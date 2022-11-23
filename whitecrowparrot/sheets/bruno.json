@@ -1,7 +1,7 @@
 {
     "name": "",
     "default_move": "idle",
-    "evaluation_order": ["idle", "attack", "high_blocked", "low_blocked", "jump", "high_block", "walk", "step", "attack2", "attack3", "crouch_down", "turn", "attack2_turn", "unarmed", "prey", "ko", "lie_dow_ko", "finished", "lie_down_dead", "stand_up"],
+    "evaluation_order": ["idle", "attack", "high_blocked", "low_blocked", "jump", "high_block", "walk", "step", "attack2", "attack3", "crouch_down", "turn", "attack2_turn", "unarmed", "prey", "ko", "lie_dow_ko", "finished", "lie_down_dead", "stand_up", "high_dodge", "butt_picked"],
     "frame_size": [280, 180],
     "key_color": [0, 255, 0],
     "layers": {
@@ -94,6 +94,23 @@
             "start_at_image": 17,
             "triggers": null
         },
+        "butt_picked": {
+            "center": [70, 165],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 1, 1],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 178,
+            "triggers": null
+        },
         "crouch_down": {
             "center": [70, 165],
             "conditions": {},
@@ -164,6 +181,23 @@
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 47,
+            "triggers": null
+        },
+        "high_dodge": {
+            "center": [70, 165],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [2, 2, 2, 4, 2, 2, 2, 1],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 170,
             "triggers": null
         },
         "idle": {
