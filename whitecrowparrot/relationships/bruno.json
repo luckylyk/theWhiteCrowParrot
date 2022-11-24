@@ -15,7 +15,7 @@
             "directions": null,
             "block_distance_range": [0, 1],
             "subject_animations": null,
-            "target_animations": null,
+            "target_animations": ["idle"],
             "priority": 1000,
             "moves": {
                 "walk": 1

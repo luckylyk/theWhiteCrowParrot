@@ -199,7 +199,8 @@
             "loop_on": "idle",
             "next_move": "idle",
             "next_move_bufferable": false,
-            "post_events": {},
+            "post_events": {
+                "switch_to": "whitecrow/exploration.json"},
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 90,

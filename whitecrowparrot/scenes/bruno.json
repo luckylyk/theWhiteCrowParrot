@@ -50,6 +50,13 @@
             "affect": ["whitecrow"],
             "scripts": ["bruno.right_fall_back", "bruno.right_fall_front"],
             "zone": [64, 18, 80, 27]
+        },
+        {
+            "name": "do_ko",
+            "type": "interaction",
+            "affect": "whitecrow",
+            "scripts": ["bruno.finish_punch_1", "bruno.finish_punch_2"],
+            "zone": [-5, 0, 84, 30]
         }
     ],
     "elements": [

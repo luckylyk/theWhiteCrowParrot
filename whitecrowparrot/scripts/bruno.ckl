@@ -24,6 +24,41 @@
 // built-in values: (false, true)
 
 
+script finish_punch_1
+    gamepad.keys.pressed has X
+    npc.bruno.flip is true
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+    npc.bruno.hitmap.submission overlaps player.whitecrow.hitmap.leggs
+        player.whitecrow join (5, 1) from npc.bruno by (return, walk_a, footsie)
+        wait 1
+        flush player.whitecrow
+        player.whitecrow aim RIGHT by return
+        player.whitecrow.sheet set fight
+        nolock player.whitecrow play punch
+        wait 9
+        freeze 6
+        npc.bruno play ko
+        disable zone.bruno_vs_whitecrow
+
+
+script finish_punch_2
+    gamepad.keys.pressed has X
+    npc.bruno.flip is false
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+    npc.bruno.hitmap.submission overlaps player.whitecrow.hitmap.leggs
+        player.whitecrow join (5, 1) from npc.bruno by (return, walk_a, footsie)
+        wait 1
+        flush player.whitecrow
+        player.whitecrow aim LEFT by return
+        player.whitecrow.sheet set fight
+        nolock player.whitecrow play punch
+        wait 9
+        freeze 6
+        npc.bruno play ko
+        disable zone.bruno_vs_whitecrow
+
 script startup
     always
         wait 15
