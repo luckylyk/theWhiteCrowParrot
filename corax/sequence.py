@@ -184,7 +184,7 @@ def build_sequence_to_destination(moves, data, coordinate, dst):
             sequence.append(move)
             coord.block_position = block_position
             loop_on = data["moves"][move]["loop_on"]
-            move = loop_on or move
+            move = loop_on[0] if loop_on else move
 
     logging.debug(
         "Reach: Not able to reach the destination {} "
