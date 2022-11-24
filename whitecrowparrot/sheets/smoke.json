@@ -1,27 +1,28 @@
 {
-    "layers": {"base": "smoke.png"},
-    "key_color": [0, 255, 0],
-    "frame_size": [829, 127],
     "default_move": "base",
     "evaluation_order": ["base"],
+    "frame_size": [829, 127],
+    "key_color": [0, 255, 0],
+    "layers": {
+        "base": "smoke.png"
+    },
     "moves": {
-        "base":
-            {
-                "start_at_image": 0,
-                "center": [70, 160],
-                "frames_per_image": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20],
-                "triggers": null,
-                "frames_centers": null,
-                "release_frame": -1,
-                "next_move": "base",
-                "next_move_bufferable": false,
-                "hitmaps": {},
-                "hold": false,
-                "loop_on": "base",
-                "conditions": {},
-                "inputs": [],
-                "pre_events": {},
-                "post_events": {}
-            }
+        "base": {
+            "center": [70, 160],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20, 20],
+            "hitmaps": {},
+            "hold": false,
+            "inputs": [],
+            "loop_on": ["base"],
+            "next_move": "base",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 0,
+            "triggers": null
+        }
     }
 }

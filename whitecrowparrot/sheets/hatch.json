@@ -5,44 +5,44 @@
     "frame_size": [90, 80],
     "key_color": [0, 255, 0],
     "layers": {
-            "body": "hatch.png"
-        },
+        "body": "hatch.png"
+    },
     "moves": {
-            "closed": {
-                    "center": [0, 0],
-                    "conditions": {
-                            "animation_in": ["closed"]
-                        },
-                    "frames_centers":  null,
-                    "frames_per_image": [1],
-                    "hitmaps": {},
-                    "hold":  false,
-                    "inputs":  null,
-                    "loop_on":  null,
-                    "next_move": "closed",
-                    "next_move_bufferable":  false,
-                    "post_events": {},
-                    "pre_events": {},
-                    "release_frame": -1,
-                    "start_at_image": 0,
-                    "triggers":  null
-                },
-            "hidden": {
-                    "center": [0, 0],
-                    "conditions": {},
-                    "frames_centers":  null,
-                    "frames_per_image": [1],
-                    "hitmaps":  null,
-                    "hold":  false,
-                    "inputs": [],
-                    "loop_on":  null,
-                    "next_move": "hidden",
-                    "next_move_bufferable":  false,
-                    "post_events": {},
-                    "pre_events": {},
-                    "release_frame": -1,
-                    "start_at_image": 14,
-                    "triggers":  null
-                }
+        "closed": {
+            "center": [0, 0],
+            "conditions": {
+                "animation_in": ["closed"]
+            },
+            "frames_centers": null,
+            "frames_per_image": [1],
+            "hitmaps": {},
+            "hold": false,
+            "inputs": null,
+            "loop_on": [],
+            "next_move": "closed",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 0,
+            "triggers": null
+        },
+        "hidden": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [1],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": [],
+            "next_move": "hidden",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 14,
+            "triggers": null
         }
+    }
 }

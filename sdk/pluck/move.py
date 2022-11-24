@@ -23,7 +23,7 @@ MOVE_OPTIONS_FIELDS = {
     "frames_per_image": IntArrayField,
     "hold": BoolField,
     "inputs": StrArrayField,
-    "loop_on":  StrField,
+    "loop_on":  StrArrayField,
     "next_move": StrField,
     "next_move_bufferable": BoolField,
     "post_events": DictField,

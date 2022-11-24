@@ -101,7 +101,7 @@ class AnimationController():
                 self.animation.bufferable and
                 move not in self.moves_buffer and
                 self.animation.name != move and
-                self.animation.loop_on != move)
+                move not in self.animation.loop_on)
             if conditions:
                 self.moves_buffer.insert(0, move)
 
@@ -239,8 +239,10 @@ class AnimationController():
             if self.sequence:
                 self.set_next_move()
             # this repeat the current animation or next animation on the loop
-            if self.is_offset_allowed(self.animation.loop_on):
-                self.set_move(self.animation.loop_on)
+            for move in self.animation.loop_on:
+                if self.is_offset_allowed(move):
+                    self.set_move(move)
+                    break
             else:
                 self.animation.hold = False
         if not self.animation.started:

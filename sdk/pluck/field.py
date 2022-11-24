@@ -329,7 +329,10 @@ class StrArrayField(QtWidgets.QLineEdit):
 
     @value.setter
     def value(self, value):
-        self.setText( ", ".join(value))
+        if not value:
+            self.setText("")
+            return
+        self.setText(", ".join(value))
 
 
 class TriggerField(StrField):

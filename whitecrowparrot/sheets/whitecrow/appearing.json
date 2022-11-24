@@ -4,44 +4,44 @@
     "frame_size": [220, 160],
     "key_color": [0, 255, 0],
     "layers": {
-            "body": "whitecrow/appearing.png"
-        },
+        "body": "whitecrow/appearing.png"
+    },
     "moves": {
-            "appears": {
-                    "center": [70, 155],
-                    "conditions": {},
-                    "frames_centers":  null,
-                    "frames_per_image": [1, 2, 2, 1, 1, 6, 2, 2, 2, 2, 1, 1, 1, 6, 2, 15, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 3, 3, 2, 3, 2, 2, 2, 1],
-                    "hitmaps": {},
-                    "hold":  false,
-                    "inputs": ["X"],
-                    "loop_on": "idle",
-                    "next_move": "idle",
-                    "next_move_bufferable":  false,
-                    "post_events": {
-                            "switch_to": "whitecrow/exploration.json"
-                        },
-                    "pre_events": {},
-                    "release_frame": -1,
-                    "start_at_image": 1,
-                    "triggers": [[34, "step_whitecrow"], [39, "step_whitecrow"], [45, "step_whitecrow"], [48, "step_whitecrow"]]
-                },
-            "idle": {
-                    "center": [70, 155],
-                    "conditions": {},
-                    "frames_centers":  null,
-                    "frames_per_image": [1],
-                    "hitmaps": {},
-                    "hold":  false,
-                    "inputs": [],
-                    "loop_on": "idle",
-                    "next_move": "idle",
-                    "next_move_bufferable":  false,
-                    "post_events": {},
-                    "pre_events": {},
-                    "release_frame": -1,
-                    "start_at_image": 0,
-                    "triggers":  null
-                }
+        "appears": {
+            "center": [70, 155],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [1, 2, 2, 1, 1, 6, 2, 2, 2, 2, 1, 1, 1, 6, 2, 15, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 2, 2, 2, 2, 2, 2, 2, 3, 3, 2, 3, 2, 2, 2, 1],
+            "hitmaps": {},
+            "hold": false,
+            "inputs": ["X"],
+            "loop_on": ["idle"],
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {
+                "switch_to": "whitecrow/exploration.json"
+            },
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 1,
+            "triggers": [[34, "step_whitecrow"], [39, "step_whitecrow"], [45, "step_whitecrow"], [48, "step_whitecrow"]]
+        },
+        "idle": {
+            "center": [70, 155],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [1],
+            "hitmaps": {},
+            "hold": false,
+            "inputs": [],
+            "loop_on": ["idle"],
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 0,
+            "triggers": null
         }
+    }
 }
