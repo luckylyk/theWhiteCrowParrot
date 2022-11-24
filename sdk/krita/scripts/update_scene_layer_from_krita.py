@@ -9,7 +9,7 @@ SRGB_PROFILE = "sRGB-elle-V2-srgbtrc.icc"
 ROOT = "D:/Works/code/GitHub/theWhiteCrowParrot/whitecrowparrot"
 SET_ROOT = f'{ROOT}/sets'
 BACKUP_ROOT = f'{ROOT}/setbackup'
-JSON = "scenes/honeywarehouse_cave.json"
+JSON = "scenes/bruno.json"
 
 
 def load_scene(coraxroot, scenefile):

@@ -11,7 +11,7 @@ import json
 
 
 SRGB_PROFILE = "sRGB-elle-V2-srgbtrc.icc"
-FOLDER = r"C:\Users\lio\Desktop\walk\test"
+FOLDER = r"C:\Users\lio\Desktop\zini\zut"
 LEVEL_FOLDER = "honeywarehouse_cave"
 LEVEL_FILE = "honeywarehouse_cave.json"
 DEFAULT_DATA = {
