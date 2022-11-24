@@ -215,8 +215,8 @@ def render_player_debug(player, deph, surface, camera):
         return
 
     draw_grid(surface, camera, (125, 125, 125), alpha=50)
-    # Render coordinates infos on onverlay
     size = player.animation_controller.size
+    # Render coordinates infos on onverlay
     center = player.animation_controller.animation.pixel_center
     position = sum_num_arrays(center, player.pixel_position)
     x, y = camera.relative_pixel_position(position, deph)
@@ -254,7 +254,6 @@ def render_player_debug(player, deph, surface, camera):
     text = f"    (camera center position: {camera.pixel_center})"
     x, y = map_to_render_area(0, 90)
     draw_text(surface, (155, 255, 0), x, y, text)
-
     # Render hitmaps
     for name, blocks in player.hitmaps.items():
         color = player.hitmap_colors.get(name)

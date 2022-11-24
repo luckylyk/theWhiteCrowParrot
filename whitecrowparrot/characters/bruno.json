@@ -6,6 +6,7 @@
     "sheets": {"fight": "bruno.json"},
     "hitmaps_color": {
         "leggs": "red",
+        "butt": "pink",
         "hit": "blue",
         "stroke": "yellow"}
 }

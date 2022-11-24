@@ -28,10 +28,10 @@ script startup
     always
         wait 15
         theatre.scene set bruno
-        player.whitecrow move (4, 9)
+        player.whitecrow move (6, 9)
         player.whitecrow.sheet set fight_2
         player.whitecrow play appearing
-        player.whitecrow move (14, 7)
+        player.whitecrow move (16, 7)
         player.whitecrow.sheet set exploration
 
 
@@ -40,7 +40,7 @@ script left_fall_back
     player.whitecrow.flip is false
         disable zone.bruno_vs_whitecrow
         flush player.whitecrow
-        player.whitecrow move (6, 9)
+        player.whitecrow move (8, 9)
         player.whitecrow.sheet set fight_2
         player.whitecrow play border_fall_1
         restart
@@ -51,7 +51,7 @@ script left_fall_front
     player.whitecrow.flip is true
         disable zone.bruno_vs_whitecrow
         flush player.whitecrow
-        player.whitecrow move (1, 9)
+        player.whitecrow move (3, 9)
         player.whitecrow.sheet set fight_2
         player.whitecrow play border_fall_2
         restart
@@ -62,7 +62,7 @@ script right_fall_back
     player.whitecrow.flip is true
         disable zone.bruno_vs_whitecrow
         flush player.whitecrow
-        player.whitecrow move (44, 7)
+        player.whitecrow move (46, 7)
         player.whitecrow.sheet set fight_2
         player.whitecrow play window_fall_2
         restart
@@ -73,7 +73,7 @@ script right_fall_front
     player.whitecrow.flip is false
         disable zone.bruno_vs_whitecrow
         flush player.whitecrow
-        player.whitecrow move (54, 7)
+        player.whitecrow move (56, 7)
         player.whitecrow.sheet set fight_2
         player.whitecrow play window_fall_1
         restart
@@ -156,10 +156,20 @@ event unarmed
 event dodge
     pin npc.bruno
     flush npc.bruno
-    npc.bruno play dodge
+    npc.bruno play high_dodge
+
+
+event butt_picked
+    pin npc.bruno
+    flush npc.bruno
+    npc.bruno play butt_picked
 
 
 event finished
     pin npc.bruno
     flush npc.bruno
+    player.whitecrow play stroke_retrieve
     npc.bruno play finished
+
+
+    // ["subject_from_behind"]
