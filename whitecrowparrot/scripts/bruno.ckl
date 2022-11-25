@@ -207,6 +207,3 @@ event finished
     flush npc.bruno
     player.whitecrow play stroke_retrieve
     npc.bruno play finished
-
-
-    // ["subject_from_behind"]
