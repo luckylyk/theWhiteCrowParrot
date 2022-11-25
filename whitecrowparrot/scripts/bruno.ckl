@@ -197,6 +197,8 @@ event dodge
 event butt_picked
     pin npc.bruno
     flush npc.bruno
+    freeze 3
+    flush npc.bruno
     npc.bruno play butt_picked
 
 
