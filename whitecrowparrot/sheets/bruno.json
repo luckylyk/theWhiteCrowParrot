@@ -108,7 +108,9 @@
             "loop_on": ["idle"],
             "next_move": "idle",
             "next_move_bufferable": false,
-            "post_events": {},
+            "post_events": {
+                "block_offset": [4, 0]
+            },
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 178,
