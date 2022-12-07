@@ -1,6 +1,6 @@
 {
     "default_move": "idle",
-    "evaluation_order": ["run_start", "footsie_forced", "run_b", "run_a", "run_off", "walk_off", "walk_a", "walk_b", "return", "run_return", "crouched_return", "draw_sword", "footsie", "crouched_over_walk", "crouch_down", "crouch_down_slow", "stand_up", "stand_up_slow", "crouched_over", "through_door", "idk", "idle"],
+    "evaluation_order": ["run_start", "footsie_forced", "run_b", "run_a", "run_off", "walk_off", "walk_a", "walk_b", "return", "run_return", "crouched_return", "draw_sword", "footsie", "micro_footsie", "crouched_over_walk", "crouch_down", "crouch_down_slow", "stand_up", "stand_up_slow", "crouched_over", "through_door", "idk", "idle", "jump", "dodge"],
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
     "layers": {
@@ -15,7 +15,7 @@
         "crouch_down": {
             "center": [70, 155],
             "conditions": {
-                "animation_in": ["idle", "walk_a", "walk_b", "walk_off", "run_off", "run_a", "run_b"]
+                "animation_in": ["idle", "walk_a", "walk_b", "walk_off", "run_off", "run_a", "run_b", "jump", "dodge"]
             },
             "frames_centers": null,
             "frames_per_image": [1, 1, 1, 1, 1, 1],
@@ -126,6 +126,27 @@
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 57,
+            "triggers": null
+        },
+        "dodge": {
+            "center": [70, 155],
+            "conditions": {
+                "animation_in": ["idle", "jump", "walk_a", "walk_b", "walk_off", "stand_up", "run_a", "run_b", "run_off", "return", "run_return", "idk", "footsie", "micro_footsie"]
+            },
+            "frames_centers": null,
+            "frames_per_image": [2, 2, 1, 2, 2, 2, 1, 3],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": ["idle"],
+            "next_move": "idle",
+            "next_move_bufferable": true,
+            "post_events": {
+                "block_offset": [-6, 0]
+            },
+            "pre_events": {},
+            "release_frame": 5,
+            "start_at_image": 143,
             "triggers": null
         },
         "draw_sword": {
@@ -248,10 +269,50 @@
             "start_at_image": 0,
             "triggers": null
         },
+        "jump": {
+            "center": [70, 155],
+            "conditions": {
+                "animation_in": ["idle", "jump", "walk_a", "walk_b", "walk_off", "stand_up", "run_a", "run_b", "run_off", "return", "run_return", "idk", "footsie", "micro_footsie", "dadge"]
+            },
+            "frames_centers": null,
+            "frames_per_image": [1, 1, 2, 3, 4, 3, 2, 2, 1, 1, 2],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": ["idle"],
+            "next_move": "idle",
+            "next_move_bufferable": true,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": 8,
+            "start_at_image": 132,
+            "triggers": null
+        },
+        "micro_footsie": {
+            "center": [70, 155],
+            "conditions": {
+                "animation_in": ["idle"]
+            },
+            "frames_centers": [[0, 0], [3, 0], [7, 0], [11, 0]],
+            "frames_per_image": [1, 1, 1, 1],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": ["RIGHT"],
+            "loop_on": ["idle"],
+            "next_move": "idle",
+            "next_move_bufferable": true,
+            "post_events": {
+                "block_offset": [1, 0]
+            },
+            "pre_events": {},
+            "release_frame": 2,
+            "start_at_image": 127,
+            "triggers": null
+        },
         "return": {
             "center": [70, 155],
             "conditions": {
-                "animation_in": ["idle", "walk_off", "walk_a", "walk_b"]
+                "animation_in": ["idle", "walk_off", "walk_a", "walk_b", "jump"]
             },
             "frames_centers": null,
             "frames_per_image": [1, 1, 1],
@@ -277,7 +338,7 @@
         "run_a": {
             "center": [70, 155],
             "conditions": {
-                "animation_in": ["idle", "walk_a", "walk_b", "walk_off"]
+                "animation_in": ["idle", "walk_a", "walk_b", "walk_off", "jump", "dodge"]
             },
             "frames_centers": [[10, 0], [20, 0], [30, 0], [40, 0], [50, 0], [60, 0], [70, 0], [80, 0], [90, 0], [100, 0], [110, 0], [120, 0]],
             "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -441,7 +502,7 @@
         "through_door": {
             "center": [70, 155],
             "conditions": {
-                "animation_in": ["idle", "walk_off"]
+                "animation_in": ["idle", "walk_off", "run_off"]
             },
             "frames_centers": null,
             "frames_per_image": [2, 2, 1, 2, 2, 10],
@@ -460,7 +521,7 @@
         "walk_a": {
             "center": [70, 155],
             "conditions": {
-                "animation_in": ["idle", "walk_off"]
+                "animation_in": ["idle", "walk_off", "jump", "dodge"]
             },
             "frames_centers": [[0, 0], [3, 0], [7, 0], [10, 0], [13, 0], [17, 0], [21, 0], [24, 0], [27, 0], [31, 0], [34, 0], [37, 0]],
             "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -471,7 +532,7 @@
             },
             "hold": true,
             "inputs": ["RIGHT"],
-            "loop_on": ["walk_b", "footsie"],
+            "loop_on": ["walk_b", "footsie", "micro_footsie"],
             "next_move": "walk_off",
             "next_move_bufferable": true,
             "post_events": {
