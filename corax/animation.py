@@ -74,7 +74,7 @@ class Animation:
         self.hold = data["hold"]
         self.next_move = data["next_move"]
         self.loop_on = data["loop_on"]
-        self.repeatable = data["loop_on"] is not None
+        self.repeatable = bool(data["loop_on"])
         self.hitmaps_sequence = build_hitmaps_sequence(data, size, flip)
         self.triggers = build_triggers_list(data)
 
