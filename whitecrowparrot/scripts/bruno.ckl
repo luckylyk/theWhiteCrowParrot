@@ -30,7 +30,7 @@ script finish_punch_1
     player.whitecrow.sheet is exploration
     player.whitecrow.animation is idle
     npc.bruno.hitmap.submission overlaps player.whitecrow.hitmap.leggs
-        player.whitecrow join (5, 1) from npc.bruno by (return, walk_a, footsie)
+        player.whitecrow join (5, 1) from npc.bruno by (return, walk_a, footsie, micro_footsie)
         wait 1
         flush player.whitecrow
         player.whitecrow aim RIGHT by return
@@ -48,7 +48,7 @@ script finish_punch_2
     player.whitecrow.sheet is exploration
     player.whitecrow.animation is idle
     npc.bruno.hitmap.submission overlaps player.whitecrow.hitmap.leggs
-        player.whitecrow join (5, 1) from npc.bruno by (return, walk_a, footsie)
+        player.whitecrow join (5, 1) from npc.bruno by (return, walk_a, footsie, micro_footsie)
         wait 1
         flush player.whitecrow
         player.whitecrow aim LEFT by return
