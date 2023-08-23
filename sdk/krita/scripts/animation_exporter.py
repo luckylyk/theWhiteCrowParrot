@@ -1,10 +1,10 @@
 import krita
 import time
 import math
-from PySide6 import QtGui, QtCore, QtWidgets
+from PyQt5 import QtGui, QtCore, QtWidgets
 
 
-OUTPUT_PATH = r"D:\Works\code\GitHub\theWhiteCrowParrot\whitecrowparrot\animations\test.png"
+OUTPUT_PATH = r"D:\Works\code\GitHub\theWhiteCrowParrot\whitecrowparrot\animations\whitecrow\test.png"
 SRGB_PROFILE = "sRGB-elle-V2-srgbtrc.icc"
 
 

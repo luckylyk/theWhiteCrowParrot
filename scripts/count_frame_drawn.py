@@ -10,11 +10,15 @@ EXCLUDES = (
     "bruno.json",
     "sinoc.json")
 
-sheet_folder = os.path.join(os.path.dirname(__file__), "../whitecrowparrot/sheets")
-files = os.listdir(sheet_folder)
-sheets = [os.path.join(sheet_folder, f) for f in files if f.endswith(".json")]
-files = [f for f in os.listdir(sheet_folder) if f not in files]
-sheets.extend([os.path.join(sheet_folder, f) for f in files if f.endswith(".json")])
+sheet_folders = [
+    os.path.join(os.path.dirname(__file__), "../whitecrowparrot/sheets"),
+    os.path.join(os.path.dirname(__file__), "../whitecrowparrot/sheets/whitecrow")]
+sheets = []
+for sheet_folder in sheet_folders:
+    files = os.listdir(sheet_folder)
+    # sheets = [os.path.join(sheet_folder, f) for f in files if f.endswith(".json")]
+    # files = [f for f in os.listdir(sheet_folder) if f not in files]
+    sheets.extend([os.path.join(sheet_folder, f) for f in files if f.endswith(".json")])
 sheets = [s for s in sheets if os.path.basename(s) not in EXCLUDES]
 for sheet in sheets:
     print(sheet)
@@ -35,6 +39,7 @@ class MockArguments:
     speedup = False
     overrides = None
     use_config = False
+    use_keyboard = False
     use_default_config = True
 
 

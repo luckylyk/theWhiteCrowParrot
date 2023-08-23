@@ -12,14 +12,9 @@ import json
 
 SRGB_PROFILE = "sRGB-elle-V2-srgbtrc.icc"
 FOLDER = r"C:\Users\lio\Desktop\zini\zut"
-LEVEL_FOLDER = "honeywarehouse_cave"
-LEVEL_FILE = "honeywarehouse_cave.json"
+LEVEL_FOLDER = "sumo_test"
+LEVEL_FILE = "coordinate.json"
 DEFAULT_DATA = {
-    "name": None,
-    "type": "set_static",
-    "file": None,
-    "position": None,
-    "deph": 0.0
 }
 
 def check_name_clash(nodes):

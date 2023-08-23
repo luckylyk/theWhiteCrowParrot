@@ -1,0 +1,83 @@
+{
+    "name": "",
+    "default_move": "idle",
+    "evaluation_order": ["idle", "throw", "pick", "release"],
+    "frame_size": [220, 230],
+    "key_color": [0, 255, 0],
+    "layers": {
+        "body": "whitecrow/chain_body.png",
+        "head": "whitecrow/chain_head.png",
+        "sword": "whitecrow/chain_sword.png",
+        "chain": "whitecrow/chain_chain.png"
+    },
+    "moves": {
+        "idle": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [1],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": null,
+            "next_move": "idle",
+            "next_move_bufferable": null,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 0,
+            "triggers": null
+        },
+        "pick": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 24,
+            "triggers": null
+        },
+        "release": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 2, 2, 2, 2, 2],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 37,
+            "triggers": null
+        },
+        "throw": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": "idle",
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 1,
+            "triggers": null
+        }
+    }
+}

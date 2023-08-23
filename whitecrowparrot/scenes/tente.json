@@ -403,6 +403,16 @@
             "file": "tente/armor_boot.png",
             "position": [498, 236],
             "deph": 0.0
+        },
+        {
+            "name": "beam",
+            "type": "set_static",
+            "file": "tente/beam.png",
+            "position": [
+                327,
+                58
+            ],
+            "deph": 0.0
         }
     ]
 }
