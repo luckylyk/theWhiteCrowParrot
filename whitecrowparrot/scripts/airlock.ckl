@@ -34,15 +34,15 @@ script climb
         hide static.chain
         player.whitecrow.layer show chain
         player.whitecrow.sheet set airlock
-        player.whitecrow.sheet
         player.whitecrow offset (6, -8)
         nolock player.whitecrow play catch_chain
         fadeout 18
         theatre.scene set tente
-        fadein 20
+        wait 10
         hide static.hanging_chain
         player.whitecrow move (31, 3)
         player.whitecrow.sheet set chain
+        nolock fadein 20
         player.whitecrow play release
         player.whitecrow.layer hide chain
         player.whitecrow.sheet set exploration

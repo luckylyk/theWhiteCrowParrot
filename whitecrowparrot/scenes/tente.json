@@ -294,26 +294,10 @@
             "deph": 0.0
         },
         {
-            "name": "hanging_chain",
-            "type": "set_static",
-            "file": "tente/hanging_chain.png",
-            "position": [399, 69],
-            "deph": 0.0,
-            "visible": false
-        },
-        {
             "name": "beam",
             "type": "set_static",
             "file": "tente/beam.png",
             "position": [327, 58],
-            "deph": 0.0
-        },
-        {
-            "name": "hatch",
-            "type": "set_animated",
-            "file": "hatch.json",
-            "position": [390, 180],
-            "alpha": 255,
             "deph": 0.0
         },
         {
@@ -328,6 +312,22 @@
             "type": "set_static",
             "file": "tente/candlestick_01.png",
             "position": [411, 172],
+            "deph": 0.0
+        },
+        {
+            "name": "hanging_chain",
+            "type": "set_static",
+            "file": "tente/hanging_chain.png",
+            "position": [399, 69],
+            "deph": 0.0,
+            "visible": false
+        },
+        {
+            "name": "hatch",
+            "type": "set_animated",
+            "file": "hatch.json",
+            "position": [390, 180],
+            "alpha": 255,
             "deph": 0.0
         },
         {
