@@ -6,13 +6,13 @@
     "key_color": [0, 255, 0],
     "layers": {
         "body": "whitecrow/airlock_body.png",
-        "sword": "whitecrow/airlock_sword.png",
         "chain": "whitecrow/airlock_chain.png",
-        "head": "whitecrow/airlock_head.png"
+        "head": "whitecrow/airlock_head.png",
+        "sword": "whitecrow/airlock_sword.png"
     },
     "moves": {
         "abseiling": {
-            "center": [70, 235],
+            "center": [130, 235],
             "conditions": {},
             "frames_centers": null,
             "frames_per_image": [1, 1, 2, 1, 1, 1, 2, 1, 1, 2, 1, 1, 2, 2, 2],
@@ -29,10 +29,10 @@
             "triggers": null
         },
         "catch_chain": {
-            "center": [70, 235],
+            "center": [100, 235],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [2, 2, 2, 2],
+            "frames_per_image": [2, 2, 2, 20],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -80,7 +80,7 @@
             "triggers": null
         },
         "open_trap": {
-            "center": [70, 235],
+            "center": [80, 235],
             "conditions": {},
             "frames_centers": null,
             "frames_per_image": [3, 3, 2, 2, 4, 3, 1, 1, 1, 1, 1, 1, 2, 3, 2, 2],
@@ -97,7 +97,7 @@
             "triggers": null
         },
         "release_rope": {
-            "center": [70, 235],
+            "center": [80, 235],
             "conditions": {},
             "frames_centers": null,
             "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],

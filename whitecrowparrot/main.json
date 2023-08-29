@@ -1,6 +1,9 @@
 {
     "fade_in_duration": 50,
     "globals": {
+        "airlock_rope_released": false,
+        "airlock_trap_open": false,
+        "chain_hanging": false,
         "chest_empty": false,
         "chest_locked": true,
         "chest_moved": false,
@@ -10,6 +13,8 @@
         "goods_lift_has_broken_bottle": false,
         "goods_lift_bottle_has_exploded": false,
         "has_sword": false,
+        "holding_seeds": false,
+        "holding_chain": false,
         "hill_wall_collapsed": false,
         "jos_flee_running": false,
         "jos_is_waiting": true,

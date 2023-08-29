@@ -1,7 +1,7 @@
 {
     "name": "",
     "default_move": "idle",
-    "evaluation_order": ["idle", "gather_cereal", "throw_cereal"],
+    "evaluation_order": ["idle", "pick_seeds", "throw_seeds"],
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
     "layers": {
@@ -10,7 +10,7 @@
         "sword": "whitecrow/interactions_2_sword.png"
     },
     "moves": {
-        "gather_cereal": {
+        "pick_seeds": {
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
@@ -44,7 +44,7 @@
             "start_at_image": 0,
             "triggers": null
         },
-        "throw_cereal": {
+        "throw_seeds": {
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,

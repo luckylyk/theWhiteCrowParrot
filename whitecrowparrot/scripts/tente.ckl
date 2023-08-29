@@ -1,0 +1,90 @@
+// Welcome to Crackle Script.
+//
+// This is the Corax Engine event script language.
+// Don't be scared, it's extremely easy to use. The language rely on indent of
+// four spaces. It is composed of scripts which are evaluated by the Zones
+// where it is attached. For instance, a zone named "chest_interaction" has is
+// defined as "affected by whitecrow", the script will be evaluated when the
+// zone contains the center of "whitecrow".
+// The syntax is pretty simple, zero indent is the script declaration level.
+// First indent level is the condition to execute the followings jobs and the
+// second indent level is the job queue.
+//
+// List of available keywords:
+// declaration: (script, event)
+// conditional and time related adverbs/function: (always, freeze, nolock,
+//                                                 wait)
+// comparators: (by, from, has, in, is, overlaps)
+// functions: (aim, checkpoint, clear, fadein, fadeout, flush, force, freeze,
+//             hide, join, layover, move, pin, play, reach, restart, restore,
+//             run, show, set, shift, wait, add, remove, offset)
+// corax known objects: (animation, flip, gamepad, globals, hitmap, key,
+//                       name, player, pressed, scene, sheet, theatre, zone,
+//                       camera, target)
+// built-in values: (false, true)
+
+
+script throw_chain
+    gamepad.keys.pressed has X
+    theatre.globals.holding_chain is true
+    player.whitecrow.animation is idle
+    player.whitecrow.sheet is exploration
+        player.whitecrow reach (29, 8) by (return, walk_a, footsie, micro_footsie)
+        player.whitecrow aim RIGHT by return
+        player.whitecrow.sheet set chain
+        player.whitecrow offset (0, -5)
+        player.whitecrow play throw
+        player.whitecrow.layer hide chain
+        player.whitecrow offset (0, 5)
+        player.whitecrow.sheet set exploration
+        theatre.globals.chain_hanging set true
+        theatre.globals.holding_chain set false
+        show static.hanging_chain
+        checkpoint
+
+
+script go_down_with_chain
+    gamepad.keys.pressed has X
+    theatre.globals.chest_moved is true
+    theatre.globals.chain_hanging is true
+    player.whitecrow.animation is idle
+    player.whitecrow.sheet is exploration
+        player.whitecrow reach (31, 8) by (return, walk_a, footsie, micro_footsie)
+        player.whitecrow aim RIGHT by return
+        player.whitecrow.layer show chain
+        hide static.hanging_chain
+        player.whitecrow.sheet set chain
+        player.whitecrow offset (0, -5)
+        player.whitecrow play pick
+        show static.hanging_chain
+        theatre.scene set airlock
+        player.whitecrow move (33, 0)
+        player.whitecrow.sheet set airlock
+        player.whitecrow play abseiling
+        player.whitecrow.sheet set exploration
+        player.whitecrow offset (9, 8)
+        player.whitecrow.layer hide chain
+        show static.chain
+
+
+script jump_down
+    player.whitecrow.flip is false
+    theatre.globals.chain_hanging is false
+    gamepad.keys.pressed has RIGHT
+    theatre.globals.chest_moved is true
+        player.whitecrow.sheet set chest
+        player.whitecrow play jump_down
+        theatre.scene set airlock
+        player.whitecrow.sheet set airlock
+        player.whitecrow move (34, 0)
+        theatre.camera move (420, 134)
+        wait 15
+        player.whitecrow play fall
+        theatre.scene set hole
+        theatre.globals.has_sword set false
+        player.whitecrow.layer hide sword
+        player.whitecrow.sheet set fall
+        wait 15
+        player.whitecrow play fall
+        checkpoint
+

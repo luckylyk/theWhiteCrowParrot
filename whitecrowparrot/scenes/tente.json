@@ -212,7 +212,7 @@
             "name": "jump",
             "type": "interaction",
             "affect": ["whitecrow"],
-            "scripts": ["chest.jump_down"],
+            "scripts": ["tente.jump_down"],
             "zone": [37, 20, 39, 26]
         },
         {
@@ -221,6 +221,34 @@
             "affect": ["whitecrow"],
             "scripts": ["chest.unlock_low"],
             "zone": [34, 20, 38, 26]
+        },
+        {
+            "name": "pick_seeds",
+            "type": "interaction",
+            "affect": "whitecrow",
+            "scripts": ["bird.pick_seeds"],
+            "zone": [31, 20, 36, 26]
+        },
+        {
+            "name": "throw_seeds",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["bird.throw_seeds_no_bird"],
+            "zone": [21, 20, 55, 26]
+        },
+        {
+            "name": "throw_chain",
+            "type": "interaction",
+            "affect": "whitecrow",
+            "scripts": ["tente.throw_chain"],
+            "zone": [32, 20, 40, 26]
+        },
+        {
+            "name": "hanging_chain_zone",
+            "type": "interaction",
+            "affect": "whitecrow",
+            "scripts": ["tente.go_down_with_chain"],
+            "zone": [36, 20, 41, 26]
         }
     ],
     "elements": [
@@ -263,6 +291,21 @@
             "type": "set_static",
             "file": "tente/stake.png",
             "position": [434, 7],
+            "deph": 0.0
+        },
+        {
+            "name": "hanging_chain",
+            "type": "set_static",
+            "file": "tente/hanging_chain.png",
+            "position": [399, 69],
+            "deph": 0.0,
+            "visible": false
+        },
+        {
+            "name": "beam",
+            "type": "set_static",
+            "file": "tente/beam.png",
+            "position": [327, 58],
             "deph": 0.0
         },
         {
@@ -402,16 +445,6 @@
             "type": "set_static",
             "file": "tente/armor_boot.png",
             "position": [498, 236],
-            "deph": 0.0
-        },
-        {
-            "name": "beam",
-            "type": "set_static",
-            "file": "tente/beam.png",
-            "position": [
-                327,
-                58
-            ],
             "deph": 0.0
         }
     ]

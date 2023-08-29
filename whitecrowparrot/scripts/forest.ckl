@@ -7,7 +7,7 @@
 // defined as "affected by whitecrow", the script will be evaluated when the
 // zone contains the center of "whitecrow".
 // The syntax is pretty simple, zero indent is the script declaration level.
-// Firt indent level is the condition to execute the followings jobs and the
+// First indent level is the condition to execute the followings jobs and the
 // second indent level is the job queue.
 //
 // List of available keywords:
@@ -38,7 +38,7 @@ script go_to_tente
     theatre.scene.name is forest
     player.whitecrow.sheet is exploration
     player.whitecrow.animation is idle
-        player.whitecrow reach (432, 10) by (return, walk_a, footsie)
+        player.whitecrow reach (432, 10) by (return, walk_a, footsie, micro_footsie)
         player.whitecrow aim RIGHT by return
         nolock fadeout 10
         player.whitecrow play through_door
@@ -116,7 +116,7 @@ script pick_ladder
     player.whitecrow.animation is idle
     prop.ladder.hitmap.ground_zone overlaps player.whitecrow.hitmap.leggs
     gamepad.keys.pressed has X
-        player.whitecrow join (-2, 10) from prop.ladder by (return, walk_a, footsie)
+        player.whitecrow join (-2, 10) from prop.ladder by (return, walk_a, footsie, micro_footsie)
         player.whitecrow aim LEFT by return
         player.whitecrow.sheet set banner
         prop.ladder move (288, -100)
@@ -149,7 +149,7 @@ script prepare_jump
     player.whitecrow.flip is true
     player.whitecrow.animation is idle
     player.whitecrow.sheet is exploration
-        player.whitecrow reach (112, 10) by (return, walk_a, footsie)
+        player.whitecrow reach (112, 10) by (return, walk_a, footsie, micro_footsie)
         player.whitecrow aim LEFT by return
         player.whitecrow.sheet set hivesjump
         player.whitecrow offset (13, 1)

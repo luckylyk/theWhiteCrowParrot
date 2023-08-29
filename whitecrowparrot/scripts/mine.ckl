@@ -7,7 +7,7 @@
 // defined as "affected by whitecrow", the script will be evaluated when the
 // zone contains the center of "whitecrow".
 // The syntax is pretty simple, zero indent is the script declaration level.
-// Firt indent level is the condition to execute the followings jobs and the
+// First indent level is the condition to execute the followings jobs and the
 // second indent level is the job queue.
 //
 // List of available keywords:
@@ -28,7 +28,7 @@ script prepare_to_push_the_cart
     player.whitecrow.sheet is exploration
     player.whitecrow.animation is idle
     prop.cart_bg.animation is idle
-        player.whitecrow reach (53, -3) by (return, walk_a, footsie)
+        player.whitecrow reach (53, -3) by (return, walk_a, footsie, micro_footsie)
         player.whitecrow aim LEFT by return
         player.whitecrow.sheet set exploration_2
         player.whitecrow play prepare_to_push
@@ -192,11 +192,11 @@ script cut_scene
 script denunciation
     theatre.globals.lie_down_miner_is_dead is false
     player.whitecrow.sheet is exploration
-    player.whitecrow.animation in (idle, footsie, walk_a, walk_b run_b, run_a, run_off, walk_off)
+    player.whitecrow.animation in (idle, micro_footsie, footsie, walk_a, walk_b run_b, run_a, run_off, walk_off)
         theatre.globals.lie_down_miner_is_dead set true
         prop.lie_down_miner_fg play denunciation
         nolock prop.blackknight_strangulation play walk_out
-        player.whitecrow reach (22, 7) by (return, walk_a, footsie)
+        player.whitecrow reach (22, 7) by (return, walk_a, footsie, micro_footsie)
         player.whitecrow aim RIGHT by return
         player.whitecrow play idle
         wait 30
@@ -212,7 +212,7 @@ script denunciation
 script dead_by_snusnu
     prop.blackknight.animation is idle
     player.whitecrow.sheet is exploration
-        player.whitecrow reach (11, 9) by (return, walk_a, footsie)
+        player.whitecrow reach (11, 9) by (return, walk_a, footsie, micro_footsie)
         player.whitecrow aim LEFT by return
         wait 1
         pin player.whitecrow

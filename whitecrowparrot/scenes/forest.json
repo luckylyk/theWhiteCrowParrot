@@ -332,6 +332,13 @@
             "affect": "whitecrow",
             "scripts": ["forest.through_banner"],
             "zone": [118, 23, 124, 28]
+        },
+        {
+            "name": "throw_seeds",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["bird.throw_seeds_no_bird"],
+            "zone": [130, 19, 590, 28]
         }
     ],
     "elements": [
@@ -679,12 +686,11 @@
             "deph": -0.05
         },
         {
-            "type": "layer",
             "name": "middle",
-            "shader": null,
-            "deph": 0.0
+            "type": "layer",
+            "deph": 0.0,
+            "shader": null
         },
-
         {
             "name": "forest_01/mid_tree_04",
             "type": "set_static",

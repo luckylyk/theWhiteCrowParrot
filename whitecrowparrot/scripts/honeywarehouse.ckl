@@ -7,7 +7,7 @@
 // defined as "affected by whitecrow", the script will be evaluated when the
 // zone contains the center of "whitecrow".
 // The syntax is pretty simple, zero indent is the script declaration level.
-// Firt indent level is the condition to execute the followings jobs and the
+// First indent level is the condition to execute the followings jobs and the
 // second indent level is the job queue.
 //
 // List of available keywords:
@@ -68,7 +68,7 @@ script climb_ladder
     gamepad.keys.pressed has UP
     player.whitecrow.sheet is exploration
     player.whitecrow.animation is idle
-        player.whitecrow reach (58, 7) by (return, walk_a, footsie)
+        player.whitecrow reach (58, 7) by (return, walk_a, footsie, micro_footsie)
         player.whitecrow aim RIGHT by return
         nolock fadeout 10
         player.whitecrow play through_door
@@ -89,7 +89,7 @@ script turn_up_machina_from_idle_without_bottle
     player.whitecrow.animation is idle
         npc.goods_lift.layer hide brokenbottle
         flush player.whitecrow
-        player.whitecrow reach (22, 9) by (return, walk_a, footsie)
+        player.whitecrow reach (22, 9) by (return, walk_a, footsie, micro_footsie)
         player.whitecrow aim RIGHT by return
         player.whitecrow.sheet set honeywarehouse
         player.whitecrow play prepare_to_turn_machina
@@ -121,7 +121,7 @@ script turn_up_machina_from_idle_with_bottle
         theatre.globals.goods_lift_is_up set true
         npc.goods_lift.layer show brokenbottle
         flush player.whitecrow
-        player.whitecrow reach (22, 9) by (return, walk_a, footsie)
+        player.whitecrow reach (22, 9) by (return, walk_a, footsie, micro_footsie)
         player.whitecrow aim RIGHT by return
         player.whitecrow.sheet set honeywarehouse
         player.whitecrow play prepare_to_turn_machina
@@ -139,7 +139,7 @@ script pick_bottle_1
     player.whitecrow.animation is idle
     prop.bottle_1.hitmap.ground_zone overlaps player.whitecrow.hitmap.leggs
     gamepad.keys.pressed has X
-        player.whitecrow join (-5, -9) from prop.bottle_1 by (return, walk_a, footsie)
+        player.whitecrow join (-5, -9) from prop.bottle_1 by (return, walk_a, footsie, micro_footsie)
         player.whitecrow aim RIGHT by return
         player.whitecrow.layer show honeybottle_base
         player.whitecrow.sheet set honeywarehouse

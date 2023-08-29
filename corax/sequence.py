@@ -173,7 +173,12 @@ def build_sequence_to_destination(moves, data, coordinate, dst):
         sequence.append(flippers[0])
 
     for move in moves:
+        i = 0
         while True:
+            if i > 150:
+                raise RuntimeError(
+                    'Impossible to create a path to '
+                    f'{coordinate.block_position} to {dst} using {moves}')
             offset = move_offset(move, data, coord.flip)
             block_position = sum_num_arrays(coord.block_position, offset)
             if distance2d(block_position, dst) == 0.0:
@@ -185,6 +190,7 @@ def build_sequence_to_destination(moves, data, coordinate, dst):
             coord.block_position = block_position
             loop_on = data["moves"][move]["loop_on"]
             move = loop_on[0] if loop_on else move
+            i += 1
 
     logging.debug(
         "Reach: Not able to reach the destination {} "

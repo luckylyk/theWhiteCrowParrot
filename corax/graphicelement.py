@@ -7,17 +7,19 @@ from corax.renderengine.io import load_image
 
 
 class SetStaticElement:
-    def __init__(self, name, image, pixel_position=None, deph=0):
+    def __init__(self, name, image, pixel_position=None, visible=True, deph=0):
         self.name = name
         self.pixel_position = pixel_position or [0, 0]
         self.image = image
         self.deph = deph
-        self.visible = True
+        self.visible = visible
 
     @staticmethod
-    def from_filename(filename, name, pixel_position=None, key_color=None, deph=0):
+    def from_filename(
+            filename, name, pixel_position=None,
+            key_color=None, visible=True, deph=0):
         image = load_image(filename, key_color)
-        return SetStaticElement(name, image, pixel_position, deph)
+        return SetStaticElement(name, image, pixel_position, visible, deph)
 
     @property
     def size(self):

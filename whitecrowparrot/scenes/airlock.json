@@ -6,7 +6,7 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-
+        
     ],
     "zones": [
         {
@@ -20,6 +20,20 @@
             "type": "no_go",
             "affect": "whitecrow",
             "zone": [46, 17, 56, 27]
+        },
+        {
+            "name": "climb",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["airlock.climb"],
+            "zone": [39, 21, 46, 27]
+        },
+        {
+            "name": "trap",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["airlock.open_trap", "airlock.release_rope"],
+            "zone": [34, 21, 39, 27]
         }
     ],
     "elements": [
@@ -39,8 +53,8 @@
         {
             "name": "middle",
             "type": "layer",
-            "shader": null,
-            "deph": 0.0
+            "deph": 0.0,
+            "shader": null
         },
         {
             "name": "toolbar",
@@ -99,6 +113,14 @@
             "deph": 0.0
         },
         {
+            "name": "chain",
+            "type": "set_static",
+            "file": "airlock/chain.png",
+            "position": [414, 0],
+            "deph": 0.0,
+            "visible": false
+        },
+        {
             "name": "whitecrow",
             "type": "player",
             "block_position": [32, 8],
@@ -128,8 +150,8 @@
         {
             "name": "foreground",
             "type": "layer",
-            "shader": null,
-            "deph": 0.0
+            "deph": 0.0,
+            "shader": null
         },
         {
             "name": "fg_plancks",

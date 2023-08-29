@@ -1,0 +1,4 @@
+
+main.json["globals"]["chest_moved"] = true
+main.json["globals"]["chain_hanging"] = true
+

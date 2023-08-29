@@ -113,6 +113,9 @@ def create_job_with_subject(subject, function, arguments, theatre):
             return create_character_job(theatre, name, function, arguments)
         case "prop":
             return create_prop_job(subject_name, function, arguments, theatre)
+        case "static":
+            return create_static_object_job(
+                subject_name, function, arguments, theatre)
         case "zone":
             zone = find_zone(theatre.scene, subject_name)
             rect = string_to_int_list(arguments)
@@ -144,22 +147,32 @@ def create_theatre_job(subject, function, theatre, arguments):
     raise NotImplementedError(message)
 
 
+def create_static_object_job(name, function, arguments, theatre):
+    static_object = find_element(theatre.scene, name)
+    return create_element_job(static_object, function, arguments, theatre)
+
+
 def create_prop_job(name, function, arguments, theatre):
     prop = find_animated_set(theatre.scene, name)
+    return create_element_job(prop, function, arguments, theatre)
+
+
+def create_element_job(element, function, arguments, theatre):
     match function:
         case "layover":
             target = object_name(arguments)
-            return partial(job_layover, theatre, name, target)
+            return partial(job_layover, theatre, element.name, target)
         case "play":
             animation = arguments
-            return partial(job_play_animation, prop, animation)
+            return partial(job_play_animation, element, animation)
         case "move":
-            return partial(job_move, prop, string_to_int_list(arguments))
+            return partial(job_move, element, string_to_int_list(arguments))
         case "offset":
-            size = prop.animation_controller.size
+            size = element.animation_controller.size
             offset = string_to_int_list(arguments)
-            center = prop.animation_controller.animation.pixel_center
-            return partial(job_offset, prop.coordinate, offset, center, size)
+            center = element.animation_controller.animation.pixel_center
+            return partial(
+                job_offset, element.coordinate, offset, center, size)
     message = f'function "{function}" for implemented for prop'
     raise NotImplementedError(message)
 

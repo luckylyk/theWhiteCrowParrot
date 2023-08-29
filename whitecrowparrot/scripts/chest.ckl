@@ -7,7 +7,7 @@
 // defined as "affected by whitecrow", the script will be evaluated when the
 // zone contains the center of "whitecrow".
 // The syntax is pretty simple, zero indent is the script declaration level.
-// Firt indent level is the condition to execute the followings jobs and the
+// First indent level is the condition to execute the followings jobs and the
 // second indent level is the job queue.
 //
 // List of available keywords:
@@ -90,20 +90,6 @@ script push_successfully
         player.whitecrow set chest
         player.whitecrow play hatch
         zone.right_limit shift (39, 0, 80, 27)
-
-
-script jump_down
-    player.whitecrow.flip is false
-    gamepad.keys.pressed has RIGHT
-    theatre.globals.chest_moved is true
-        player.whitecrow.sheet set chest
-        player.whitecrow play jump_down
-        theatre.scene set hole
-        theatre.globals.has_sword set false
-        player.whitecrow.layer hide sword
-        player.whitecrow.sheet set fall
-        wait 15
-        player.whitecrow play fall
 
 
 script try_to_open
