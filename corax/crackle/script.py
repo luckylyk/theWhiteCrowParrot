@@ -9,6 +9,7 @@ class CrackleScript:
         self.conditions = []
         self.actions = []
         self.checkers = []
+        self.locals = {}
 
     def __repr__(self):
         conditions = "  " + "\n  ".join(self.conditions)
@@ -21,7 +22,7 @@ class CrackleScript:
             for line in self.conditions]
 
     def jobs(self, theatre):
-        return [create_job(line, theatre) for line in self.actions]
+        return [create_job(line, theatre, self) for line in self.actions]
 
     def check(self):
         checks = [checker() for checker in self.checkers]
@@ -32,10 +33,11 @@ class CrackleEvent:
     def __init__(self, name):
         self.name = name
         self.actions = []
+        self.locals = {}
 
     def __repr__(self):
         actions = "  " + "\n  ".join(self.actions)
         return f"event {self.name}\n{actions}\n\n"
 
     def jobs(self, theatre):
-        return [create_job(line, theatre) for line in self.actions]
+        return [create_job(line, theatre, self) for line in self.actions]

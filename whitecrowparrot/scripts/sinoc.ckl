@@ -64,9 +64,10 @@ event high_hit_from_low
 
 
 event mace_push
+    locals.current_sheet set player.whitecrow.sheet
     player.whitecrow.sheet set fight
     player.whitecrow play belly_shoot
-    player.whitecrow.sheet set sword
+    player.whitecrow.sheet set locals.current_sheet
     player.whitecrow play idle
 
 
@@ -96,41 +97,46 @@ event sinoc_charge
     nolock npc.sinoc play charge
     pin player.whitecrow
     flush player.whitecrow
+    locals.current_sheet set player.whitecrow.sheet
     player.whitecrow.sheet set fight
     player.whitecrow play collision
     player.whitecrow play belly_shoot
-    player.whitecrow.sheet set sword
+    player.whitecrow.sheet set locals.current_sheet
     player.whitecrow play idle
 
 
 event belly_shoot
+    locals.current_sheet set player.whitecrow.sheet
     player.whitecrow.sheet set fight
     player.whitecrow play belly_shoot
-    player.whitecrow.sheet set sword
+    player.whitecrow.sheet set locals.current_sheet
     player.whitecrow play idle
 
 
 event slap
     flush player.whitecrow
+    locals.current_sheet set player.whitecrow.sheet
     player.whitecrow.sheet set fight
     player.whitecrow play head_slap
-    player.whitecrow.sheet set sword
+    player.whitecrow.sheet set locals.current_sheet
 
 
 event slapb
     flush player.whitecrow
+    locals.current_sheet set player.whitecrow.sheet
     player.whitecrow.sheet set fight
     player.whitecrow play back_slap
-    player.whitecrow.sheet set sword
+    player.whitecrow.sheet set locals.current_sheet
 
 
 event sinoc_charge_back
     pin player.whitecrow
     flush player.whitecrow
     nolock npc.sinoc play charge
+    locals.current_sheet set player.whitecrow.sheet
     player.whitecrow.sheet set fight
     player.whitecrow play back_shoot
-    player.whitecrow.sheet set sword
+    player.whitecrow.sheet set locals.current_sheet
 
 
 script hit_wall

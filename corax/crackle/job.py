@@ -24,9 +24,10 @@ from corax.crackle.action import (
 from corax.crackle.collector import value_collector
 from corax.crackle.parser import (
     object_attribute, string_to_int_list, object_type, object_name)
+from corax.crackle.condition import create_subject_value_collector
 
 
-def create_job(line, theatre):
+def create_job(line, theatre, script):
     nolock = is_nolock_action(line)
     if nolock:
         line = " ".join(line.split(" ")[1:])
@@ -34,7 +35,8 @@ def create_job(line, theatre):
         result = create_job_without_subject(line, theatre)
     else:
         subject, function, arguments = split_with_subject(line)
-        result = create_job_with_subject(subject, function, arguments, theatre)
+        result = create_job_with_subject(
+            subject, function, arguments, theatre, script)
     if result is None:
         raise ValueError(f'Impossible to build job from: {line}')
     return partial(nolock_job, result) if nolock else result
@@ -96,10 +98,13 @@ def create_job_without_subject(line, theatre):
     raise NotImplementedError(message)
 
 
-def create_job_with_subject(subject, function, arguments, theatre):
+def create_job_with_subject(subject, function, arguments, theatre, script):
     subject_type = object_type(subject)
     subject_name = object_name(subject)
     match subject_type:
+        case 'locals':
+            return create_local_variable_job(
+                script, subject_name, function, theatre, arguments)
         case "theatre":
             return create_theatre_job(subject, function, theatre, arguments)
         case "camera":
@@ -107,10 +112,10 @@ def create_job_with_subject(subject, function, arguments, theatre):
                 return partial(job_camera_target, theatre, function, arguments)
         case "player":
             name = subject_name
-            return create_character_job(theatre, name, function, arguments)
+            return create_character_job(theatre, script, name, function, arguments)
         case "npc":
             name = subject_name
-            return create_character_job(theatre, name, function, arguments)
+            return create_character_job(theatre, script, name, function, arguments)
         case "prop":
             return create_prop_job(subject_name, function, arguments, theatre)
         case "static":
@@ -122,6 +127,16 @@ def create_job_with_subject(subject, function, arguments, theatre):
             return partial(job_shift_zone, zone, rect)
     message = f'function "{function}" for implemented for {subject_type}'
     raise NotImplementedError(message)
+
+
+def create_local_variable_job(
+        script, variable_name, function, theatre, arguments):
+    match function:
+        case "set":
+            collector = create_subject_value_collector(arguments, theatre)
+            return partial(
+                job_set_local_variable, script, variable_name, collector)
+
 
 
 def create_theatre_job(subject, function, theatre, arguments):
@@ -177,7 +192,7 @@ def create_element_job(element, function, arguments, theatre):
     raise NotImplementedError(message)
 
 
-def create_character_job(theatre, character_name, function, arguments):
+def create_character_job(theatre, script, character_name, function, arguments):
     character = find_character(theatre, character_name)
     match function:
         case "aim":
@@ -211,7 +226,7 @@ def create_character_job(theatre, character_name, function, arguments):
             pos, animations = parse_reach_arguments(arguments)
             return partial(job_reach, character, pos, animations)
         case "set":
-            return partial(job_set_sheet, character, arguments)
+            return partial(job_set_sheet, script, character, arguments)
         case "show":
             layer = arguments
             return partial(job_switch_layer, character, True, layer)
@@ -320,6 +335,13 @@ def job_init_timer(theatre, name, event, duration):
     return 0
 
 
+def job_set_local_variable(script, variable_name, collector):
+    print(variable_name, collector())
+    print(script.locals)
+    script.locals[variable_name] = collector()
+    return 0
+
+
 def job_move_camera(theatre, pixel_position):
     mapped_pixel_position = map_to_render_area(*pixel_position)
     theatre.scene.camera.set_center(mapped_pixel_position)
@@ -395,7 +417,11 @@ def job_set_scene(theatre, scene_name):
     return 0
 
 
-def job_set_sheet(player, sheet_name):
+def job_set_sheet(script, player, arguments):
+    if arguments.startswith('locals'):
+        sheet_name = script.locals[arguments.split('.')[-1]]
+    else:
+        sheet_name = arguments
     player.set_sheet(sheet_name)
     return 0
 

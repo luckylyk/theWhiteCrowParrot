@@ -148,40 +148,43 @@ event high_block
 event slap
     pin player.whitecrow
     flush player.whitecrow
+    locals.current_sheet set player.whitecrow.sheet
     player.whitecrow.sheet set fight
     player.whitecrow play head_slap_2
-    player.whitecrow.sheet set sword
+    player.whitecrow.sheet set locals.current_sheet
 
 
 event back_slap
     pin player.whitecrow
     flush player.whitecrow
+    locals.current_sheet set player.whitecrow.sheet
     player.whitecrow.sheet set fight
     player.whitecrow play back_slap
-    player.whitecrow.sheet set sword
+    player.whitecrow.sheet set locals.current_sheet
 
 
 event feet_push
     pin player.whitecrow
     flush player.whitecrow
+    locals.current_sheet set player.whitecrow.sheet
     player.whitecrow.sheet set fight
     player.whitecrow play feet_hit
-    player.whitecrow.sheet set sword
+    player.whitecrow.sheet set locals.current_sheet
 
 
 event back_feet_push
     pin player.whitecrow
     flush player.whitecrow
+    locals.current_sheet set player.whitecrow.sheet
     player.whitecrow.sheet set fight
     player.whitecrow play back_low_hit
-    player.whitecrow.sheet set sword
+    player.whitecrow.sheet set locals.current_sheet
 
 
 event unarmed
     wait 2
     pin npc.bruno
     flush npc.bruno
-
     nolock npc.bruno play unarmed
     wait 2
     freeze 3
