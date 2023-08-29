@@ -77,26 +77,26 @@ def aim_target(position, flip, target):
 def to_block_position(pixel_position):
     x = pixel_position[0] // cctx.BLOCK_SIZE
     y = pixel_position[1] // cctx.BLOCK_SIZE
-    return x, y
+    return [x, y]
 
 
 def to_block_size(size):
     x = (size[0] // cctx.BLOCK_SIZE) - 1
     y = (size[1] // cctx.BLOCK_SIZE) - 1
-    return x, y
+    return [x, y]
 
 
 def to_pixel_position(block_position):
     x = block_position[0] * cctx.BLOCK_SIZE
     y = block_position[1] * cctx.BLOCK_SIZE
-    return x, y
+    return [x, y]
 
 
 def flip_position(position):
     """
     Flip only horizontal posisition (x)
     """
-    return -position[0], position[1]
+    return [-position[0], position[1]]
 
 
 def map_pixel_position(pixel_position, size=None, flip=False):
@@ -112,6 +112,6 @@ def extract_pixel_offset(pixel_position):
     """
     Extract pixel offset. Subustract block position and returns the rest.
     """
-    return (
+    return [
         pixel_position[0] % cctx.BLOCK_SIZE,
-        pixel_position[1] % cctx.BLOCK_SIZE)
+        pixel_position[1] % cctx.BLOCK_SIZE]
