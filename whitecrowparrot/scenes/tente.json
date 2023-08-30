@@ -379,6 +379,17 @@
             "deph": 0.0
         },
         {
+            "name": "seeds_fx",
+            "type": "special_effects_emitter",
+            "spritesheet_filename": "fx/seeds.json",
+            "layers": ["item"],
+            "alpha": 255,
+            "deph": 0.0,
+            "repeat_delay": 10,
+            "persistents": false,
+            "animation_iteration_type": "cycle"
+        },
+        {
             "name": "whitecrow",
             "type": "player",
             "block_position": [13, 8],

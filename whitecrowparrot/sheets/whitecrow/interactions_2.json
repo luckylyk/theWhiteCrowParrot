@@ -10,25 +10,8 @@
         "sword": "whitecrow/interactions_2_sword.png"
     },
     "moves": {
-        "pick_seeds": {
-            "center": [0, 0],
-            "conditions": {},
-            "frames_centers": null,
-            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2],
-            "hitmaps": null,
-            "hold": false,
-            "inputs": [],
-            "loop_on": ["idle"],
-            "next_move": "idle",
-            "next_move_bufferable": false,
-            "post_events": {},
-            "pre_events": {},
-            "release_frame": -1,
-            "start_at_image": 1,
-            "triggers": null
-        },
         "idle": {
-            "center": [0, 0],
+            "center": [70, 155],
             "conditions": {},
             "frames_centers": null,
             "frames_per_image": [1],
@@ -44,8 +27,25 @@
             "start_at_image": 0,
             "triggers": null
         },
+        "pick_seeds": {
+            "center": [70, 155],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 6, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": ["idle"],
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 1,
+            "triggers": null
+        },
         "throw_seeds": {
-            "center": [0, 0],
+            "center": [70, 155],
             "conditions": {},
             "frames_centers": null,
             "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],

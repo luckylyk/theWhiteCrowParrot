@@ -97,7 +97,7 @@ class frame_data_iterator:
             if data is None:
                 raise StopIteration()
             self._durations = data.get('duration', 1)
-        return self._duractions[self._index]
+        return self._durations[self._index]
 
 
 class shuffle:

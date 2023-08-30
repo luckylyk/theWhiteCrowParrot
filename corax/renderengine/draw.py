@@ -13,6 +13,7 @@ from corax.screen import map_to_render_area
 from corax.character import CharacterSlot
 from corax.graphicelement import SetAnimatedElement, SetStaticElement
 from corax.particles import ParticlesSystem
+from corax.specialeffect import SpecialEffectsEmitter
 
 
 def draw_image(id_, surface, position, alpha=255):
@@ -134,6 +135,16 @@ def render_particle_system(system, surface, deph, camera):
             draw_ellipse(surface, color, x, y, size, size)
 
 
+def render_special_effects_emitter(emitter, surface, deph, camera):
+    deph = deph + emitter.deph
+    alpha = emitter.alpha
+    for special_effect in emitter.special_effects:
+        position = camera.relative_pixel_position(
+            special_effect.pixel_position, deph)
+        for image in special_effect.animation.images:
+            draw_image(image, surface, position, alpha)
+
+
 def render_zone(zone, surface, camera):
     world_pos = to_pixel_position([zone.l, zone.t])
     x, y = camera.relative_pixel_position(world_pos)
@@ -175,6 +186,7 @@ def render_layer(layer, surface, camera):
         CharacterSlot: render_character_slot,
         ParticlesSystem: render_particle_system,
         SetStaticElement: render_static_element,
+        SpecialEffectsEmitter: render_special_effects_emitter,
         SetAnimatedElement: render_animated_element}
 
     for element in layer.elements:

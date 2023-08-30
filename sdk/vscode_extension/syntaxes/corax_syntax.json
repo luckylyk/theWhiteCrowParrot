@@ -32,7 +32,7 @@
           }
         },
         {
-          "match": "(\\bplace\\b|\\bjoin\\b|\\blayover\\b|\\binit\\b|\\bstart\\b|\\bstop\\b|\\boffset\\b|\\brun\\b|\\bplay\\b|\\bset\\b|\\breach\\b|\\bfadeout\\b|\\bfadein\\b|\\bflush\\b|\\bpin\\b|\\bshow\\b|\\bhide\\b|\\bmove\\b|\\baim\\b|\\bshift\\b|\\bforce\\b|\\badd\\b|\\bremove\\b|\\bdisable\\b|\\benable\\b)",
+          "match": "(\\bplace\\b|\\bthrow\\b|\\bjoin\\b|\\blayover\\b|\\binit\\b|\\bstart\\b|\\bstop\\b|\\boffset\\b|\\brun\\b|\\bplay\\b|\\bset\\b|\\breach\\b|\\bfadeout\\b|\\bfadein\\b|\\bflush\\b|\\bpin\\b|\\bshow\\b|\\bhide\\b|\\bmove\\b|\\baim\\b|\\bshift\\b|\\bforce\\b|\\badd\\b|\\bremove\\b|\\bdisable\\b|\\benable\\b)",
           "name": "entity.name.function.mysample"
         },
         {
@@ -52,7 +52,7 @@
           "name": "constant.language.mysample"
         },
         {
-          "match": "(\\btheatre\\b|\\bstatic\\b|\\bscene\\b|\\bprop\\b|\\blocals\\b|\\bglobals\\b|\\blayer\\b|\\bgamepad\\b|\\bname\\b|\\bflip\\b|\\bpressed\\b|\\banimation\\b|\\bhitmap\\b|\\bkeys\\b|\\bplayer\\b|\\bnpc\\b|\\bzone\\b|\\bsheet\\b|\\bcamera\\b|\\btarget\\b|\\bsoft_boundaries\\b)",
+          "match": "(\\btheatre\\b|\\bvfx\\b|\\bstatic\\b|\\bscene\\b|\\bprop\\b|\\blocals\\b|\\bglobals\\b|\\blayer\\b|\\bgamepad\\b|\\bname\\b|\\bflip\\b|\\bpressed\\b|\\banimation\\b|\\bhitmap\\b|\\bkeys\\b|\\bplayer\\b|\\bnpc\\b|\\bzone\\b|\\bsheet\\b|\\bcamera\\b|\\btarget\\b|\\bsoft_boundaries\\b)",
           "name": "variable.legacy.builtin.mysample"
         },
         {

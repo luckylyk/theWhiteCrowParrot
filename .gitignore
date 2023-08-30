@@ -129,3 +129,5 @@ corax/TODO
 /build
 
 *.vscode
+
+*history.sqlite

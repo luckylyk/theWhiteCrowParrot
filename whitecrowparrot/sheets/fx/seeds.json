@@ -1,23 +1,23 @@
 {
     "name": "",
-    "default_move": "idle",
-    "evaluation_order": ["idle"],
+    "default_move": "throw",
+    "evaluation_order": ["throw"],
     "frame_size": [230, 100],
     "key_color": [0, 255, 0],
     "layers": {
         "item": "fx/seeds.png"
     },
     "moves": {
-        "idle": {
+        "throw": {
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+            "frames_per_image": [3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 25],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
             "loop_on": null,
-            "next_move": "idle",
+            "next_move": "throw",
             "next_move_bufferable": null,
             "post_events": {},
             "pre_events": {},

@@ -99,7 +99,7 @@ def flip_position(position):
     return [-position[0], position[1]]
 
 
-def map_pixel_position(pixel_position, size=None, flip=False):
+def map_pixel_position(pixel_position, size, flip=False):
     """
     Map a pixel_position to a image if the coordinates are horizontally fliped
     """

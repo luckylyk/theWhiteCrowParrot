@@ -200,7 +200,7 @@ script jump2
         start theatre.timer.asphixia_countdown
 
 
-script through_banner
+script throw_banner
     gamepad.keys.pressed has X
     player.whitecrow.sheet is banner
     player.whitecrow.animation is idle

@@ -3,11 +3,12 @@ from copy import deepcopy
 
 import corax.context as cctx
 from corax.camera import Camera, Scrolling
+from corax.character import CharacterSlot
 from corax.core import NODE_TYPES
 from corax.euclide import Rect
 from corax.graphicelement import SetStaticElement, SetAnimatedElement
 from corax.particles import ParticlesSystem, build_emitter
-from corax.character import CharacterSlot
+from corax.specialeffect import SpecialEffectsEmitter
 from corax.zone import Zone
 
 
@@ -24,6 +25,7 @@ class Scene:
         self.scrolling = scrolling
         self.player_slots = []
         self.npc_slots = []
+        self.special_effects = []
         self.layers = []
         self.animated_sets = []
         self.evaluables = []
@@ -131,6 +133,19 @@ def build_particles_system(data):
         emitter=emitter)
 
 
+def build_special_effect_emitter(data):
+    filename = f'{cctx.SHEET_FOLDER}/{data["spritesheet_filename"]}'
+    return SpecialEffectsEmitter(
+        name=data["name"],
+        spritesheet_filename=filename,
+        layers=data["layers"],
+        alpha=data["alpha"],
+        animation_iteration_type=data["animation_iteration_type"],
+        deph=data["deph"],
+        repeat_delay=data["repeat_delay"],
+        persistents=data["persistents"])
+
+
 def build_scene(name, data, shaders):
     assert_first_is_layer(data)
     camera = Camera()
@@ -193,6 +208,12 @@ def build_scene_layers(scene, data, shaders):
             layer.append(slot)
             scene.player_slots.append(slot)
             scene.evaluables.append(slot)
+
+        elif element.get("type") == NODE_TYPES.SPECIAL_EFFECTS_EMITTER:
+            emitter = build_special_effect_emitter(element)
+            layer.append(emitter)
+            scene.special_effects.append(emitter)
+            scene.evaluables.append(emitter)
 
         elif element.get("type") == NODE_TYPES.NPC:
             slot = build_character_slot(element)

@@ -57,6 +57,7 @@ class NODE_TYPES:
     SET_ANIMATED = "set_animated"
     LAYER = "layer"
     PARTICLES = "particles_system"
+    SPECIAL_EFFECTS_EMITTER = "special_effects_emitter"
     # sounds
     AMBIANCE = "ambiance"
     SFX_COLLECTION = "sfx_sound_collection"

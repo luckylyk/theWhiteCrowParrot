@@ -169,7 +169,11 @@ class SpriteSheet:
             keys = ", ".join(str(k) for k in self.data["moves"].keys())
             raise KeyError(f"{keys} doesn't contains {move}") from e
         size = self.data["frame_size"]
-        return Animation(move, sequences, data, size, flip)
+        return Animation(move, sequences, data, self.size, flip)
+
+    @property
+    def size(self):
+        return self.data["frame_size"]
 
 
 def build_triggers_list(data):

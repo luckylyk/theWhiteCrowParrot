@@ -16,7 +16,7 @@ from corax.mathutils import sum_num_arrays
 from corax.scene import layover
 from corax.screen import map_to_render_area
 from corax.seeker import (
-    find_animated_set, find_element, find_zone, find_character)
+    find_animated_set, find_emitter, find_element, find_zone, find_character)
 
 from corax.crackle.action import (
     has_subject, filter_action, split_with_subject, parse_join_arguments,
@@ -102,29 +102,35 @@ def create_job_with_subject(subject, function, arguments, theatre, script):
     subject_type = object_type(subject)
     subject_name = object_name(subject)
     match subject_type:
-        case 'locals':
-            return create_local_variable_job(
-                script, subject_name, function, theatre, arguments)
-        case "theatre":
-            return create_theatre_job(subject, function, theatre, arguments)
         case "camera":
             if subject_name == "target":
                 return partial(job_camera_target, theatre, function, arguments)
+        case 'locals':
+            return create_local_variable_job(
+                script, subject_name, function, theatre, arguments)
         case "player":
-            name = subject_name
-            return create_character_job(theatre, script, name, function, arguments)
-        case "npc":
             name = subject_name
             return create_character_job(theatre, script, name, function, arguments)
         case "prop":
             return create_prop_job(subject_name, function, arguments, theatre)
+        case "npc":
+            name = subject_name
+            return create_character_job(theatre, script, name, function, arguments)
         case "static":
             return create_static_object_job(
                 subject_name, function, arguments, theatre)
+        case "theatre":
+            return create_theatre_job(subject, function, theatre, arguments)
         case "zone":
             zone = find_zone(theatre.scene, subject_name)
             rect = string_to_int_list(arguments)
             return partial(job_shift_zone, zone, rect)
+        case "vfx":
+            emitter = find_emitter(theatre, subject_name)
+            position, source = arguments.split(" from ")
+            position = string_to_int_list(position)
+            character = find_character(theatre, object_name(source))
+            return partial(job_throw, emitter, position, character)
     message = f'function "{function}" for implemented for {subject_type}'
     raise NotImplementedError(message)
 
@@ -335,10 +341,10 @@ def job_init_timer(theatre, name, event, duration):
     return 0
 
 
-def job_set_local_variable(script, variable_name, collector):
-    print(variable_name, collector())
-    print(script.locals)
-    script.locals[variable_name] = collector()
+def job_layover(theatre, element_name, target_name):
+    element = find_element(theatre.scene, element_name)
+    target = find_element(theatre.scene, target_name)
+    layover(theatre.scene.layers, element, target)
     return 0
 
 
@@ -412,6 +418,11 @@ def job_set_global(theatre, key, value):
     return 0
 
 
+def job_set_local_variable(script, variable_name, collector):
+    script.locals[variable_name] = collector()
+    return 0
+
+
 def job_set_scene(theatre, scene_name):
     theatre.set_scene(scene_name)
     return 0
@@ -452,8 +463,6 @@ def job_switch_visibility(theatre, name, visible):
     return 0
 
 
-def job_layover(theatre, element_name, target_name):
-    element = find_element(theatre.scene, element_name)
-    target = find_element(theatre.scene, target_name)
-    layover(theatre.scene.layers, element, target)
+def job_throw(emitter, position, character):
+    emitter.throw_from(character, position)
     return 0

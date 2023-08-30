@@ -115,6 +115,16 @@ FIELDS = {
         "deph": FloatField,
         "visible": BoolField
     },
+    "special_effects_emitter": {
+        "name": StrField,
+        "spritesheet_filename": FileField,
+        "layers": StrArrayField,
+        "alpha": IntField,
+        "deph": FloatField,
+        "repeat_delay": IntField,
+        "persistents": BoolField,
+        "animation_iteration_type": OrderField
+    },
     "particles_system": {
         # "name": StrField,
         # "alpha": IntField,

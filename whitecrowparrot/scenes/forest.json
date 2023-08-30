@@ -327,10 +327,10 @@
             "zone": [118, 24, 124, 28]
         },
         {
-            "name": "through_banner",
+            "name": "throw_banner",
             "type": "interaction",
             "affect": "whitecrow",
-            "scripts": ["forest.through_banner"],
+            "scripts": ["forest.throw_banner"],
             "zone": [118, 23, 124, 28]
         },
         {
@@ -961,6 +961,17 @@
             "type": "npc",
             "block_position": [35, 11],
             "flip": false
+        },
+        {
+            "name": "seeds_fx",
+            "type": "special_effects_emitter",
+            "spritesheet_filename": "fx/seeds.json",
+            "layers": ["item"],
+            "alpha": 255,
+            "deph": 0.0,
+            "repeat_delay": 10,
+            "persistents": false,
+            "animation_iteration_type": "cycle"
         },
         {
             "name": "whitecrow",

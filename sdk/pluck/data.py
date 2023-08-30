@@ -197,6 +197,16 @@ DATA_TEMPLATES = {
         "alpha": int,
         "deph": float
     },
+    "special_effects_emitter": {
+        "name": str,
+        "spritesheet_filename": str,
+        "layer": None,
+        "alpha": int,
+        "deph": float,
+        "repeat_delay": int,
+        "persistents": bool,
+        "animation_iteration_type": str
+    },
     "player": {
         "name": str,
         "type": str,

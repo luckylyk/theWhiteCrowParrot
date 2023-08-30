@@ -17,6 +17,13 @@ def find_player(theatre, name):
     return player
 
 
+def find_emitter(theatre, name):
+    emitter = find(theatre.scene.special_effects, name)
+    if not emitter:
+        raise ValueError(f"Special effects emitter '{name}' not found")
+    return emitter
+
+
 def find_character(theatre, name):
     character = find(theatre.characters, name)
     if not character:
