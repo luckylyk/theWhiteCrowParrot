@@ -112,7 +112,8 @@ FIELDS = {
         "name": StrField,
         "file": FileField,
         "position": IntVectorField,
-        "deph": FloatField
+        "deph": FloatField,
+        "visible": BoolField
     },
     "particles_system": {
         # "name": StrField,

@@ -90,28 +90,32 @@
             "type": "set_static",
             "file": "hole/wall.png",
             "position": [208, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "rock",
             "type": "set_static",
             "file": "hole/rock.png",
             "position": [278, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "wood",
             "type": "set_static",
             "file": "hole/wood.png",
             "position": [51, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "ground",
             "type": "set_static",
             "file": "hole/ground.png",
             "position": [296, 219],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "whitecrow",
@@ -124,7 +128,8 @@
             "type": "set_static",
             "file": "hole/foreground.png",
             "position": [0, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         }
     ]
 }

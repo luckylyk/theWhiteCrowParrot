@@ -6,10 +6,10 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-
+        
     ],
     "zones": [
-
+        
     ],
     "elements": [
         {
@@ -23,56 +23,64 @@
             "type": "set_static",
             "file": "court/bg_town.png",
             "position": [570, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "bg_montain",
             "type": "set_static",
             "file": "court/bg_montain.png",
             "position": [80, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "cave_out",
             "type": "set_static",
             "file": "court/cave_out.png",
             "position": [172, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "main_bg",
             "type": "set_static",
             "file": "court/main_bg.png",
             "position": [108, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "bell",
             "type": "set_static",
             "file": "court/bell.png",
             "position": [1379, 20],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "flowers",
             "type": "set_static",
             "file": "court/flowers.png",
             "position": [910, 104],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "door",
             "type": "set_static",
             "file": "court/door.png",
             "position": [1432, 51],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "statues",
             "type": "set_static",
             "file": "court/statues.png",
             "position": [660, 17],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "whitecrow",
@@ -85,28 +93,32 @@
             "type": "set_static",
             "file": "court/fg_left_rocks.png",
             "position": [148, 228],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "fg_middle_rocks",
             "type": "set_static",
             "file": "court/fg_middle_rocks.png",
             "position": [234, 207],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "fg_wall_right",
             "type": "set_static",
             "file": "court/fg_wall_right.png",
             "position": [1430, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "fg_fontain",
             "type": "set_static",
             "file": "court/fg_fontain.png",
             "position": [951, 186],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         }
     ]
 }

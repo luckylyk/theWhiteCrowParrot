@@ -116,104 +116,118 @@
             "type": "set_static",
             "file": "ending/montain2.png",
             "position": [0, 10],
-            "deph": -0.6
+            "deph": -0.6,
+            "visible": true
         },
         {
             "name": "montain1",
             "type": "set_static",
             "file": "ending/montain1.png",
             "position": [356, 38],
-            "deph": -0.5
+            "deph": -0.5,
+            "visible": true
         },
         {
             "name": "bg_trees",
             "type": "set_static",
             "file": "ending/bg_trees.png",
             "position": [950, 0],
-            "deph": -0.3
+            "deph": -0.3,
+            "visible": true
         },
         {
             "name": "bg_yellow_bushes",
             "type": "set_static",
             "file": "ending/bg_yellow_bushes.png",
             "position": [87, 150],
-            "deph": -0.2
+            "deph": -0.2,
+            "visible": true
         },
         {
             "name": "ground",
             "type": "set_static",
             "file": "ending/ground.png",
             "position": [0, 184],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "left_red_tree",
             "type": "set_static",
             "file": "ending/left_red_tree.png",
             "position": [165, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "right_yellow_bg_tree",
             "type": "set_static",
             "file": "ending/right_yellow_bg_tree.png",
             "position": [1164, 39],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "right_tree",
             "type": "set_static",
             "file": "ending/right_tree.png",
             "position": [1120, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "right_bush",
             "type": "set_static",
             "file": "ending/right_bush.png",
             "position": [1090, 158],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "left_bush",
             "type": "set_static",
             "file": "ending/left_bush.png",
             "position": [337, 152],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "bg_rock",
             "type": "set_static",
             "file": "ending/bg_rock.png",
             "position": [0, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "knight",
             "type": "set_static",
             "file": "ending/knight.png",
             "position": [725, 124],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "woods",
             "type": "set_static",
             "file": "ending/woods.png",
             "position": [99, 83],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "knights_01",
             "type": "set_static",
             "file": "ending/knights_01.png",
             "position": [235, 111],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "whitecrow",
             "type": "player",
             "block_position": [0, 8],
-            "flip":  false
+            "flip": false
         },
         {
             "name": "arbaletist",
@@ -228,63 +242,72 @@
             "type": "set_static",
             "file": "ending/fg_mask.png",
             "position": [0, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "right_fg_leaves",
             "type": "set_static",
             "file": "ending/right_fg_leaves.png",
             "position": [0, 150],
-            "deph": 0.1
+            "deph": 0.1,
+            "visible": true
         },
         {
             "name": "fg_mine_woods",
             "type": "set_static",
             "file": "ending/fg_mine_woods.png",
             "position": [96, 119],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "fg_rock_01",
             "type": "set_static",
             "file": "ending/fg_rock_01.png",
             "position": [425, 0],
-            "deph": 0.08
+            "deph": 0.08,
+            "visible": true
         },
         {
             "name": "fg_plant",
             "type": "set_static",
             "file": "ending/fg_plant.png",
             "position": [527, 99],
-            "deph": 0.1
+            "deph": 0.1,
+            "visible": true
         },
         {
             "name": "fg_rock_02",
             "type": "set_static",
             "file": "ending/fg_rock_02.png",
             "position": [569, 217],
-            "deph": 0.12
+            "deph": 0.12,
+            "visible": true
         },
         {
             "name": "fg_knight_front_of_cam",
             "type": "set_static",
             "file": "ending/fg_knight_front_of_cam.png",
             "position": [750, 106],
-            "deph": 0.25
+            "deph": 0.25,
+            "visible": true
         },
         {
             "name": "horse",
             "type": "set_static",
             "file": "ending/horse.png",
             "position": [1148, 121],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "fg_knight_showing_his_back",
             "type": "set_static",
             "file": "ending/fg_knight_showing_his_back.png",
             "position": [750, 132],
-            "deph": 0.333
+            "deph": 0.333,
+            "visible": true
         }
     ]
 }

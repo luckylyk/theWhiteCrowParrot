@@ -1,51 +1,25 @@
 {
     "name": "bruno",
     "type": "scene",
-    "background_color": [
-        0,
-        0,
-        0
-    ],
-    "boundary": [
-        0,
-        0,
-        830,
-        268
-    ],
+    "background_color": [0, 0, 0],
+    "boundary": [0, 0, 830, 268],
     "soft_boundaries": [],
-    "target_offset": [
-        75,
-        0
+    "target_offset": [75, 0],
+    "sounds": [
+        
     ],
-    "sounds": [],
     "zones": [
         {
             "name": "left_limit",
             "type": "no_go",
-            "affect": [
-                "whitecrow",
-                "bruno"
-            ],
-            "zone": [
-                0,
-                0,
-                20,
-                27
-            ]
+            "affect": ["whitecrow", "bruno"],
+            "zone": [0, 0, 20, 27]
         },
         {
             "name": "right_limit",
             "type": "no_go",
-            "affect": [
-                "whitecrow",
-                "bruno"
-            ],
-            "zone": [
-                63,
-                0,
-                80,
-                26
-            ]
+            "affect": ["whitecrow", "bruno"],
+            "zone": [63, 0, 80, 26]
         },
         {
             "name": "bruno_vs_whitecrow",
@@ -54,77 +28,35 @@
             "relationship": "bruno_vs_whitecrow",
             "subject": "bruno",
             "target": "whitecrow",
-            "zone": [
-                -10,
-                -2,
-                96,
-                28
-            ]
+            "zone": [-10, -2, 96, 28]
         },
         {
             "name": "start_the_fucking_fight",
             "type": "interaction",
-            "affect": [
-                "whitecrow"
-            ],
-            "scripts": [
-                "bruno.start_fight"
-            ],
-            "zone": [
-                24,
-                21,
-                52,
-                27
-            ]
+            "affect": ["whitecrow"],
+            "scripts": ["bruno.start_fight"],
+            "zone": [24, 21, 52, 27]
         },
         {
             "name": "die_left",
             "type": "interaction",
-            "affect": [
-                "whitecrow"
-            ],
-            "scripts": [
-                "bruno.left_fall_back",
-                "bruno.left_fall_front"
-            ],
-            "zone": [
-                9,
-                21,
-                19,
-                27
-            ]
+            "affect": ["whitecrow"],
+            "scripts": ["bruno.left_fall_back", "bruno.left_fall_front"],
+            "zone": [9, 21, 19, 27]
         },
         {
             "name": "window_right",
             "type": "interaction",
-            "affect": [
-                "whitecrow"
-            ],
-            "scripts": [
-                "bruno.right_fall_back",
-                "bruno.right_fall_front"
-            ],
-            "zone": [
-                64,
-                18,
-                80,
-                27
-            ]
+            "affect": ["whitecrow"],
+            "scripts": ["bruno.right_fall_back", "bruno.right_fall_front"],
+            "zone": [64, 18, 80, 27]
         },
         {
             "name": "do_ko",
             "type": "interaction",
             "affect": "whitecrow",
-            "scripts": [
-                "bruno.finish_punch_1",
-                "bruno.finish_punch_2"
-            ],
-            "zone": [
-                -5,
-                0,
-                84,
-                30
-            ]
+            "scripts": ["bruno.finish_punch_1", "bruno.finish_punch_2"],
+            "zone": [-5, 0, 84, 30]
         }
     ],
     "elements": [
@@ -138,79 +70,61 @@
             "name": "bg",
             "type": "set_static",
             "file": "bruno/bg.png",
-            "position": [
-                44,
-                0
-            ],
-            "deph": 0.0
+            "position": [44, 0],
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "bg_grey",
             "type": "set_static",
             "file": "bruno/bg_grey.png",
-            "position": [
-                127,
-                26
-            ],
-            "deph": 0.0
+            "position": [127, 26],
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "whitecrow",
             "type": "player",
-            "block_position": [
-                16,
-                7
-            ],
+            "block_position": [16, 7],
             "flip": false
         },
         {
             "name": "bruno",
             "type": "npc",
-            "block_position": [
-                52,
-                6
-            ],
+            "block_position": [52, 6],
             "flip": false
         },
         {
             "name": "chains_1",
             "type": "set_static",
             "file": "bruno/chains_1.png",
-            "position": [
-                265,
-                0
-            ],
-            "deph": 0.05
+            "position": [265, 0],
+            "deph": 0.05,
+            "visible": true
         },
         {
             "name": "chains",
             "type": "set_static",
             "file": "bruno/chains.png",
-            "position": [
-                245,
-                0
-            ],
-            "deph": 0.3
+            "position": [245, 0],
+            "deph": 0.3,
+            "visible": true
         },
         {
             "name": "chains_2",
             "type": "set_static",
             "file": "bruno/chains_2.png",
-            "position": [
-                389,
-                0
-            ],
-            "deph": 0.0
+            "position": [389, 0],
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "wall",
             "type": "set_static",
             "file": "bruno/wall.png",
-            "position": [
-                0,
-                0
-            ],
-            "deph": 0.4
+            "position": [0, 0],
+            "deph": 0.4,
+            "visible": true
         }
     ]
 }

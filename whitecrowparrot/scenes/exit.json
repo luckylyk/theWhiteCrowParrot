@@ -174,14 +174,16 @@
             "type": "set_static",
             "file": "exit/background.png",
             "position": [0, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "ground",
             "type": "set_static",
             "file": "exit/ground.png",
             "position": [75, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "cart_bg",
@@ -203,7 +205,7 @@
             "name": "whitecrow",
             "type": "player",
             "block_position": [7, 9],
-            "flip":  false
+            "flip": false
         },
         {
             "name": "cart_fg",
@@ -218,49 +220,56 @@
             "type": "set_static",
             "file": "exit/ladder.png",
             "position": [14, 136],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "foreground-02",
             "type": "set_static",
             "file": "exit/foreground-02.png",
             "position": [0, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "tools",
             "type": "set_static",
             "file": "exit/tools.png",
             "position": [0, 171],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "wood",
             "type": "set_static",
             "file": "exit/wood.png",
             "position": [0, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "mask_right_door",
             "type": "set_static",
             "file": "exit/mask_right_door.png",
             "position": [679, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "foreground",
             "type": "set_static",
             "file": "exit/foreground.png",
             "position": [0, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "foreground_mask",
             "type": "set_static",
             "file": "exit/foreground_mask.png",
             "position": [80, 138],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         }
     ]
 }

@@ -48,7 +48,8 @@
             "type": "set_static",
             "file": "airlock/bg.png",
             "position": [0, 0],
-            "deph": -0.1
+            "deph": -0.1,
+            "visible": true
         },
         {
             "name": "middle",
@@ -61,56 +62,64 @@
             "type": "set_static",
             "file": "airlock/toolbar.png",
             "position": [517, 36],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "bgrock",
             "type": "set_static",
             "file": "airlock/bgrock.png",
             "position": [226, 147],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "ground",
             "type": "set_static",
             "file": "airlock/ground.png",
             "position": [0, 179],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "trap",
             "type": "set_static",
             "file": "airlock/trap.png",
             "position": [376, 242],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "crate",
             "type": "set_static",
             "file": "airlock/crate.png",
             "position": [427, 117],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "barrel",
             "type": "set_static",
             "file": "airlock/barrel.png",
             "position": [441, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "chest1",
             "type": "set_static",
             "file": "airlock/chest1.png",
             "position": [457, 151],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "trombon",
             "type": "set_static",
             "file": "airlock/trombon.png",
             "position": [504, 70],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "chain",
@@ -131,21 +140,24 @@
             "type": "set_static",
             "file": "airlock/bird cage.png",
             "position": [289, 66],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "fg_rocks_2",
             "type": "set_static",
             "file": "airlock/fg_rocks_2.png",
             "position": [0, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "fg_rocks",
             "type": "set_static",
             "file": "airlock/fg_rocks.png",
             "position": [0, 0],
-            "deph": 0.1
+            "deph": 0.1,
+            "visible": true
         },
         {
             "name": "foreground",
@@ -158,14 +170,16 @@
             "type": "set_static",
             "file": "airlock/fg_plancks.png",
             "position": [0, 0],
-            "deph": 0.2
+            "deph": 0.2,
+            "visible": true
         },
         {
             "name": "ropes",
             "type": "set_static",
             "file": "airlock/ropes.png",
             "position": [70, 163],
-            "deph": 0.2
+            "deph": 0.2,
+            "visible": true
         }
     ]
 }

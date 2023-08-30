@@ -269,21 +269,24 @@
             "type": "set_static",
             "file": "hill/bg.png",
             "position": [-220, 0],
-            "deph": -0.2
+            "deph": -0.2,
+            "visible": true
         },
         {
             "name": "montain",
             "type": "set_static",
             "file": "hill/montain.png",
             "position": [-100, 159],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "ground",
             "type": "set_static",
             "file": "hill/ground.png",
             "position": [379, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "characters",
@@ -296,7 +299,8 @@
             "type": "set_static",
             "file": "hill/tree-interactive.png",
             "position": [1073, 65],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "goundtip_prop",
@@ -337,21 +341,24 @@
             "type": "set_static",
             "file": "hill/fg_tree.png",
             "position": [824, 0],
-            "deph": 0.2
+            "deph": 0.2,
+            "visible": true
         },
         {
             "name": "fg_bush_2",
             "type": "set_static",
             "file": "hill/fg_bush_2.png",
             "position": [1200, 96],
-            "deph": 0.25
+            "deph": 0.25,
+            "visible": true
         },
         {
             "name": "fg_bush",
             "type": "set_static",
             "file": "hill/fg_bush.png",
             "position": [850, 204],
-            "deph": 0.23
+            "deph": 0.23,
+            "visible": true
         }
     ]
 }

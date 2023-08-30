@@ -85,8 +85,7 @@ def build_set_static_element(data):
         filename=os.path.join(cctx.SET_FOLDER, data["file"]),
         pixel_position=data["position"],
         key_color=cctx.KEY_COLOR,
-        # TODO: Conform all data to contain this attributes by default
-        visible=data.get('visible', True),
+        visible=data['visible'],
         deph=data["deph"])
 
 

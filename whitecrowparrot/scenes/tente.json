@@ -263,56 +263,64 @@
             "type": "set_static",
             "file": "tente/black.png",
             "position": [0, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "tente/tente",
             "type": "set_static",
             "file": "tente/tente.png",
             "position": [197, 8],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "tente/ground",
             "type": "set_static",
             "file": "tente/ground.png",
             "position": [197, 220],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "tente/tools_rack",
             "type": "set_static",
             "file": "tente/tools_rack.png",
             "position": [315, 164],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "tente/stake",
             "type": "set_static",
             "file": "tente/stake.png",
             "position": [434, 7],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "beam",
             "type": "set_static",
             "file": "tente/beam.png",
             "position": [327, 58],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "tente/ground_over",
             "type": "set_static",
             "file": "tente/ground_over.png",
             "position": [344, 222],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "tente/candlestick_01",
             "type": "set_static",
             "file": "tente/candlestick_01.png",
             "position": [411, 172],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "hanging_chain",
@@ -403,49 +411,56 @@
             "type": "set_static",
             "file": "tente/fg_tente.png",
             "position": [197, 107],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "tente/fg_stake",
             "type": "set_static",
             "file": "tente/fg_stake.png",
             "position": [304, 13],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "tente/bench",
             "type": "set_static",
             "file": "tente/bench.png",
             "position": [243, 231],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "tente/candlestick_02",
             "type": "set_static",
             "file": "tente/candlestick_02.png",
             "position": [543, 189],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "tente/candlestick_03",
             "type": "set_static",
             "file": "tente/candlestick_03.png",
             "position": [226, 190],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "tente/black_mask",
             "type": "set_static",
             "file": "tente/black_mask.png",
             "position": [0, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "tente/armor_boot",
             "type": "set_static",
             "file": "tente/armor_boot.png",
             "position": [498, 236],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         }
     ]
 }

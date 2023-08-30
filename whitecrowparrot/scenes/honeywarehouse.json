@@ -55,28 +55,32 @@
             "type": "set_static",
             "file": "honeywarehouse/bg_main.png",
             "position": [0, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "roof",
             "type": "set_static",
             "file": "honeywarehouse/roof.png",
             "position": [226, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "basement_entry",
             "type": "set_static",
             "file": "honeywarehouse/basement_entry.png",
             "position": [642, 214],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "shelves",
             "type": "set_static",
             "file": "honeywarehouse/shelves.png",
             "position": [203, 97],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "goods_lift",
@@ -96,49 +100,56 @@
             "type": "set_static",
             "file": "honeywarehouse/fg_machina.png",
             "position": [342, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "fg_hive",
             "type": "set_static",
             "file": "honeywarehouse/fg_hive.png",
             "position": [274, 210],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "fg_beams_left",
             "type": "set_static",
             "file": "honeywarehouse/fg_beams_left.png",
             "position": [152, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "fg_beams_right",
             "type": "set_static",
             "file": "honeywarehouse/fg_beams_right.png",
             "position": [520, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "cache",
             "type": "set_static",
             "file": "honeywarehouse/cache.png",
             "position": [0, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "small_candle",
             "type": "set_static",
             "file": "honeywarehouse/small_candle.png",
             "position": [314, 63],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "big_candle",
             "type": "set_static",
             "file": "honeywarehouse/big_candle.png",
             "position": [427, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "fxcandle1",

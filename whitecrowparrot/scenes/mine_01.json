@@ -134,28 +134,32 @@
             "type": "set_static",
             "file": "mine_01/wall.png",
             "position": [0, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "ground",
             "type": "set_static",
             "file": "mine_01/ground.png",
             "position": [0, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "wood",
             "type": "set_static",
             "file": "mine_01/wood.png",
             "position": [0, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "rocks",
             "type": "set_static",
             "file": "mine_01/rocks.png",
             "position": [136, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "lie_down_miner_bg",
@@ -193,21 +197,23 @@
             "name": "whitecrow",
             "type": "player",
             "block_position": [-10, 7],
-            "flip":  false
+            "flip": false
         },
         {
             "name": "mask",
             "type": "set_static",
             "file": "mine_01/mask.png",
             "position": [0, 126],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "foreground",
             "type": "set_static",
             "file": "mine_01/foreground.png",
             "position": [0, 0],
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         }
     ]
 }

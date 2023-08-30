@@ -71,6 +71,7 @@ class SceneWidget(QtWidgets.QWidget):
         self.data = None
         self.grid = True
         self.boundaries = True
+        self.is_exploring = False
         self.selection_square = SelectionSquare(self.paintcontext)
         self.zone_square = ZoneSquare(self.paintcontext)
 

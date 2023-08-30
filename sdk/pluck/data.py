@@ -187,6 +187,7 @@ DATA_TEMPLATES = {
         "file": str,
         "position": (int, int),
         "deph": float,
+        "visible": bool
     },
     "set_animated": {
         "name": str,
