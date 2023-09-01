@@ -3,37 +3,38 @@ This is utilities iterators. Unfortunately, for the save system, the yield
 keyworkd is forbiden. Each 'generator' has to be written as custom iterable
 class.
 """
+import uuid
 import random
 import traceback
 
 from corax.mathutils import linear_ratio
 
 
-class iter_on_jobs:
+class iter_on_script:
     """
     This iterator recieve a list of functions. All the functions must return
     int representing the number of iteration it needs to be done.
     """
-    def __init__(self, jobs, actions=None):
-        self._name = f'Name {random.randint(0, 15)}-{random.randint(0, 15)}-{random.randint(0, 15)}'
-        self._actions = actions
-        self._jobs = jobs
+    def __init__(self, script, theatre):
+        self._name = f'Name {uuid.uuid4()}'
+        self._threatre = theatre
+        self._script = script
         self._job_index = 0
         self._frame_count = 0
 
     def __next__(self):
 
         while self._frame_count == 0:
-            if self._job_index >= len(self._jobs):
+            if self._job_index >= len(self._script.actions):
                 raise StopIteration()
             try:
-                job = self._jobs[self._job_index]
+                job = self._script.create_job(self._job_index, self._threatre)
                 self._frame_count = job()
                 self._job_index += 1
             except Exception as e:
                 print(traceback.format_exc())
-                if self._actions:
-                    error = f'{self._actions[self._job_index]}: failed'
+                if self._script.actions:
+                    error = f'{self._script.actions:[self._job_index]}: failed'
                 else:
                     error = ""
                 print(e)

@@ -59,16 +59,17 @@ script open_trap
     gamepad.keys.pressed has X
     player.whitecrow.animation is idle
     player.whitecrow.sheet is exploration
-        player.whitecrow reach (31, 8) by (return, walk_a, footsie, micro_footsie)
+        player.whitecrow reach (33, 8) by (return, walk_a, footsie, micro_footsie)
         player.whitecrow aim RIGHT by return
         wait 1 // need to wait one frame to ensure the post event is triggered
         player.whitecrow.sheet set airlock
-        player.whitecrow move (30, 0)
+        player.whitecrow move (32, 0)
+        nolock prop.trap play open
         player.whitecrow play open_trap
-        player.whitecrow move (31, 0)
+        player.whitecrow move (33, 0)
         player.whitecrow play release_rope
         player.whitecrow.sheet set exploration
-        player.whitecrow move (32, 8)
+        player.whitecrow move (34, 8)
         theatre.globals.airlock_trap_open set true
         theatre.globals.airlock_rope_released set true
 
@@ -89,3 +90,8 @@ script release_rope
         player.whitecrow move (32, 8)
         theatre.globals.airlock_rope_released set true
 
+
+script hit_horn
+    prop.horn.animation is idle
+    player.whitecrow.hitmap.hit_sword overlaps prop.horn.hitmap.horn
+        nolock prop.horn play hit

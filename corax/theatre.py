@@ -8,7 +8,7 @@ from corax.core import CHARACTER_TYPES, RUN_MODES, NODE_TYPES
 from corax.character import load_characters
 from corax.crackle.io import load_crackle_objects
 from corax.hitmap import hitmap_collide_zone
-from corax.iterators import iter_on_jobs, fade, choose
+from corax.iterators import iter_on_script, fade, choose
 from corax.gamepad import InputBuffer
 from corax.override import load_json
 from corax.relationship import (
@@ -317,13 +317,10 @@ class Theatre:
 
     def queue_event(self, event):
         crackle_event = self.events[event]
-        jobs = crackle_event.jobs(self)
-        actions = crackle_event.actions
-        self.event_iterators[event] = iter_on_jobs(jobs, actions=actions)
+        self.event_iterators[event] = iter_on_script(crackle_event, self)
 
     def run_script(self, script):
-        jobs = script.jobs(self)
-        self.script_iterator = iter_on_jobs(jobs, script.actions)
+        self.script_iterator = iter_on_script(script, self)
         self.run_mode = RUN_MODES.SCRIPT
 
     def pause(self):

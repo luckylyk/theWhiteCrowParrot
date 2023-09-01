@@ -21,8 +21,13 @@ class CrackleScript:
             create_condition_checker(line, theatre)
             for line in self.conditions]
 
-    def jobs(self, theatre):
-        return [create_job(line, theatre, self) for line in self.actions]
+    def create_job(self, index, theatre):
+        try:
+            line = self.actions[index]
+            return create_job(line, theatre, self)
+        except Exception:
+            print(f'Fail in script: {self.name} at action {index}: {line}')
+            raise
 
     def check(self):
         checks = [checker() for checker in self.checkers]
@@ -39,5 +44,10 @@ class CrackleEvent:
         actions = "  " + "\n  ".join(self.actions)
         return f"event {self.name}\n{actions}\n\n"
 
-    def jobs(self, theatre):
-        return [create_job(line, theatre, self) for line in self.actions]
+    def create_job(self, index, theatre):
+        try:
+            line = self.actions[index]
+            return create_job(line, theatre, self)
+        except Exception:
+            print(f'Fail in script: {self.name} at action {index}: {line}')
+            raise

@@ -79,12 +79,14 @@ script jump_down
         player.whitecrow move (34, 0)
         theatre.camera move (420, 134)
         wait 15
+        nolock prop.trap play crackdown
+        nolock prop.horn play whoosh
         player.whitecrow play fall
+        hide prop.horn
         theatre.scene set hole
         theatre.globals.has_sword set false
         player.whitecrow.layer hide sword
         player.whitecrow.sheet set fall
-        wait 15
+        wait 10
         player.whitecrow play fall
         checkpoint
-
