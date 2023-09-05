@@ -33,7 +33,14 @@
             "type": "interaction",
             "affect": ["whitecrow"],
             "scripts": ["airlock.open_trap", "airlock.release_rope"],
-            "zone": [34, 21, 39, 27]
+            "zone": [32, 21, 39, 27]
+        },
+        {
+            "name": "hitcage",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["airlock.hit1_birdcage", "airlock.hit2_birdcage", "airlock.hit3_birdcage"],
+            "zone": [36, 21, 43, 27]
         }
     ],
     "elements": [
@@ -149,7 +156,23 @@
             "file": "airlock/bird cage.png",
             "position": [289, 66],
             "deph": 0.0,
-            "visible": true
+            "visible": false
+        },
+        {
+            "name": "birdcage",
+            "type": "set_animated",
+            "file": "birdcage.json",
+            "position": [230, 60],
+            "alpha": 255,
+            "deph": 0.0
+        },
+        {
+            "name": "pecker",
+            "type": "set_animated",
+            "file": "pecker_escape.json",
+            "position": [230, 0],
+            "alpha": 255,
+            "deph": 0.0
         },
         {
             "name": "fg_rocks_2",

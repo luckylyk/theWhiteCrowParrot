@@ -95,3 +95,32 @@ script hit_horn
     prop.horn.animation is idle
     player.whitecrow.hitmap.hit_sword overlaps prop.horn.hitmap.horn
         nolock prop.horn play hit
+
+
+script hit1_birdcage
+    prop.birdcage.animation is idle
+    player.whitecrow.hitmap.hit_sword overlaps prop.birdcage.hitmap.cage
+        nolock player.whitecrow play high_block_retrieve
+        nolock prop.birdcage play hit1
+        wait 10
+
+
+script hit2_birdcage
+    prop.birdcage.animation in (hit1, hit1_idle)
+    player.whitecrow.hitmap.hit_sword overlaps prop.birdcage.hitmap.cage
+        nolock player.whitecrow play high_block_retrieve
+        nolock prop.birdcage play hit2
+        wait 10
+
+
+script hit3_birdcage
+    prop.birdcage.animation in (hit2, hit2_idle)
+    player.whitecrow.hitmap.hit_sword overlaps prop.birdcage.hitmap.cage
+        nolock player.whitecrow play high_block_retrieve
+        prop.birdcage play hit3
+        wait 15
+        nolock prop.pecker play escape
+        wait 50
+        prop.pecker layover static.chain
+        wait 40
+        prop.pecker layover static.crate

@@ -42,7 +42,7 @@ DEFAULT_MOVE = {
     "next_move": "idle",
     "next_move_bufferable": False,
     "hold": False,
-    "loop_on": "idle",
+    "loop_on": ["idle"],
     "conditions": {},
     "inputs": [],
     "pre_events": {},
