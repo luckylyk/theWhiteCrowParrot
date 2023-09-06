@@ -25,7 +25,7 @@
             "name": "climb",
             "type": "interaction",
             "affect": ["whitecrow"],
-            "scripts": ["airlock.climb", "airlock.hit_horn"],
+            "scripts": ["airlock.climb", "airlock.hit_horn", "airlock.climb_and_show_pecker"],
             "zone": [39, 21, 46, 27]
         },
         {
@@ -126,7 +126,8 @@
             "file": "airlock_horn.json",
             "position": [440, 50],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "chain",
@@ -148,7 +149,8 @@
             "file": "airlock_trap.json",
             "position": [320, 100],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "bird cage",
@@ -164,7 +166,8 @@
             "file": "birdcage.json",
             "position": [230, 60],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "pecker",
@@ -172,7 +175,8 @@
             "file": "pecker_escape.json",
             "position": [230, 0],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "fg_rocks_2",

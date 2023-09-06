@@ -1,5 +1,5 @@
 {
-    "name": "walk_test",
+    "name": "walk_test", 
     "type": "scene",
     "background_color": [0, 0, 0],
     "boundary": [0, 0, 800, 268],

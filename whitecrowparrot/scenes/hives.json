@@ -1,5 +1,5 @@
 {
-    "name": "hives",
+    "name": "hives", 
     "type": "scene",
     "background_color": [100, 195, 255],
     "boundary": [0, 0, 1600, 268],
@@ -138,7 +138,8 @@
             "file": "lie_trunk.json",
             "position": [873, 222],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "jos",

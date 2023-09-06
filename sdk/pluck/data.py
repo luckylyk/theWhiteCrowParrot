@@ -195,7 +195,8 @@ DATA_TEMPLATES = {
         "file": str,
         "position": (int, int),
         "alpha": int,
-        "deph": float
+        "deph": float,
+        "visible": bool
     },
     "special_effects_emitter": {
         "name": str,

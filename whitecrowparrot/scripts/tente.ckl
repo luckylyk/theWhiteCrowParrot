@@ -48,6 +48,7 @@ script go_down_with_chain
     theatre.globals.chest_moved is true
     theatre.globals.chain_hanging is true
     player.whitecrow.animation is idle
+    player.whitecrow.flip is false
     player.whitecrow.sheet is exploration
         player.whitecrow reach (31, 8) by (return, walk_a, footsie, micro_footsie)
         player.whitecrow aim RIGHT by return

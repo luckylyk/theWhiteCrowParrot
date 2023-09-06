@@ -25,6 +25,7 @@
 
 
 script climb
+    theatre.globals.pecker_tente_must_be_shown is false
     gamepad.keys.pressed has X
     theatre.globals.chain_hanging is true
     player.whitecrow.animation is idle
@@ -38,6 +39,36 @@ script climb
         nolock player.whitecrow play catch_chain
         fadeout 18
         theatre.scene set tente
+        wait 10
+        hide static.hanging_chain
+        player.whitecrow move (31, 3)
+        player.whitecrow.sheet set chain
+        nolock fadein 20
+        player.whitecrow play release
+        player.whitecrow.layer hide chain
+        player.whitecrow.sheet set exploration
+        player.whitecrow offset (-10, 5)
+        show static.hanging_chain
+
+
+script climb_and_show_pecker
+    theatre.globals.pecker_tente_must_be_shown is true
+    gamepad.keys.pressed has X
+    theatre.globals.chain_hanging is true
+    player.whitecrow.animation is idle
+    player.whitecrow.sheet is exploration
+        player.whitecrow reach (37, 8) by (return, walk_a, footsie, micro_footsie)
+        player.whitecrow aim LEFT by return
+        hide static.chain
+        player.whitecrow.layer show chain
+        player.whitecrow.sheet set airlock
+        player.whitecrow offset (6, -8)
+        nolock player.whitecrow play catch_chain
+        fadeout 18
+        theatre.scene set tente
+        prop.pecker layover prop.chest_bag
+        show prop.pecker
+        theatre.globals.pecker_tente_must_be_shown set false
         wait 10
         hide static.hanging_chain
         player.whitecrow move (31, 3)
@@ -124,3 +155,4 @@ script hit3_birdcage
         prop.pecker layover static.chain
         wait 40
         prop.pecker layover static.crate
+        theatre.globals.pecker_tente_must_be_shown set true

@@ -1,6 +1,6 @@
 {
     "name": "mine_01",
-    "type": "scene",
+    "type": "scene", 
     "background_color": [0, 0, 0],
     "boundary": [0, 0, 800, 268],
     "soft_boundaries": [],
@@ -167,7 +167,8 @@
             "file": "mine_lie_down_miner.json",
             "position": [350, 120],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "cut_scene",
@@ -175,7 +176,8 @@
             "file": "mine_cut_scene.json",
             "position": [130, 40],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "blackknight_strangulation",
@@ -183,7 +185,8 @@
             "file": "blackknight_strangulation.json",
             "position": [300, 90],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "lie_down_miner_fg",
@@ -191,7 +194,8 @@
             "file": "mine_lie_down_miner.json",
             "position": [350, 120],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "whitecrow",

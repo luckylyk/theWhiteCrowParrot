@@ -235,7 +235,8 @@
             "file": "arbaletist.json",
             "position": [350, 80],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "fg_mask",

@@ -1,6 +1,6 @@
 {
     "name": "honeywarehouse_cave",
-    "type": "scene",
+    "type": "scene", 
     "background_color": [0, 0, 0],
     "boundary": [0, 0, 820, 268],
     "soft_boundaries": [],
@@ -86,7 +86,8 @@
             "file": "honeybottle_1.json",
             "position": [510, 160],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "bg_machine",
@@ -102,7 +103,8 @@
             "file": "goods_lift.json",
             "position": [360, 30],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "fg_machine",

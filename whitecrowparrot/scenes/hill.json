@@ -1,5 +1,5 @@
 {
-    "name": "Scene 02",
+    "name": "Scene 02", 
     "type": "scene",
     "background_color": [173, 177, 189],
     "boundary": [80, 0, 1600, 268],
@@ -308,7 +308,8 @@
             "file": "hill_groundtip.json",
             "position": [322, 210],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "sinoc",
@@ -334,7 +335,8 @@
             "file": "hill_right_wall.json",
             "position": [1159, 0],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "fg_tree",

@@ -764,7 +764,8 @@
             "file": "smoke.json",
             "position": [1600, 152],
             "alpha": 25,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "arbaletist",
@@ -772,7 +773,8 @@
             "file": "arbaletist.json",
             "position": [4150, 100],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "door",
@@ -780,7 +782,8 @@
             "file": "tente_door.json",
             "position": [2753, 102],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "sword_holder",
@@ -788,7 +791,8 @@
             "file": "sword_holder.json",
             "position": [3480, 100],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "rabbit",
@@ -796,7 +800,8 @@
             "file": "rabbit.json",
             "position": [2777, 182],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "ladder",
@@ -804,7 +809,8 @@
             "file": "ladder.json",
             "position": [1280, -1500],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "whitecrow",
@@ -818,7 +824,8 @@
             "file": "robert.json",
             "position": [1140, -30],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "forest_dust_2",

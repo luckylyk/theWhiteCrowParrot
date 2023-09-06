@@ -336,7 +336,8 @@
             "file": "hatch.json",
             "position": [390, 180],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "flail",
@@ -344,7 +345,8 @@
             "file": "chest_flail.json",
             "position": [457, 110],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "armor",
@@ -352,7 +354,8 @@
             "file": "chest_armor.json",
             "position": [475, 122],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "chest",
@@ -360,7 +363,8 @@
             "file": "chest.json",
             "position": [434, 170],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "chest_locker",
@@ -368,7 +372,8 @@
             "file": "chest_locker.json",
             "position": [430, 206],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "hatch2",
@@ -376,18 +381,19 @@
             "file": "hatch2.json",
             "position": [390, 180],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "seeds_fx",
             "type": "special_effects_emitter",
-            "spritesheet_filename": "fx/seeds.json",
-            "layers": ["item"],
             "alpha": 255,
+            "animation_iteration_type": "cycle",
             "deph": 0.0,
-            "repeat_delay": 10,
+            "layers": ["item"],
             "persistents": false,
-            "animation_iteration_type": "cycle"
+            "repeat_delay": 10,
+            "spritesheet_filename": "fx/seeds.json"
         },
         {
             "name": "whitecrow",
@@ -401,7 +407,8 @@
             "file": "chest_props.json",
             "position": [308, 85],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "chest_bag",
@@ -409,7 +416,17 @@
             "file": "chest_bag.json",
             "position": [341, 165],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "pecker",
+            "type": "set_animated",
+            "file": "pecker_tente.json",
+            "position": [210, 150],
+            "alpha": 255,
+            "deph": 0.0,
+            "visible": false
         },
         {
             "name": "foreground",

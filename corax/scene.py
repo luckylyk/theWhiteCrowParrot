@@ -104,6 +104,7 @@ def build_set_animated_element(data):
         os.path.join(cctx.SHEET_FOLDER, data["file"]),
         pixel_position=data["position"],
         deph=data["deph"],
+        visible=data["visible"],
         alpha=data["alpha"])
 
 

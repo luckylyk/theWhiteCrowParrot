@@ -27,23 +27,25 @@ class SetStaticElement:
 
 
 class SetAnimatedElement:
-    def __init__(self, name, animation_controller, coordinate, deph, alpha=255):
+    def __init__(
+            self, name, animation_controller,
+            coordinate, visible, deph, alpha=255):
         self.name = name
         self.animation_controller = animation_controller
         self.coordinate = coordinate
         self.deph = deph
         self.alpha = alpha
-        self.visible = True
+        self.visible = visible
 
     @staticmethod
-    def from_filename(name, filename, pixel_position, deph, alpha):
+    def from_filename(name, filename, pixel_position, visible, deph, alpha):
         spritesheet = SpriteSheet.from_filename(None, filename)
         data = load_json(filename)
         coordinate = Coordinate(pixel_position=pixel_position)
         animation_controller = AnimationController(
             data, spritesheet, coordinate)
         return SetAnimatedElement(
-            name, animation_controller, coordinate, deph, alpha)
+            name, animation_controller, coordinate, visible, deph, alpha)
 
     @property
     def pixel_center(self):

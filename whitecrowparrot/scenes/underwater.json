@@ -1,6 +1,6 @@
 {
     "name": "underwater",
-    "type": "scene",
+    "type": "scene", 
     "background_color": [0, 0, 0],
     "boundary": [0, 0, 800, 268],
     "soft_boundaries": [],
@@ -69,7 +69,8 @@
             "file": "uw_ladder.json",
             "position": [467, 0],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "foreground",

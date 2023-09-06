@@ -34,7 +34,14 @@ script pick_seeds
         player.whitecrow aim RIGHT by return
         player.whitecrow.sheet set interactions_2
         player.whitecrow layover prop.chest_bag
-        player.whitecrow play pick_seeds
+        nolock player.whitecrow play pick_seeds
+        wait 10
+        nolock prop.pecker play fly_out
+        wait 10
+        prop.pecker layover prop.hatch2
+        wait 18
+        hide prop.pecker
+        wait 22
         player.whitecrow layover prop.hatch2
         player.whitecrow.sheet set exploration
         theatre.globals.holding_seeds set true

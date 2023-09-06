@@ -1,6 +1,6 @@
 {
     "name": "mine_01",
-    "type": "scene",
+    "type": "scene", 
     "background_color": [0, 0, 0],
     "boundary": [0, 0, 800, 268],
     "soft_boundaries": [],

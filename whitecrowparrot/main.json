@@ -20,6 +20,7 @@
         "jos_is_waiting": true,
         "ladder_is_activated": false,
         "lie_down_miner_is_dead": false,
+        "pecker_tente_must_be_shown": false,
         "rabbit_triggered": false,
         "sinoc_fight_is_started": false,
         "underwater_ladder_visible": false,

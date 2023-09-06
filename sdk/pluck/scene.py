@@ -155,7 +155,8 @@ FIELDS = {
         "file": FileField,
         "position": IntVectorField,
         "alpha": IntField,
-        "deph": FloatField
+        "deph": FloatField,
+        "visible": BoolField
     },
     "player": {
         "name": StrField,

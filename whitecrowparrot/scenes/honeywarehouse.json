@@ -1,5 +1,5 @@
 {
-    "name": "honeywarehouse",
+    "name": "honeywarehouse", 
     "type": "scene",
     "background_color": [0, 0, 0],
     "boundary": [0, 0, 800, 268],
@@ -163,7 +163,8 @@
             "file": "fx/right_candle_fire_light.json",
             "position": [620, 40],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "right_candle_fx2",
@@ -171,7 +172,8 @@
             "file": "fx/right_candle_small_flare_25.json",
             "position": [620, 40],
             "alpha": 63,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "right_candle_fx3",
@@ -179,7 +181,8 @@
             "file": "fx/right_candle_mid_flare_11.json",
             "position": [620, 40],
             "alpha": 25,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "right_candle_fx4",
@@ -187,7 +190,8 @@
             "file": "fx/right_candle_large_flare_6.json",
             "position": [620, 40],
             "alpha": 15,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "mid_candle_fx1",
@@ -195,7 +199,8 @@
             "file": "fx/mid_candle_fire_light.json",
             "position": [270, 0],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "mid_candle_fx2",
@@ -203,7 +208,8 @@
             "file": "fx/mid_candle_small_flare_12.json",
             "position": [360, 0],
             "alpha": 30,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "mid_candle_fx3",
@@ -211,7 +217,8 @@
             "file": "fx/mid_candle_mid_flare_2.json",
             "position": [360, 0],
             "alpha": 5,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "mid_candle_fx4",
@@ -219,7 +226,8 @@
             "file": "fx/mid_candle_large_flare_4.json",
             "position": [360, 0],
             "alpha": 10,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "fxcandle2",
@@ -233,7 +241,8 @@
             "file": "fx/left_candle_shelves_light.json",
             "position": [260, 40],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "left_candle_fx1",
@@ -241,7 +250,8 @@
             "file": "fx/left_candle_fire_light.json",
             "position": [300, 60],
             "alpha": 255,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "left_candle_fx2",
@@ -249,7 +259,8 @@
             "file": "fx/left_candle_small_flare_24.json",
             "position": [300, 60],
             "alpha": 60,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "left_candle_fx3",
@@ -257,7 +268,8 @@
             "file": "fx/left_candle_middle_flare_11.json",
             "position": [300, 60],
             "alpha": 25,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "left_candle_fx4",
@@ -265,7 +277,8 @@
             "file": "fx/left_candle_large_flare_6.json",
             "position": [300, 60],
             "alpha": 15,
-            "deph": 0.0
+            "deph": 0.0,
+            "visible": true
         }
     ]
 }
