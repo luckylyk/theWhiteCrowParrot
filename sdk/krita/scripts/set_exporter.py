@@ -15,6 +15,9 @@ FOLDER = r"C:\Users\lio\Desktop\zini\zut"
 LEVEL_FOLDER = "sumo_test"
 LEVEL_FILE = "coordinate.json"
 DEFAULT_DATA = {
+    "deph": 0.0,
+    "visible": True,
+    "type": "set_static"
 }
 
 def check_name_clash(nodes):
