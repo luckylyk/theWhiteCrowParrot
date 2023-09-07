@@ -94,7 +94,7 @@ class Theatre:
         self.events = {e.name: e for e in events}
         self.current_scripts = []
         self.freeze = 0
-        self.set_scene(data["start_scene"])
+        self.set_scene(data["start_scene"], data["start_camera_position"])
         self.run_mode = RUN_MODES.NORMAL
         self.script_iterator = None
         self.event_iterators = {}
@@ -115,7 +115,7 @@ class Theatre:
                 scene_name,
                 build_scene(scene_name, scene_data, self.data['shaders'])))
 
-    def set_scene(self, scene_name):
+    def set_scene(self, scene_name, camera_position=None):
         # Currently, the engine rebuild each scene from scratch each it is set.
         # This is not a really efficient way but it spares high memory usage.
         # It makes a small freeze between each cut. To avoid that, i should
@@ -128,6 +128,8 @@ class Theatre:
         self.init_scene_scripts()
         self.init_scene_characters()
         self.audio_streamer.set_scene(scene_data["sounds"], self.scene)
+        if camera_position is not None:
+            self.scene.camera.set_center(camera_position)
 
     def init_scene_scripts(self):
         script_names = [n for z in self.scene.zones for n in z.script_names]

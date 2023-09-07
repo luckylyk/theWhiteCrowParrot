@@ -83,6 +83,7 @@
         }
     },
     "start_scene": "forest",
+    "start_camera_position": [1995, 225],
     "start_scrolling_targets": ["whitecrow"],
     "title": "The White Crow's Parrot"
 }
