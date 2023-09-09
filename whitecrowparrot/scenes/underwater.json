@@ -1,12 +1,12 @@
 {
     "name": "underwater",
-    "type": "scene", 
+    "type": "scene",
     "background_color": [0, 0, 0],
-    "boundary": [0, 0, 800, 268],
+    "boundary": [0, 0, 830, 268],
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-        
+
     ],
     "zones": [
         {
@@ -50,12 +50,70 @@
             }
         },
         {
-            "name": "bg",
-            "type": "set_static",
-            "file": "underwater/bg.png",
-            "position": [0, 0],
             "deph": 0.0,
-            "visible": true
+            "visible": true,
+            "type": "set_static",
+            "file": "underwater/bg_color.png",
+            "name": "bg_color",
+            "position": [
+                0,
+                0
+            ]
+        },
+        {
+            "deph": 0.0,
+            "visible": true,
+            "type": "set_static",
+            "file": "underwater/background.png",
+            "name": "background",
+            "position": [
+                0,
+                0
+            ]
+        },
+        {
+            "deph": 0.0,
+            "visible": true,
+            "type": "set_static",
+            "file": "underwater/ground.png",
+            "name": "ground",
+            "position": [
+                118,
+                142
+            ]
+        },
+        {
+            "deph": 0.0,
+            "visible": true,
+            "type": "set_static",
+            "file": "underwater/dead_body.png",
+            "name": "dead_body",
+            "position": [
+                383,
+                166
+            ]
+        },
+        {
+            "deph": 0.0,
+            "visible": true,
+            "type": "set_static",
+            "file": "underwater/waterside_effects.png",
+            "name": "waterside_effects",
+            "position": [
+                224,
+                0
+            ]
+        },
+        {
+            "deph": 0.0,
+            "visible": true,
+            "type": "set_static",
+            "file": "underwater/ladder.png",
+            "name": "ladder",
+            "position": [
+                467,
+                10
+            ]
         },
         {
             "name": "whitecrow",
@@ -73,25 +131,88 @@
             "visible": true
         },
         {
-            "name": "foreground",
+            "deph": 0.0,
+            "visible": false,
+            "type": "set_static",
+            "file": "underwater/smoke_effect.png",
+            "name": "smoke_effect",
+            "position": [
+                250,
+                202
+            ]
+        },
+        {
+            "name": "middle",
             "type": "layer",
             "deph": 0.0,
+            "shader": null
+        },    {
+            "deph": 0.0,
+            "visible": true,
+            "type": "set_static",
+            "file": "underwater/ground_with_box.png",
+            "name": "ground_with_box",
+            "position": [
+                0,
+                97
+            ]
+        },
+        {
+            "deph": 0.0,
+            "visible": true,
+            "type": "set_static",
+            "file": "underwater/chain.png",
+            "name": "chain",
+            "position": [
+                242,
+                178
+            ]
+        },
+        {
+            "deph": 0.0,
+            "visible": false,
+            "type": "set_static",
+            "file": "underwater/smoke_fx_2.png",
+            "name": "smoke_fx_2",
+            "position": [
+                275,
+                189
+            ]
+        },
+        {
+            "name": "foreground",
+            "type": "layer",
+            "deph": 0.1,
             "shader": {
                 "name": "water_sinusoid",
                 "options": {
-                    "amplitude": 600,
-                    "speed": 20,
-                    "wave_number": 4
+                    "amplitude": 400,
+                    "speed": 15,
+                    "wave_number": 3
                 }
             }
         },
         {
-            "name": "fg",
-            "type": "set_static",
-            "file": "underwater/fg.png",
-            "position": [0, 0],
             "deph": 0.0,
-            "visible": true
+            "visible": true,
+            "type": "set_static",
+            "file": "underwater/foreground_rock.png",
+            "name": "foreground_rock",
+            "position": [
+                0,
+                0
+            ]
+        },
+        {
+            "deph": 0.0,
+            "visible": true,
+            "type": "set_static",
+            "file": "underwater/foreground_plant.png",
+            "name": "foreground_plant",
+            "position": [
+                6,
+                0
+            ]
         }
     ]
 }
