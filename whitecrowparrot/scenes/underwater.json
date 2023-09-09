@@ -159,14 +159,23 @@
         },
         {
             "deph": 0.0,
-            "visible": true,
+            "visible": false,
             "type": "set_static",
             "file": "underwater/chain.png",
-            "name": "chain",
+            "name": "chain_reference",
             "position": [
                 242,
                 178
             ]
+        },
+        {
+            "name": "chain",
+            "type": "set_animated",
+            "file": "underwater_chain.json",
+            "position": [230, 170],
+            "alpha": 255,
+            "deph": 0.0,
+            "visible": true
         },
         {
             "deph": 0.0,
@@ -187,7 +196,7 @@
                 "name": "water_sinusoid",
                 "options": {
                     "amplitude": 400,
-                    "speed": 15,
+                    "speed": 5,
                     "wave_number": 3
                 }
             }

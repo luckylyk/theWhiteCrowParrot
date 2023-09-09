@@ -57,5 +57,7 @@ script catch_chain
         player.whitecrow reach (19, 6) by (return, step)
         player.whitecrow aim LEFT by return
         player.whitecrow.layer show chain
+        nolock prop.chain play picked
         player.whitecrow play catch_chain
+        hide prop.chain
         theatre.globals.holding_chain set true

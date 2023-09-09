@@ -8,7 +8,6 @@ paths = [
     # os.path.join(os.path.dirname(__file__), "..", "sdk", "pluck"),
     # os.path.join(os.path.dirname(__file__), "..", "sdk", "conus"),
     # os.path.join(os.path.dirname(__file__), "..", "sdk", "krita", "scripts"),
-    # os.path.join(os.path.dirname(__file__), "..", "sdk", "krita", "extensions"),
     # os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot"),
     # os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot", "sheets"),
     # os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot", "scenes"),
