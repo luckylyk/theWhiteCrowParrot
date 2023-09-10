@@ -175,7 +175,7 @@ script jump
         fadeout 35
         theatre.scene set underwater
         player.whitecrow.sheet set underwater
-        show prop.underwater_ladder
+        show static.ladder
         player.whitecrow move (27, 6)
         nolock player.whitecrow play fall
         fadein 35
@@ -191,7 +191,6 @@ script jump2
         player.whitecrow play jump
         fadeout 35
         theatre.scene set underwater
-        hide prop.underwater_ladder
         player.whitecrow.sheet set underwater
         player.whitecrow move (27, 6)
         nolock player.whitecrow play fall

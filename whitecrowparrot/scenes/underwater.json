@@ -95,18 +95,27 @@
         },
         {
             "deph": 0.0,
-            "visible": true,
+            "visible": false,
             "type": "set_static",
             "file": "underwater/waterside_effects.png",
-            "name": "waterside_effects",
+            "name": "watersides_effects_place_holder",
             "position": [
                 224,
                 0
             ]
         },
         {
+            "name": "watersides_effects",
+            "type": "set_animated",
+            "file": "watersides_fx.json",
+            "position": [210, 0],
+            "alpha": 255,
             "deph": 0.0,
-            "visible": true,
+            "visible": true
+        },
+        {
+            "deph": 0.0,
+            "visible": false,
             "type": "set_static",
             "file": "underwater/ladder.png",
             "name": "ladder",
@@ -120,15 +129,6 @@
             "type": "player",
             "block_position": [27, 6],
             "flip": false
-        },
-        {
-            "name": "underwater_ladder",
-            "type": "set_animated",
-            "file": "uw_ladder.json",
-            "position": [467, 0],
-            "alpha": 255,
-            "deph": 0.0,
-            "visible": true
         },
         {
             "deph": 0.0,

@@ -40,10 +40,10 @@ script climb_ladder
     gamepad.keys.pressed has X
         player.whitecrow reach (35, 6) by (return, step)
         player.whitecrow aim RIGHT by return
-        player.whitecrow layover prop.underwater_ladder
+        player.whitecrow layover static.ladder
         player.whitecrow play ladder
         stop theatre.timer.asphixia_countdown
-        prop.underwater_ladder layover player.whitecrow
+        static.ladder layover player.whitecrow
         theatre.scene set forest
         player.whitecrow.sheet set exploration
         player.whitecrow move (112, 10)
