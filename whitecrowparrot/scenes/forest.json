@@ -1245,6 +1245,15 @@
             "visible": true
         },
         {
+          "name": "pecker_on_tree",
+          "type": "set_animated",
+          "file": "forest_pecker.json",
+          "position": [3386, 40],
+          "alpha": 255,
+          "deph": 0.15,
+          "visible": false
+        },
+        {
             "name": "forest_01/fg_grass_01",
             "type": "set_static",
             "file": "forest_01/fg_grass_01.png",

@@ -1,0 +1,63 @@
+{
+    "name": "",
+    "default_move": "start",
+    "evaluation_order": ["start", "idle", "fly_out"],
+    "frame_size": [340, 200],
+    "key_color": [0, 255, 0],
+    "layers": {
+        "item": "forest_pecker.png"
+    },
+    "moves": {
+        "fly_out": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 4],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": ["idle"],
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 50,
+            "triggers": null
+        },
+        "idle": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 6, 1, 1, 1, 1, 1, 1, 1, 18, 1, 1, 1, 1, 1, 1, 1, 4, 1, 1, 1, 1, 1, 1, 1, 22, 1, 15, 1, 14],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": null,
+            "next_move": "idle",
+            "next_move_bufferable": null,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 6,
+            "triggers": null
+        },
+        "start": {
+            "center": [0, 0],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [7, 1, 1, 6, 1, 8],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": ["idle"],
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 0,
+            "triggers": null
+        }
+    }
+}
