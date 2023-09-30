@@ -11,7 +11,7 @@
 // second indent level is the job queue.
 //
 // List of available keywords:
-// declaration: (script, event)
+// declaration: (script, concurrent, event)
 // conditional and time related adverbs/function: (always, freeze, nolock,
 //                                                 wait)
 // comparators: (by, from, has, in, is, overlaps)
@@ -144,7 +144,7 @@ script hit2_birdcage
         wait 10
 
 
-script hit3_birdcage
+concurrent hit3_birdcage
     prop.birdcage.animation in (hit2, hit2_idle)
     player.whitecrow.hitmap.hit_sword overlaps prop.birdcage.hitmap.cage
         nolock player.whitecrow play high_block_retrieve
