@@ -10,7 +10,7 @@ import corax.context as cctx
 from corax.crackle.script import CrackleEvent, CrackleScript
 
 
-FUNCTION_TYPES = "script", "event"
+FUNCTION_TYPES = "script", "event", "concurrent"
 
 
 def load_crackle_objects():
@@ -44,9 +44,10 @@ def parse_crackle_file(filepath, namespace):
             if not line:
                 line = next_line(f)
                 i += 1
-            elif line.startswith("script"):
+            elif line.startswith(("script", "concurrent")):
                 name = f"{namespace}.{extract_script_name(line)}"
-                script, i, line = build_script(f, i, name)
+                concurrent = line.startswith("concurrent")
+                script, i, line = build_script(f, i, name, concurrent)
                 scripts.append(script)
             elif line.startswith("event"):
                 name = f"{namespace}.{extract_script_name(line)}"
@@ -55,6 +56,7 @@ def parse_crackle_file(filepath, namespace):
             else:
                 msg = f"line {i} > Unrecognized line > {namespace}"
                 raise SyntaxError(msg)
+    print([s.name for s in scripts if s.name.startswith('forest')])
     return scripts, events
 
 
@@ -81,8 +83,8 @@ def build_event(f, i, name):
         event.actions.append(line.strip(" "))
 
 
-def build_script(f, i, name):
-    script = CrackleScript(name)
+def build_script(f, i, name, concurrent=False):
+    script = CrackleScript(name, concurrent)
     indent_level = 1
     while True:
         try:
@@ -131,6 +133,3 @@ def extract_script_name(line):
             "script definition must be 'script name'\n"
             "space are not allowed in script name")
     return elements[-1]
-
-
-

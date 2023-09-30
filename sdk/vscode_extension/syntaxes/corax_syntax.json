@@ -44,7 +44,7 @@
           "name": "support.type.mysample"
         },
         {
-          "match": "(\\bscript\\b|\\bevent\\b)",
+          "match": "(\\bscript\\b|\\bevent\\b|\\bconcurrent\\b)",
           "name": "storage.type.function.python"
         },
         {

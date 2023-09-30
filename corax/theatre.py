@@ -314,8 +314,15 @@ class Theatre:
             iterator = itertools.product(script_names, self.current_scripts)
             for script_name, script in iterator:
                 if script.name == script_name and script.check():
+                    if script.concurrent is True:
+                        logging.debug(f"SCRIPT: concurrent {script_name}")
+                        self.queue_concurrent_script(script)
+                        continue
                     logging.debug(f"SCRIPT: running {script_name}")
                     self.run_script(script)
+
+    def queue_concurrent_script(self, script):
+        self.event_iterators[script.name] = iter_on_script(script, self)
 
     def queue_event(self, event):
         crackle_event = self.events[event]

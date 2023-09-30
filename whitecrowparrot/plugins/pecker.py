@@ -98,7 +98,6 @@ class Pecker(CoraxPluginShape):
             return
         if self.deph_buffer:
             self._deph = self.deph_buffer.pop(0)
-            print(self._deph)
         if self.status == PECKER_STATUSES.STARTING:
             self.evaluate_fly_hover()
         if self.status == PECKER_STATUSES.FLY_HOVER:

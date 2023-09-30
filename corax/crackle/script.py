@@ -4,7 +4,8 @@ from corax.crackle.job import create_job
 
 
 class CrackleScript:
-    def __init__(self, name):
+    def __init__(self, name, concurrent=False):
+        self.concurrent = concurrent
         self.name = name
         self.conditions = []
         self.actions = []

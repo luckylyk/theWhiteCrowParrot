@@ -60,7 +60,7 @@ script throw_seeds_no_bird
         plugin.pecker execute throw_seeds
 
 
-script start_fly_hover
+concurrent start_fly_hover
     plugin.pecker get invisible
     theatre.globals.holding_seeds is true
         prop.pecker_on_tree play fly_out

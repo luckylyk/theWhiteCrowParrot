@@ -96,7 +96,7 @@ script rabbit_trigger
         nolock prop.door play opening
 
 
-script robert_die
+concurrent robert_die
     prop.robert.animation is idle
         nolock prop.robert play dying
 
@@ -106,7 +106,7 @@ script robert_die
 ///////////////////////////////////////////////////////////////////////////////
 
 
-script activate_ladder_prop
+concurrent activate_ladder_prop
     theatre.globals.ladder_is_activated is false
     prop.robert.animation is lie_down
         theatre.globals.ladder_is_activated set true
