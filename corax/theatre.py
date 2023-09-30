@@ -322,6 +322,8 @@ class Theatre:
                     self.run_script(script)
 
     def queue_concurrent_script(self, script):
+        if script.name in self.event_iterators:
+            return
         self.event_iterators[script.name] = iter_on_script(script, self)
 
     def queue_event(self, event):

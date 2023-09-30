@@ -56,7 +56,6 @@ def parse_crackle_file(filepath, namespace):
             else:
                 msg = f"line {i} > Unrecognized line > {namespace}"
                 raise SyntaxError(msg)
-    print([s.name for s in scripts if s.name.startswith('forest')])
     return scripts, events
 
 

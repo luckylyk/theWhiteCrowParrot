@@ -233,7 +233,7 @@
             "name": "throw_seeds",
             "type": "interaction",
             "affect": ["whitecrow"],
-            "scripts": ["bird.throw_seeds_no_bird"],
+            "scripts": ["bird.throw_seeds_no_bird_tente"],
             "zone": [21, 20, 55, 26]
         },
         {

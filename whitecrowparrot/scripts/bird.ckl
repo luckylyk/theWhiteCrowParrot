@@ -47,7 +47,33 @@ script pick_seeds
         theatre.globals.holding_seeds set true
 
 
+script throw_seeds_no_bird_tente
+    gamepad.keys.pressed has X
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+    theatre.globals.holding_seeds is true
+        player.whitecrow.sheet set interactions_2
+        vfx.seeds_fx throw (20, -95) from player.whitecrow
+        player.whitecrow play throw_seeds
+        player.whitecrow.sheet set exploration
+        theatre.globals.holding_seeds set false
+
+
 script throw_seeds_no_bird
+    plugin.pecker get invisible
+    gamepad.keys.pressed has X
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+    theatre.globals.holding_seeds is true
+        player.whitecrow.sheet set interactions_2
+        vfx.seeds_fx throw (20, -95) from player.whitecrow
+        player.whitecrow play throw_seeds
+        player.whitecrow.sheet set exploration
+        theatre.globals.holding_seeds set false
+
+
+script throw_seeds_with_bird
+    plugin.pecker get visible
     gamepad.keys.pressed has X
     player.whitecrow.sheet is exploration
     player.whitecrow.animation is idle

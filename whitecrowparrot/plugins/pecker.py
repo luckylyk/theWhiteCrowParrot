@@ -246,6 +246,8 @@ class Pecker(CoraxPluginShape):
     def collect_value(self, command):
         if command == "invisible":
             return not self.visible
+        if command == "visible":
+            return self.visible
         raise NotImplementedError(
             command,
             f'command is not known for plugin {self.ptype} as '
