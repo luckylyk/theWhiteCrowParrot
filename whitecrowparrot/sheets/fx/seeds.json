@@ -12,7 +12,7 @@
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 25],
+            "frames_per_image": [3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1000],
             "hitmaps": null,
             "hold": false,
             "inputs": [],

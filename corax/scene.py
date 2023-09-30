@@ -8,6 +8,7 @@ from corax.core import NODE_TYPES
 from corax.euclide import Rect
 from corax.graphicelement import SetStaticElement, SetAnimatedElement
 from corax.particles import ParticlesSystem, build_emitter
+from corax.plugin import build_plugin_shape
 from corax.specialeffect import SpecialEffectsEmitter
 from corax.zone import Zone
 
@@ -26,6 +27,7 @@ class Scene:
         self.player_slots = []
         self.npc_slots = []
         self.special_effects = []
+        self.plugin_shapes = []
         self.layers = []
         self.animated_sets = []
         self.evaluables = []
@@ -221,6 +223,12 @@ def build_scene_layers(scene, data, shaders):
             layer.append(slot)
             scene.npc_slots.append(slot)
             scene.evaluables.append(slot)
+
+        elif element.get("type") == NODE_TYPES.PLUGIN_SHAPE:
+            shape = build_plugin_shape(element, scene)
+            layer.append(shape)
+            scene.plugin_shapes.append(shape)
+            scene.evaluables.append(shape)
 
         elif element.get("type") == NODE_TYPES.PARTICLES:
             particles = build_particles_system(element)

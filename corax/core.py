@@ -69,6 +69,8 @@ class NODE_TYPES:
     RELATIONSHIP = "relationship"
     COLLIDER = "collider"
     EVENT_ZONE = "event_zone"
+    # misc
+    PLUGIN_SHAPE = "plugin"
 
 
 class RUN_MODES:

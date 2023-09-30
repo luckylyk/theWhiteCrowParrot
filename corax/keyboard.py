@@ -30,7 +30,7 @@ class Joystick:
             if event.type not in [pygame.KEYDOWN, pygame.KEYUP]:
                 continue
             match event.key:
-                case pygame.K_ESCAPE:
+                case pygame.K_F1:
                     self.start = event.type == pygame.KEYDOWN
                 case pygame.K_F1:
                     self.select = event.type == pygame.KEYDOWN

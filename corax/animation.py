@@ -158,7 +158,9 @@ class SpriteSheet:
         assert self.sequences
 
         sequences = self.sequences_mirror if flip else self.sequences
-        sequences = [sequences[layer] for layer in layer_names if sequences.get(layer)]
+        sequences = [
+            sequences[layer] for layer in layer_names
+            if sequences.get(layer)]
         if not sequences:
             msg = f"No image found for {self.name}, {move}. "
             msg += "May no valid layer for the current sheet is found."
@@ -168,7 +170,6 @@ class SpriteSheet:
         except KeyError as e:
             keys = ", ".join(str(k) for k in self.data["moves"].keys())
             raise KeyError(f"{keys} doesn't contains {move}") from e
-        size = self.data["frame_size"]
         return Animation(move, sequences, data, self.size, flip)
 
     @property

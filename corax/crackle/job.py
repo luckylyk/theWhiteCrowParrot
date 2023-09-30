@@ -16,7 +16,8 @@ from corax.mathutils import sum_num_arrays
 from corax.scene import layover
 from corax.screen import map_to_render_area
 from corax.seeker import (
-    find_animated_set, find_emitter, find_element, find_zone, find_character)
+    find_animated_set, find_emitter, find_element, find_zone, find_character,
+    find_plugin_shape)
 
 from corax.crackle.action import (
     has_subject, filter_action, split_with_subject, parse_join_arguments,
@@ -108,14 +109,16 @@ def create_job_with_subject(subject, function, arguments, theatre, script):
         case 'locals':
             return create_local_variable_job(
                 script, subject_name, function, theatre, arguments)
+        case 'plugin':
+            return partial(job_plugin, theatre, subject_name, arguments)
         case "player":
-            name = subject_name
-            return create_character_job(theatre, script, name, function, arguments)
+            return create_character_job(
+                theatre, script, subject_name, function, arguments)
         case "prop":
             return create_prop_job(subject_name, function, arguments, theatre)
         case "npc":
-            name = subject_name
-            return create_character_job(theatre, script, name, function, arguments)
+            return create_character_job(
+                theatre, script, subject_name, function, arguments)
         case "static":
             return create_static_object_job(
                 subject_name, function, arguments, theatre)
@@ -142,7 +145,6 @@ def create_local_variable_job(
             collector = create_subject_value_collector(arguments, theatre)
             return partial(
                 job_set_local_variable, script, variable_name, collector)
-
 
 
 def create_theatre_job(subject, function, theatre, arguments):
@@ -362,6 +364,11 @@ def job_move(evaluable, block_position):
 def job_offset(character, offset):
     character.animation_controller.offset(block_offset=offset)
     return 0
+
+
+def job_plugin(theatre, subject_name, command):
+    plugin_shape = find_plugin_shape(theatre.scene, subject_name)
+    return plugin_shape.execute_command(command)
 
 
 def job_pin(theatre, character_name):

@@ -34,7 +34,7 @@ class iter_on_script:
             except Exception as e:
                 print(traceback.format_exc())
                 if self._script.actions:
-                    error = f'{self._script.actions:[self._job_index]}: failed'
+                    error = f'{self._script.actions[self._job_index]}: failed'
                 else:
                     error = ""
                 print(e)
@@ -115,6 +115,25 @@ class shuffle:
                 continue
             self._last = element
             return element
+
+
+class cycle:
+    # This class has to be reimplemented from itertools.cycle to be picklable.
+    def __init__(self, array):
+        self.original_array = array[:]
+        self.current_array = []
+
+    @property
+    def value(self):
+        if not self.current_array:
+            return self.original_array[0]
+        return self.current_array[0]
+
+    def __next__(self):
+        while True:
+            if not self.current_array:
+                self.current_array = self.original_array[:]
+            return self.current_array.pop(0)
 
 
 def choose(items):

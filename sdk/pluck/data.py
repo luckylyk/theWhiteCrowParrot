@@ -220,6 +220,7 @@ DATA_TEMPLATES = {
         "block_position": (int, int),
         "flip": bool
     },
+    "plugin": None,
     "particles_system": {
         "name": str,
         "alpha": int,

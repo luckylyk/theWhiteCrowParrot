@@ -5,24 +5,27 @@ def object_type(obj):
     if not obj.count("."):
         msg = f"{obj}: Object must start with an object type"
         raise SyntaxError(msg)
-    return obj.split(".")[0]
+    return obj.split(".")[0].strip(' ')
 
 
 def object_name(obj):
     if not obj.count("."):
         msg = "Object must have an oject name in second position"
         raise SyntaxError(msg)
-    return obj.split(".")[1]
+    return obj.split(".")[1].strip(' ')
 
 
 def object_attribute(obj):
     if obj.count(".") < 2:
         raise ValueError(f"No attibute specified for \"{obj}\"")
-    return ".".join(obj.split(".")[2:])
+    return ".".join(obj.split(".")[2:]).strip(' ')
 
 
 def string_to_int_list(string):
-    return [int(n) for n in string.strip("()").split(",")]
+    try:
+        return [int(n) for n in string.strip("()").split(",")]
+    except ValueError:
+        raise ValueError(f'{string} is not convertible to int list.')
 
 
 def string_to_string_list(string):

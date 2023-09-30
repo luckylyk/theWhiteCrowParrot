@@ -17,6 +17,13 @@ def find_player(theatre, name):
     return player
 
 
+def find_plugin_shape(scene, name):
+    plugin_shape = find(scene.plugin_shapes, name)
+    if not plugin_shape:
+        raise ValueError(f"Plugin shape '{name}' not found, {[p.name for p in scene.plugin_shapes]}")
+    return plugin_shape
+
+
 def find_emitter(theatre, name):
     emitter = find(theatre.scene.special_effects, name)
     if not emitter:

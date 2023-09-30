@@ -42,6 +42,7 @@ script go_to_tente
         player.whitecrow aim RIGHT by return
         nolock fadeout 10
         player.whitecrow play through_door
+        plugin.pecker execute reset
         theatre.scene set tente
         wait 3
         nolock fadein 6

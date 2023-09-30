@@ -77,13 +77,13 @@ if arguments.debug:
 
 
 import corax.context as cctx
+from corax import renderengine, config
+from corax.gameloop import GameLoop
+from corax.gamepad import load_config_keybinding
+from corax.plugin import register_custom_plugins
 from corax.screen import initialize_screen
 from corax.renderengine.display import setup_render_display
 from corax.renderengine.draw import render
-from corax import renderengine
-from corax.gameloop import GameLoop
-from corax.gamepad import load_config_keybinding
-from corax import config
 # Initialize the engine constants based on the application arguments and loads
 # the main.json file.
 game_data = cctx.initialize(arguments)
@@ -112,6 +112,7 @@ if not arguments.skip_splash:
         clock.tick(SPLASH_FPS)
 
 # Run the game
+register_custom_plugins()
 gameloop = GameLoop(game_data)
 
 while not gameloop.done:

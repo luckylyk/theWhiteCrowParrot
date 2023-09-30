@@ -29,6 +29,7 @@ SET_FOLDER = None
 SHADER_FOLDER = None
 SHEET_FOLDER = None
 SOUNDS_FOLDER = None
+PLUGINS_FOLDER = None
 
 CONFIG_FILE = None
 USE_CONFIG = None
@@ -50,7 +51,7 @@ def initialize(arguments):
         FPS, CAMERA_SPEED, BLOCK_SIZE, KEY_COLOR, DEBUG, MUTE, \
         CHARACTER_FOLDER, TITLE, OVERRIDE_FILE, RELATIONSHIP_FOLDER, \
         MENU_FOLDER, CONFIG_FILE, USE_CONFIG, DEFAULT_CONFIG_FILE, \
-        SHADER_FOLDER, RENDER_AREA, USE_KEYBOARD
+        SHADER_FOLDER, RENDER_AREA, USE_KEYBOARD, PLUGINS_FOLDER
 
     ROOT = os.path.abspath(arguments.game_root)
     OVERRIDE_FILE = arguments.overrides
@@ -71,6 +72,7 @@ def initialize(arguments):
     SHEET_FOLDER = os.path.realpath(os.path.join(ROOT, "sheets"))
     SOUNDS_FOLDER = os.path.realpath(os.path.join(ROOT, "sounds"))
     SHADER_FOLDER = os.path.realpath(os.path.join(ROOT, "shaders"))
+    PLUGINS_FOLDER = os.path.realpath(os.path.join(ROOT, "plugins"))
 
     game_data = load_json(os.path.join(ROOT, GAME_FILE))
     TITLE = game_data["title"]

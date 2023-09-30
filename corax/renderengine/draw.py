@@ -12,6 +12,7 @@ from corax.screen import map_to_render_area
 
 from corax.character import CharacterSlot
 from corax.graphicelement import SetAnimatedElement, SetStaticElement
+from corax.plugin import list_registered_plugin_shape_classes
 from corax.particles import ParticlesSystem
 from corax.specialeffect import SpecialEffectsEmitter
 
@@ -33,7 +34,10 @@ def draw_image(id_, surface, position, alpha=255):
     surface.blit(temp, map_to_render_area(*position))
 
 
-def draw_rect(surface, color, x, y, width, height, alpha=255):
+def draw_rect(
+        surface, color, x, y, width, height, alpha=255, map_to_screen=False):
+    if map_to_screen:
+        x, y = map_to_render_area(x, y)
     temp = pygame.Surface((width, height), pygame.SRCALPHA)
     pygame.draw.rect(temp, color, [0, 0, width, height])
     temp.set_alpha(alpha)
@@ -52,7 +56,9 @@ def draw_background(surface, color=None, alpha=255):
         alpha=alpha)
 
 
-def draw_ellipse(surface, color, x, y, height, width):
+def draw_ellipse(surface, color, x, y, height, width, map_to_screen=False):
+    if map_to_screen:
+        x, y = map_to_render_area(x, y)
     pygame.draw.ellipse(surface, color, [x, y, height, width])
 
 
@@ -181,6 +187,15 @@ def render_static_element(element, surface, deph, camera):
     draw_image(element.image, surface, position)
 
 
+def render_plugin_shapes(element, surface, deph, camera):
+    totdeph = deph + element.deph
+    position = camera.relative_pixel_position(element.pixel_position, totdeph)
+    for image in element.images:
+        draw_image(image, surface, position)
+    if cctx.DEBUG:
+        element.render_debug(surface, deph, camera)
+
+
 def render_layer(layer, surface, camera):
     match = {
         CharacterSlot: render_character_slot,
@@ -188,6 +203,10 @@ def render_layer(layer, surface, camera):
         SetStaticElement: render_static_element,
         SpecialEffectsEmitter: render_special_effects_emitter,
         SetAnimatedElement: render_animated_element}
+
+    match.update({
+        cls: render_plugin_shapes
+        for cls in list_registered_plugin_shape_classes()})
 
     for element in layer.elements:
         if not element.visible:

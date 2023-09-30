@@ -22,6 +22,7 @@ ICON_MATCH = {
     NODE_TYPES.INTERACTION: "interaction.png",
     NODE_TYPES.LAYER: "layer.png",
     NODE_TYPES.PLAYER: "player.png",
+    NODE_TYPES.PLUGIN_SHAPE: "npc.png",
     NODE_TYPES.MUSIC: "music.png",
     NODE_TYPES.NPC: "player.png",
     NODE_TYPES.NO_GO: "no_go.png",

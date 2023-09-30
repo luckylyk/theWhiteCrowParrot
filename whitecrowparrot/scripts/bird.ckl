@@ -57,3 +57,12 @@ script throw_seeds_no_bird
         player.whitecrow play throw_seeds
         player.whitecrow.sheet set exploration
         theatre.globals.holding_seeds set false
+        plugin.pecker execute throw_seeds
+
+
+script start_fly_hover
+    plugin.pecker get invisible
+    theatre.globals.holding_seeds is true
+        prop.pecker_on_tree play fly_out
+        hide prop.pecker_on_tree
+        plugin.pecker execute startfrom (3650, 115) 0.15

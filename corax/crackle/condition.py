@@ -9,7 +9,8 @@ from corax.crackle.parser import (
     string_to_string_list)
 from corax.hitmap import detect_hitmaps_collision
 from corax.seeker import (
-    find_animated_set, find_player, find_character, find_zone)
+    find_animated_set, find_player, find_character, find_zone,
+    find_plugin_shape)
 
 
 def split_condition(line):
@@ -92,9 +93,17 @@ def create_animated_subject_collector(subject, seeker, theatre):
             return hitmap_collector(animated, name, animated.coordinate)
 
 
+def create_plugin_value_collector(line, theatre):
+    subject, command = [element.strip(' ') for element in line.split("get")]
+    plugin_shape = find_plugin_shape(theatre.scene, object_name(subject))
+    return partial(plugin_shape.collect_value, command)
+
+
 def create_condition_checker(line, theatre):
     if line == "always":
         return value_collector(True)
+    if line.startswith("plugin"):
+        return create_plugin_value_collector(line, theatre)
     subject, comparator, value = split_condition(line)
     subject_collector = create_subject_value_collector(subject, theatre)
     if value in BOOL_AS_STRING:

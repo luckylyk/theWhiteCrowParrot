@@ -339,6 +339,13 @@
             "affect": ["whitecrow"],
             "scripts": ["bird.throw_seeds_no_bird"],
             "zone": [130, 19, 590, 28]
+        },
+        {
+            "name": "activate_bird",
+            "type": "interaction",
+            "affect": "whitecrow",
+            "scripts": ["bird.start_fly_hover"],
+            "zone": [338, 21, 376, 27]
         }
     ],
     "elements": [
@@ -533,13 +540,13 @@
             "visible": false
         },
         {
-          "name": "river",
-          "type": "set_animated",
-          "file": "forest_river.json",
-          "position": [820, 150],
-          "alpha": 255,
-          "deph": 0.0,
-          "visible": true
+            "name": "river",
+            "type": "set_animated",
+            "file": "forest_river.json",
+            "position": [820, 150],
+            "alpha": 255,
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "bridge",
@@ -1115,6 +1122,12 @@
             "flip": false
         },
         {
+            "name": "whitecrow",
+            "type": "player",
+            "block_position": [174, 10],
+            "flip": false
+        },
+        {
             "name": "seeds_fx",
             "type": "special_effects_emitter",
             "alpha": 255,
@@ -1126,10 +1139,16 @@
             "spritesheet_filename": "fx/seeds.json"
         },
         {
-            "name": "whitecrow",
-            "type": "player",
-            "block_position": [174, 10],
-            "flip": false
+            "name": "pecker",
+            "type": "plugin",
+            "file": "pecker_flying_around.json",
+            "deph": 0.0,
+            "enable": false,
+            "flip": false,
+            "offset": [0, -130],
+            "pixel_position": [2000, 125],
+            "ptype": "pecker",
+            "target": "whitecrow"
         },
         {
             "name": "bruno",
@@ -1245,13 +1264,13 @@
             "visible": true
         },
         {
-          "name": "pecker_on_tree",
-          "type": "set_animated",
-          "file": "forest_pecker.json",
-          "position": [3386, 40],
-          "alpha": 255,
-          "deph": 0.15,
-          "visible": false
+            "name": "pecker_on_tree",
+            "type": "set_animated",
+            "file": "forest_pecker.json",
+            "position": [3386, 40],
+            "alpha": 255,
+            "deph": 0.15,
+            "visible": true
         },
         {
             "name": "forest_01/fg_grass_01",
