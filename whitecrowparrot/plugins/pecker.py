@@ -68,6 +68,20 @@ class PECKER_STATUSES:
 
 
 class Pecker(CoraxPluginShape):
+    """
+    Plugin shape of a pecker bird flying around a target. This is flying
+    following a path in shape of lying 8 around a given position relative to
+    a target.
+    It can follow a target thrown by the target.
+    Available commands:
+        "throw_seeds"
+        "reset"
+        "thow_seeds_to (int, int)"
+        "startfrom (int, int) float"
+    Collectable values:
+        "invisible"
+        "visible"
+    """
     ptype = 'pecker'
 
     def __init__(self, name, scene, data):

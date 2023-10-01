@@ -13,7 +13,8 @@ paths = [
     os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot", "scenes"),
     os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot", "scripts"),
     os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot", "characters"),
-    os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot", "relationships")
+    os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot", "relationships"),
+    os.path.join(os.path.dirname(__file__), "..", "whitecrowparrot", "plugins")
 ]
 
 
