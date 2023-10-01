@@ -54,7 +54,7 @@ script go_to_tente
 
 
 script go_to_forest
-    always
+    theatre.globals.pecker_on_tree_must_be_shown is false
         fadeout 6
         wait 1
         theatre.scene set forest
@@ -62,6 +62,19 @@ script go_to_forest
         theatre.camera move (4200, 134)
         flush player.whitecrow
         nolock fadein 6
+
+
+script go_to_forest_show_bird
+    theatre.globals.pecker_on_tree_must_be_shown is true
+        fadeout 6
+        wait 1
+        theatre.scene set forest
+        player.whitecrow move (432, 10)
+        theatre.camera move (4200, 134)
+        flush player.whitecrow
+        nolock fadein 6
+        show prop.pecker_on_tree
+        theatre.globals.pecker_on_tree_must_be_shown set false
 
 
 script go_to_exit_mine

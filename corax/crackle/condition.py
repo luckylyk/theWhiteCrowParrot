@@ -91,6 +91,8 @@ def create_animated_subject_collector(subject, seeker, theatre):
         case "hitmap":
             name = attribute.split(".")[-1]
             return hitmap_collector(animated, name, animated.coordinate)
+        case "visible":
+            return property_collector(animated, ['visible'])
 
 
 def create_plugin_value_collector(line, theatre):

@@ -191,8 +191,8 @@
         {
             "name": "right",
             "type": "interaction",
-            "affect": "whitecrow",
-            "scripts": ["forest.go_to_forest"],
+            "affect": ["whitecrow"],
+            "scripts": ["forest.go_to_forest", "forest.go_to_forest_show_bird"],
             "zone": [0, 0, 20, 27]
         },
         {
@@ -225,8 +225,8 @@
         {
             "name": "pick_seeds",
             "type": "interaction",
-            "affect": "whitecrow",
-            "scripts": ["bird.pick_seeds"],
+            "affect": ["whitecrow"],
+            "scripts": ["bird.pick_seeds_no_bird", "bird.pick_seeds_with_bird"],
             "zone": [31, 20, 36, 26]
         },
         {

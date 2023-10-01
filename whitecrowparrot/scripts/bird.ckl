@@ -24,7 +24,8 @@
 // built-in values: (false, true)
 
 
-script pick_seeds
+script pick_seeds_with_bird
+    prop.pecker.visible is true
     gamepad.keys.pressed has X
     player.whitecrow.sheet is exploration
     theatre.globals.chest_empty is true
@@ -42,6 +43,24 @@ script pick_seeds
         wait 18
         hide prop.pecker
         wait 22
+        player.whitecrow layover prop.hatch2
+        player.whitecrow.sheet set exploration
+        theatre.globals.holding_seeds set true
+        theatre.globals.pecker_on_tree_must_be_shown set true
+
+
+script pick_seeds_no_bird
+    prop.pecker.visible is false
+    gamepad.keys.pressed has X
+    player.whitecrow.sheet is exploration
+    theatre.globals.chest_empty is true
+    theatre.globals.holding_seeds is false
+        player.whitecrow.sheet set exploration
+        player.whitecrow reach (29, 8) by (return, walk_a, footsie)
+        player.whitecrow aim RIGHT by return
+        player.whitecrow.sheet set interactions_2
+        player.whitecrow layover prop.chest_bag
+        player.whitecrow play pick_seeds
         player.whitecrow layover prop.hatch2
         player.whitecrow.sheet set exploration
         theatre.globals.holding_seeds set true
@@ -88,6 +107,7 @@ script throw_seeds_with_bird
 
 concurrent start_fly_hover
     plugin.pecker get invisible
+    prop.pecker_on_tree.visible is true
     theatre.globals.holding_seeds is true
         prop.pecker_on_tree play fly_out
         hide prop.pecker_on_tree

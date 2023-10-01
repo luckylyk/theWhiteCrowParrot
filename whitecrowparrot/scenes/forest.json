@@ -1231,7 +1231,7 @@
             "file": "forest_01/crowd.png",
             "position": [6018, 109],
             "deph": 0.0,
-            "visible": true
+            "visible": false
         },
         {
             "name": "foreground",
@@ -1270,7 +1270,7 @@
             "position": [3386, 40],
             "alpha": 255,
             "deph": 0.15,
-            "visible": true
+            "visible": false
         },
         {
             "name": "forest_01/fg_grass_01",

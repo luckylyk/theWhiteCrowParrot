@@ -6,7 +6,7 @@ ACTION_KEYWORDS = [
     'aim', 'checkpoint', 'clear', 'disable', 'enable', 'fadein', 'fadeout',
     'flush', 'force', 'freeze', 'hide', 'join', 'init', 'layover', 'move',
     'pin', 'play', 'reach', 'restart', 'restore', 'run', 'start', 'stop',
-    'show', 'set', 'shift', 'throw', 'wait']
+    'show', 'set', 'shift', 'throw', 'unlock', 'wait']
 
 
 def is_nolock_action(line):

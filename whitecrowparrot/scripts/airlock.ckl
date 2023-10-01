@@ -30,6 +30,7 @@ script climb
     theatre.globals.chain_hanging is true
     player.whitecrow.animation is idle
     player.whitecrow.sheet is exploration
+    prop.pecker.animation is idle
         player.whitecrow reach (37, 8) by (return, walk_a, footsie, micro_footsie)
         player.whitecrow aim LEFT by return
         hide static.chain
@@ -57,6 +58,7 @@ script climb_and_show_pecker
     theatre.globals.chain_hanging is true
     player.whitecrow.animation is idle
     player.whitecrow.sheet is exploration
+    prop.pecker.animation is idle
         player.whitecrow reach (37, 8) by (return, walk_a, footsie, micro_footsie)
         player.whitecrow aim LEFT by return
         hide static.chain

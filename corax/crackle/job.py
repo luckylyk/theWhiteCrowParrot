@@ -93,6 +93,8 @@ def create_job_without_subject(line, theatre):
             element = object_name(line.split(" ")[-1])
             show = function == "show"
             return partial(job_switch_visibility, theatre, element, show)
+        case "unlock":
+            return partial(job_unlock, theatre)
         case "wait":
             return value_collector(int(line.split(" ")[-1]))
     message = f'function "{function}" for implemented for line without subject'
@@ -472,4 +474,11 @@ def job_switch_visibility(theatre, name, visible):
 
 def job_throw(emitter, position, character):
     emitter.throw_from(character, position)
+    return 0
+
+
+def job_unlock(theatre):
+    script_name = theatre.script_iterator.script.name
+    theatre.event_iterators[script_name] = theatre.script_iterator.script
+    theatre.run_mode = RUN_MODES.NORMAL
     return 0

@@ -16,25 +16,24 @@ class iter_on_script:
     int representing the number of iteration it needs to be done.
     """
     def __init__(self, script, theatre):
-        self._name = f'Name {uuid.uuid4()}'
+        self.script = script
         self._threatre = theatre
-        self._script = script
         self._job_index = 0
         self._frame_count = 0
 
     def __next__(self):
 
         while self._frame_count == 0:
-            if self._job_index >= len(self._script.actions):
+            if self._job_index >= len(self.script.actions):
                 raise StopIteration()
             try:
-                job = self._script.create_job(self._job_index, self._threatre)
+                job = self.script.create_job(self._job_index, self._threatre)
                 self._frame_count = job()
                 self._job_index += 1
             except Exception as e:
                 print(traceback.format_exc())
-                if self._script.actions:
-                    error = f'{self._script.actions[self._job_index]}: failed'
+                if self.script.actions:
+                    error = f'{self.script.actions[self._job_index]}: failed'
                 else:
                     error = ""
                 print(e)
