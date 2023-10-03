@@ -65,6 +65,7 @@ document = soft.activeDocument()
 nodes = document.activeNode().childNodes()
 data = load_scene(ROOT, JSON)
 
+
 for node in nodes:
     if not node.visible():
         continue
