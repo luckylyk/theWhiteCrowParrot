@@ -198,6 +198,9 @@ def create_element_job(element, function, arguments, theatre):
             center = element.animation_controller.animation.pixel_center
             return partial(
                 job_offset, element.coordinate, offset, center, size)
+        case "underlay":
+            target = object_name(arguments)
+            return partial(job_layover, theatre, element.name, target, True)
     message = f'function "{function}" for implemented for prop'
     raise NotImplementedError(message)
 
@@ -240,6 +243,9 @@ def create_character_job(theatre, script, character_name, function, arguments):
         case "show":
             layer = arguments
             return partial(job_switch_layer, character, True, layer)
+        case "underlay":
+            target = object_name(arguments)
+            return partial(job_layover, theatre, character_name, target, True)
     message = f'function "{function}" for implemented for character'
     raise NotImplementedError(message)
 
@@ -345,10 +351,10 @@ def job_init_timer(theatre, name, event, duration):
     return 0
 
 
-def job_layover(theatre, element_name, target_name):
+def job_layover(theatre, element_name, target_name, under=False):
     element = find_element(theatre.scene, element_name)
     target = find_element(theatre.scene, target_name)
-    layover(theatre.scene.layers, element, target)
+    layover(theatre.scene.layers, element, target, under)
     return 0
 
 
@@ -479,6 +485,6 @@ def job_throw(emitter, position, character):
 
 def job_unlock(theatre):
     script_name = theatre.script_iterator.script.name
-    theatre.event_iterators[script_name] = theatre.script_iterator.script
+    theatre.event_iterators[script_name] = theatre.script_iterator
     theatre.run_mode = RUN_MODES.NORMAL
     return 0

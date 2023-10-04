@@ -125,7 +125,7 @@ class AnimationController():
             block_position=block_position,
             flip=flip,
             data=self.data,
-            zones=self.no_go_zones)
+            zones=[zone for zone in self.no_go_zones if zone.enable])
 
     def set_move(self, move):
         """

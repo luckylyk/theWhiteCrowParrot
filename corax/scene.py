@@ -67,7 +67,7 @@ def assert_first_is_layer(data):
         raise ValueError("first scene element must be a Layer")
 
 
-def layover(layers, element, target):
+def layover(layers, element, target, under=False):
     """
     function to put a layer above another one at rendering time.
     """
@@ -77,7 +77,7 @@ def layover(layers, element, target):
     for layer in layers:
         if target in layer.elements:
             index = layer.elements.index(target)
-            layer.elements.insert(index + 1, element)
+            layer.elements.insert(index if under else index + 1, element)
             return
     msg = f'Layover error: {element.name} or {target.name} not found.'
     raise ValueError(msg)

@@ -154,7 +154,7 @@
             "relationship": "jos_vs_whitecrow",
             "subject": "jos",
             "target": "whitecrow",
-            "zone": [-9, -7, 178, 31]
+            "zone": [-9, -7, 630, 31]
         },
         {
             "name": "bruno_vs_whitecrow",
@@ -213,7 +213,7 @@
             "type": "relationship",
             "enable": true,
             "relationship": "jos_vs_trunk",
-            "subject": "lie_trunk",
+            "subject": "falling_trunk",
             "target": "jos",
             "zone": [0, 0, 170, 30]
         },
@@ -227,7 +227,7 @@
         {
             "name": "left_limit",
             "type": "no_go",
-            "affect": "whitecrow",
+            "affect": ["whitecrow"],
             "zone": [0, 0, 17, 27]
         },
         {
@@ -338,7 +338,7 @@
             "type": "interaction",
             "affect": ["whitecrow"],
             "scripts": ["bird.throw_seeds_no_bird", "bird.throw_seeds_with_bird"],
-            "zone": [130, 19, 590, 28]
+            "zone": [128, 19, 590, 28]
         },
         {
             "name": "activate_bird",
@@ -346,6 +346,27 @@
             "affect": "whitecrow",
             "scripts": ["bird.start_fly_hover"],
             "zone": [338, 21, 376, 27]
+        },
+        {
+            "name": "throw_seeds_on_tree",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["bird.throw_seeds_on_tree_no_bird", "bird.throw_seeds_on_tree_with_bird"],
+            "zone": [117, 19, 128, 28]
+        },
+        {
+            "name": "tree_is_a_killer",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["forest.tree_crunch_whitecrow"],
+            "zone": [112, 20, 124, 27]
+        },
+        {
+            "name": "go_to_honeywarehouse",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["forest.go_to_honey_warehouse"],
+            "zone": [48, 22, 58, 27]
         }
     ],
     "elements": [
@@ -614,20 +635,20 @@
         },
         {
             "name": "falling_trunk",
-            "type": "set_static",
-            "file": "forest_left/falling_trunk.png",
-            "position": [857, 0],
+            "type": "set_animated",
+            "file": "falling_trunk.json",
+            "position": [755, 0],
+            "alpha": 255,
             "deph": 0.0,
             "visible": true
         },
         {
-            "name": "lie_trunk",
-            "type": "set_animated",
-            "file": "lie_trunk.json",
-            "position": [873, 1232],
-            "alpha": 255,
+            "name": "falling_trunk_reference",
+            "type": "set_static",
+            "file": "forest_left/falling_trunk.png",
+            "position": [857, 0],
             "deph": 0.0,
-            "visible": true
+            "visible": false
         },
         {
             "name": "grass_01",

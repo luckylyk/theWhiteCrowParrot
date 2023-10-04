@@ -50,11 +50,11 @@ script flee
 
 
 event tree_shaking
-    nolock prop.lie_trunk play shake
+    nolock prop.falling_trunk play shake
 
 
 event tree_small_shaking
-    nolock prop.lie_trunk play step_shake
+    nolock prop.falling_trunk play step
 
 
 event shake_jos
@@ -71,10 +71,11 @@ event jos_fall
     npc.jos play waggling_back
     disable zone.jos_vs_whitecrow
     hide npc.jos
+    theatre.globals.jos_is_dead set true
 
 
-script activate_jos
+concurrent activate_jos
     theatre.globals.jos_is_waiting is true
         theatre.globals.jos_is_waiting set false
+        npc.jos play introducing_jos
         enable zone.jos_vs_whitecrow
-        nolock npc.jos play introducing_jos

@@ -53,6 +53,18 @@ script go_to_tente
         player.whitecrow play idle
 
 
+script go_to_honey_warehouse
+    gamepad.keys.pressed has UP
+    theatre.globals.jos_is_dead is true
+        player.whitecrow reach (44, 10) by (return, walk_a, footsie, micro_footsie)
+        player.whitecrow aim RIGHT by return
+        nolock fadeout 10
+        player.whitecrow play through_door
+        theatre.scene set honeywarehouse
+        wait 3
+        nolock fadein 6
+
+
 script go_to_forest
     theatre.globals.pecker_on_tree_must_be_shown is false
         fadeout 6
@@ -163,6 +175,8 @@ script prepare_jump
     player.whitecrow.flip is true
     player.whitecrow.animation is idle
     player.whitecrow.sheet is exploration
+    theatre.globals.holding_seeds is false
+    plugin.pecker get invisible
         player.whitecrow reach (112, 10) by (return, walk_a, footsie, micro_footsie)
         player.whitecrow aim LEFT by return
         player.whitecrow.sheet set hivesjump
@@ -223,3 +237,13 @@ script throw_banner
         player.whitecrow offset (0, 12)
         theatre.globals.underwater_ladder_visible set true
         checkpoint
+
+
+script tree_crunch_whitecrow
+    prop.falling_trunk.hitmap.going_to_fall_here overlaps player.whitecrow.hitmap.head
+        player.whitecrow.sheet set death
+        player.whitecrow underlay prop.falling_trunk
+        player.whitecrow play death_by_mace
+        wait 50
+        fadeout 30
+        restore

@@ -105,6 +105,41 @@ script throw_seeds_with_bird
         plugin.pecker execute throw_seeds
 
 
+script throw_seeds_on_tree_with_bird
+    plugin.pecker get visible
+    gamepad.keys.pressed has X
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+    theatre.globals.holding_seeds is true
+        player.whitecrow reach (112, 10) by (return, walk_a, footsie, micro_footsie)
+        player.whitecrow aim LEFT by return
+        player.whitecrow.sheet set interactions_2
+        vfx.seeds_fx throw (20, -95) from player.whitecrow
+        player.whitecrow play throw_seeds
+        player.whitecrow.sheet set exploration
+        theatre.globals.holding_seeds set false
+        plugin.pecker execute throw_seeds_to (870, 185)
+        unlock
+        wait 100
+        prop.falling_trunk play falling
+        disable zone.water_stop
+
+
+script throw_seeds_on_tree_no_bird
+    plugin.pecker get invisible
+    gamepad.keys.pressed has X
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+    theatre.globals.holding_seeds is true
+        player.whitecrow reach (112, 10) by (return, walk_a, footsie, micro_footsie)
+        player.whitecrow aim LEFT by return
+        player.whitecrow.sheet set interactions_2
+        vfx.seeds_fx throw (20, -95) from player.whitecrow
+        player.whitecrow play throw_seeds
+        player.whitecrow.sheet set exploration
+        theatre.globals.holding_seeds set false
+
+
 concurrent start_fly_hover
     plugin.pecker get invisible
     prop.pecker_on_tree.visible is true

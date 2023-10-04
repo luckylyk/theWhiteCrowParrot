@@ -18,6 +18,7 @@
         "hill_wall_collapsed": false,
         "jos_flee_running": false,
         "jos_is_waiting": true,
+        "jos_is_dead": false,
         "ladder_is_activated": false,
         "lie_down_miner_is_dead": false,
         "pecker_tente_must_be_shown": false,

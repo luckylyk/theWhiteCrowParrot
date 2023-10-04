@@ -274,9 +274,10 @@ class Pecker(CoraxPluginShape):
         if command == "reset":
             self.initialize()
             return 0
-        if command.split(" ")[0] == "thow_seeds_to":
-            position = string_to_int_list(command.split(" ")[1])
-            self.throw_seeds()
+        if command.split(" ")[0] == "throw_seeds_to":
+            pattern = r'\((.*?)\)'
+            position = string_to_int_list(re.findall(pattern, command)[0])
+            self.throw_seeds(position)
             return 0
         if command.split(" ")[0] == "startfrom":
             pattern = r'\((.*?)\)'
