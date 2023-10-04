@@ -64,6 +64,19 @@ script go_to_cave_2
         player.whitecrow.sheet set exploration
 
 
+script go_to_hives
+    gamepad.keys.pressed has UP
+    player.whitecrow.sheet is exploration
+        player.whitecrow reach (50, 9) by (return, walk_a, footsie, micro_footsie)
+         player.whitecrow aim RIGHT by return
+        nolock fadeout 10
+        player.whitecrow play through_door
+        theatre.scene set forest
+        player.whitecrow move (46, 10)
+        wait 3
+        nolock fadein 6
+
+
 script climb_ladder
     gamepad.keys.pressed has UP
     player.whitecrow.sheet is exploration

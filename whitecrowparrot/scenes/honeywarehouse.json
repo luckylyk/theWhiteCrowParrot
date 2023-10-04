@@ -1,5 +1,5 @@
 {
-    "name": "honeywarehouse", 
+    "name": "honeywarehouse",
     "type": "scene",
     "background_color": [0, 0, 0],
     "boundary": [0, 0, 800, 268],
@@ -41,6 +41,13 @@
             "affect": ["whitecrow"],
             "scripts": ["honeywarehouse.honey_explosion"],
             "zone": [41, 0, 46, 27]
+        },
+        {
+            "name": "go_to_hives",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["honeywarehouse.go_to_hives"],
+            "zone": [56, 0, 60, 27]
         }
     ],
     "elements": [

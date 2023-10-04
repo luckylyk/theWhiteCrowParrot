@@ -61,6 +61,7 @@ script go_to_honey_warehouse
         nolock fadeout 10
         player.whitecrow play through_door
         theatre.scene set honeywarehouse
+        player.whitecrow move (52, 9)
         wait 3
         nolock fadein 6
 
