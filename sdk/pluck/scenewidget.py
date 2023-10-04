@@ -251,10 +251,16 @@ class SceneWidget(QtWidgets.QWidget):
 
         zones = self.tree.children[0].children[1].children
         for node in zones:
-            if not node.has_to_be_rendered:
+            print(node.selected)
+            if not node.has_to_be_rendered and not node.selected:
                 continue
             image = get_image(node.data)
-            render_zone(painter, node.data, image, self.paintcontext)
+            render_zone(
+                painter,
+                node.data,
+                node.selected,
+                image,
+                self.paintcontext)
 
         if self.grid:
             render_grid(

@@ -33,6 +33,7 @@ class PaintContext():
     zone_border_width = 2
     zone_alpha = 0.2
     zone_border_color = "white"
+    zone_border_color_selected = "yellow"
     zone_background_color = "white"
 
     def __init__(self):
@@ -209,13 +210,16 @@ def render_handler(painter, block_in, block_out, paintcontext):
     painter.drawRect(rect)
 
 
-def render_zone(painter, zone_data, image, paintcontext):
+def render_zone(painter, zone_data, selected, image, paintcontext):
     l, t = pixel_position(zone_data["zone"][:2])
     r, b = pixel_position(zone_data["zone"][2:])
-    rect = paintcontext.relatives_rect(QtCore.QRectF(l, t, r-l, b-t))
+    rect = paintcontext.relatives_rect(QtCore.QRectF(l, t, r - l, b - t))
     rect = grow_rect(rect, paintcontext.zone_border_width / 2)
 
-    pen = QtGui.QPen(QtGui.QColor(paintcontext.zone_border_color))
+    color = (
+        paintcontext.zone_border_color_selected if selected else
+        paintcontext.zone_border_color)
+    pen = QtGui.QPen(QtGui.QColor(color))
     pen.setWidth(paintcontext.zone_border_width)
     color = QtGui.QColor(paintcontext.zone_background_color)
     color.setAlphaF(paintcontext.zone_alpha)
