@@ -40,6 +40,7 @@
     "scenes": {
         "airlock": "airlock.json",
         "bruno": "bruno_test.json",
+        "bearcave": "bearcave.json",
         "court": "court.json",
         "credits": "credits.json",
         "dyingshop": "dyingshop.json",

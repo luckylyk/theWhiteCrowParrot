@@ -251,7 +251,6 @@ class SceneWidget(QtWidgets.QWidget):
 
         zones = self.tree.children[0].children[1].children
         for node in zones:
-            print(node.selected)
             if not node.has_to_be_rendered and not node.selected:
                 continue
             image = get_image(node.data)

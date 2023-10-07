@@ -14,6 +14,7 @@
         "airlock": "whitecrow/airlock.json",
         "chest": "whitecrow/chest.json",
         "chain": "whitecrow/chain.json",
+        "cavejump": "whitecrow/cavejump.json",
         "banner": "whitecrow/banner.json",
         "death": "whitecrow/death.json",
         "exploration": "whitecrow/exploration.json",

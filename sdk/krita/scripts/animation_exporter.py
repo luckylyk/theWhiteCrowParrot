@@ -5,6 +5,7 @@ from PyQt5 import QtGui, QtCore, QtWidgets
 
 
 OUTPUT_PATH = r"D:\Works\code\GitHub\theWhiteCrowParrot\whitecrowparrot\animations\whitecrow\test.png"
+OUTPUT_PATH = r"c:/perso/theWhiteCrowParrot\whitecrowparrot\animations\whitecrow\test.png"
 SRGB_PROFILE = "sRGB-elle-V2-srgbtrc.icc"
 
 

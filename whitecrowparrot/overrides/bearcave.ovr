@@ -1,0 +1,4 @@
+main.json["start_scene"] = "bearcave"
+characters/whitecrow.json["default_sheet"] = "exploration"
+
+

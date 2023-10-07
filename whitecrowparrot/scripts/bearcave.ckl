@@ -1,0 +1,8 @@
+script start_sliding
+    gamepad.keys.pressed has RIGHT
+    player.whitecrow.sheet is exploration
+        pin player.whitecrow
+        flush player.whitecrow
+        player.whitecrow.sheet set cavejump
+        player.whitecrow move (9, 0)
+        player.whitecrow play slide1

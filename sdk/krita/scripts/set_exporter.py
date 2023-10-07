@@ -20,6 +20,7 @@ DEFAULT_DATA = {
     "type": "set_static"
 }
 
+
 def check_name_clash(nodes):
     names = [n.name() for n in nodes]
     if len(names) == len(set(names)):

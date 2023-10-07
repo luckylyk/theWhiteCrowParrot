@@ -1,0 +1,98 @@
+{
+    "name": "bearcave",
+    "type": "scene",
+    "background_color": [0, 0, 0],
+    "boundary": [0, 0, 800, 268],
+    "soft_boundaries": [],
+    "target_offset": [75, 0],
+    "sounds": [
+        
+    ],
+    "zones": [
+        {
+            "name": "start_sliding",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["bearcave.start_sliding"],
+            "zone": [14, 9, 21, 16]
+        },
+        {
+            "name": "slide_stop",
+            "type": "no_go",
+            "affect": "whitecrow",
+            "zone": [15, 9, 24, 16]
+        },
+        {
+            "name": "cave_hole",
+            "type": "no_go",
+            "affect": "whitecrow",
+            "zone": [39, 22, 49, 27]
+        }
+    ],
+    "elements": [
+        {
+            "name": "background",
+            "type": "layer",
+            "deph": 0.0,
+            "shader": null
+        },
+        {
+            "name": "bg_01",
+            "type": "set_static",
+            "file": "bearcave/bg_01.png",
+            "position": [0, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "bg_02",
+            "type": "set_static",
+            "file": "bearcave/bg_02.png",
+            "position": [0, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "floor",
+            "type": "set_static",
+            "file": "bearcave/floor.png",
+            "position": [0, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "player_layer",
+            "type": "layer",
+            "deph": 0.0,
+            "shader": null
+        },
+        {
+            "name": "whitecrow",
+            "type": "player",
+            "block_position": [0, -3],
+            "flip": false
+        },
+        {
+            "name": "foreground",
+            "type": "layer",
+            "deph": 0.0,
+            "shader": null
+        },
+        {
+            "name": "fg_01",
+            "type": "set_static",
+            "file": "bearcave/fg_01.png",
+            "position": [0, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "fg_02",
+            "type": "set_static",
+            "file": "bearcave/fg_02.png",
+            "position": [0, 0],
+            "deph": 0.0,
+            "visible": true
+        }
+    ]
+}
