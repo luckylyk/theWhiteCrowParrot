@@ -2,17 +2,21 @@
     "name": "",
     "default_move": "idle",
     "evaluation_order": ["idle", "slide1", "slide2", "jump1", "fall", "jump2"],
-    "frame_size": [490, 269],
+    "frame_size": [490, 268],
     "key_color": [0, 255, 0],
     "layers": {
-        "body": "whitecrow/cavejump.png"
+        "blackhelmet": "whitecrow/cavejump_helmet.png",
+        "body": "whitecrow/cavejump_body.png",
+        "bottle": "whitecrow/cavejump_bottle.png",
+        "head": "whitecrow/cavejump_head.png",
+        "sword": "whitecrow/cavejump_sword.png"
     },
     "moves": {
         "fall": {
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [2, 4, 2, 2, 2, 4, 4, 4, 4, 4, 3, 6],
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -22,7 +26,7 @@
             "post_events": {},
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 19,
+            "start_at_image": 34,
             "triggers": null
         },
         "idle": {
@@ -48,7 +52,7 @@
                 "animation_in": ["slide1"]
             },
             "frames_centers": null,
-            "frames_per_image": [4, 4, 4, 4, 4, 2, 4, 4, 4, 4, 5],
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
             "hitmaps": null,
             "hold": false,
             "inputs": ["A"],
@@ -58,7 +62,7 @@
             "post_events": {},
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 5,
+            "start_at_image": 8,
             "triggers": null
         },
         "jump2": {
@@ -67,7 +71,7 @@
                 "animation_in": ["slide2"]
             },
             "frames_centers": null,
-            "frames_per_image": [2, 4, 4, 2, 4, 4, 4, 9, 4, 4, 4, 4, 4, 4, 2],
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 2, 2],
             "hitmaps": null,
             "hold": false,
             "inputs": ["A"],
@@ -80,14 +84,14 @@
             },
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 31,
+            "start_at_image": 54,
             "triggers": null
         },
         "slide1": {
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [4, 4, 4, 4, 4],
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -95,16 +99,17 @@
             "next_move": "slide2",
             "next_move_bufferable": true,
             "post_events": {},
-            "pre_events": {},
+            "pre_events": {
+                "block_offset": [1, 0]},
             "release_frame": -1,
-            "start_at_image": 0,
+            "start_at_image": 1,
             "triggers": null
         },
         "slide2": {
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [2, 2, 2],
+            "frames_per_image": [2, 2, 2, 2, 2],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -114,7 +119,7 @@
             "post_events": {},
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 16,
+            "start_at_image": 29,
             "triggers": null
         }
     }

@@ -14,13 +14,13 @@
             "type": "interaction",
             "affect": ["whitecrow"],
             "scripts": ["bearcave.start_sliding"],
-            "zone": [14, 9, 21, 16]
+            "zone": [15, 9, 21, 16]
         },
         {
             "name": "slide_stop",
             "type": "no_go",
-            "affect": "whitecrow",
-            "zone": [15, 9, 24, 16]
+            "affect": ["whitecrow"],
+            "zone": [16, 9, 24, 16]
         },
         {
             "name": "cave_hole",
