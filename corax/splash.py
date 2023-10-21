@@ -6,6 +6,7 @@ from itertools import cycle
 
 import corax.context as cctx
 from corax.core import COLORS
+from corax.screen import map_to_render_area
 from corax.renderengine.draw import draw_image, draw_background
 from corax.renderengine.io import load_frames, load_image
 from corax.soundengine.io import load_sound, play_sound
@@ -22,7 +23,7 @@ FADE_LENGHT = 8
 LOGO_SIZE = (143, 150)
 
 
-def splash_screen(screen):
+def splash_screen():
     frame = 0
     key = COLORS.GREEN
 
@@ -32,20 +33,22 @@ def splash_screen(screen):
     sound = load_sound(SOUND_PATH)
 
     images_iterator = cycle(logo_images)
-    x = (LOGO_SIZE[0] / 2) + (cctx.RESOLUTION[0] / 2) - LOGO_SIZE[0]
-    y = (LOGO_SIZE[1] / 2) + (cctx.RESOLUTION[1] / 2.5) - LOGO_SIZE[1]
+    x = (LOGO_SIZE[0] / 2) + (cctx.RENDER_AREA[0] / 2) - LOGO_SIZE[0]
+    y = (LOGO_SIZE[1] / 2) + (cctx.RENDER_AREA[1] / 2.5) - LOGO_SIZE[1]
     while frame < DURATION:
         if frame == PLAY_SOUND_AT:
             play_sound(sound)
         frame += 1
         logo_image = next(images_iterator)
-        draw_background(screen, COLORS.BLACK)
         alpha = compute_fade_alpha(frame, DURATION, FADE_LENGHT)
-        draw_image(logo_image, screen, (x, y), alpha=alpha)
-        draw_image(corax_image, screen, (x - 25, y + 135), alpha=alpha)
-        draw_image(title_image, screen, (x, y + 170), alpha=alpha)
-        yield
-    draw_background(screen, COLORS.BLACK)
+        yield [
+            COLORS.BLACK,
+            alpha,
+            (
+                dict(id_=logo_image, position=(x, y)),
+                dict(id_=corax_image, position=(x - 25, y + 135)),
+                dict(id_=title_image, position=(x, y + 170))
+            )]
 
 
 def compute_fade_alpha(frame, duration, fade_length):

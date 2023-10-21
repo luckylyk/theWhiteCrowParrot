@@ -83,7 +83,8 @@ from corax.gamepad import load_config_keybinding
 from corax.plugin import register_custom_plugins
 from corax.screen import initialize_screen
 from corax.renderengine.display import setup_render_display
-from corax.renderengine.draw import render
+
+from corax.renderengine.draw import render, render_splash
 # Initialize the engine constants based on the application arguments and loads
 # the main.json file.
 game_data = cctx.initialize(arguments)
@@ -106,9 +107,10 @@ renderengine.initialize()
 if not arguments.skip_splash:
     from corax.splash import splash_screen, SPLASH_FPS
     clock = pygame.time.Clock()
-    splash = splash_screen(window)
-    for _ in splash:
-        pygame.display.flip()
+    splash = splash_screen()
+    for background_color, alpha, images_kwargs in splash:
+        events = pygame.event.get()
+        render_splash(window, background_color, alpha, images_kwargs, events)
         clock.tick(SPLASH_FPS)
 
 # Run the game

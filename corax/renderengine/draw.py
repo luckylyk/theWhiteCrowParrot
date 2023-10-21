@@ -300,6 +300,21 @@ def render_player_debug(player, deph, surface, camera):
     draw_text(surface, (155, 255, 0), x, y, text)
 
 
+def render_splash(window, background_color, alpha, images_kwargs, events):
+    screen = pygame.Surface(sctx.SCREEN, pygame.SRCALPHA)
+    draw_background(screen, background_color)
+    # Need to use intermediate surface because drawmultiple semi transparent
+    # surfaces on the same screen seems bugged using modern gl renderer.
+    temp = pygame.Surface(sctx.SCREEN, pygame.SRCALPHA)
+    for image_kwargs in images_kwargs:
+        image_kwargs = image_kwargs.copy()
+        image_kwargs['surface'] = temp
+        draw_image(**image_kwargs)
+    temp.set_alpha(alpha)
+    screen.blit(temp, (0, 0))
+    window.render([(screen, NULL_SHADER)], events)
+
+
 def render(gameloop, window, events):
     if not gameloop.has_connected_joystick:
         screen = pygame.Surface(sctx.SCREEN, pygame.SRCALPHA)
