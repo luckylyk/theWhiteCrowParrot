@@ -24,6 +24,7 @@ class Zone:
         self.data = data
         self.enable = data.get("enable", True)
 
+    @property
     def forbidden_moves(self):
         return self.data.get("forbidden_moves")
 

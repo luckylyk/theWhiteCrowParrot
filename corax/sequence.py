@@ -2,7 +2,9 @@ import copy
 import logging
 from corax.core import EVENTS
 from corax.animation import build_centers_list
-from corax.coordinate import flip_position, to_pixel_position, to_block_position, aim_target
+from corax.coordinate import (
+    flip_position, to_pixel_position, to_block_position, aim_target,
+    map_pixel_position)
 from corax.euclide import distance2d
 from corax.gamepad import reverse_buttons
 from corax.mathutils import sum_num_arrays
@@ -74,7 +76,7 @@ def is_moves_sequence_valid(move, data, animation):
 
 
 def is_move_cross_zone(
-        data, move, block_position, flip, zones, image_size):
+        data, move, block_position, flip, zones, image_size, verbose=False):
     """
     Check if the block positions centers are passing across a zone give.
     Its also checking the next animations if the given one is in the middle of
@@ -82,8 +84,8 @@ def is_move_cross_zone(
     """
     sheet_data = data["moves"][move]
     block_positions = []
-    i = 1
-    while i:=i+i:
+    i = 0
+    while i := (i + 1):
         if i > 100:
             return False
         pre_offset = sheet_data["pre_events"].get(EVENTS.BLOCK_OFFSET)
@@ -91,6 +93,14 @@ def is_move_cross_zone(
         flip_event = sheet_data["post_events"].get(EVENTS.FLIP)
         flip_event = flip_event or sheet_data["pre_events"].get(EVENTS.FLIP)
         if (not pre_offset and not post_offset) or flip_event:
+            # In case of the first move is static, we add manually the block
+            # center to ensure it is not in a "no go zone" with a forbidden
+            # moves restriction: like impossible to jump or stand up.
+            if i == 1:
+                center = to_block_position(sheet_data['center'])
+                center = map_pixel_position(center, image_size, flip)
+                block_center = sum_num_arrays(center, block_position)
+                block_positions.append((move, block_center))
             # We assume if the first move contains a FLIP event, it will not
             # move in space (even if an offset to compensate the flip is set).
             # By the way, a case where this need to evaluate could happend in
@@ -98,12 +108,13 @@ def is_move_cross_zone(
             # implemented as far as it is not necessary.
             break
         centers = build_centers_list(sheet_data, image_size, flip)
-        block_positions.extend(predict_block_positions(
+        predicted_block_positions = predict_block_positions(
             centers=centers,
             block_position=block_position,
             flip=flip,
             pre_offset=pre_offset,
-            post_offset=post_offset))
+            post_offset=post_offset)
+        block_positions.extend((move, bp) for bp in predicted_block_positions)
 
         if pre_offset:
             pre_offset = flip_position(pre_offset) if flip else pre_offset
@@ -111,9 +122,11 @@ def is_move_cross_zone(
         if post_offset:
             post_offset = flip_position(post_offset) if flip else post_offset
             block_position = sum_num_arrays(block_position, post_offset)
-
-        sheet_data = data["moves"][sheet_data["next_move"]]
-    return any(z.contains(pos) for z in zones for pos in block_positions)
+        move = sheet_data["next_move"]
+        sheet_data = data["moves"][move]
+    return any(
+        z.contains(pos) for z in zones for move, pos in block_positions
+        if not z.forbidden_moves or move in z.forbidden_moves)
 
 
 def predict_block_positions(
