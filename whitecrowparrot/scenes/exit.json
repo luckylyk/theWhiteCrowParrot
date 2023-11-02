@@ -234,6 +234,7 @@
     {
       "name": "maintain_dscent",
       "type": "no_go",
+      "forbidden_moves": [],
       "affect": [
         "whitecrow"
       ],
@@ -247,6 +248,7 @@
     {
       "name": "climb_stop",
       "type": "no_go",
+      "forbidden_moves": [],
       "affect": [
         "whitecrow"
       ],
@@ -260,6 +262,7 @@
     {
       "name": "left_stop",
       "type": "no_go",
+      "forbidden_moves": [],
       "affect": [
         "whitecrow"
       ],

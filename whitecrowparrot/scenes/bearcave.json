@@ -2,8 +2,8 @@
     "name": "bearcave",
     "type": "scene",
     "background_color": [0, 0, 0],
-    "boundary": [0, 0, 800, 268],
-    "soft_boundaries": [],
+    "boundary": [0, 0, 1600, 268],
+    "soft_boundaries": [[0, 0, 800, 268], [800, 0, 1600, 268]],
     "target_offset": [75, 0],
     "sounds": [
         
@@ -20,13 +20,29 @@
             "name": "slide_stop",
             "type": "no_go",
             "affect": ["whitecrow"],
+            "forbidden_moves": [],
             "zone": [16, 9, 24, 16]
         },
         {
             "name": "cave_hole",
             "type": "no_go",
             "affect": "whitecrow",
+            "forbidden_moves": [],
             "zone": [39, 22, 49, 27]
+        },
+        {
+            "name": "start_bear",
+            "type": "interaction",
+            "affect": "whitecrow",
+            "scripts": ["bearcave.start_bear"],
+            "zone": [81, 22, 94, 26]
+        },
+        {
+            "name": "force_crouch",
+            "type": "no_go",
+            "affect": ["whitecrow"],
+            "forbidden_moves": ["run_start", "footsie_forced", "run_b", "run_a", "run_off", "walk_off", "walk_a", "walk_b", "return", "run_return", "draw_sword", "footsie", "micro_footsie", "crouch_down", "crouch_down_slow", "stand_up", "stand_up_slow", "through_door", "idk", "idle", "jump", "dodge", "stroke_ready", "low_hit_ready", "high_hit_ready", "jump", "high_block", "low_block", "crouch_hit_shoot", "step_forward", "back_dash", "step_backward", "high_block_retrieve", "high_hit_shoot", "low_hit_shoot", "low_block_retrieve", "stroke_shoot", "crouch_hit_retrieve", "high_hit_retrieve", "stroke_retrieve", "tidy_up_sword"],
+            "zone": [94, 22, 113, 26]
         }
     ],
     "elements": [
@@ -39,7 +55,7 @@
         {
             "name": "bg_01",
             "type": "set_static",
-            "file": "bearcave/bg_01.png",
+            "file": "bearcave/left_bg_01.png",
             "position": [0, 0],
             "deph": 0.0,
             "visible": true
@@ -47,15 +63,31 @@
         {
             "name": "bg_02",
             "type": "set_static",
-            "file": "bearcave/bg_02.png",
+            "file": "bearcave/left_bg_02.png",
             "position": [0, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "middle_background",
+            "type": "set_static",
+            "file": "bearcave/middle_background.png",
+            "position": [813, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "middle_ground_and_walls",
+            "type": "set_static",
+            "file": "bearcave/middle_ground_and_walls.png",
+            "position": [781, 0],
             "deph": 0.0,
             "visible": true
         },
         {
             "name": "floor",
             "type": "set_static",
-            "file": "bearcave/floor.png",
+            "file": "bearcave/left_floor.png",
             "position": [0, 0],
             "deph": 0.0,
             "visible": true
@@ -73,15 +105,48 @@
             "flip": false
         },
         {
+            "name": "throne_fg",
+            "type": "set_static",
+            "file": "bearcave/throne_fg.png",
+            "position": [783, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
             "name": "foreground",
             "type": "layer",
             "deph": 0.0,
             "shader": null
         },
         {
+            "name": "middle_left_fg",
+            "type": "set_static",
+            "file": "bearcave/middle_left_fg.png",
+            "position": [773, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "bear",
+            "type": "set_animated",
+            "file": "bearcave_01.json",
+            "position": [900, 0],
+            "alpha": 255,
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "middle_fg",
+            "type": "set_static",
+            "file": "bearcave/middle_fg.png",
+            "position": [678, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
             "name": "fg_01",
             "type": "set_static",
-            "file": "bearcave/fg_01.png",
+            "file": "bearcave/left_fg_01.png",
             "position": [0, 0],
             "deph": 0.0,
             "visible": true
@@ -89,7 +154,7 @@
         {
             "name": "fg_02",
             "type": "set_static",
-            "file": "bearcave/fg_02.png",
+            "file": "bearcave/left_fg_02.png",
             "position": [0, 0],
             "deph": 0.0,
             "visible": true

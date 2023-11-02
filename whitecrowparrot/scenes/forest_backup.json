@@ -412,6 +412,7 @@
     {
       "name": "left_limit",
       "type": "no_go",
+      "forbidden_moves": [],
       "affect": "whitecrow",
       "zone": [
         0,
@@ -457,6 +458,7 @@
     {
       "name": "into_the_cave",
       "type": "no_go",
+      "forbidden_moves": [],
       "affect": [
         "whitecrow"
       ],
@@ -620,6 +622,7 @@
     {
       "name": "water_stop",
       "type": "no_go",
+      "forbidden_moves": [],
       "affect": [
         "whitecrow"
       ],

@@ -6,18 +6,20 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-        
+
     ],
     "zones": [
         {
             "name": "right_limit",
             "type": "no_go",
+            "forbidden_moves": [],
             "affect": ["whitecrow"],
             "zone": [65, 0, 80, 27]
         },
         {
             "name": "left_limit",
             "type": "no_go",
+            "forbidden_moves": [],
             "affect": ["whitecrow"],
             "zone": [0, 0, 25, 27]
         },

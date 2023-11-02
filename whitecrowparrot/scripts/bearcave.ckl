@@ -6,3 +6,8 @@ script start_sliding
         player.whitecrow.sheet set cavejump
         player.whitecrow move (9, 0)
         player.whitecrow play slide1
+
+
+concurrent start_bear
+    prop.bear.animation is idle
+        prop.bear play breath

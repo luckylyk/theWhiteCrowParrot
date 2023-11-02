@@ -72,6 +72,7 @@
         {
             "name": "stop right",
             "type": "no_go",
+            "forbidden_moves": [],
             "affect": ["whitecrow"],
             "zone": [115, 23, 123, 25]
         },

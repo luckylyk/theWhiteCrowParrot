@@ -19,6 +19,7 @@ WIDGET_BY_TYPE = {
     "relationship": FileField,
     "subject": InteractorField,
     "scripts": ScriptsField,
+    "forbidden_moves": StrArrayField,
     "target": InteractorField,
     "trigger": TriggerField,
     "zone": ZoneField,

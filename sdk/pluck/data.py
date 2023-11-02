@@ -101,6 +101,7 @@ DATA_TEMPLATES = {
         "type": str,
         "name": str,
         "affect": {str},
+        "forbidden_moves": {str},
         "zone": (int, int, int, int),
     },
     "collider": {

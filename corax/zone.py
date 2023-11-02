@@ -24,6 +24,9 @@ class Zone:
         self.data = data
         self.enable = data.get("enable", True)
 
+    def forbidden_moves(self):
+        return self.data.get("forbidden_moves")
+
     @property
     def script_names(self):
         return self.data.get("scripts", []) or []

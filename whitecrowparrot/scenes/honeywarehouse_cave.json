@@ -1,23 +1,25 @@
 {
     "name": "honeywarehouse_cave",
-    "type": "scene", 
+    "type": "scene",
     "background_color": [0, 0, 0],
     "boundary": [0, 0, 820, 268],
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-        
+
     ],
     "zones": [
         {
             "name": "right_limit",
             "type": "no_go",
+            "forbidden_moves": [],
             "affect": "whitecrow",
             "zone": [76, 0, 82, 27]
         },
         {
             "name": "left_limit",
             "type": "no_go",
+            "forbidden_moves": [],
             "affect": "whitecrow",
             "zone": [0, 0, 11, 27]
         },
