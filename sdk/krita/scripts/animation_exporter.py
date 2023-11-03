@@ -3,9 +3,10 @@ import time
 import math
 from PyQt5 import QtGui, QtCore, QtWidgets
 
-
-OUTPUT_PATH = r"D:\Works\code\GitHub\theWhiteCrowParrot\whitecrowparrot\animations\whitecrow\cavejump.png"
-# OUTPUT_PATH = r"c:/perso/theWhiteCrowParrot\whitecrowparrot\animations\whitecrow\test.png"
+ROOT = 'D:/Works/code/GitHub/theWhiteCrowParrot'
+# ROOT = 'c:/perso/theWhiteCrowParrot'
+OUTPUT_PATH = "{root}/whitecrowparrot/animations/whitecrow/export/interactions_2_{layer}.png"
+# OUTPUT_PATH = "{root}/whitecrowparrot/animations/whitecrow/interaction_2.png"
 SRGB_PROFILE = "sRGB-elle-V2-srgbtrc.icc"
 
 
@@ -70,6 +71,7 @@ def fill_canvas(canvas, images, column_lenght, frame_width, frame_height):
 def export(filename):
     soft = krita.Krita.instance()
     document = soft.activeDocument()
+    document.setCurrentTime(0)
     width, height = document.bounds().width(), document.bounds().height()
     node = document.activeNode()
 
@@ -87,8 +89,10 @@ def export(filename):
     canvas_size = get_canvas_size(frame_count, column_lenght, width, height)
     canvas = QtGui.QImage(canvas_size, QtGui.QImage.Format_ARGB32)
     fill_canvas(canvas, images, column_lenght, width, height)
+    filename = filename.format(layer=node.name(), root=ROOT)
     canvas.save(filename, "PNG")
     print(get_node_frames_duration(node, range_out=document.animationLength()))
+    document.setCurrentTime(0)
     return canvas
 
 

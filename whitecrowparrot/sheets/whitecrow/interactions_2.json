@@ -1,15 +1,51 @@
 {
     "name": "",
     "default_move": "idle",
-    "evaluation_order": ["idle", "pick_seeds", "throw_seeds"],
+    "evaluation_order": ["idle", "pick_seeds", "throw_seeds", "hide_behing_rock", "hidden_behind_rock", "unhide_behind_rock"],
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
     "layers": {
+        "blackhelmet": "whitecrow/interactions_2_helmet.png",
         "body": "whitecrow/interactions_2_body.png",
+        "bottle": "whitecrow/interactions_2_bottle.png",
         "head": "whitecrow/interactions_2_head.png",
         "sword": "whitecrow/interactions_2_sword.png"
     },
     "moves": {
+        "hidden_behind_rock": {
+            "center": [70, 155],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [100],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": ["idle"],
+            "next_move": "hidden_behind_rock",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 54,
+            "triggers": null
+        },
+        "hide_behing_rock": {
+            "center": [70, 155],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": ["idle"],
+            "next_move": "hidden_behind_rock",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 42,
+            "triggers": null
+        },
         "idle": {
             "center": [70, 155],
             "conditions": {},
@@ -59,6 +95,25 @@
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 29,
+            "triggers": null
+        },
+        "unhide_behind_rock": {
+            "center": [70, 155],
+            "conditions": {},
+            "frames_centers": [[0, 0], [0, 0], [0, 0], [6, 0], [11, 0], [16, 0], [20, 0], [20, 0]],
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": ["idle"],
+            "next_move": "idle",
+            "next_move_bufferable": false,
+            "post_events": {
+                "block_offset": [2, 0]
+            },
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 55,
             "triggers": null
         }
     }
