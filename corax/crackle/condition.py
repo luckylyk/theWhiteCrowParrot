@@ -137,6 +137,8 @@ def check_condition(subject_collector, comparator, value_collector):
     value = value_collector()
     if comparator == "is":
         return subject == value
+    if comparator == "notin":
+        return subject not in value
     elif comparator == "has":
         return value in subject
     elif comparator == "in":
@@ -145,4 +147,4 @@ def check_condition(subject_collector, comparator, value_collector):
         if all((subject, value)):
             return detect_hitmaps_collision(subject, value)
         return False
-    raise NotImplementedError(f"Comparator \"{comparator}\" is unknown")
+    raise NotImplementedError(f"Unknown comparator: \"{comparator}\"")
