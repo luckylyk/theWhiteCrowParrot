@@ -21,6 +21,7 @@
         "jos_is_dead": false,
         "ladder_is_activated": false,
         "lie_down_miner_is_dead": false,
+        "mice_fg_awaiting": true,
         "pecker_tente_must_be_shown": false,
         "pecker_on_tree_must_be_shown": false,
         "rabbit_triggered": false,

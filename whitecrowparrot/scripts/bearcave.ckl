@@ -75,3 +75,9 @@ script detected_on_left
         wait 50
         fadeout 30
         restore
+
+
+concurrent start_mice
+    theatre.globals.mice_fg_awaiting is true
+        theatre.globals.mice_fg_awaiting set false
+        prop.mice_fg play appears

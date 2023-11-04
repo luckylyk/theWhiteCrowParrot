@@ -6,7 +6,6 @@
     "soft_boundaries": [[0, 0, 800, 268], [800, 0, 1600, 268]],
     "target_offset": [75, 0],
     "sounds": [
-        
     ],
     "zones": [
         {
@@ -126,18 +125,18 @@
             "flip": false
         },
         {
+            "name": "foreground",
+            "type": "layer",
+            "deph": 0.0,
+            "shader": null
+        },
+        {
             "name": "throne_fg",
             "type": "set_static",
             "file": "bearcave/throne_fg.png",
             "position": [783, 0],
             "deph": 0.0,
             "visible": true
-        },
-        {
-            "name": "foreground",
-            "type": "layer",
-            "deph": 0.0,
-            "shader": null
         },
         {
             "name": "middle_left_fg",
@@ -157,12 +156,68 @@
             "visible": true
         },
         {
-            "name": "middle_fg",
+            "deph": 0.0,
+            "visible": true,
             "type": "set_static",
-            "file": "bearcave/middle_fg.png",
-            "position": [678, 0],
+            "file": "bearcave/middle_left_fg.png",
+            "name": "middle_left_fg",
+            "position": [
+                773,
+                0
+            ]
+        },
+        {
+            "deph": 0.0,
+            "visible": true,
+            "type": "set_static",
+            "file": "bearcave/middle_fg_bottom.png",
+            "name": "middle_fg_bottom",
+            "position": [
+                1117,
+                226
+            ]
+        },
+        {
+            "name": "mice_fg",
+            "type": "set_animated",
+            "file": "bearcave_fg_mice.json",
+            "position": [1050, 170],
+            "alpha": 255,
             "deph": 0.0,
             "visible": true
+        },
+        {
+            "deph": 0.0,
+            "visible": true,
+            "type": "set_static",
+            "file": "bearcave/middle_fg_right.png",
+            "name": "middle_fg_right",
+            "position": [
+                1409,
+                0
+            ]
+        },
+        {
+            "deph": 0.0,
+            "visible": true,
+            "type": "set_static",
+            "file": "bearcave/middle_fg_left.png",
+            "name": "middle_fg_left",
+            "position": [
+                678,
+                0
+            ]
+        },
+        {
+            "deph": 0.0,
+            "visible": true,
+            "type": "set_static",
+            "file": "bearcave/middle_fg_top.png",
+            "name": "middle_fg_top",
+            "position": [
+                1080,
+                0
+            ]
         },
         {
             "name": "fg_01",
