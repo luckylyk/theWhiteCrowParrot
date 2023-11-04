@@ -1,7 +1,7 @@
 {
     "name": "",
     "default_move": "idle",
-    "evaluation_order": ["idle", "pick_seeds", "throw_seeds", "hide_behing_rock", "hidden_behind_rock", "unhide_behind_rock"],
+    "evaluation_order": ["idle", "pick_seeds", "throw_seeds", "hide_behind_rock", "hidden_behind_rock", "unhide_behind_rock"],
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
     "layers": {
@@ -29,7 +29,7 @@
             "start_at_image": 54,
             "triggers": null
         },
-        "hide_behing_rock": {
+        "hide_behind_rock": {
             "center": [70, 155],
             "conditions": {},
             "frames_centers": null,

@@ -26,14 +26,14 @@
         {
             "name": "cave_hole",
             "type": "no_go",
-            "affect": "whitecrow",
-            "forbidden_moves": [],
+            "affect": ["whitecrow"],
+            "forbidden_moves": [""],
             "zone": [39, 22, 49, 27]
         },
         {
             "name": "start_bear",
             "type": "interaction",
-            "affect": "whitecrow",
+            "affect": ["whitecrow"],
             "scripts": ["bearcave.start_bear"],
             "zone": [81, 22, 94, 26]
         },
@@ -43,6 +43,27 @@
             "affect": ["whitecrow"],
             "forbidden_moves": ["run_start", "footsie_forced", "run_b", "run_a", "run_off", "walk_off", "walk_a", "walk_b", "return", "run_return", "draw_sword", "footsie", "micro_footsie", "crouch_down", "crouch_down_slow", "stand_up", "stand_up_slow", "through_door", "idk", "idle", "jump", "dodge", "stroke_ready", "low_hit_ready", "high_hit_ready", "jump", "high_block", "low_block", "crouch_hit_shoot", "step_forward", "back_dash", "step_backward", "high_block_retrieve", "high_hit_shoot", "low_hit_shoot", "low_block_retrieve", "stroke_shoot", "crouch_hit_retrieve", "high_hit_retrieve", "stroke_retrieve", "tidy_up_sword"],
             "zone": [94, 22, 113, 26]
+        },
+        {
+            "name": "hide_behind_rock",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["bearcave.hide_behind_rock", "bearcave.unhide_behind_rock", "bearcave.hide_behind_rock_crouched", "bearcave.hide_behind_rock_with_up", "bearcave.unhide_behind_rock_with_right"],
+            "zone": [140, 22, 149, 26]
+        },
+        {
+            "name": "puddle",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["bearcave.walk_on_the_puddle"],
+            "zone": [121, 22, 132, 26]
+        },
+        {
+            "name": "detected_on_left",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["bearcave.detected_on_left"],
+            "zone": [82, 22, 94, 26]
         }
     ],
     "elements": [

@@ -11,3 +11,67 @@ script start_sliding
 concurrent start_bear
     prop.bear.animation is idle
         prop.bear play breath
+
+
+script hide_behind_rock
+    gamepad.keys.pressed has X
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+        player.whitecrow reach (137, 9) by (return, walk_a, footsie, micro_footsie)
+        player.whitecrow aim RIGHT by return
+        player.whitecrow.sheet set interactions_2
+        player.whitecrow play hide_behind_rock
+
+
+script hide_behind_rock_crouched
+    gamepad.keys.pressed has X
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is crouched_over
+        player.whitecrow play stand_up_slow
+        force bearcave.hide_behind_rock
+
+
+script hide_behind_rock_with_up
+    gamepad.keys.pressed has UP
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+        force bearcave.hide_behind_rock
+
+
+script unhide_behind_rock
+    gamepad.keys.pressed has X
+    player.whitecrow.animation is hidden_behind_rock
+        player.whitecrow play unhide_behind_rock
+        player.whitecrow.sheet set exploration
+
+
+script unhide_behind_rock_with_right
+    gamepad.keys.pressed has RIGHT
+    player.whitecrow.animation is hidden_behind_rock
+        player.whitecrow play unhide_behind_rock
+        player.whitecrow.sheet set exploration
+
+
+script walk_on_the_puddle
+    player.whitecrow.animation in (walk_a, walk_b, run_a, run_b, run_off, jump, dodge, step_forward, back_dash, step_backward)
+    prop.bear.animation is rest
+        prop.bear play sudden_wake_up
+        pin player.whitecrow
+        flush player.whitecrow
+        nolock player.whitecrow aim LEFT by return
+        nolock prop.bear play detected_right
+        wait 50
+        fadeout 30
+        restore
+
+
+script detected_on_left
+    prop.bear.animation is raise_part_3
+    player.whitecrow.animation notin (crouched_over, crouch_down, crouched_return, crouched_over_walk)
+        pin player.whitecrow
+        flush player.whitecrow
+        nolock player.whitecrow aim RIGHT by return
+        nolock prop.bear play detected_left
+        wait 50
+        fadeout 30
+        restore
