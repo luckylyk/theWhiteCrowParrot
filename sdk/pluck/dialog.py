@@ -32,7 +32,7 @@ class GameKicker(QtWidgets.QDialog):
         self.use_keyboard = QtWidgets.QCheckBox("Use Keyboard")
         self.use_keyboard.setChecked(get_preference("use_keyboard", False))
         self.overrides = QtWidgets.QComboBox()
-        items =  list_all_overrides()
+        items = list_all_overrides()
         self.overrides.addItems([''] + items)
         self.overrides.setEditable(True)
         default = get_preference("overrides", "")
