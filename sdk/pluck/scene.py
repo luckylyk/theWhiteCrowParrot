@@ -72,6 +72,7 @@ FIELDS = {
     "no_go": {
         "name": StrField,
         "affect": StrArrayField,
+        "forbidden_moves": StrArrayField,
         "zone": ZoneField
     },
     "interaction": {

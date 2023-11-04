@@ -384,6 +384,13 @@ class InteractorField(StrField):
         self.setCompleter(QtWidgets.QCompleter(list_all_existing_interactors()))
 
 
+class InteractorsField(InteractorField):
+
+    @property
+    def value(self):
+        return [super().value]
+
+
 class ColorField(QtWidgets.QWidget):
     edited = QtCore.Signal()
 

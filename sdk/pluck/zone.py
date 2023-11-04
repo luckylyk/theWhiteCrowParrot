@@ -2,7 +2,8 @@ from PySide6 import QtWidgets
 from pluck.data import DATA_TEMPLATES
 from pluck.field import (
     BoolField, EventsField, FileField, InteractorField, OptionField,
-    ScriptsField, StrArrayField, StrField, TriggerField, TypeField, ZoneField)
+    ScriptsField, StrArrayField, StrField, TriggerField, TypeField, ZoneField,
+    InteractorsField)
 from pluck.parsing import list_all_existing_zones
 
 
@@ -12,7 +13,7 @@ WINDOW_TITLE = "Create Zone"
 WIDGET_BY_TYPE = {
     "type": TypeField,
     "name": StrField,
-    "affect": InteractorField,
+    "affect": InteractorsField,
     "enable": BoolField,
     "events": EventsField,
     "hitmaps": StrArrayField,
@@ -94,4 +95,3 @@ class CreateZoneDialog(QtWidgets.QDialog):
     def result(self):
         keys = DATA_TEMPLATES[self.zone_type.currentText()].keys()
         return {key: self.property_widgets[key].value for key in keys}
-
