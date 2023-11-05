@@ -156,6 +156,15 @@
             "visible": true
         },
         {
+            "name": "bear",
+            "type": "set_animated",
+            "file": "bearcave_mice_fg.json",
+            "position": [910, 70],
+            "alpha": 255,
+            "deph": 0.0,
+            "visible": true
+        },
+        {
             "deph": 0.0,
             "visible": true,
             "type": "set_static",
