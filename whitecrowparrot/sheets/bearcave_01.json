@@ -12,7 +12,7 @@
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [1, 4, 6, 12, 2, 25, 3, 3, 8, 8, 23],
+            "frames_per_image": [1, 4, 6, 12, 2, 65, 3, 3, 8, 8, 23],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -23,7 +23,7 @@
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 76,
-            "triggers": null
+            "triggers": [[9, "detection"]]
         },
         "breath": {
             "center": [0, 0],
@@ -142,7 +142,7 @@
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 44,
-            "triggers": null
+            "triggers": [[7, "detection"]]
         },
         "raise_part_3": {
             "center": [0, 0],

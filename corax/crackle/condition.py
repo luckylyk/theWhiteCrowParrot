@@ -88,6 +88,8 @@ def create_animated_subject_collector(subject, seeker, theatre):
             return property_collector(animated, properties)
         case "sheet":
             return property_collector(animated, ['sheet_name'])
+        case "trigger":
+            return property_collector(animated, ['trigger'])
         case "hitmap":
             name = attribute.split(".")[-1]
             return hitmap_collector(animated, name, animated.coordinate)
@@ -137,7 +139,9 @@ def check_condition(subject_collector, comparator, value_collector):
     value = value_collector()
     if comparator == "is":
         return subject == value
-    if comparator == "notin":
+    if comparator == "is_not":
+        return subject != value
+    if comparator == "not_in":
         return subject not in value
     elif comparator == "has":
         return value in subject

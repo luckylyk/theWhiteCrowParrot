@@ -5,14 +5,14 @@
     "frame_size": [190, 98],
     "key_color": [0, 255, 0],
     "layers": {
-        "item": "cavebear_mice_fg.png"
+        "item": "bearcave_mice_fg.png"
     },
     "moves": {
         "appears": {
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [2, 2, 2, 1, 1, 2, 5, 2, 2, 2, 4, 2, 2, 2, 1, 1, 1, 2, 2, 2, 2, 2],
+            "frames_per_image": [2, 2, 2, 1, 1, 2, 5, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 2, 2, 2, 2, 2],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
