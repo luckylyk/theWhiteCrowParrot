@@ -1,7 +1,7 @@
 {
     "name": "",
     "default_move": "idle",
-    "evaluation_order": ["idle", "pick_seeds", "throw_seeds", "hide_behind_rock", "hidden_behind_rock", "unhide_behind_rock", "mice_dance", "mice_dance_crouched", "mice_contact"],
+    "evaluation_order": ["idle", "pick_seeds", "throw_seeds", "hide_behind_rock", "hidden_behind_rock", "unhide_behind_rock", "mice_dance", "mice_dance_crouched", "mice_contact", "sit_down", "mice_dance_over"],
     "frame_size": [240, 160],
     "key_color": [0, 255, 0],
     "layers": {
@@ -64,7 +64,7 @@
             "triggers": null
         },
         "mice_contact": {
-            "center": [0, 0],
+            "center": [70, 155],
             "conditions": {},
             "frames_centers": null,
             "frames_per_image": [5, 3, 3, 3, 2, 2, 2, 2, 5],
@@ -72,7 +72,7 @@
             "hold": false,
             "inputs": [],
             "loop_on": ["idle"],
-            "next_move": "idle",
+            "next_move": "sit_down",
             "next_move_bufferable": false,
             "post_events": {},
             "pre_events": {},
@@ -98,10 +98,27 @@
             "triggers": null
         },
         "mice_dance_crouched": {
-            "center": [0, 0],
+            "center": [70, 155],
             "conditions": {},
             "frames_centers": null,
             "frames_per_image": [4, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 1, 1, 1, 4],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": ["idle"],
+            "next_move": "mice_dance_over",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 80,
+            "triggers": null
+        },
+        "mice_dance_over": {
+            "center": [70, 155],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [1000],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -129,6 +146,23 @@
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 1,
+            "triggers": null
+        },
+        "sit_down": {
+            "center": [70, 155],
+            "conditions": {},
+            "frames_centers": null,
+            "frames_per_image": [1000],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": ["idle"],
+            "next_move": "sit_down",
+            "next_move_bufferable": false,
+            "post_events": {},
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 108,
             "triggers": null
         },
         "throw_seeds": {

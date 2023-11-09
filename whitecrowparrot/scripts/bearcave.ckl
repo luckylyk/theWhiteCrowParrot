@@ -90,3 +90,41 @@ concurrent start_mice
         nolock prop.mice_bg play appears
         wait 69
         prop.bear play bounce_mice
+
+
+concurrent mice_contact
+    prop.mice_bg.hitmap.contact overlaps player.whitecrow.hitmap.torso
+    player.whitecrow.sheet is exploration
+        player.whitecrow.sheet set interactions_2
+        player.whitecrow play mice_contact
+        wait 10
+        nolock prop.bear play detected_right
+        wait 50
+        fadeout 30
+        restore
+
+
+concurrent feet_contact
+    prop.mice_bg.hitmap.ground_contact overlaps player.whitecrow.hitmap.leggs
+    player.whitecrow.sheet in (exploration, sword)
+    player.whitecrow.animation not_in (crouched_return, crouched_over_walk, crouch_down, crouch_down_slow, crouched_over)
+        player.whitecrow.sheet set interactions_2
+        nolock player.whitecrow play mice_dance
+        wait 10
+        nolock prop.bear play detected_right
+        wait 50
+        fadeout 30
+        restore
+
+
+concurrent feet_contact_down
+    prop.mice_bg.hitmap.ground_contact overlaps player.whitecrow.hitmap.leggs
+    player.whitecrow.sheet in (exploration, sword)
+    player.whitecrow.animation in (crouched_return, crouched_over_walk, crouch_down, crouch_down_slow, crouched_over)
+        player.whitecrow.sheet set interactions_2
+        nolock player.whitecrow play mice_dance_crouched
+        wait 10
+        nolock prop.bear play detected_right
+        wait 50
+        fadeout 30
+        restore

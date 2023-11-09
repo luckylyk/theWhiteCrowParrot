@@ -78,6 +78,20 @@
             "affect": ["whitecrow"],
             "scripts": ["bearcave.detected_on_right"],
             "zone": [113, 22, 190, 26]
+        },
+        {
+            "name": "mice_contact",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["bearcave.mice_contact"],
+            "zone": [113, 22, 124, 26]
+        },
+        {
+            "name": "mice_dance",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["bearcave.feet_contact", "bearcave.feet_contact_down"],
+            "zone": [111, 22, 160, 26]
         }
     ],
     "elements": [
