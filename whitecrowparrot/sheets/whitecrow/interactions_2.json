@@ -33,7 +33,7 @@
             "center": [70, 155],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 4, 2, 2, 2, 2, 2],
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 30, 3, 3, 3, 3, 3],
             "hitmaps": null,
             "hold": false,
             "inputs": [],

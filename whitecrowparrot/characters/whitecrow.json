@@ -12,6 +12,7 @@
     },
     "sheets": {
         "airlock": "whitecrow/airlock.json",
+        "bearcave_death": "whitecrow/bearcave_death.json",
         "chest": "whitecrow/chest.json",
         "chain": "whitecrow/chain.json",
         "cavejump": "whitecrow/cavejump.json",

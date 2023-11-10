@@ -67,8 +67,7 @@ script detected_on_left
         nolock player.whitecrow aim RIGHT by return
         nolock prop.bear play detected_left
         wait 50
-        fadeout 30
-        restore
+        force bearcave.bearcave_death
 
 
 script detected_on_right
@@ -78,9 +77,8 @@ script detected_on_right
         flush player.whitecrow
         nolock player.whitecrow aim LEFT by return
         nolock prop.bear play detected_right
-        wait 50
-        fadeout 30
-        restore
+        wait 45
+        force bearcave.bearcave_death
 
 
 concurrent start_mice
@@ -100,8 +98,7 @@ concurrent mice_contact
         wait 10
         nolock prop.bear play detected_right
         wait 50
-        fadeout 30
-        restore
+        force bearcave.bearcave_death
 
 
 concurrent feet_contact
@@ -113,7 +110,19 @@ concurrent feet_contact
         wait 10
         nolock prop.bear play detected_right
         wait 50
+        force bearcave.bearcave_death
+
+
+script bearcave_death
         fadeout 30
+        theatre.scene set forest
+        theatre.camera move (5900, 134)
+        player.whitecrow move (578, 9)
+        player.whitecrow.sheet set bearcave_death
+        wait 50
+        fadein 30
+        player.whitecrow play death
+        fadeout 60
         restore
 
 
@@ -126,5 +135,4 @@ concurrent feet_contact_down
         wait 10
         nolock prop.bear play detected_right
         wait 50
-        fadeout 30
-        restore
+        force bearcave.bearcave_death

@@ -317,7 +317,7 @@ def job_enable_disable_zone(theatre, zone, state):
 
 def job_fade(theatre, reverse=True, duration=10):
     theatre.transition = fade(duration, maximum=255, reverse=reverse)
-    return duration - 1
+    return duration + 1 # duration - 1 if not reverse else duration
 
 
 def job_freeze_theatre(theatre, value):
