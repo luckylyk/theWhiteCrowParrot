@@ -12,7 +12,7 @@ import json
 
 SRGB_PROFILE = "sRGB-elle-V2-srgbtrc.icc"
 FOLDER = r"C:\Users\lio\Desktop\zini\zut"
-LEVEL_FOLDER = "sumo_test"
+LEVEL_FOLDER = "bearcave"
 LEVEL_FILE = "coordinate.json"
 DEFAULT_DATA = {
     "deph": 0.0,
