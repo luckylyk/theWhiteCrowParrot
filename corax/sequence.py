@@ -75,8 +75,7 @@ def is_moves_sequence_valid(move, data, animation):
         animation.name not in conditions.get("animation_not_in", []))
 
 
-def is_move_cross_zone(
-        data, move, block_position, flip, zones, image_size, verbose=False):
+def is_move_cross_zone(data, move, block_position, flip, zones, image_size):
     """
     Check if the block positions centers are passing across a zone give.
     Its also checking the next animations if the given one is in the middle of
@@ -97,8 +96,9 @@ def is_move_cross_zone(
             # center to ensure it is not in a "no go zone" with a forbidden
             # moves restriction: like impossible to jump or stand up.
             if i == 1:
-                center = to_block_position(sheet_data['center'])
+                center = sheet_data['center']
                 center = map_pixel_position(center, image_size, flip)
+                center = to_block_position(center)
                 block_center = sum_num_arrays(center, block_position)
                 block_positions.append((move, block_center))
             # We assume if the first move contains a FLIP event, it will not
@@ -126,7 +126,7 @@ def is_move_cross_zone(
         sheet_data = data["moves"][move]
     return any(
         z.contains(pos) for z in zones for move, pos in block_positions
-        if not z.forbidden_moves or move in z.forbidden_moves)
+        if not z.forbidden_moves or (move in z.forbidden_moves))
 
 
 def predict_block_positions(
