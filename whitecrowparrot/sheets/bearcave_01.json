@@ -12,7 +12,7 @@
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [1, 4, 6, 12, 2, 55, 3, 3, 8, 8, 23],
+            "frames_per_image": [1, 2, 2, 8, 1, 1, 2, 2, 6, 1, 2, 2, 1, 17, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 22],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -22,14 +22,14 @@
             "post_events": {},
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 76,
-            "triggers": [[6, "detection"], [9, "detection"]]
+            "start_at_image": 106,
+            "triggers": [[17, "detection"]]
         },
         "breath": {
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [11, 4, 16, 4, 11],
+            "frames_per_image": [11, 2, 2, 16, 2, 2, 11],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -46,7 +46,7 @@
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 75],
+            "frames_per_image": [2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 30],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -56,14 +56,14 @@
             "post_events": {},
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 94,
+            "start_at_image": 147,
             "triggers": null
         },
         "detected_right": {
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [5, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 60],
+            "frames_per_image": [2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 10],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -73,14 +73,14 @@
             "post_events": {},
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 103,
+            "start_at_image": 165,
             "triggers": null
         },
         "do_not_react": {
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [4, 4, 4, 4, 4, 4, 4],
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 8],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -90,7 +90,7 @@
             "post_events": {},
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 87,
+            "start_at_image": 135,
             "triggers": null
         },
         "idle": {
@@ -114,7 +114,7 @@
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 4, 4, 5, 2, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 11],
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -124,14 +124,14 @@
             "post_events": {},
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 5,
-            "triggers": null
+            "start_at_image": 7,
+            "triggers": [[47, "pant_switch"]]
         },
         "raise_part_2": {
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [4, 2, 2, 2, 2, 2, 2, 2, 4],
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -141,14 +141,14 @@
             "post_events": {},
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 44,
+            "start_at_image": 58,
             "triggers": [[7, "detection"]]
         },
         "raise_part_3": {
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 5, 3, 3, 3, 3, 3, 3, 3, 2],
+            "frames_per_image": [3, 3, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 8],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -158,14 +158,14 @@
             "post_events": {},
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 53,
+            "start_at_image": 70,
             "triggers": null
         },
         "rest": {
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [50, 3, 24, 3],
+            "frames_per_image": [9, 2, 2, 20, 2, 49],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -175,14 +175,14 @@
             "post_events": {},
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 72,
+            "start_at_image": 100,
             "triggers": null
         },
         "sudden_wake_up": {
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [2, 2, 2, 2, 6],
+            "frames_per_image": [2, 2, 2, 2, 2, 2],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -192,7 +192,7 @@
             "post_events": {},
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 82,
+            "start_at_image": 116,
             "triggers": null
         }
     }

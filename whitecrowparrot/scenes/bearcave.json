@@ -6,7 +6,7 @@
     "soft_boundaries": [[0, 0, 840, 268], [800, 0, 1640, 268], [1600, 0, 2400, 268]],
     "target_offset": [25, 0],
     "sounds": [
-        
+
     ],
     "zones": [
         {
@@ -99,6 +99,13 @@
             "affect": ["whitecrow"],
             "forbidden_moves": null,
             "zone": [215, 16, 225, 27]
+        },
+        {
+            "name": "release_pant",
+            "type": "interaction",
+            "affect": ["bear"],
+            "scripts": ["bearcave.show_pant"],
+            "zone": [87, -1, 132, 28]
         }
     ],
     "elements": [
@@ -233,6 +240,14 @@
             "type": "layer",
             "deph": 0.0,
             "shader": null
+        },
+        {
+            "name": "middle_pant",
+            "type": "set_static",
+            "file": "bearcave/middle_pant.png",
+            "position": [1136, 161],
+            "deph": 0.0,
+            "visible": false
         },
         {
             "name": "whitecrow",

@@ -136,3 +136,8 @@ concurrent feet_contact_down
         nolock prop.bear play detected_right
         wait 50
         force bearcave.bearcave_death
+
+
+concurrent show_pant
+    prop.bear.trigger is pant_switch
+        show static.middle_pant
