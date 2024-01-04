@@ -3,10 +3,10 @@
     "type": "scene",
     "background_color": [0, 0, 0],
     "boundary": [0, 0, 2400, 268],
-    "soft_boundaries": [[0, 0, 800, 268], [800, 0, 1600, 268], [1600, 0, 2400, 268]],
-    "target_offset": [75, 0],
+    "soft_boundaries": [[0, 0, 840, 268], [800, 0, 1640, 268], [1600, 0, 2400, 268]],
+    "target_offset": [25, 0],
     "sounds": [
-
+        
     ],
     "zones": [
         {
@@ -27,7 +27,7 @@
             "name": "cave_hole",
             "type": "no_go",
             "affect": ["whitecrow"],
-            "forbidden_moves": [""],
+            "forbidden_moves": null,
             "zone": [39, 22, 49, 27]
         },
         {
@@ -63,7 +63,7 @@
             "type": "interaction",
             "affect": ["whitecrow"],
             "scripts": ["bearcave.detected_on_left"],
-            "zone": [82, 22, 94, 26]
+            "zone": [84, 22, 94, 26]
         },
         {
             "name": "start_mice",
@@ -92,6 +92,13 @@
             "affect": ["whitecrow"],
             "scripts": ["bearcave.feet_contact", "bearcave.feet_contact_down"],
             "zone": [111, 22, 160, 26]
+        },
+        {
+            "name": "right_limit",
+            "type": "no_go",
+            "affect": ["whitecrow"],
+            "forbidden_moves": null,
+            "zone": [215, 16, 225, 27]
         }
     ],
     "elements": [
@@ -100,170 +107,126 @@
             "type": "layer",
             "deph": 0.0,
             "shader": null
-        },    {
-            "deph": 0.0,
-            "visible": true,
+        },
+        {
+            "name": "left_bg_01",
             "type": "set_static",
             "file": "bearcave/left_bg_01.png",
-            "name": "left_bg_01",
-            "position": [
-                27,
-                0
-            ]
+            "position": [10, 0],
+            "deph": -0.3,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "left_bg_02",
             "type": "set_static",
             "file": "bearcave/left_bg_02.png",
-            "name": "left_bg_02",
-            "position": [
-                107,
-                0
-            ]
+            "position": [107, 0],
+            "deph": -0.15,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "left_bg_03",
             "type": "set_static",
             "file": "bearcave/left_bg_03.png",
-            "name": "left_bg_03",
-            "position": [
-                0,
-                0
-            ]
+            "position": [0, 0],
+            "deph": -0.05,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "left_bg_04",
             "type": "set_static",
             "file": "bearcave/left_bg_04.png",
-            "name": "left_bg_04",
-            "position": [
-                421,
-                0
-            ]
+            "position": [421, 0],
+            "deph": -0.1,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "middle_sky",
             "type": "set_static",
             "file": "bearcave/middle_sky.png",
-            "name": "middle_sky",
-            "position": [
-                1116,
-                17
-            ]
+            "position": [1255, 17],
+            "deph": -0.3,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "middle_bg_01",
             "type": "set_static",
             "file": "bearcave/middle_bg_01.png",
-            "name": "middle_bg_01",
-            "position": [
-                1071,
-                0
-            ]
+            "position": [1235, 0],
+            "deph": -0.35,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "middle_bg_02",
             "type": "set_static",
             "file": "bearcave/middle_bg_02.png",
-            "name": "middle_bg_02",
-            "position": [
-                972,
-                0
-            ]
+            "position": [1060, 0],
+            "deph": -0.3,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "middle_bg_03",
             "type": "set_static",
             "file": "bearcave/middle_bg_03.png",
-            "name": "middle_bg_03",
-            "position": [
-                899,
-                0
-            ]
+            "position": [940, 0],
+            "deph": -0.22,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "middle_bg_04",
             "type": "set_static",
             "file": "bearcave/middle_bg_04.png",
-            "name": "middle_bg_04",
-            "position": [
-                972,
-                0
-            ]
+            "position": [1000, 0],
+            "deph": -0.1,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "middle_floor_and_wall",
             "type": "set_static",
             "file": "bearcave/middle_floor_and_wall.png",
-            "name": "middle_floor_and_wall",
-            "position": [
-                771,
-                0
-            ]
+            "position": [771, 0],
+            "deph": 0.0,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "left_floor",
             "type": "set_static",
             "file": "bearcave/left_floor.png",
-            "name": "left_floor",
-            "position": [
-                0,
-                0
-            ]
+            "position": [0, 0],
+            "deph": 0.0,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "right_bg_01",
             "type": "set_static",
             "file": "bearcave/right_bg_01.png",
-            "name": "right_bg_01",
-            "position": [
-                1800,
-                12
-            ]
+            "position": [1800, 12],
+            "deph": 0.0,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "right_bg_02",
             "type": "set_static",
             "file": "bearcave/right_bg_02.png",
-            "name": "right_bg_02",
-            "position": [
-                1924,
-                20
-            ]
+            "position": [1924, 20],
+            "deph": 0.0,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "right_bg_03",
             "type": "set_static",
             "file": "bearcave/right_bg_03.png",
-            "name": "right_bg_03",
-            "position": [
-                1612,
-                0
-            ]
+            "position": [1612, 0],
+            "deph": 0.0,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "right_ground_wall",
             "type": "set_static",
             "file": "bearcave/right_ground_wall.png",
-            "name": "right_ground_wall",
-            "position": [
-                1685,
-                0
-            ]
+            "position": [1685, 0],
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "player_layer",
@@ -284,26 +247,20 @@
             "shader": null
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "middle_throne",
             "type": "set_static",
             "file": "bearcave/middle_throne.png",
-            "name": "middle_throne",
-            "position": [
-                867,
-                81
-            ]
+            "position": [867, 81],
+            "deph": 0.0,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "middle_left_fg",
             "type": "set_static",
             "file": "bearcave/middle_left_fg.png",
-            "name": "middle_left_fg",
-            "position": [
-                758,
-                78
-            ]
+            "position": [758, 78],
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "bear",
@@ -324,167 +281,125 @@
             "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "middle_fg_bottom",
             "type": "set_static",
             "file": "bearcave/middle_fg_bottom.png",
-            "name": "middle_fg_bottom",
-            "position": [
-                1120,
-                225
-            ]
+            "position": [1040, 225],
+            "deph": 0.4,
+            "visible": true
         },
         {
             "name": "mice_fg",
             "type": "set_animated",
             "file": "bearcave_mice_fg.json",
-            "position": [1050, 170],
+            "position": [990, 170],
             "alpha": 255,
+            "deph": 0.4,
+            "visible": true
+        },
+        {
+            "name": "middle_fg_right",
+            "type": "set_static",
+            "file": "bearcave/middle_fg_right.png",
+            "position": [1420, 0],
             "deph": 0.0,
             "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
-            "type": "set_static",
-            "file": "bearcave/middle_fg_right.png",
-            "name": "middle_fg_right",
-            "position": [
-                1420,
-                0
-            ]
-        },
-        {
-            "deph": 0.0,
-            "visible": true,
+            "name": "middle_fg_left",
             "type": "set_static",
             "file": "bearcave/middle_fg_left.png",
-            "name": "middle_fg_left",
-            "position": [
-                678,
-                0
-            ]
+            "position": [710, 0],
+            "deph": 0.3,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "middle_fg_top",
             "type": "set_static",
             "file": "bearcave/middle_fg_top.png",
-            "name": "middle_fg_top",
-            "position": [
-                1093,
-                0
-            ]
+            "position": [1050, 0],
+            "deph": 0.2,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "left_fg_01",
             "type": "set_static",
             "file": "bearcave/left_fg_01.png",
-            "name": "left_fg_01",
-            "position": [
-                0,
-                0
-            ]
+            "position": [0, 0],
+            "deph": 0.2,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "left_fg_stalactite_01",
             "type": "set_static",
             "file": "bearcave/left_fg_stalactite_01.png",
-            "name": "left_fg_stalactite_01",
-            "position": [
-                523,
-                0
-            ]
+            "position": [523, 0],
+            "deph": 0.0,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "left_fg_stalactite_02",
             "type": "set_static",
             "file": "bearcave/left_fg_stalactite_02.png",
-            "name": "left_fg_stalactite_02",
-            "position": [
-                652,
-                0
-            ]
+            "position": [585, 0],
+            "deph": 0.1,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "left_left_fg_01",
             "type": "set_static",
             "file": "bearcave/left_left_fg_01.png",
-            "name": "left_left_fg_01",
-            "position": [
-                0,
-                0
-            ]
+            "position": [0, 0],
+            "deph": 0.3,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "left_left_fg_02",
             "type": "set_static",
             "file": "bearcave/left_left_fg_02.png",
-            "name": "left_left_fg_02",
-            "position": [
-                0,
-                0
-            ]
+            "position": [0, 0],
+            "deph": 0.5,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "left_left_fg_03",
             "type": "set_static",
             "file": "bearcave/left_left_fg_03.png",
-            "name": "left_left_fg_03",
-            "position": [
-                489,
-                0
-            ]
+            "position": [390, 0],
+            "deph": 0.18,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "left_right_stalactite",
             "type": "set_static",
             "file": "bearcave/left_right_stalactite.png",
-            "name": "left_right_stalactite",
-            "position": [
-                599,
-                162
-            ]
+            "position": [445, 162],
+            "deph": 0.3,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "right_fg_left",
             "type": "set_static",
             "file": "bearcave/right_fg_left.png",
-            "name": "right_fg_left",
-            "position": [
-                1647,
-                0
-            ]
+            "position": [1647, 0],
+            "deph": 0.0,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "right_fg_right",
             "type": "set_static",
             "file": "bearcave/right_fg_right.png",
-            "name": "right_fg_right",
-            "position": [
-                2104,
-                0
-            ]
+            "position": [2104, 0],
+            "deph": 0.0,
+            "visible": true
         },
         {
-            "deph": 0.0,
-            "visible": true,
+            "name": "right_ladder",
             "type": "set_static",
             "file": "bearcave/right_ladder.png",
-            "name": "right_ladder",
-            "position": [
-                1684,
-                0
-            ]
+            "position": [1684, 0],
+            "deph": 0.0,
+            "visible": true
         }
     ]
 }

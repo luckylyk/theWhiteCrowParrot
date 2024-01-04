@@ -13,9 +13,9 @@
     },
     "moves": {
         "fall": {
-            "center": [0, 0],
+            "center": [55, 125],
             "conditions": {},
-            "frames_centers": null,
+            "frames_centers": [[93, 91], [108, 99], [119, 106], [131, 107], [131, 107], [131, 107], [131, 107], [131, 107], [131, 107], [131, 107], [131, 107], [132, 107], [132, 107], [132, 107], [132, 107], [132, 107], [132, 107], [132, 107], [132, 107], [132, 107]],
             "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
             "hitmaps": null,
             "hold": false,
@@ -30,9 +30,9 @@
             "triggers": null
         },
         "idle": {
-            "center": [0, 0],
+            "center": [55, 125],
             "conditions": {},
-            "frames_centers": null,
+            "frames_centers": [[293, 110]],
             "frames_per_image": [1],
             "hitmaps": null,
             "hold": false,
@@ -47,7 +47,7 @@
             "triggers": null
         },
         "jump1": {
-            "center": [0, 0],
+            "center": [55, 125],
             "conditions": {
                 "animation_in": ["slide1"]
             },
@@ -66,11 +66,11 @@
             "triggers": null
         },
         "jump2": {
-            "center": [0, 0],
+            "center": [55, 125],
             "conditions": {
                 "animation_in": ["slide2"]
             },
-            "frames_centers": null,
+            "frames_centers": [[115, 70], [121, 73], [123, 85], [144, 76], [168, 51], [214, 39], [252, 44], [291, 60], [304, 60], [308, 56], [315, 56], [329, 56], [339, 57], [339, 58], [339, 58], [339, 58], [346, 57], [346, 57], [346, 57], [355, 57], [361, 57], [364, 53], [364, 53], [364, 53], [365, 54], [367, 55], [380, 50], [380, 50]],
             "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 4, 2, 2],
             "hitmaps": null,
             "hold": false,
@@ -88,7 +88,7 @@
             "triggers": null
         },
         "slide1": {
-            "center": [0, 0],
+            "center": [55, 125],
             "conditions": {},
             "frames_centers": null,
             "frames_per_image": [2, 2, 2, 2, 2, 2, 2],
@@ -100,15 +100,16 @@
             "next_move_bufferable": true,
             "post_events": {},
             "pre_events": {
-                "block_offset": [1, 0]},
+                "block_offset": [1, 0]
+            },
             "release_frame": -1,
             "start_at_image": 1,
             "triggers": null
         },
         "slide2": {
-            "center": [0, 0],
+            "center": [55, 125],
             "conditions": {},
-            "frames_centers": null,
+            "frames_centers": [[16, 8], [45, 35], [61, 52], [75, 64], [100, 93]],
             "frames_per_image": [2, 2, 2, 2, 2],
             "hitmaps": null,
             "hold": false,
