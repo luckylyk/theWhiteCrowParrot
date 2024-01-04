@@ -253,7 +253,8 @@ def render_player_debug(player, deph, surface, camera):
             position = to_pixel_position(block)
             x, y = camera.relative_pixel_position(position, deph)
             x, y = map_to_render_area(x, y)
-            draw_rect(surface, color, x, y, cctx.BLOCK_SIZE, cctx.BLOCK_SIZE, 100)
+            draw_rect(
+                surface, color, x, y, cctx.BLOCK_SIZE, cctx.BLOCK_SIZE, 100)
 
     if player.name != 'whitecrow':
         return

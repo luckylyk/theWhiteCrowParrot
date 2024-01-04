@@ -325,6 +325,8 @@ class StrArrayField(QtWidgets.QLineEdit):
 
     @property
     def value(self):
+        if not self.text():
+            return None
         return [v.strip(" ") for v in self.text().split(",")] or None
 
     @value.setter

@@ -119,6 +119,7 @@ class AnimationController():
         if block_offset:
             block_offset = flip_position(block_offset) if flip else block_offset
             block_position = sum_num_arrays(block_position, block_offset)
+
         return not is_move_cross_zone(
             move=move,
             image_size=self.size,
