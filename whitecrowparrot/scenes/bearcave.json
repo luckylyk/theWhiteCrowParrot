@@ -6,7 +6,7 @@
     "soft_boundaries": [[0, 0, 840, 268], [800, 0, 1640, 268], [1600, 0, 2400, 268]],
     "target_offset": [25, 0],
     "sounds": [
-
+        
     ],
     "zones": [
         {
@@ -104,7 +104,7 @@
             "name": "release_pant",
             "type": "interaction",
             "affect": ["bear"],
-            "scripts": ["bearcave.show_pant"],
+            "scripts": ["bearcave.show_pant", "bearcave.hide_pick_ol_01"],
             "zone": [87, -1, 132, 28]
         }
     ],
@@ -283,6 +283,22 @@
             "file": "bearcave_01.json",
             "position": [900, 0],
             "alpha": 255,
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "middle_pick_ol_01",
+            "type": "set_static",
+            "file": "bearcave/middle_pick_ol_01.png",
+            "position": [1113, 139],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "middle_pick_ol_02",
+            "type": "set_static",
+            "file": "bearcave/middle_pick_ol_02.png",
+            "position": [1069, 152],
             "deph": 0.0,
             "visible": true
         },

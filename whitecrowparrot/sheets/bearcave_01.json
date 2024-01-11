@@ -46,7 +46,7 @@
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 30],
+            "frames_per_image": [2, 3, 2, 2, 2, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 30],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -64,7 +64,7 @@
             "conditions": {},
             "frames_centers": null,
             "frames_per_image": [2, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 10],
-            "hitmaps": null,
+            "hitmaps": {},
             "hold": false,
             "inputs": [],
             "loop_on": ["idle"],
@@ -74,7 +74,7 @@
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 165,
-            "triggers": null
+            "triggers": [[1, "hide_pick_ol_02"]]
         },
         "do_not_react": {
             "center": [0, 0],
@@ -131,7 +131,7 @@
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3],
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 4, 4],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -142,7 +142,7 @@
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 58,
-            "triggers": [[7, "detection"]]
+            "triggers": [[11, "detection"]]
         },
         "raise_part_3": {
             "center": [0, 0],
@@ -159,7 +159,7 @@
             "pre_events": {},
             "release_frame": -1,
             "start_at_image": 70,
-            "triggers": null
+            "triggers": [[23, "hide_pick_ol_01"]]
         },
         "rest": {
             "center": [0, 0],
