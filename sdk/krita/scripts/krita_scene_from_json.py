@@ -5,7 +5,7 @@ from PyQt5 import QtGui
 
 
 ROOT = "D:/Works/code/GitHub/theWhiteCrowParrot/whitecrowparrot"
-JSON = "scenes/bearcave.json"
+JSON = "scenes/forest.json"
 
 
 def remove_key_color(image):

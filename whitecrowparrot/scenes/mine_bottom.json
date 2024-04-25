@@ -1,0 +1,136 @@
+{
+    "name": "mine_bottom",
+    "type": "scene",
+    "background_color": [0, 0, 0],
+    "boundary": [0, 0, 820, 268],
+    "soft_boundaries": [],
+    "target_offset": [75, 0],
+    "sounds": [
+        
+    ],
+    "zones": [
+        
+    ],
+    "elements": [
+        {
+            "name": "background",
+            "type": "layer",
+            "deph": 0.0,
+            "shader": null
+        },
+        {
+            "name": "cave_background",
+            "type": "set_static",
+            "file": "mine_bottom/cave_background.png",
+            "position": [450, 68],
+            "deph": -0.2,
+            "visible": true
+        },
+        {
+            "name": "scaffolding",
+            "type": "set_static",
+            "file": "mine_bottom/scaffolding.png",
+            "position": [397, 53],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "ground",
+            "type": "set_static",
+            "file": "mine_bottom/ground.png",
+            "position": [26, 184],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "cave_middleground",
+            "type": "set_static",
+            "file": "mine_bottom/cave_middleground.png",
+            "position": [254, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "rocks_middleground Fusionnés",
+            "type": "set_static",
+            "file": "mine_bottom/rocks_middleground Fusionnés.png",
+            "position": [175, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "woodstructure",
+            "type": "set_static",
+            "file": "mine_bottom/woodstructure.png",
+            "position": [0, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "middleground",
+            "type": "layer",
+            "deph": 0.0,
+            "shader": null
+        },
+        {
+            "name": "ladder",
+            "type": "set_static",
+            "file": "mine_bottom/ladder.png",
+            "position": [595, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "whitecrow",
+            "type": "player",
+            "block_position": [16, 7],
+            "flip": false
+        },
+        {
+            "name": "fg_wood",
+            "type": "set_static",
+            "file": "mine_bottom/fg_wood.png",
+            "position": [0, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "fg_barrel",
+            "type": "set_static",
+            "file": "mine_bottom/fg_barrel.png",
+            "position": [483, 201],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "fg_right",
+            "type": "set_static",
+            "file": "mine_bottom/fg_right.png",
+            "position": [603, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "foreground",
+            "type": "layer",
+            "deph": 0.0,
+            "shader": null
+        },
+        {
+            "name": "fg_items_right",
+            "type": "set_static",
+            "file": "mine_bottom/fg_items_right.png",
+            "position": [441, 148],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "fg_rocks_left",
+            "type": "set_static",
+            "file": "mine_bottom/fg_rocks_left.png",
+            "position": [0, 179],
+            "deph": 0.0,
+            "visible": true
+        }
+    ]
+}

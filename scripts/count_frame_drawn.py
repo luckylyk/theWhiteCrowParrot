@@ -5,7 +5,7 @@ import pygame
 sys.path.append(os.path.join(os.path.dirname(__file__), "../"))
 
 EXCLUDES = (
-    "whitecrowparrot_fight.json",
+    "fight.json",
     "jos.json",
     "bruno.json",
     "sinoc.json")
