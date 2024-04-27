@@ -59,7 +59,8 @@
         "tente": "tente.json",
         "troglodyte": "troglodyte.json",
         "underwater": "underwater.json",
-        "walk_test": "walk_test.json"
+        "walk_test": "walk_test.json",
+        "well_border": "well_border.json"
     },
     "shaders": {
         "chromatic_aberration": {

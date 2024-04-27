@@ -1,0 +1,108 @@
+{
+    "name": "well_border",
+    "type": "scene",
+    "background_color": [0, 0, 0],
+    "boundary": [0, 0, 820, 268],
+    "soft_boundaries": [],
+    "target_offset": [75, 0],
+    "sounds": [
+        
+    ],
+    "zones": [
+        
+    ],
+    "elements": [
+        {
+            "name": "background",
+            "type": "layer",
+            "deph": 0.0,
+            "shader": null
+        },
+        {
+            "name": "background_wall",
+            "type": "set_static",
+            "file": "well_border/background_wall.png",
+            "position": [0, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "sub_plank",
+            "type": "set_static",
+            "file": "well_border/sub_plank.png",
+            "position": [215, 243],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "ramp",
+            "type": "set_static",
+            "file": "well_border/ramp.png",
+            "position": [301, 48],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "top_plank",
+            "type": "set_static",
+            "file": "well_border/top_plank.png",
+            "position": [213, 110],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "whitecrow",
+            "type": "player",
+            "block_position": [22, 9],
+            "flip": false
+        },
+        {
+            "name": "ground_rocks",
+            "type": "set_static",
+            "file": "well_border/ground_rocks.png",
+            "position": [192, 244],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "fg_wood_plank",
+            "type": "set_static",
+            "file": "well_border/fg_wood_plank.png",
+            "position": [337, 116],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "fg_ground",
+            "type": "set_static",
+            "file": "well_border/fg_ground.png",
+            "position": [115, 0],
+            "deph": 0.25,
+            "visible": true
+        },
+        {
+            "name": "fg_center_rocks",
+            "type": "set_static",
+            "file": "well_border/fg_center_rocks.png",
+            "position": [220, 107],
+            "deph": 0.6,
+            "visible": true
+        },
+        {
+            "name": "fg_right",
+            "type": "set_static",
+            "file": "well_border/fg_right.png",
+            "position": [15, 0],
+            "deph": 1.2,
+            "visible": true
+        },
+        {
+            "name": "fg_left",
+            "type": "set_static",
+            "file": "well_border/fg_left.png",
+            "position": [325, 0],
+            "deph": 0.6,
+            "visible": true
+        }
+    ]
+}

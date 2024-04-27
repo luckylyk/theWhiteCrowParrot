@@ -1,0 +1,112 @@
+[
+    {
+        "deph": 0.0,
+        "visible": true,
+        "type": "set_static",
+        "file": "well_border/background_wall.png",
+        "name": "background_wall",
+        "position": [
+            0,
+            0
+        ]
+    },
+    {
+        "deph": 0.0,
+        "visible": true,
+        "type": "set_static",
+        "file": "well_border/sub_plank.png",
+        "name": "sub_plank",
+        "position": [
+            215,
+            243
+        ]
+    },
+    {
+        "deph": 0.0,
+        "visible": true,
+        "type": "set_static",
+        "file": "well_border/ramp.png",
+        "name": "ramp",
+        "position": [
+            301,
+            48
+        ]
+    },
+    {
+        "deph": 0.0,
+        "visible": true,
+        "type": "set_static",
+        "file": "well_border/top_plank.png",
+        "name": "top_plank",
+        "position": [
+            213,
+            110
+        ]
+    },
+    {
+        "deph": 0.0,
+        "visible": true,
+        "type": "set_static",
+        "file": "well_border/ground_rocks.png",
+        "name": "ground_rocks",
+        "position": [
+            192,
+            244
+        ]
+    },
+    {
+        "deph": 0.0,
+        "visible": true,
+        "type": "set_static",
+        "file": "well_border/fg_wood_plank.png",
+        "name": "fg_wood_plank",
+        "position": [
+            337,
+            116
+        ]
+    },
+    {
+        "deph": 0.0,
+        "visible": true,
+        "type": "set_static",
+        "file": "well_border/fg_ground.png",
+        "name": "fg_ground",
+        "position": [
+            143,
+            0
+        ]
+    },
+    {
+        "deph": 0.0,
+        "visible": true,
+        "type": "set_static",
+        "file": "well_border/fg_center_rocks.png",
+        "name": "fg_center_rocks",
+        "position": [
+            353,
+            107
+        ]
+    },
+    {
+        "deph": 0.0,
+        "visible": true,
+        "type": "set_static",
+        "file": "well_border/fg_right.png",
+        "name": "fg_right",
+        "position": [
+            0,
+            0
+        ]
+    },
+    {
+        "deph": 0.0,
+        "visible": true,
+        "type": "set_static",
+        "file": "well_border/fg_left.png",
+        "name": "fg_left",
+        "position": [
+            522,
+            0
+        ]
+    }
+]
