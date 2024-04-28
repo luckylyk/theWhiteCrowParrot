@@ -1,0 +1,145 @@
+[
+    {
+        "deph": 0.0,
+        "visible": true,
+        "type": "set_static",
+        "file": "mine_court_side/bg_external.png",
+        "name": "bg_external",
+        "position": [
+            550,
+            0
+        ]
+    },
+    {
+        "deph": 0.0,
+        "visible": true,
+        "type": "set_static",
+        "file": "mine_court_side/bg_mine.png",
+        "name": "bg_mine",
+        "position": [
+            357,
+            74
+        ]
+    },
+    {
+        "deph": 0.0,
+        "visible": true,
+        "type": "set_static",
+        "file": "mine_court_side/ladder.png",
+        "name": "ladder",
+        "position": [
+            621,
+            78
+        ]
+    },
+    {
+        "deph": 0.0,
+        "visible": true,
+        "type": "set_static",
+        "file": "mine_court_side/wall_and_roof.png",
+        "name": "wall_and_roof",
+        "position": [
+            99,
+            0
+        ]
+    },
+    {
+        "deph": 0.0,
+        "visible": true,
+        "type": "set_static",
+        "file": "mine_court_side/door.png",
+        "name": "door",
+        "position": [
+            176,
+            79
+        ]
+    },
+    {
+        "deph": 0.0,
+        "visible": true,
+        "type": "set_static",
+        "file": "mine_court_side/fg_wood_structure.png",
+        "name": "fg_wood_structure",
+        "position": [
+            188,
+            0
+        ]
+    },
+    {
+        "deph": 0.0,
+        "visible": true,
+        "type": "set_static",
+        "file": "mine_court_side/fg_column.png",
+        "name": "fg_column",
+        "position": [
+            450,
+            44
+        ]
+    },
+    {
+        "deph": 0.0,
+        "visible": true,
+        "type": "set_static",
+        "file": "mine_court_side/fg_destroyed_column.png",
+        "name": "fg_destroyed_column",
+        "position": [
+            457,
+            197
+        ]
+    },
+    {
+        "deph": 0.0,
+        "visible": true,
+        "type": "set_static",
+        "file": "mine_court_side/fg_left_rocks.png",
+        "name": "fg_left_rocks",
+        "position": [
+            104,
+            146
+        ]
+    },
+    {
+        "deph": 0.0,
+        "visible": true,
+        "type": "set_static",
+        "file": "mine_court_side/fg_left_rocks_top.png",
+        "name": "fg_left_rocks_top",
+        "position": [
+            93,
+            0
+        ]
+    },
+    {
+        "deph": 0.0,
+        "visible": true,
+        "type": "set_static",
+        "file": "mine_court_side/fg_right_rock_top.png",
+        "name": "fg_right_rock_top",
+        "position": [
+            505,
+            0
+        ]
+    },
+    {
+        "deph": 0.0,
+        "visible": true,
+        "type": "set_static",
+        "file": "mine_court_side/fg_left_wall.png",
+        "name": "fg_left_wall",
+        "position": [
+            0,
+            0
+        ]
+    },
+    {
+        "deph": 0.0,
+        "visible": true,
+        "type": "set_static",
+        "file": "mine_court_side/fg_right_wall.png",
+        "name": "fg_right_wall",
+        "position": [
+            677,
+            0
+        ]
+    }
+]
