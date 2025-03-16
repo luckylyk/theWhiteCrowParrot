@@ -420,7 +420,10 @@ def job_restore(theatre):
 
 
 def job_run_script(theatre, script_name):
-    #todo
+    script = [
+        script for script in theatre.scripts
+        if script.name == script_name][0]
+    theatre.queue_concurrent_script(script)
     return 0
 
 

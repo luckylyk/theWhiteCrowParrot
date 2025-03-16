@@ -6,32 +6,41 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-        
+
     ],
     "zones": [
-        
+        {
+            "name": "left_limit",
+            "type": "no_go",
+            "affect": ["whitecrow"],
+            "forbidden_moves": null,
+            "zone": [64, 0, 82, 27]
+        }
     ],
     "elements": [
         {
             "name": "background",
             "type": "layer",
             "deph": 0.0,
-            "shader": null
+            "shader": {
+                "name": "chromatic_aberration",
+                "options": {}
+            }
         },
         {
             "name": "cave_background",
             "type": "set_static",
             "file": "mine_bottom/cave_background.png",
-            "position": [450, 68],
-            "deph": -0.2,
+            "position": [260, 68],
+            "deph": 0.45,
             "visible": true
         },
         {
             "name": "scaffolding",
             "type": "set_static",
             "file": "mine_bottom/scaffolding.png",
-            "position": [397, 53],
-            "deph": 0.0,
+            "position": [303, 53],
+            "deph": 0.35,
             "visible": true
         },
         {
@@ -46,14 +55,14 @@
             "name": "cave_middleground",
             "type": "set_static",
             "file": "mine_bottom/cave_middleground.png",
-            "position": [254, 0],
-            "deph": 0.0,
+            "position": [210, 0],
+            "deph": 0.2,
             "visible": true
         },
         {
-            "name": "rocks_middleground Fusionnés",
+            "name": "rocks_middleground",
             "type": "set_static",
-            "file": "mine_bottom/rocks_middleground Fusionnés.png",
+            "file": "mine_bottom/rocks_middleground.png",
             "position": [175, 0],
             "deph": 0.0,
             "visible": true
@@ -70,7 +79,10 @@
             "name": "middleground",
             "type": "layer",
             "deph": 0.0,
-            "shader": null
+            "shader": {
+                "name": "chromatic_aberration",
+                "options": {}
+            }
         },
         {
             "name": "ladder",
@@ -85,6 +97,15 @@
             "type": "player",
             "block_position": [16, 7],
             "flip": false
+        },
+        {
+            "name": "rope",
+            "type": "set_animated",
+            "file": "mine_rappelling_rope.json",
+            "position": [240, 0],
+            "alpha": 255,
+            "deph": 0.0,
+            "visible": false
         },
         {
             "name": "fg_wood",
@@ -113,22 +134,52 @@
         {
             "name": "foreground",
             "type": "layer",
-            "deph": 0.0,
-            "shader": null
+            "deph": 0,
+            "shader": {
+                "name": "chromatic_aberration",
+                "options": {}
+            }
         },
         {
             "name": "fg_items_right",
             "type": "set_static",
             "file": "mine_bottom/fg_items_right.png",
-            "position": [441, 148],
-            "deph": 0.0,
+            "position": [630, 148],
+            "deph": -0.3,
             "visible": true
         },
         {
             "name": "fg_rocks_left",
             "type": "set_static",
             "file": "mine_bottom/fg_rocks_left.png",
-            "position": [0, 179],
+            "position": [5, 179],
+            "deph": -0.3,
+            "visible": true
+        },
+        {
+            "name": "bucket",
+            "type": "set_animated",
+            "file": "minebucket.json",
+            "position": [150, 0],
+            "alpha": 255,
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "bucket_vfx",
+            "type": "set_animated",
+            "file": "minebucket_vfx.json",
+            "position": [150, 215],
+            "alpha": 50,
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "bucket_mice",
+            "type": "set_animated",
+            "file": "minebucket_mice.json",
+            "position": [180, 0],
+            "alpha": 255,
             "deph": 0.0,
             "visible": true
         }

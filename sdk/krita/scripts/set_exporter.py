@@ -12,8 +12,8 @@ import json
 
 SRGB_PROFILE = "sRGB-elle-V2-srgbtrc.icc"
 FOLDER = r"C:\Users\lio\Desktop\zini\zut"
-LEVEL_FOLDER = "mine_court_side"
-LEVEL_FILE = "mine_court_side.json"
+LEVEL_FOLDER = "mine_transit"
+LEVEL_FILE = "mine_transit.json"
 DEFAULT_DATA = {
     "deph": 0.0,
     "visible": True,

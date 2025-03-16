@@ -42,6 +42,7 @@
         "airlock": "airlock.json",
         "bruno": "bruno_test.json",
         "bearcave": "bearcave.json",
+        "broken_sword": "broken_sword.json",
         "court": "court.json",
         "credits": "credits.json",
         "dyingshop": "dyingshop.json",
