@@ -1,0 +1,137 @@
+{
+    "name": "mine_transit",
+    "type": "scene",
+    "background_color": [0, 0, 0],
+    "boundary": [0, 0, 850, 268],
+    "soft_boundaries": [],
+    "target_offset": [75, 0],
+    "sounds": [
+
+    ],
+    "zones": [
+
+    ],
+    "elements": [
+        {
+            "name": "background",
+            "type": "layer",
+            "deph": 0.0,
+            "shader": {
+                "name": "chromatic_aberration",
+                "options": {}
+            }
+        },
+        {
+            "name": "bg_bridge",
+            "type": "set_static",
+            "file": "mine_transit/bg_bridge.png",
+            "position": [90, 0],
+            "deph": -0.3,
+            "visible": true
+        },
+        {
+            "name": "bg_corridor",
+            "type": "set_static",
+            "file": "mine_transit/bg_corridor.png",
+            "position": [250, 12],
+            "deph": -0.4,
+            "visible": true
+        },
+        {
+            "name": "corridor",
+            "type": "set_static",
+            "file": "mine_transit/corridor.png",
+            "position": [170, 0],
+            "deph": -0.2,
+            "visible": true
+        },
+        {
+            "name": "mg",
+            "type": "set_static",
+            "file": "mine_transit/mg.png",
+            "position": [36, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "characters",
+            "type": "layer",
+            "deph": 0.0,
+            "shader": {
+                "name": "chromatic_aberration",
+                "options": {}
+            }
+        },
+        {
+            "name": "bridge",
+            "type": "set_static",
+            "file": "mine_transit/bridge.png",
+            "position": [390, 158],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "whitecrow",
+            "type": "player",
+            "block_position": [16, 1],
+            "flip": false
+        },
+        {
+            "name": "ladder",
+            "type": "set_static",
+            "file": "mine_transit/ladder.png",
+            "position": [188, 163],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "foreground",
+            "type": "layer",
+            "deph": 0.0,
+            "shader": {
+                "name": "chromatic_aberration",
+                "options": {}
+            }
+        },
+        {
+            "name": "fg_overlay",
+            "type": "set_static",
+            "file": "mine_transit/fg_overlay.png",
+            "position": [39, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "fg_wood_structure",
+            "type": "set_static",
+            "file": "mine_transit/fg_wood_structure.png",
+            "position": [0, 0],
+            "deph": 0.2,
+            "visible": true
+        },
+        {
+            "name": "fg_left",
+            "type": "set_static",
+            "file": "mine_transit/fg_left.png",
+            "position": [0, 0],
+            "deph": 0.6,
+            "visible": true
+        },
+        {
+            "name": "fg_middle",
+            "type": "set_static",
+            "file": "mine_transit/fg_middle.png",
+            "position": [215, 225],
+            "deph": 0.5,
+            "visible": true
+        },
+        {
+            "name": "fg_right",
+            "type": "set_static",
+            "file": "mine_transit/fg_right.png",
+            "position": [320, 0],
+            "deph": 0.85,
+            "visible": true
+        }
+    ]
+}
