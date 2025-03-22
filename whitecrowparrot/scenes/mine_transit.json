@@ -6,20 +6,37 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-
+        
     ],
     "zones": [
-
+        {
+            "name": "go_to_bottom",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["mine.go_to_mine_bottom"],
+            "zone": [20, 16, 28, 18]
+        },
+        {
+            "name": "to_well_border",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["mine.go_to_well_border_from_transit"],
+            "zone": [62, 6, 70, 18]
+        },
+        {
+            "name": "go_to_exit_from_mine_transit",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["mine.go_to_exit_from_mine_transit"],
+            "zone": [1, 4, 9, 18]
+        }
     ],
     "elements": [
         {
             "name": "background",
             "type": "layer",
             "deph": 0.0,
-            "shader": {
-                "name": "chromatic_aberration",
-                "options": {}
-            }
+            "shader": null
         },
         {
             "name": "bg_bridge",
@@ -57,10 +74,7 @@
             "name": "characters",
             "type": "layer",
             "deph": 0.0,
-            "shader": {
-                "name": "chromatic_aberration",
-                "options": {}
-            }
+            "shader": null
         },
         {
             "name": "bridge",
@@ -73,7 +87,7 @@
         {
             "name": "whitecrow",
             "type": "player",
-            "block_position": [16, 1],
+            "block_position": [19, 1],
             "flip": false
         },
         {
@@ -88,10 +102,7 @@
             "name": "foreground",
             "type": "layer",
             "deph": 0.0,
-            "shader": {
-                "name": "chromatic_aberration",
-                "options": {}
-            }
+            "shader": null
         },
         {
             "name": "fg_overlay",

@@ -5,6 +5,7 @@ import corax.context as cctx
 import corax.screen as sctx
 from corax.core import COLORS, SHAPE_TYPES, MENU_MODES
 from corax.coordinate import to_pixel_position, to_block_position
+from corax.debug import get_debug_mode
 from corax.gamepad import CONNECT_GAMEPAD_WARNING
 from corax.mathutils import sum_num_arrays
 from corax.renderengine.io import get_image, NULL_SHADER
@@ -192,7 +193,7 @@ def render_plugin_shapes(element, surface, deph, camera):
     position = camera.relative_pixel_position(element.pixel_position, totdeph)
     for image in element.images:
         draw_image(image, surface, position)
-    if cctx.DEBUG:
+    if get_debug_mode():
         element.render_debug(surface, deph, camera)
 
 
@@ -348,7 +349,7 @@ def render(gameloop, window, events):
         render_menu(gameloop.menu, overlay)
 
     draw_letterbox(overlay)
-    if cctx.DEBUG:
+    if get_debug_mode():
         render_scene_debug_overlay(theatre.scene, overlay)
     surfaces_and_shaders.append((overlay, NULL_SHADER))
     window.render(surfaces_and_shaders, events)

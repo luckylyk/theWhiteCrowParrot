@@ -29,6 +29,13 @@
             "affect": ["whitecrow"],
             "scripts": ["well_border.collapsing"],
             "zone": [29, 0, 31, 12]
+        },
+        {
+            "name": "go_to_mine_transit",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["mine.go_to_transit_from_well_border"],
+            "zone": [14, 17, 20, 25]
         }
     ],
     "elements": [

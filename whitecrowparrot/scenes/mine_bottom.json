@@ -6,7 +6,7 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-
+        
     ],
     "zones": [
         {
@@ -15,6 +15,20 @@
             "affect": ["whitecrow"],
             "forbidden_moves": null,
             "zone": [64, 0, 82, 27]
+        },
+        {
+            "name": "go_to_mine_transit_from_mine_bottom",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["mine.go_to_transit_from_mine_bottom"],
+            "zone": [15, 18, 23, 27]
+        },
+        {
+            "name": "go_to_hill_from_mine_bottom",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["mine.go_to_hill_from_mine_bottom", "mine.go_to_hill_from_mine_bottom_with_cut_scene"],
+            "zone": [55, 17, 64, 27]
         }
     ],
     "elements": [
@@ -22,10 +36,7 @@
             "name": "background",
             "type": "layer",
             "deph": 0.0,
-            "shader": {
-                "name": "chromatic_aberration",
-                "options": {}
-            }
+            "shader": null
         },
         {
             "name": "cave_background",
@@ -79,10 +90,7 @@
             "name": "middleground",
             "type": "layer",
             "deph": 0.0,
-            "shader": {
-                "name": "chromatic_aberration",
-                "options": {}
-            }
+            "shader": null
         },
         {
             "name": "ladder",
@@ -95,7 +103,7 @@
         {
             "name": "whitecrow",
             "type": "player",
-            "block_position": [16, 7],
+            "block_position": [14, 7],
             "flip": false
         },
         {
@@ -135,10 +143,7 @@
             "name": "foreground",
             "type": "layer",
             "deph": 0,
-            "shader": {
-                "name": "chromatic_aberration",
-                "options": {}
-            }
+            "shader": null
         },
         {
             "name": "fg_items_right",

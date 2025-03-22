@@ -209,6 +209,8 @@ def create_character_job(theatre, script, character_name, function, arguments):
     character = find_character(theatre, character_name)
     match function:
         case "aim":
+            if not " by " in arguments:
+                return partial(job_aim, character, direction=arguments)
             direction, move = arguments.split(" by ")
             return partial(job_aim, character, move, direction)
         case "hide":
@@ -265,7 +267,10 @@ def nolock_job(job):
     return 0
 
 
-def job_aim(player, move, direction):
+def job_aim(player, move=None, direction="LEFT"):
+    if not move:
+        player.coordinate.flip = direction == "LEFT"
+        return 0
     data = player.animation_controller.data
     event = (
         data["moves"][move]["post_events"].get(EVENTS.FLIP) or

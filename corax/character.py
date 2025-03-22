@@ -2,6 +2,7 @@ import os
 import logging
 
 import corax.context as cctx
+from corax.debug import get_debug_mode
 from corax.animation import SpriteSheet
 from corax.controller import AnimationController
 from corax.coordinate import Coordinate, to_block_position, flip_position
@@ -58,7 +59,7 @@ class Character:
         unholdable = filter_unholdable_moves(data, input_buffer, self.flip)
         self.animation_controller.unhold(unholdable)
         self.animation_controller.propose_moves(moves)
-        if cctx.DEBUG:
+        if get_debug_mode():
             logging.debug(f"Proposed moves: {moves}")
 
     def evaluate(self):

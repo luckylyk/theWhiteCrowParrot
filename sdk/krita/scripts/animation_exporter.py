@@ -5,7 +5,7 @@ from PyQt5 import QtGui, QtCore, QtWidgets
 
 ROOT = 'D:/Works/code/GitHub/theWhiteCrowParrot'
 # ROOT = 'c:/perso/theWhiteCrowParrot'
-OUTPUT_PATH = "{root}/whitecrowparrot/animations/export/broken_sword_{layer}.png"
+OUTPUT_PATH = "{root}/whitecrowparrot/animations/export/mine_ladder_cutscene_{layer}.png"
 # OUTPUT_PATH = "{root}/whitecrowparrot/animations/whitecrow/interaction_2.png"
 SRGB_PROFILE = "sRGB-elle-V2-srgbtrc.icc"
 

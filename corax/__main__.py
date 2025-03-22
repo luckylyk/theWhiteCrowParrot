@@ -71,20 +71,18 @@ parser.add_argument("-k", "--use_keyboard", action='store_true')
 arguments = parser.parse_args()
 
 
-if arguments.debug:
-    import logging
-    logging.getLogger().setLevel(logging.DEBUG)
-
-
 import corax.context as cctx
 from corax import renderengine, config
+from corax.debug import set_debug_mode
 from corax.gameloop import GameLoop
 from corax.gamepad import load_config_keybinding
 from corax.plugin import register_custom_plugins
 from corax.screen import initialize_screen
 from corax.renderengine.display import setup_render_display
-
 from corax.renderengine.draw import render, render_splash
+
+set_debug_mode(arguments.debug)
+
 # Initialize the engine constants based on the application arguments and loads
 # the main.json file.
 game_data = cctx.initialize(arguments)

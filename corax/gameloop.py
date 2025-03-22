@@ -6,6 +6,7 @@ import pygame
 
 import corax.context as cctx
 from corax.core import RUN_MODES, MENU_EVENTS, GAMELOOP_ACTIONS
+from corax.debug import toggle_debug_mode
 from corax.gamepad import is_joystick_connected
 from corax.iterators import fade
 from corax.keyboard import Joystick
@@ -49,6 +50,8 @@ class GameLoop:
         self.joystick.init()
         keyboard = cctx.USE_KEYBOARD
         self.has_connected_joystick = keyboard or is_joystick_connected()
+        if pygame.K_F5 in [e.key for e in events if e.type == pygame.KEYDOWN]:
+            toggle_debug_mode()
         if keyboard:
             self.joystick.set_events(events)
         if not self.has_connected_joystick:
