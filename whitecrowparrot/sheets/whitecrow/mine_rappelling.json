@@ -1,0 +1,37 @@
+{
+    "name": "",
+    "default_move": "idle",
+    "evaluation_order": ["idle"],
+    "frame_size": [370, 268],
+    "key_color": [0, 255, 0],
+    "layers": {
+        "blackhelmet": "whitecrow/mine_rappelling_blackhelmet.png",
+        "body": "whitecrow/mine_rappelling_body.png",
+        "bottle": "whitecrow/mine_rappelling_bottle.png",
+        "head": "whitecrow/mine_rappelling_head.png",
+        "sword": "whitecrow/mine_rappelling_sword.png"
+    },
+    "moves": {
+        "idle": {
+            "center": [71, 11],
+            "conditions": {},
+            "frames_centers": [[0, 0], [8, 30], [27, 77], [49, 126], [168, 201], [271, 167], [261, 145], [246, 138], [230, 140], [210, 149], [165, 183], [66, 203], [8, 168], [13, 165], [13, 167], [13, 167], [18, 182], [43, 185], [53, 208], [47, 221], [43, 219], [35, 220], [33, 220], [31, 220], [29, 220], [26, 220], [26, 220], [26, 220], [26, 220], [26, 220], [25, 220]],
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2],
+            "hitmaps": null,
+            "hold": false,
+            "inputs": [],
+            "loop_on": null,
+            "next_move": "idle",
+            "next_move_bufferable": null,
+            "post_events": {
+                "flip": true,
+                "switch_to": "whitecrow/exploration.json",
+                "block_offset": [10, 0]
+            },
+            "pre_events": {},
+            "release_frame": -1,
+            "start_at_image": 1,
+            "triggers": null
+        }
+    }
+}

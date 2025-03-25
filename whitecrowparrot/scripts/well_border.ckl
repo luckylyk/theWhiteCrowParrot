@@ -1,0 +1,57 @@
+// Welcome to Crackle Script.
+//
+// This is the Corax Engine event script language.
+// Don't be scared, it's extremely easy to use. The language rely on indent of
+// four spaces. It is composed of scripts which are evaluated by the Zones
+// where it is attached. For instance, a zone named "chest_interaction" has is
+// defined as "affected by whitecrow", the script will be evaluated when the
+// zone contains the center of "whitecrow".
+// The syntax is pretty simple, zero indent is the script declaration level.
+// First indent level is the condition to execute the followings jobs and the
+// second indent level is the job queue.
+//
+// List of available keywords:
+// declaration: (script, concurrent, event)
+// conditional and time related adverbs/function: (always, freeze, nolock,
+//                                                 wait)
+// comparators: (by, from, has, in, is, overlaps)
+// functions: (aim, checkpoint, clear, fadein, fadeout, flush, force, freeze,
+//             hide, join, layover, move, pin, play, reach, restart, restore,
+//             run, show, set, shift, wait, add, remove, offset)
+// corax known objects: (animation, flip, gamepad, globals, hitmap, key,
+//                       name, player, pressed, scene, sheet, theatre, zone,
+//                       camera, target)
+// built-in values: (false, true)
+
+
+script collapsing
+    player.whitecrow.flip is false
+    player.whitecrow.sheet in (fight, sword, exploration)
+    prop.bridge_collapse.animation is idle
+        nolock prop.bridge_collapse play collapse
+        nolock player.whitecrow.sheet set bridge_collapse
+        pin player.whitecrow
+        flush player.whitecrow
+        nolock prop.bridge_collapse_vfx play pouf
+        player.whitecrow move (15, 0)
+        player.whitecrow play idle
+        theatre.scene set broken_sword
+        player.whitecrow move (30, 0)
+        player.whitecrow.sheet set broken_sword
+        player.whitecrow play fall
+        theatre.scene set mine_bottom
+        show prop.rope
+        nolock prop.rope play fall
+        nolock prop.bucket play collapse
+        nolock prop.bucket_vfx play pouf
+        nolock prop.bucket_mice play get_out
+        run well_border.mice_down
+        player.whitecrow.sheet set mine_rappeling
+        player.whitecrow move (24, 0)
+        player.whitecrow play idle
+        player.whitecrow move (39, 7)
+
+concurrent mice_down
+    always
+        wait 100
+        prop.bucket_mice layover static.ladder

@@ -1,7 +1,7 @@
 {
     "name": "Scene 02",
     "type": "scene",
-    "background_color": [173, 177, 189],
+    "background_color": [128, 216, 255],
     "boundary": [80, 0, 1600, 268],
     "soft_boundaries": [[920, 0, 1600, 270], [80, 0, 920, 270]],
     "target_offset": [300, 0],
@@ -222,8 +222,8 @@
         {
             "name": "left_limit",
             "type": "no_go",
-            "forbidden_moves": [],
             "affect": ["whitecrow"],
+            "forbidden_moves": [],
             "zone": [0, 13, 45, 27]
         },
         {
@@ -256,6 +256,13 @@
             "affect": "whitecrow",
             "scripts": ["sinoc.hit_wall"],
             "zone": [131, 0, 160, 26]
+        },
+        {
+            "name": "go_bottom_mine_by_hill",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["mine.go_to_mine_bottom_from_hill"],
+            "zone": [112, 17, 122, 26]
         }
     ],
     "elements": [
@@ -266,18 +273,74 @@
             "shader": null
         },
         {
-            "name": "bg",
+            "name": "bg_mountain_03",
             "type": "set_static",
-            "file": "hill/bg.png",
-            "position": [-220, 0],
-            "deph": -0.2,
+            "file": "hill/bg_mountain_03.png",
+            "position": [0, 55],
+            "deph": 0.0,
             "visible": true
         },
         {
-            "name": "montain",
+            "name": "bg_mountain_02",
             "type": "set_static",
-            "file": "hill/montain.png",
-            "position": [-100, 159],
+            "file": "hill/bg_mountain_02.png",
+            "position": [896, 38],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "bg_mountain_01",
+            "type": "set_static",
+            "file": "hill/bg_mountain_01.png",
+            "position": [589, 105],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "bg_castle",
+            "type": "set_static",
+            "file": "hill/bg_castle.png",
+            "position": [1051, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "bg_middle_trees_and_ground",
+            "type": "set_static",
+            "file": "hill/bg_middle_trees_and_ground.png",
+            "position": [766, 62],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "bg_right_bush",
+            "type": "set_static",
+            "file": "hill/bg_right_bush.png",
+            "position": [973, 108],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "bg_tree_red",
+            "type": "set_static",
+            "file": "hill/bg_tree_red.png",
+            "position": [519, 103],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "bg_tree_green",
+            "type": "set_static",
+            "file": "hill/bg_tree_green.png",
+            "position": [555, 27],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "bg_tree_yellow",
+            "type": "set_static",
+            "file": "hill/bg_tree_yellow.png",
+            "position": [616, 82],
             "deph": 0.0,
             "visible": true
         },
@@ -285,7 +348,55 @@
             "name": "ground",
             "type": "set_static",
             "file": "hill/ground.png",
-            "position": [379, 0],
+            "position": [371, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "flag",
+            "type": "set_static",
+            "file": "hill/flag.png",
+            "position": [397, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "hill_limit",
+            "type": "set_static",
+            "file": "hill/hill_limit.png",
+            "position": [327, 209],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "chain",
+            "type": "set_static",
+            "file": "hill/chain.png",
+            "position": [86, 91],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "mine_entry_walls",
+            "type": "set_static",
+            "file": "hill/mine_entry_walls.png",
+            "position": [1105, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "ladder",
+            "type": "set_static",
+            "file": "hill/ladder.png",
+            "position": [1118, 142],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "rocks",
+            "type": "set_static",
+            "file": "hill/rocks.png",
+            "position": [1292, 22],
             "deph": 0.0,
             "visible": true
         },
@@ -296,21 +407,13 @@
             "shader": null
         },
         {
-            "name": "tree-interactive",
-            "type": "set_static",
-            "file": "hill/tree-interactive.png",
-            "position": [1073, 65],
-            "deph": 0.0,
-            "visible": true
-        },
-        {
             "name": "goundtip_prop",
             "type": "set_animated",
             "file": "hill_groundtip.json",
             "position": [322, 210],
             "alpha": 255,
             "deph": 0.0,
-            "visible": true
+            "visible": false
         },
         {
             "name": "sinoc",
@@ -322,7 +425,7 @@
             "name": "whitecrow",
             "type": "player",
             "block_position": [100, 7],
-            "flip": true
+            "flip": false
         },
         {
             "name": "foreground",
@@ -337,30 +440,70 @@
             "position": [1159, 0],
             "alpha": 255,
             "deph": 0.0,
+            "visible": false
+        },
+        {
+            "name": "fg_mine_entry",
+            "type": "set_static",
+            "file": "hill/fg_mine_entry.png",
+            "position": [1273, 58],
+            "deph": 0.0,
             "visible": true
         },
         {
             "name": "fg_tree",
             "type": "set_static",
             "file": "hill/fg_tree.png",
-            "position": [824, 0],
+            "position": [800, 0],
             "deph": 0.2,
             "visible": true
         },
         {
-            "name": "fg_bush_2",
+            "name": "mine_entry_wood_structure_entry",
             "type": "set_static",
-            "file": "hill/fg_bush_2.png",
-            "position": [1200, 96],
+            "file": "hill/mine_entry_wood_structure_entry.png",
+            "position": [1397, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "fg_right",
+            "type": "set_static",
+            "file": "hill/fg_right.png",
+            "position": [1360, 0],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "fg_middle_bush",
+            "type": "set_static",
+            "file": "hill/fg_middle_bush.png",
+            "position": [845, 199],
             "deph": 0.25,
             "visible": true
         },
         {
-            "name": "fg_bush",
+            "name": "fg_right_bush_03",
             "type": "set_static",
-            "file": "hill/fg_bush.png",
-            "position": [850, 204],
-            "deph": 0.23,
+            "file": "hill/fg_right_bush_03.png",
+            "position": [1286, 96],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "fg_right_bush_02",
+            "type": "set_static",
+            "file": "hill/fg_right_bush_02.png",
+            "position": [1362, 149],
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "fg_right_bush_01",
+            "type": "set_static",
+            "file": "hill/fg_right_bush_01.png",
+            "position": [1362, 195],
+            "deph": 0.0,
             "visible": true
         }
     ]

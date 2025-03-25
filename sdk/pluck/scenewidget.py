@@ -231,7 +231,7 @@ class SceneWidget(QtWidgets.QWidget):
             if not image:
                 continue
 
-            x, y = node.data['position']
+            x, y = get_offset(node.data['position'], node.data['deph'], self.paintcontext)
             w, h = image.width(), image.height()
             rect = QtCore.QRect(x, y, w, h)
             rect = self.paintcontext.relatives_rect(rect)
@@ -309,6 +309,15 @@ class SceneWidget(QtWidgets.QWidget):
             painter.drawImage(rect, image)
 
         painter.end()
+
+
+def get_offset(pixel_position, deph, paintcontext):
+    return pixel_position
+    # hack to get deph (not working well but better than nothing)
+    import math
+    offset_x = math.ceil((pixel_position[0] - paintcontext.center[0]))
+    offset_y = math.ceil((pixel_position[1] - paintcontext.center[1]))
+    return [offset_x + (offset_x * deph), offset_y]
 
 
 class ZoneSquare():

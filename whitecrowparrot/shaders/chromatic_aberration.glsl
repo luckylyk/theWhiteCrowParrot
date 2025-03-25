@@ -9,7 +9,7 @@ uniform int time;
 float final_amount;
 in vec2 uv0;
 vec4 buff;
-float noise_amount = 0.15;
+float noise_amount = 0.05;
 
 
 vec4 noiseIt(vec4 buff) {

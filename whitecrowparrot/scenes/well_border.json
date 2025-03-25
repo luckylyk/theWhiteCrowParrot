@@ -9,14 +9,44 @@
         
     ],
     "zones": [
-        
+        {
+            "name": "nogo_left_up",
+            "type": "no_go",
+            "affect": ["whitecrow"],
+            "forbidden_moves": null,
+            "zone": [0, 0, 20, 11]
+        },
+        {
+            "name": "right_limit",
+            "type": "no_go",
+            "affect": ["whitecrow"],
+            "forbidden_moves": null,
+            "zone": [51, 0, 68, 12]
+        },
+        {
+            "name": "bridge_collapse",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["well_border.collapsing"],
+            "zone": [29, 0, 31, 12]
+        },
+        {
+            "name": "go_to_mine_transit",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["mine.go_to_transit_from_well_border"],
+            "zone": [14, 17, 20, 25]
+        }
     ],
     "elements": [
         {
             "name": "background",
             "type": "layer",
             "deph": 0.0,
-            "shader": null
+            "shader": {
+                "name": "chromatic_aberration",
+                "options": {}
+            }
         },
         {
             "name": "background_wall",
@@ -43,18 +73,54 @@
             "visible": true
         },
         {
-            "name": "top_plank",
-            "type": "set_static",
-            "file": "well_border/top_plank.png",
-            "position": [213, 110],
+            "name": "middleground",
+            "type": "layer",
+            "deph": 0.0,
+            "shader": {
+                "name": "chromatic_aberration",
+                "options": {}
+            }
+        },
+        {
+            "name": "bridge_collapse",
+            "type": "set_animated",
+            "file": "bridge_collapse.json",
+            "position": [150, 0],
+            "alpha": 255,
+            "deph": 0.0,
+            "visible": true
+        },
+        {
+            "name": "bridge_collapse_vfx",
+            "type": "set_animated",
+            "file": "bridge_collapse_vfx.json",
+            "position": [150, 0],
+            "alpha": 255,
             "deph": 0.0,
             "visible": true
         },
         {
             "name": "whitecrow",
             "type": "player",
-            "block_position": [22, 9],
+            "block_position": [30, -4],
             "flip": false
+        },
+        {
+            "name": "foreground",
+            "type": "layer",
+            "deph": 0.0,
+            "shader": {
+                "name": "chromatic_aberration",
+                "options": {}
+            }
+        },
+        {
+            "name": "sword_cache",
+            "type": "set_static",
+            "file": "well_border/sword_cache.png",
+            "position": [518, 39],
+            "deph": 0.0,
+            "visible": true
         },
         {
             "name": "ground_rocks",
@@ -92,7 +158,7 @@
             "name": "fg_right",
             "type": "set_static",
             "file": "well_border/fg_right.png",
-            "position": [15, 0],
+            "position": [0, 0],
             "deph": 1.2,
             "visible": true
         },

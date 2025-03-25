@@ -5,7 +5,7 @@
     "frame_size": [640, 268],
     "key_color": [0, 255, 0],
     "layers": {
-        "item": "falling_trunk.png"
+        "body": "falling_trunk.png"
     },
     "moves": {
         "falling": {

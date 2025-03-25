@@ -5,7 +5,7 @@ from PyQt5 import QtGui, QtCore, QtWidgets
 
 ROOT = 'D:/Works/code/GitHub/theWhiteCrowParrot'
 # ROOT = 'c:/perso/theWhiteCrowParrot'
-OUTPUT_PATH = "{root}/whitecrowparrot/animations/whitecrow/export/interactions_2_{layer}.png"
+OUTPUT_PATH = "{root}/whitecrowparrot/animations/export/mine_ladder_cutscene_{layer}.png"
 # OUTPUT_PATH = "{root}/whitecrowparrot/animations/whitecrow/interaction_2.png"
 SRGB_PROFILE = "sRGB-elle-V2-srgbtrc.icc"
 
@@ -74,29 +74,33 @@ def export(filename):
     document.setCurrentTime(0)
     width, height = document.bounds().width(), document.bounds().height()
     node = document.activeNode()
+    nodes = node.childNodes()
+    if not nodes:
+        nodes = [node]
+    for node in nodes:
+        frame_count = sum(
+            1 for i in range(document.animationLength())
+            if node.hasKeyframeAtTime(i))
 
-    frame_count = sum(
-        1 for i in range(document.animationLength())
-        if node.hasKeyframeAtTime(i))
+        images = []
+        for i in range(document.animationLength()):
+            if node.hasKeyframeAtTime(i):
+                document.setCurrentTime(i)
+                images.append(node_to_qimage(node, width, height))
+                time.sleep(0.1)
 
-    images = []
-    for i in range(document.animationLength()):
-        if node.hasKeyframeAtTime(i):
-            document.setCurrentTime(i)
-            images.append(node_to_qimage(node, width, height))
-            time.sleep(0.1)
-    column_lenght = math.ceil(math.sqrt(frame_count))
-    canvas_size = get_canvas_size(frame_count, column_lenght, width, height)
-    canvas = QtGui.QImage(canvas_size, QtGui.QImage.Format_ARGB32)
-    fill_canvas(canvas, images, column_lenght, width, height)
-    filename = filename.format(layer=node.name(), root=ROOT)
-    canvas.save(filename, "PNG")
-    print(get_node_frames_duration(node, range_out=document.animationLength()))
-    document.setCurrentTime(0)
-    return canvas
+        column_lenght = math.ceil(math.sqrt(frame_count))
+        canvas_size = get_canvas_size(frame_count, column_lenght, width, height)
+        canvas = QtGui.QImage(canvas_size, QtGui.QImage.Format_ARGB32)
+        fill_canvas(canvas, images, column_lenght, width, height)
+        filename = filename.format(layer=node.name(), root=ROOT)
+        canvas.save(filename, "PNG")
+        print(get_node_frames_duration(node, range_out=document.animationLength()))
+        document.setCurrentTime(0)
+
 
 
 canvas = export(OUTPUT_PATH)
 label = QtWidgets.QLabel()
 label.setPixmap(QtGui.QPixmap.fromImage(canvas))
-label.show()
+# label.show()

@@ -6,7 +6,6 @@ from corax.override import load_json
 ROOT = None
 OVERRIDE_FILE = None
 
-DEBUG = False
 MUTE = False
 
 BLOCK_SIZE = None
@@ -48,7 +47,7 @@ def initialize(arguments):
     global \
         ROOT, DATA_FOLDER, ANIMATION_FOLDER, SET_FOLDER, SHEET_FOLDER, \
         SCRIPT_FOLDER, SCENE_FOLDER, SOUNDS_FOLDER, GAME_FILE, RESOLUTION, \
-        FPS, CAMERA_SPEED, BLOCK_SIZE, KEY_COLOR, DEBUG, MUTE, \
+        FPS, CAMERA_SPEED, BLOCK_SIZE, KEY_COLOR, MUTE, \
         CHARACTER_FOLDER, TITLE, OVERRIDE_FILE, RELATIONSHIP_FOLDER, \
         MENU_FOLDER, CONFIG_FILE, USE_CONFIG, DEFAULT_CONFIG_FILE, \
         SHADER_FOLDER, RENDER_AREA, USE_KEYBOARD, PLUGINS_FOLDER
@@ -58,7 +57,6 @@ def initialize(arguments):
     USE_CONFIG = arguments.use_config
     USE_KEYBOARD = arguments.use_keyboard
 
-    DEBUG = arguments.debug
     MUTE = arguments.mute
 
     ANIMATION_FOLDER = os.path.realpath(os.path.join(ROOT, "animations"))

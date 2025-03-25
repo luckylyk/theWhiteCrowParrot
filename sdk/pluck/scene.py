@@ -265,6 +265,10 @@ class SceneEditor(QtWidgets.QWidget):
 
         self.setMouseTracking(True)
 
+    def showEvent(self, event):
+        QtCore.QTimer.singleShot(0, self.scenewidget.reset)
+        return super().showEvent(event)
+
     def keyPressEvent(self, event):
         if event.key() == QtCore.Qt.Key_Space:
             self.scenewidget.is_exploring = True

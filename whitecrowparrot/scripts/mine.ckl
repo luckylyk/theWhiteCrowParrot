@@ -263,3 +263,132 @@ script go_to_ending
         player.whitecrow play walk_a
         player.whitecrow play walk_b
         player.whitecrow play walk_off
+
+
+script go_to_mine_transit_from_exit
+    gamepad.keys.pressed has RIGHT
+    player.whitecrow.sheet in (exploration, sword)
+        theatre.scene set mine_transit
+        player.whitecrow move (3, 1)
+
+
+script go_to_exit_from_mine_transit
+    gamepad.keys.pressed has LEFT
+    player.whitecrow.sheet in (exploration, sword)
+        theatre.scene set exit
+        player.whitecrow move (55, -3)
+        player.whitecrow aim LEFT
+
+
+script go_to_mine_bottom
+    gamepad.keys.pressed has DOWN
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+        player.whitecrow reach (16, 1) by (return, walk_a, footsie, micro_footsie)
+        player.whitecrow aim RIGHT by return
+        wait 1
+        player.whitecrow move (16, 6)
+        player.whitecrow.sheet set ladder_transitions
+        nolock player.whitecrow play mine_transit_out
+        wait 10
+        player.whitecrow layover static.fg_overlay
+        wait 14
+        fadeout 6
+        theatre.scene set mine_bottom
+        wait 6
+        nolock fadein 6
+        flush player.whitecrow
+        player.whitecrow move (14, 7)
+        player.whitecrow play mine_bottom_left_in
+        player.whitecrow.sheet set exploration
+
+
+script go_to_well_border_from_transit
+    gamepad.keys.pressed has RIGHT
+    player.whitecrow.sheet in (exploration, sword)
+        theatre.scene set well_border
+        player.whitecrow move (12, 9)
+
+
+script go_to_transit_from_well_border
+    gamepad.keys.pressed has LEFT
+    player.whitecrow.sheet in (exploration, sword)
+        theatre.scene set mine_transit
+        player.whitecrow aim LEFT
+        player.whitecrow move (45, 1)
+
+
+script go_to_transit_from_mine_bottom
+    gamepad.keys.pressed has UP
+    player.whitecrow.sheet is exploration
+        player.whitecrow reach (14, 7) by (return, walk_a, footsie, micro_footsie)
+        player.whitecrow aim LEFT by return
+        player.whitecrow play through_door
+        theatre.scene set mine_transit
+        player.whitecrow layover static.fg_overlay
+        player.whitecrow aim RIGHT by return
+        player.whitecrow move (16, 6)
+        player.whitecrow.sheet set ladder_transitions
+        nolock player.whitecrow play mine_transit_in
+        wait 20
+        player.whitecrow layover static.bridge
+        wait 10
+        player.whitecrow.sheet set exploration
+        player.whitecrow move (17, 1)
+        player.whitecrow play idle
+
+
+script go_to_hill_from_mine_bottom
+    gamepad.keys.pressed has UP
+    theatre.globals.ladder_cut_scene_played is true
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+        player.whitecrow reach (50, 7) by (return, walk_a, footsie, micro_footsie)
+        player.whitecrow aim RIGHT by return
+        player.whitecrow.sheet set ladder_transitions
+        player.whitecrow play mine_bottom_right_out
+        theatre.scene set hill
+        theatre.camera move (1200, 134)
+        player.whitecrow move (110, 8)
+        player.whitecrow play hill_in
+        player.whitecrow move (110, 7)
+        player.whitecrow.sheet set exploration
+        player.whitecrow play idle
+
+
+script go_to_hill_from_mine_bottom_with_cut_scene
+    gamepad.keys.pressed has UP
+    theatre.globals.ladder_cut_scene_played is false
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+        theatre.globals.ladder_cut_scene_played set true
+        player.whitecrow reach (50, 7) by (return, walk_a, footsie, micro_footsie)
+        player.whitecrow aim RIGHT by return
+        player.whitecrow.sheet set ladder_transitions
+        player.whitecrow play mine_bottom_right_out
+        theatre.scene set ladder_cut_scene
+        player.whitecrow.sheet set ladder_cut_scene
+        player.whitecrow play idle
+        player.whitecrow.sheet set ladder_transitions
+        theatre.scene set hill
+        theatre.camera move (1200, 134)
+        player.whitecrow move (110, 8)
+        player.whitecrow play hill_in
+        player.whitecrow move (110, 7)
+        player.whitecrow.sheet set exploration
+        player.whitecrow play idle
+
+
+script go_to_mine_bottom_from_hill
+    gamepad.keys.pressed has UP
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+        player.whitecrow reach (110, 8) by (return, walk_a, footsie, micro_footsie)
+        player.whitecrow aim RIGHT by return
+        player.whitecrow play through_door
+        theatre.scene set mine_bottom
+        player.whitecrow move (50, 7)
+        player.whitecrow.sheet set ladder_transitions
+        player.whitecrow play mine_bottom_right_in
+        player.whitecrow.sheet set exploration
+        player.whitecrow aim LEFT by return
