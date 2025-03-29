@@ -6,7 +6,7 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-        
+
     ],
     "zones": [
         {
@@ -43,10 +43,7 @@
             "name": "background",
             "type": "layer",
             "deph": 0.0,
-            "shader": {
-                "name": "chromatic_aberration",
-                "options": {}
-            }
+            "shader": null
         },
         {
             "name": "background_wall",
@@ -76,10 +73,7 @@
             "name": "middleground",
             "type": "layer",
             "deph": 0.0,
-            "shader": {
-                "name": "chromatic_aberration",
-                "options": {}
-            }
+            "shader": null
         },
         {
             "name": "bridge_collapse",
@@ -109,10 +103,7 @@
             "name": "foreground",
             "type": "layer",
             "deph": 0.0,
-            "shader": {
-                "name": "chromatic_aberration",
-                "options": {}
-            }
+            "shader": null
         },
         {
             "name": "sword_cache",

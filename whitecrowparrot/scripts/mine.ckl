@@ -321,6 +321,7 @@ script go_to_transit_from_well_border
 script go_to_transit_from_mine_bottom
     gamepad.keys.pressed has UP
     player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
         player.whitecrow reach (14, 7) by (return, walk_a, footsie, micro_footsie)
         player.whitecrow aim LEFT by return
         player.whitecrow play through_door
@@ -368,6 +369,7 @@ script go_to_hill_from_mine_bottom_with_cut_scene
         player.whitecrow play mine_bottom_right_out
         theatre.scene set ladder_cut_scene
         player.whitecrow.sheet set ladder_cut_scene
+        player.whitecrow aim LEFT
         player.whitecrow play idle
         player.whitecrow.sheet set ladder_transitions
         theatre.scene set hill

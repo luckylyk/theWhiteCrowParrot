@@ -1,0 +1,15 @@
+script go_to_mine_court_side
+    gamepad.keys.pressed has LEFT
+    player.whitecrow.sheet in (exploration, sword)
+        theatre.scene set mine_court_side
+        player.whitecrow aim LEFT
+        player.whitecrow move (52, 6)
+        theatre.camera move (414, 134)
+
+
+script go_to_troglodyte_from_mine_court_side
+    gamepad.keys.pressed has RIGHT
+    player.whitecrow.sheet in (exploration, sword)
+        theatre.scene set troglodyte
+        player.whitecrow aim RIGHT
+        player.whitecrow move (5, 9)

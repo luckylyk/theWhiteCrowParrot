@@ -6,6 +6,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), "../"))
 
 EXCLUDES = (
     "fight.json",
+    # "death.json",
     "jos.json",
     "bruno.json",
     "sinoc.json")

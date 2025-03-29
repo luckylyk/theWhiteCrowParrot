@@ -9,7 +9,13 @@
         
     ],
     "zones": [
-        
+        {
+            "name": "go_to_mine_court_side",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["court.go_to_mine_court_side"],
+            "zone": [0, 13, 9, 27]
+        }
     ],
     "elements": [
         {
@@ -133,7 +139,7 @@
         {
             "name": "whitecrow",
             "type": "player",
-            "block_position": [10, 9],
+            "block_position": [6, 9],
             "flip": false
         },
         {

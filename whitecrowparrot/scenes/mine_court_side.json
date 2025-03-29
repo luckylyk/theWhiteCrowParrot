@@ -9,7 +9,13 @@
         
     ],
     "zones": [
-        
+        {
+            "name": "go_to_troglodyte",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["court.go_to_troglodyte_from_mine_court_side"],
+            "zone": [63, 12, 78, 27]
+        }
     ],
     "elements": [
         {
