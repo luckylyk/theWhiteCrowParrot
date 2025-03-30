@@ -1,0 +1,80 @@
+
+
+script go_to_cave_from_troglodyte
+    gamepad.keys.pressed has UP
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+        player.whitecrow reach (6, 9) by (return, walk_a, footsie, micro_footsie)
+        player.whitecrow aim LEFT by return
+        // flush return events to ensure direction is
+        // well set to right and not erased by sheet event.
+        flush player.whitecrow
+        player.whitecrow aim RIGHT
+        player.whitecrow.sheet set climbs
+        player.whitecrow move (4, 3)
+        player.whitecrow play troglodyte_ladder_up
+        theatre.scene set bearcave
+        theatre.camera move (1994, 134)
+        player.whitecrow move (205, 3)
+        player.whitecrow play cave_in
+        player.whitecrow move (205, 9)
+        player.whitecrow.sheet set exploration
+
+
+script go_to_troglodyte_from_bearcave
+    gamepad.keys.pressed has UP
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+        player.whitecrow reach (205, 9) by (return, walk_a, footsie, micro_footsie)
+        player.whitecrow aim RIGHT by return
+        wait 1 // Ensure all animation events are resolved before to move the sheet
+        player.whitecrow.sheet set climbs
+        player.whitecrow move (205, 3)
+        player.whitecrow play cave_out
+        theatre.scene set troglodyte
+        player.whitecrow.sheet set exploration
+        player.whitecrow move (-6, -5)
+        player.whitecrow play crouched_over_walk
+        player.whitecrow play crouched_over_walk
+        player.whitecrow play crouched_over_walk
+        flush player.whitecrow // avoid last animation event
+        player.whitecrow.sheet set climbs
+        player.whitecrow move (4, 3)
+        player.whitecrow play troglodyte_ladder_down
+        player.whitecrow move (-4, 9)
+        player.whitecrow aim LEFT
+        player.whitecrow.sheet set exploration
+
+
+script go_to_well_border_from_mine_court_side
+    gamepad.keys.pressed has DOWN
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+        player.whitecrow reach (32, 6) by (return, walk_a, footsie, micro_footsie)
+        player.whitecrow aim RIGHT by return
+        wait 1 // ensure all event are processed
+        player.whitecrow.sheet set climbs
+        player.whitecrow move (30, 5)
+        player.whitecrow play mine_court_stair_down
+        theatre.scene set well_border
+        player.whitecrow move (30, -5)
+        player.whitecrow play well_border_stair_down
+        player.whitecrow move (34, -4)
+        player.whitecrow.sheet set exploration
+
+
+script go_mine_court_side_from_well_bord
+    gamepad.keys.pressed has UP
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+        player.whitecrow reach (34, -4) by (return, walk_a, footsie, micro_footsie)
+        player.whitecrow aim LEFT by return
+        player.whitecrow play through_door
+        player.whitecrow aim RIGHT
+        theatre.scene set mine_court_side
+        player.whitecrow.sheet set climbs
+        player.whitecrow move (30, 5)
+        player.whitecrow play mine_court_stair_up
+        player.whitecrow aim LEFT
+        player.whitecrow move (22, 6)
+        player.whitecrow.sheet set exploration

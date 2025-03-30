@@ -300,8 +300,11 @@ def render_player_debug(player, deph, surface, camera):
     text = f"    (animation: {player.animation_controller.animation.name})"
     x, y = map_to_render_area(0, 90)
     draw_text(surface, (155, 255, 0), x, y, text)
-    text = f"    (camera center position: {camera.pixel_center})"
+    text = f"    (direction: {'LEFT' if player.flip else 'RIGHT'})"
     x, y = map_to_render_area(0, 105)
+    draw_text(surface, (155, 255, 0), x, y, text)
+    text = f"    (camera center position: {camera.pixel_center})"
+    x, y = map_to_render_area(0, 120)
     draw_text(surface, (155, 255, 0), x, y, text)
 
 

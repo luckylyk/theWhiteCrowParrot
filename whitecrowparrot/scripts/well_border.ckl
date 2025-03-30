@@ -51,7 +51,37 @@ script collapsing
         player.whitecrow play idle
         player.whitecrow move (39, 7)
 
+
 concurrent mice_down
     always
         wait 100
         prop.bucket_mice layover static.ladder
+
+
+script climb_down
+    gamepad.keys.pressed has DOWN
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+        player.whitecrow reach (28, -4) by (return, walk_a, footsie, micro_footsie)
+        player.whitecrow aim RIGHT by return
+        player.whitecrow play crouch_down
+        player.whitecrow.sheet set climbs
+        player.whitecrow move (24, 4)
+        player.whitecrow play well_climb_down
+        player.whitecrow.sheet set exploration
+        player.whitecrow move (26, 9)
+
+
+script climb_up
+    gamepad.keys.pressed has UP
+    player.whitecrow.sheet is exploration
+    player.whitecrow.animation is idle
+        player.whitecrow reach (26, 9) by (return, walk_a, footsie, micro_footsie)
+        player.whitecrow aim RIGHT by return
+        player.whitecrow.sheet set climbs
+        player.whitecrow move (24, 4)
+        player.whitecrow play well_climb_up
+        player.whitecrow.sheet set exploration
+        player.whitecrow move (28, -4)
+        player.whitecrow play stand_up_slow
+

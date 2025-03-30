@@ -106,6 +106,13 @@
             "affect": ["bear"],
             "scripts": ["bearcave.show_pant", "bearcave.hide_pick_ol_01"],
             "zone": [87, -1, 132, 28]
+        },
+        {
+            "name": "go_to_troglodyte_from_bearcave",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["troglodyte.go_to_troglodyte_from_bearcave"],
+            "zone": [209, 16, 215, 27]
         }
     ],
     "elements": [

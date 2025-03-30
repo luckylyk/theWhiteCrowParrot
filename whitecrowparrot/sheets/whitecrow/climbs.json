@@ -1,7 +1,7 @@
 {
     "name": "",
     "default_move": "idle",
-    "evaluation_order": ["idle", "cave_out", "troglodyte_ladder_down", "troglodyte_ladder_up", "mine_court_stair_down", "mine_court_star_up", "well_border_stair_down", "well_climb_down", "well_climb_up", "cave_in"],
+    "evaluation_order": ["idle", "cave_out", "troglodyte_ladder_down", "troglodyte_ladder_up", "mine_court_stair_down", "mine_court_stair_up", "well_border_stair_down", "well_climb_down", "well_climb_up", "cave_in"],
     "frame_size": [240, 220],
     "key_color": [0, 255, 0],
     "layers": {
@@ -80,7 +80,7 @@
             "start_at_image": 107,
             "triggers": null
         },
-        "mine_court_star_up": {
+        "mine_court_stair_up": {
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
@@ -101,7 +101,7 @@
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 2, 2, 2, 2, 4, 4, 4, 2, 2, 2, 2, 2, 2, 4, 4, 2, 2, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2, 1],
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 2, 2, 2, 2, 4, 4, 4, 2, 2, 2, 2, 2, 2, 4, 4, 2, 2, 4, 4, 4, 2, 2, 2, 2, 2, 2, 2, 2],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -118,7 +118,7 @@
             "center": [0, 0],
             "conditions": {},
             "frames_centers": null,
-            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 2, 2, 4, 4, 2, 2, 2, 2, 2, 2, 2],
+            "frames_per_image": [2, 2, 2, 2, 2, 2, 2, 4, 4, 4, 2, 2, 4, 4, 2, 2, 2, 2, 2, 2, 2],
             "hitmaps": null,
             "hold": false,
             "inputs": [],
@@ -128,7 +128,7 @@
             "post_events": {},
             "pre_events": {},
             "release_frame": -1,
-            "start_at_image": 84,
+            "start_at_image": 85,
             "triggers": null
         },
         "well_border_stair_down": {

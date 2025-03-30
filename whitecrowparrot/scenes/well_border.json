@@ -6,7 +6,7 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-
+        
     ],
     "zones": [
         {
@@ -36,6 +36,27 @@
             "affect": ["whitecrow"],
             "scripts": ["mine.go_to_transit_from_well_border"],
             "zone": [14, 17, 20, 25]
+        },
+        {
+            "name": "go_to_mine_court_side_from_well_border",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["troglodyte.go_mine_court_side_from_well_bord"],
+            "zone": [37, 9, 44, 13]
+        },
+        {
+            "name": "climb_down",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["well_border.climb_down"],
+            "zone": [31, 9, 37, 13]
+        },
+        {
+            "name": "climb_up",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["well_border.climb_up"],
+            "zone": [31, 19, 37, 27]
         }
     ],
     "elements": [

@@ -15,6 +15,13 @@
             "affect": ["whitecrow"],
             "scripts": ["court.go_to_mine_court_side"],
             "zone": [0, 13, 9, 27]
+        },
+        {
+            "name": "go_to_cave_from_troglodyte",
+            "type": "interaction",
+            "affect": ["whitecrow"],
+            "scripts": ["troglodyte.go_to_cave_from_troglodyte"],
+            "zone": [9, 13, 16, 27]
         }
     ],
     "elements": [

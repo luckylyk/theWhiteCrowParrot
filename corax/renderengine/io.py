@@ -125,6 +125,7 @@ def image_mirror(id_, horizontal=True, vertical=False):
 
 
 def preload_characters():
+    return
     chars = [
         load_json(os.path.join(cctx.CHARACTER_FOLDER, filename))
         for filename in os.listdir(cctx.CHARACTER_FOLDER)]

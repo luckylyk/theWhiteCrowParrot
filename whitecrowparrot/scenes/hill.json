@@ -276,16 +276,16 @@
             "name": "bg_mountain_03",
             "type": "set_static",
             "file": "hill/bg_mountain_03.png",
-            "position": [0, 55],
-            "deph": 0.0,
+            "position": [-375, 55],
+            "deph": -0.3,
             "visible": true
         },
         {
             "name": "bg_mountain_02",
             "type": "set_static",
             "file": "hill/bg_mountain_02.png",
-            "position": [896, 38],
-            "deph": 0.0,
+            "position": [950, 38],
+            "deph": -0.25,
             "visible": true
         },
         {
@@ -293,47 +293,47 @@
             "type": "set_static",
             "file": "hill/bg_mountain_01.png",
             "position": [589, 105],
-            "deph": 0.0,
+            "deph": -0.18,
             "visible": true
         },
         {
             "name": "bg_castle",
             "type": "set_static",
             "file": "hill/bg_castle.png",
-            "position": [1051, 0],
-            "deph": 0.0,
+            "position": [1115, 0],
+            "deph": -0.2,
             "visible": true
         },
         {
             "name": "bg_middle_trees_and_ground",
             "type": "set_static",
             "file": "hill/bg_middle_trees_and_ground.png",
-            "position": [766, 62],
-            "deph": 0.0,
+            "position": [762, 62],
+            "deph": -0.09,
             "visible": true
         },
         {
             "name": "bg_right_bush",
             "type": "set_static",
             "file": "hill/bg_right_bush.png",
-            "position": [973, 108],
-            "deph": 0.0,
+            "position": [985, 108],
+            "deph": -0.05,
             "visible": true
         },
         {
             "name": "bg_tree_red",
             "type": "set_static",
             "file": "hill/bg_tree_red.png",
-            "position": [519, 103],
-            "deph": 0.0,
+            "position": [544, 103],
+            "deph": -0.06,
             "visible": true
         },
         {
             "name": "bg_tree_green",
             "type": "set_static",
             "file": "hill/bg_tree_green.png",
-            "position": [555, 27],
-            "deph": 0.0,
+            "position": [575, 27],
+            "deph": -0.05,
             "visible": true
         },
         {
@@ -470,8 +470,8 @@
             "name": "fg_right",
             "type": "set_static",
             "file": "hill/fg_right.png",
-            "position": [1360, 0],
-            "deph": 0.0,
+            "position": [1267, 0],
+            "deph": 0.2,
             "visible": true
         },
         {
@@ -486,24 +486,24 @@
             "name": "fg_right_bush_03",
             "type": "set_static",
             "file": "hill/fg_right_bush_03.png",
-            "position": [1286, 96],
-            "deph": 0.0,
+            "position": [1160, 96],
+            "deph": 0.35,
             "visible": true
         },
         {
             "name": "fg_right_bush_02",
             "type": "set_static",
             "file": "hill/fg_right_bush_02.png",
-            "position": [1362, 149],
-            "deph": 0.0,
+            "position": [1200, 149],
+            "deph": 0.4,
             "visible": true
         },
         {
             "name": "fg_right_bush_01",
             "type": "set_static",
             "file": "hill/fg_right_bush_01.png",
-            "position": [1362, 195],
-            "deph": 0.0,
+            "position": [1170, 195],
+            "deph": 0.5,
             "visible": true
         }
     ]

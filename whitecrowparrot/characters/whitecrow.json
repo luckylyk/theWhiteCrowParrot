@@ -18,6 +18,7 @@
         "bridge_collapse": "whitecrow/bridge_collapse.json",
         "cavejump": "whitecrow/cavejump.json",
         "chest": "whitecrow/chest.json",
+        "climbs": "whitecrow/climbs.json",
         "chain": "whitecrow/chain.json",
         "collects_sword": "whitecrow/collects_sword.json",
         "death": "whitecrow/death.json",
