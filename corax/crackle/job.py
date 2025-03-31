@@ -270,7 +270,6 @@ def nolock_job(job):
 def job_aim(player, move=None, direction="LEFT"):
     if not move:
         player.coordinate.flip = direction == "LEFT"
-        print('direction set', 'LEFT' if direction == 'LEFT' else 'RIGH')
         return 0
     data = player.animation_controller.data
     event = (

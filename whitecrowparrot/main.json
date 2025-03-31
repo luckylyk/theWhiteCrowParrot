@@ -46,6 +46,7 @@
         "broken_sword": "broken_sword.json",
         "court": "court.json",
         "credits": "credits.json",
+        "deadend": "deadend.json",
         "dyingshop": "dyingshop.json",
         "ending": "ending.json",
         "exit": "exit.json",

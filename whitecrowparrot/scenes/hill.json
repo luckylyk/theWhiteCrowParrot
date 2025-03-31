@@ -253,9 +253,9 @@
         {
             "name": "right_limit",
             "type": "interaction",
-            "affect": "whitecrow",
-            "scripts": ["sinoc.hit_wall"],
-            "zone": [131, 0, 160, 26]
+            "affect": ["whitecrow"],
+            "scripts": ["sinoc.go_to_deadend", "sinoc.hit_wall"],
+            "zone": [133, 0, 160, 27]
         },
         {
             "name": "go_bottom_mine_by_hill",

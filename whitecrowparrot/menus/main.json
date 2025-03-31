@@ -13,7 +13,7 @@
     "row_height": 25,
     "size": 22,
     "sounds": {
-            "enter": "menu/enter.ogg",
+            "enter": "menu/chapter_roll_1.ogg",
             "next": "menu/next.ogg",
             "press": "menu/press.ogg",
             "previous": "menu/previous.ogg",

@@ -141,6 +141,7 @@ event sinoc_charge_back
 
 script hit_wall
     theatre.globals.hill_wall_collapsed is false
+    zone.sinoc_vs_whitecrow.enable is true
         theatre.globals.hill_wall_collapsed set true
         theatre.globals.sinoc_fight_is_started set false
         disable zone.sinoc_vs_whitecrow
@@ -148,6 +149,24 @@ script hit_wall
         wait 15
         fadeout 75
         restore
+
+
+script go_to_deadend
+    zone.sinoc_vs_whitecrow.enable is false
+    gamepad.keys.pressed has RIGHT
+    player.whitecrow.sheet in (exploration, sword)
+        theatre.scene set deadend
+        player.whitecrow aim RIGHT
+        player.whitecrow move (34, 7)
+
+
+script go_to_hill
+    gamepad.keys.pressed has LEFT
+    player.whitecrow.sheet in (exploration, sword)
+        theatre.scene set hill
+        theatre.camera move (1200, 134)
+        player.whitecrow aim LEFT
+        player.whitecrow move (114, 7)
 
 
 event goodbye

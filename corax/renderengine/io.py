@@ -125,7 +125,6 @@ def image_mirror(id_, horizontal=True, vertical=False):
 
 
 def preload_characters():
-    return
     chars = [
         load_json(os.path.join(cctx.CHARACTER_FOLDER, filename))
         for filename in os.listdir(cctx.CHARACTER_FOLDER)]
@@ -135,4 +134,5 @@ def preload_characters():
         for filename in char['sheets'].values()]
     for sheet in sheets:
         for filename in sheet["layers"].values():
+            print('load ', f'{os.path.basename(filename)}')
             load_frames(filename, sheet["frame_size"], sheet["key_color"])

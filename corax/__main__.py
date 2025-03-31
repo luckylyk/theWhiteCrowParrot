@@ -64,6 +64,7 @@ parser.add_argument("-m", "--mute", action='store_true')
 parser.add_argument("-udc", "--use_default_config", action='store_true')
 parser.add_argument("-uc", "--use_config", action='store_true')
 parser.add_argument("-o", "--overrides", type=str)
+parser.add_argument("-np", "--no_preload", action='store_true')
 parser.add_argument("-s", "--scaled", action='store_true')
 parser.add_argument("-ss", "--skip_splash", action='store_true')
 parser.add_argument("-sp", "--speedup", action='store_true')
@@ -99,7 +100,8 @@ fs = config.get('fullscreen') if cctx.USE_CONFIG else arguments.fullscreen
 
 window = setup_render_display(scaled=sc, fullscreen=fs)
 initialize_screen(cctx.RESOLUTION)
-renderengine.initialize()
+print('PRELOAD', arguments.no_preload)
+renderengine.initialize(arguments.no_preload)
 
 # This execute the Corax Engine splash screen.
 if not arguments.skip_splash:

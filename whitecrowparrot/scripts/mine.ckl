@@ -385,7 +385,7 @@ script go_to_mine_bottom_from_hill
     gamepad.keys.pressed has UP
     player.whitecrow.sheet is exploration
     player.whitecrow.animation is idle
-        player.whitecrow reach (110, 8) by (return, walk_a, footsie, micro_footsie)
+        player.whitecrow reach (110, 7) by (return, walk_a, footsie, micro_footsie)
         player.whitecrow aim RIGHT by return
         player.whitecrow play through_door
         theatre.scene set mine_bottom

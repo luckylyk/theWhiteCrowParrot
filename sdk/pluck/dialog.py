@@ -27,6 +27,8 @@ class GameKicker(QtWidgets.QDialog):
         self.scaled.setChecked(get_preference("scaled", False))
         self.skip_splash = QtWidgets.QCheckBox("Skip splash screen")
         self.skip_splash.setChecked(get_preference("skip_splash", True))
+        self.no_preload = QtWidgets.QCheckBox("Do not preload resources")
+        self.no_preload.setChecked(get_preference("no_preload", False))
         self.fast_fps = QtWidgets.QCheckBox("Double Speed")
         self.fast_fps.setChecked(get_preference("fast_fps", False))
         self.use_keyboard = QtWidgets.QCheckBox("Use Keyboard")
@@ -49,6 +51,7 @@ class GameKicker(QtWidgets.QDialog):
         self.layout.addWidget(self.fullscreen)
         self.layout.addWidget(self.scaled)
         self.layout.addWidget(self.skip_splash)
+        self.layout.addWidget(self.no_preload)
         self.layout.addWidget(self.fast_fps)
         self.layout.addWidget(self.use_keyboard)
         self.layout.addWidget(self.overrides)
@@ -59,6 +62,7 @@ class GameKicker(QtWidgets.QDialog):
         save_preference("muted", self.mute.isChecked())
         save_preference("fullscreen", self.fullscreen.isChecked())
         save_preference("scaled", self.scaled.isChecked())
+        save_preference("no_preload", self.no_preload.isChecked())
         save_preference("skip_splash", self.skip_splash.isChecked())
         save_preference("fast_fps", self.fast_fps.isChecked())
         save_preference("use_keyboard", self.use_keyboard.isChecked())
@@ -74,6 +78,8 @@ class GameKicker(QtWidgets.QDialog):
             arguments.append("--fullscreen")
         if self.scaled.isChecked():
             arguments.append("--scaled")
+        if self.no_preload.isChecked():
+            arguments.append("--no_preload")
         if self.skip_splash.isChecked():
             arguments.append("--skip_splash")
         if self.fast_fps.isChecked():
@@ -84,6 +90,7 @@ class GameKicker(QtWidgets.QDialog):
             path = os.path.join(cctx.ROOT, self.overrides.currentText())
             arguments.append("--overrides")
             arguments.append(path)
+        print(arguments)
         return arguments
 
 
