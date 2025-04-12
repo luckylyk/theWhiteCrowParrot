@@ -4,7 +4,7 @@
     "background_color": [128, 216, 255],
     "boundary": [80, 0, 1600, 268],
     "soft_boundaries": [[920, 0, 1600, 270], [80, 0, 920, 270]],
-    "target_offset": [300, 0],
+    "target_offset": [75, 0],
     "sounds": [
         {
             "name": "fight",
@@ -254,7 +254,7 @@
             "name": "right_limit",
             "type": "interaction",
             "affect": ["whitecrow"],
-            "scripts": ["sinoc.go_to_deadend", "sinoc.hit_wall"],
+            "scripts": ["sinoc.go_to_deadend"],
             "zone": [133, 0, 160, 27]
         },
         {
@@ -263,6 +263,13 @@
             "affect": ["whitecrow"],
             "scripts": ["mine.go_to_mine_bottom_from_hill"],
             "zone": [112, 17, 122, 26]
+        },
+        {
+            "name": "finish",
+            "type": "interaction",
+            "affect": ["sinoc"],
+            "scripts": ["sinoc.sinoc_finish_the_job"],
+            "zone": [125, 20, 147, 27]
         }
     ],
     "elements": [
@@ -361,12 +368,12 @@
             "visible": true
         },
         {
-            "name": "hill_limit",
+            "name": "hill_limit2",
             "type": "set_static",
             "file": "hill/hill_limit.png",
             "position": [327, 209],
             "deph": 0.0,
-            "visible": true
+            "visible": false
         },
         {
             "name": "chain",
@@ -407,13 +414,13 @@
             "shader": null
         },
         {
-            "name": "goundtip_prop",
+            "name": "hill_limit",
             "type": "set_animated",
-            "file": "hill_groundtip.json",
-            "position": [322, 210],
+            "file": "hill_limit.json",
+            "position": [302, 192],
             "alpha": 255,
             "deph": 0.0,
-            "visible": false
+            "visible": true
         },
         {
             "name": "sinoc",

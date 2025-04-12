@@ -152,6 +152,8 @@ def create_local_variable_job(
 def create_theatre_job(subject, function, theatre, arguments):
     subject_name = object_name(subject)
     match function:
+        case "play":
+            return partial(job_play_sound, theatre, arguments)
         case "set":
             if subject_name == "scene":
                 return partial(job_set_scene, theatre, arguments)
@@ -376,6 +378,12 @@ def job_move(evaluable, block_position):
 
 def job_offset(character, offset):
     character.animation_controller.offset(block_offset=offset)
+    return 0
+
+
+def job_play_sound(theatre, filename):
+    filename = filename.strip('"')
+    theatre.audio_streamer.play_sound(filename)
     return 0
 
 

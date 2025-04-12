@@ -256,6 +256,7 @@ class Theatre:
 
             for hitmap in hitmaps:
                 block_position = evaluable.coordinate.block_position
+                hname = hitmap
                 hitmap = evaluable.hitmaps[hitmap]
                 if hitmap_collide_zone(hitmap, zone, block_position):
                     event = zone.event

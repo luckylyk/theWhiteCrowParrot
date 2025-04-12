@@ -6,7 +6,7 @@
     "soft_boundaries": [],
     "target_offset": [75, 0],
     "sounds": [
-        
+
     ],
     "zones": [
         {
@@ -54,6 +54,13 @@
             "position": [484, 98],
             "deph": 0.0,
             "visible": true
+        },
+        {
+            "name": "sinoc",
+            "type": "npc",
+            "block_position": [0, 8],
+            "visible": false,
+            "flip": false
         },
         {
             "name": "whitecrow",

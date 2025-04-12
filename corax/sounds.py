@@ -126,7 +126,7 @@ class SfxSound():
             name,
             filename,
             trigger,
-            falloff,
+            falloff=None,
             emitter=None,
             sound=None,
             zone=None):
@@ -175,6 +175,11 @@ class AudioStreamer():
                 if sound.zone and sound.zone.contains(position) is False:
                     continue
                 sound.play()
+
+    def play_sound(self, filename):
+        sound = load_sound(filename)
+        print(sound)
+        play_sound(sound)
 
     def pause(self):
         for sound in self.sounds:

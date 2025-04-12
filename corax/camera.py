@@ -73,7 +73,6 @@ class Scrolling():
     def evaluate(self):
         if not self.targets:
             return
-
         elif len(self.targets) == 1:
             target_offset = self.target_offset[0]
             if self.targets[0].flip is True:

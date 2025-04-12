@@ -139,14 +139,38 @@ event sinoc_charge_back
     player.whitecrow.sheet set locals.current_sheet
 
 
-script hit_wall
-    theatre.globals.hill_wall_collapsed is false
+// script hit_wall
+//     theatre.globals.hill_wall_collapsed is false
+//     zone.sinoc_vs_whitecrow.enable is true
+//         theatre.globals.hill_wall_collapsed set true
+//         theatre.globals.sinoc_fight_is_started set false
+//         disable zone.sinoc_vs_whitecrow
+//         prop.hill_right_wall play collapse
+//         wait 15
+//         fadeout 75
+//         restore
+
+script sinoc_finish_the_job
     zone.sinoc_vs_whitecrow.enable is true
-        theatre.globals.hill_wall_collapsed set true
-        theatre.globals.sinoc_fight_is_started set false
+    player.whitecrow.sheet in (exploration, sword)
         disable zone.sinoc_vs_whitecrow
-        prop.hill_right_wall play collapse
-        wait 15
+        disable zone.right_limit
+        npc.sinoc play run_start
+        npc.sinoc play run_b
+        player.whitecrow.sheet set exploration
+        nolock player.whitecrow reach (300, 7) by (return, walk_a, footsie, micro_footsie)
+        npc.sinoc play run
+        npc.sinoc play run_b
+        theatre.audio play "effects/sinoc_finish.wav"
+        flush player.whitecrow
+        wait 140
+        theatre.scene set deadend
+        flush npc.sinoc
+        npc.sinoc move (34, 8)
+        hide player.whitecrow
+        show npc.sinoc
+        npc.sinoc play spit
+        hide npc.sinoc
         fadeout 75
         restore
 
@@ -170,16 +194,13 @@ script go_to_hill
 
 
 event goodbye
-    flush npc.sinoc
-    nolock prop.goundtip_prop play collapse
-    npc.sinoc play fall_from_hill
-    hide npc.sinoc
-    hide prop.goundtip_prop
-    enable camera.soft_boundaries
-    camera.target remove sinoc
+    disable zone.sinoc_is_die
     disable zone.sinoc_vs_whitecrow
-    // fadeout 75
-    // restore
+    flush npc.sinoc
+    nolock prop.hill_limit play collapse
+    camera.target remove sinoc
+    npc.sinoc play fall_from_hill
+    hide prop.hill_limit
 
 
 script start_fight

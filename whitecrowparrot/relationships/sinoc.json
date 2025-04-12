@@ -8,6 +8,16 @@
             "target_animations": null,
             "priority": 5,
             "moves": {
+                "run_start": 10
+            }
+        },
+        {
+            "directions": null,
+            "block_distance_range": [26, 60],
+            "subject_animations": ["run_b"],
+            "target_animations": null,
+            "priority": 5,
+            "moves": {
                 "run": 10
             }
         },
